@@ -1,0 +1,51 @@
+<div style="text-align:center">
+  <h1>
+    Welcome, please, enter your current purchasses {{ title }}!
+  </h1>
+  <form action="" id="form">
+    <div class="date">
+      <label for="start">Choise a date:</label>
+      <input type="date" id="start" name="trip-start" [(value)]="myDate" [(min)]="dataMin" [(max)]="dataMax">
+    </div>
+    <div class="price">
+      <label for="price">Enter a price:</label>
+      <input type="number" id="price" step="0.01" placeholder="BYR" required>
+    </div>
+    <div>
+      <p>Select the type of purchase:</p>
+      <div class="container">
+          <label>
+              <input type="radio" name="type" value="food" required>Food
+          </label>
+          <label>
+              <input type="radio" name="type" value="rent">Rent
+          </label>
+          <label>
+              <input type="radio" name="type" value="clothes">Clothes
+          </label>
+          <label>
+              <input type="radio" name="type" value="child">Child
+          </label>
+          <label>
+              <input type="radio" name="type" value="petrol">Petrol
+          </label>
+          <label>
+              <input type="radio" name="type" value="present">Present
+          </label>
+          <label>
+              <input type="radio" name="type" value="gym">Gym
+          </label>
+          <label>
+              <input type="radio" name="type" value="other">Other
+          </label>
+      </div>
+      <div class="notice">
+          <label for="notice">Other notification:</label>
+          <input type="text" id="notice" placeholder="If you need, please enter other information">
+      </div>
+    </div>
+  </form>
+  <button type="submit" form="form" value="Submit">Add</button>
+  <button type="submit" value="Submit">Edit</button>
+  <button type="submit" value="Submit">Statistics</button>
+</div>

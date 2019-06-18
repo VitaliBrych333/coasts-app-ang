@@ -1,3 +1,19 @@
+.date label, .price label {
+  font-size: 22px;
+}
+
+.date input {
+  font-size: 18px;
+  border-radius: 5px;
+  margin: 20px;
+}
+
+.price input {
+  font-size: 18px;
+  border-radius: 5px;
+  width: 80px;
+}
+
 .container label {
   width: 80px;
   height: 20px;
@@ -5,7 +21,6 @@
   border-radius: 15px;
   padding: 5px;
   font-weight: 700;
-
 }
 
 .container {
@@ -16,7 +31,6 @@
   max-width: 800px;
   margin: 0 auto;
   align-content: space-around;
-
 }
 
 .container label:nth-child(1) {
@@ -51,6 +65,11 @@
   background-color: brown;
 }
 
+.container label:hover {
+  cursor: pointer;
+  background-color: blueviolet;
+}
+
 p {
   font-size: 22px;
   margin-bottom: 0;
@@ -66,3 +85,16 @@ p {
   width: 340px;
 }
 
+button {
+  height: 40px;
+  border-radius: 5px;
+  margin-top: 20px;
+  font-size: 16px;
+  font-weight: 700;
+  margin-right: 30px;
+}
+
+button:hover {
+  cursor: pointer;
+  background-color: rgba(3, 126, 3, 0.692);
+}
