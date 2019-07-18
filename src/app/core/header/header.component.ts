@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from '../../services/auth.service'
 
 @Component({
   selector: 'app-header',
@@ -7,10 +8,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
-  statusLog: boolean = true;
-  constructor() { }
+  statusLog: boolean;
+
+  constructor(private authService: AuthService,) { }
 
   ngOnInit() {
+    this.authService.currentMessage.subscribe(value => {
+      if(localStorage.getItem('logStatus')) {
+        this.statusLog = true;
+      } else {
+        this.statusLog = value;
+      }
+      // this.firstName = localStorage.getItem('firstName');
+      // this.lastName = localStorage.getItem('lastName');
+    });
+
   }
 
 }

@@ -2,6 +2,7 @@ import { Component, OnInit, forwardRef } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR, FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 
 import { DatePipe } from '@angular/common';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -9,11 +10,11 @@ import { DatePipe } from '@angular/common';
   templateUrl: './form.component.html',
   styleUrls: ['./form.component.css'],
   providers: [ DatePipe,
-    {
-      provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => FormComponent),
-      multi: true
-  },
+  //   {
+  //     provide: NG_VALUE_ACCESSOR,
+  //     useExisting: forwardRef(() => FormComponent),
+  //     multi: true
+  // },
   // {
   //   provide: NG_VALIDATORS,
   //   useExisting: forwardRef(() => MultipleDemoComponent),
@@ -33,7 +34,8 @@ export class FormComponent implements OnInit {
   dataMax = `${new Date().getFullYear().toString()}` + '-12-31';
 
   constructor(private datePipe: DatePipe,
-              private fb: FormBuilder) { }
+              private fb: FormBuilder,
+              private router: Router ) { }
 
   ngOnInit() {
 
@@ -47,7 +49,11 @@ export class FormComponent implements OnInit {
   }
 
   add() {
+    this.router.navigate(['/main'])
+  }
 
+  cancel(): void {
+    this.router.navigate(['/main'])
   }
 
 }

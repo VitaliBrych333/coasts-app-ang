@@ -8,6 +8,7 @@ import { AppComponent } from './app.component';
 import { MainModule } from './main/main.module';
 import { LogModule } from './log/log.module';
 import { CoreModule } from './core/core.module';
+import { HttpClientModule, HTTP_INTERCEPTORS }   from '@angular/common/http';
 
 
 
@@ -20,7 +21,8 @@ import { CoreModule } from './core/core.module';
     AppRoutingModule,
     MainModule,
     LogModule,
-    CoreModule
+    CoreModule,
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
