@@ -5,33 +5,48 @@
 
 }
 
-h1 {
+h2 {
   color: #369;
   font-family: Arial, Helvetica, sans-serif;
-  font-size: 250%;
+  font-size: 18px;
 }
 
 form {
   margin: 0 auto;
+  border: 2px solid gray;
+  padding: 10px;
+  border-radius: 10px;
+  background-image: linear-gradient(rgb(157, 255, 0), yellow);
 }
 
 label {
   display: block;
-  width: 6em;
+  width: 200px;
   margin: .5em 0;
   color: #607D8B;
   font-weight: bold;
+
 }
 
 input {
   height: 2em;
   font-size: 1em;
   padding-left: .4em;
+  border-radius: 3px;
+  border: 1px solid transparent;
+  border-top: none;
+  border-bottom: 1px solid #DDD;
+  box-shadow: inset 0 1px 2px rgba(0,0,0,.39), 0 -1px 1px #FFF, 0 1px 0 #FFF;
+
 }
 
 button {
   font-family: Arial;
-  background-color: #eee;
+  font-size: 16px;
+  color: black;
+  width: 70px;
+  height: 30px;
+  background-color: rgb(90, 155, 111);
   border: none;
   padding: 5px 10px;
   border-radius: 4px;
@@ -45,5 +60,9 @@ button:hover {
 button:disabled {
   background-color: #eee;
   color: #ccc;
-  cursor: auto;
+  cursor: default;
+}
+
+span {
+  color: red;
 }

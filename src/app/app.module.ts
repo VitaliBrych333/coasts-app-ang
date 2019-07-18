@@ -7,6 +7,7 @@ import { AppComponent } from './app.component';
 
 import { MainModule } from './main/main.module';
 import { LogModule } from './log/log.module';
+import { CoreModule } from './core/core.module';
 
 
 
@@ -18,7 +19,8 @@ import { LogModule } from './log/log.module';
     BrowserModule,
     AppRoutingModule,
     MainModule,
-    LogModule
+    LogModule,
+    CoreModule
   ],
   providers: [],
   bootstrap: [AppComponent]

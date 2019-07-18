@@ -33,6 +33,10 @@
   align-content: space-around;
 }
 
+.container label {
+  text-transform: capitalize;
+}
+
 .container label:nth-child(1) {
   background-color: green;
 }
@@ -98,3 +102,12 @@ button:hover {
   cursor: pointer;
   background-color: rgba(3, 126, 3, 0.692);
 }
+
+input.ng-invalid.ng-touched {
+  border: 2px solid red;
+}
+
+span {
+  color: red;
+}
+

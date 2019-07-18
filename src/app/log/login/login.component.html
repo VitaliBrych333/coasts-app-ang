@@ -1,11 +1,13 @@
 <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
-  <h1>Login</h1>
+  <h2>Enter your login and password</h2>
   <label>
     Name:
+    <span *ngIf="!profileForm.controls.name.valid && profileForm.controls.name.touched">*Required</span>
     <input type="text" formControlName="name">
   </label>
   <label>
     Password:
+    <span *ngIf="!profileForm.controls.password.valid && profileForm.controls.password.touched">*Required</span>
     <input type="password" formControlName="password">
   </label>
   <button type="submit" [disabled]="!profileForm.valid">Submit</button>
