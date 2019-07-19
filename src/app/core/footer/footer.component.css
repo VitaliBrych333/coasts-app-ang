@@ -1,0 +1,14 @@
+div {
+  display: flex;
+  height: 10px;
+  justify-content: center;
+  padding: 10px;
+  background-image: linear-gradient(rgb(157, 255, 0), yellow);
+  margin-top: 10px;
+}
+
+p {
+  font-size: 12px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  color: #607D8B;
+}

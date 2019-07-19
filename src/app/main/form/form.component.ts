@@ -4,6 +4,9 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR, FormGroup, FormBuilder, FormCo
 import { DatePipe } from '@angular/common';
 import { Router } from '@angular/router';
 
+import { DataService } from '../../services/data.service';
+
+import { Field } from '../field.model';
 
 @Component({
   selector: 'app-form',
@@ -35,7 +38,8 @@ export class FormComponent implements OnInit {
 
   constructor(private datePipe: DatePipe,
               private fb: FormBuilder,
-              private router: Router ) { }
+              private router: Router,
+              private dataService: DataService ) { }
 
   ngOnInit() {
 
@@ -44,11 +48,22 @@ export class FormComponent implements OnInit {
     this.infoBuy = this.fb.group({
       date: [this.myDate, Validators.required],
       price: ['', [Validators.required, Validators.min(0.01)]],
-      type: ['', Validators.required]
+      type: ['', Validators.required],
+      other: [''],
     })
   }
 
   add() {
+    let newField: Field = {
+      id: 2121,
+      date: this.infoBuy.value.date,
+      price: this.infoBuy.value.price,
+      type: this.infoBuy.value.type,
+      other: this.infoBuy.value.other,
+      author: localStorage.getItem('userName'),
+    }
+
+    this.dataService.sendData(newField);
     this.router.navigate(['/main'])
   }
 

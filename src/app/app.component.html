@@ -1,6 +1,8 @@
-<!--The content below is only a placeholder and can be replaced.-->
+<app-loading-screen></app-loading-screen>
+<div class="container" fxLayout="column" fxLayoutAlign="start stretch">
   <app-header></app-header>
-  <!-- <app-form></app-form>
-  <app-login></app-login> -->
+  <router-outlet></router-outlet>
+  <div class="helper" fxFlex fxFlexFill></div>
+  <app-footer></app-footer>
+</div>
 
-<router-outlet></router-outlet>

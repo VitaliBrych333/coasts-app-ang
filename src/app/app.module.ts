@@ -10,11 +10,14 @@ import { LogModule } from './log/log.module';
 import { CoreModule } from './core/core.module';
 import { HttpClientModule, HTTP_INTERCEPTORS }   from '@angular/common/http';
 
+import { FlexLayoutModule } from '@angular/flex-layout';
 
+import { LoadingScreenInterceptor } from './core/loading-screen/loading.interceptor';
 
 @NgModule({
   declarations: [
     AppComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -23,8 +26,13 @@ import { HttpClientModule, HTTP_INTERCEPTORS }   from '@angular/common/http';
     LogModule,
     CoreModule,
     HttpClientModule,
+    FlexLayoutModule
   ],
-  providers: [],
+  providers: [ {
+    provide: HTTP_INTERCEPTORS,
+    useClass: LoadingScreenInterceptor,
+    multi: true
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

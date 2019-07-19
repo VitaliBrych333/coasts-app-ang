@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders} from '@angular/common/http';
+import { Router } from '@angular/router';
 
 import { Observable, BehaviorSubject, Subject, } from 'rxjs';
 
@@ -9,13 +10,25 @@ import { Observable, BehaviorSubject, Subject, } from 'rxjs';
 
 export class AuthService {
 
-  public messageSource = new BehaviorSubject<boolean>(false);
-  currentMessage = this.messageSource.asObservable();
+  public messageStatusLog = new BehaviorSubject<boolean>(false);
+  currentStatusLog = this.messageStatusLog.asObservable();
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,
+              private router: Router) { }
 
-  changeMessage(message: boolean) {
-    this.messageSource.next(message)
+  changeStatusLog(message: boolean) {
+    this.messageStatusLog.next(message)
+  }
+
+  exit(): void {
+    localStorage.clear();
+    this.router.navigate(['/login']);
+    this.changeStatusLog(false);
+  }
+
+  isAuth() {
+    if(localStorage.getItem('userName')) return true;
+    return false;
   }
 
 

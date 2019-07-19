@@ -13,8 +13,9 @@ export class HeaderComponent implements OnInit {
   constructor(private authService: AuthService,) { }
 
   ngOnInit() {
-    this.authService.currentMessage.subscribe(value => {
-      if(localStorage.getItem('logStatus')) {
+
+    this.authService.currentStatusLog.subscribe(value => {
+      if(localStorage.getItem('userName')) {
         this.statusLog = true;
       } else {
         this.statusLog = value;
@@ -22,6 +23,11 @@ export class HeaderComponent implements OnInit {
       // this.firstName = localStorage.getItem('firstName');
       // this.lastName = localStorage.getItem('lastName');
     });
+
+  }
+
+  logOut() {
+    this.authService.exit();
 
   }
 

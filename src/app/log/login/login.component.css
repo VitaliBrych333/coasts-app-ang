@@ -1,8 +1,7 @@
 :host {
   display: flex;
   flex-direction: column;
-  padding-top: 24px;
-
+  align-items: center;
 }
 
 h2 {
@@ -12,6 +11,8 @@ h2 {
 }
 
 form {
+  position: absolute;
+  top: 40%;
   margin: 0 auto;
   border: 2px solid gray;
   padding: 10px;

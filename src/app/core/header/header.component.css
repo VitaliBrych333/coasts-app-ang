@@ -2,15 +2,19 @@
   display: flex;
   justify-content: space-between;
   padding: 20px;
-  background-color: darkgrey;
+  background-image: linear-gradient(rgb(157, 255, 0), yellow);
   height: 50px;
 }
 
 h1 {
   font-size: 24px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  color: #607D8B;
   float: right;
   margin-top: 12px;
+  text-shadow: 2px -3px 2px rgb(26, 192, 26);
 }
+
 
 button {
   width: 70px;
@@ -33,6 +37,7 @@ button:hover {
   display: inline-block;
 }
 
-.none {
-  display: none;
+p {
+  margin-top: 8px;
 }
+
