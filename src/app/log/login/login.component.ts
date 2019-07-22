@@ -16,17 +16,11 @@ export class LoginComponent implements OnInit {
               private router: Router,
               private authservice: AuthService) { }
 
-  onSubmit() {
-
-  }
-
   ngOnInit() {
-
     this.profileForm = this.fb.group({
       name: ['', Validators.required],
       password: ['', Validators.required]
     });
-
   }
 
   login(): void {

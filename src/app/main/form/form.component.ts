@@ -6,7 +6,8 @@ import { Router } from '@angular/router';
 
 import { DataService } from '../../services/data.service';
 
-import { Field } from '../field.model';
+import { NewField } from '../field.model';
+
 
 @Component({
   selector: 'app-form',
@@ -39,7 +40,7 @@ export class FormComponent implements OnInit {
   constructor(private datePipe: DatePipe,
               private fb: FormBuilder,
               private router: Router,
-              private dataService: DataService ) { }
+              private dataService: DataService) { }
 
   ngOnInit() {
 
@@ -49,21 +50,22 @@ export class FormComponent implements OnInit {
       date: [this.myDate, Validators.required],
       price: ['', [Validators.required, Validators.min(0.01)]],
       type: ['', Validators.required],
-      other: [''],
+      other: [null],
     })
   }
 
   add() {
-    let newField: Field = {
-      id: 2121,
-      date: this.infoBuy.value.date,
-      price: this.infoBuy.value.price,
-      type: this.infoBuy.value.type,
-      other: this.infoBuy.value.other,
-      author: localStorage.getItem('userName'),
-    }
+    let newField: NewField = new NewField(
+      2121,
+      this.infoBuy.value.date,
+      this.infoBuy.value.price,
+      this.infoBuy.value.type,
+      localStorage.getItem('userName'),
+      this.infoBuy.value.other
+    );
 
-    this.dataService.sendData(newField);
+    this.dataService.addField(newField).subscribe();
+
     this.router.navigate(['/main'])
   }
 

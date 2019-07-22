@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 
 import { Observable, BehaviorSubject, Subject, } from 'rxjs';
 
+
 @Injectable({
   providedIn: 'root'
 })
@@ -12,6 +13,8 @@ export class AuthService {
 
   public messageStatusLog = new BehaviorSubject<boolean>(false);
   currentStatusLog = this.messageStatusLog.asObservable();
+
+  baseURL = 'http://localhost:5500';
 
   constructor(private http: HttpClient,
               private router: Router) { }
