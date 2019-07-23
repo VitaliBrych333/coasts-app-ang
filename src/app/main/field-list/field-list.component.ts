@@ -2,6 +2,8 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator} from '@angular/material/paginator';
 import { MatTableDataSource} from '@angular/material/table';
 import { Router } from '@angular/router';
+import { DataService } from '../../services/data.service';
+import { NewField } from '../field.model';
 /**
  * @title Table with pagination
  */
@@ -13,15 +15,23 @@ import { Router } from '@angular/router';
 })
 export class FieldListComponent implements OnInit {
 
-  displayedColumns: string[] = ['position', 'name', 'weight', 'symbol', 'actions'];
-  dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
+  displayedColumns: string[] = ['id', 'date', 'price', 'type', 'other', 'author', 'actions'];
+
+  dataSource: MatTableDataSource<NewField>;
+  listData: NewField[];
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
-  constructor(private router: Router) { }
+
+  constructor(private router: Router,
+              private dataService: DataService) { }
 
   ngOnInit() {
-    this.dataSource.paginator = this.paginator;
+    this.dataService.getAllFields().subscribe(data => {
+      this.listData = data;
+      this.dataSource = new MatTableDataSource<NewField>(this.listData)
+      this.dataSource.paginator = this.paginator;
+    })
   }
 
   back(): void {
@@ -29,86 +39,3 @@ export class FieldListComponent implements OnInit {
   }
 }
 
-export interface PeriodicElement {
-  name: string;
-  position: number;
-  weight: number;
-  symbol: string;
-}
-
-const ELEMENT_DATA: PeriodicElement[] = [
-  {position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H'},
-  {position: 2, name: 'Helium', weight: 4.0026, symbol: 'He'},
-  {position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li'},
-  {position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be'},
-  {position: 5, name: 'Boron', weight: 10.811, symbol: 'B'},
-  {position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C'},
-  {position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N'},
-  {position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O'},
-  {position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F'},
-  {position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne'},
-  {position: 11, name: 'Sodium', weight: 22.9897, symbol: 'Na'},
-  {position: 12, name: 'Magnesium', weight: 24.305, symbol: 'Mg'},
-  {position: 13, name: 'Aluminum', weight: 26.9815, symbol: 'Al'},
-  {position: 14, name: 'Silicon', weight: 28.0855, symbol: 'Si'},
-  {position: 15, name: 'Phosphorus', weight: 30.9738, symbol: 'P'},
-  {position: 16, name: 'Sulfur', weight: 32.065, symbol: 'S'},
-  {position: 17, name: 'Chlorine', weight: 35.453, symbol: 'Cl'},
-  {position: 18, name: 'Argon', weight: 39.948, symbol: 'Ar'},
-  {position: 19, name: 'Potassium', weight: 39.0983, symbol: 'K'},
-  {position: 20, name: 'Calcium', weight: 40.078, symbol: 'Ca'},
-];
-
-
-
-
-
-
-
-
-
-
-
-
-// import {Component, OnInit, ViewChild} from '@angular/core';
-// import {MatSort} from '@angular/material/sort';
-// import {MatTableDataSource} from '@angular/material/table';
-
-// export interface PeriodicElement {
-//   name: string;
-//   position: number;
-//   weight: number;
-//   symbol: string;
-// }
-
-// const ELEMENT_DATA: PeriodicElement[] = [
-//   {position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H'},
-//   {position: 2, name: 'Helium', weight: 4.0026, symbol: 'He'},
-//   {position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li'},
-//   {position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be'},
-//   {position: 5, name: 'Boron', weight: 10.811, symbol: 'B'},
-//   {position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C'},
-//   {position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N'},
-//   {position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O'},
-//   {position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F'},
-//   {position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne'},
-// ];
-
-// /**
-//  * @title Table with sorting
-//  */
-// @Component({
-//   selector: 'app-field-list',
-//   templateUrl: './field-list.component.html',
-//   styleUrls: ['./field-list.component.css']
-// })
-// export class FieldListComponent implements OnInit {
-//   displayedColumns: string[] = ['position', 'name', 'weight', 'symbol', 'actions'];
-//   dataSource = new MatTableDataSource(ELEMENT_DATA);
-
-//   @ViewChild(MatSort, {static: true}) sort: MatSort;
-
-//   ngOnInit() {
-//     this.dataSource.sort = this.sort;
-//   }
-// }

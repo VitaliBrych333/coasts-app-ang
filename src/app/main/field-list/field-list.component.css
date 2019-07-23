@@ -2,6 +2,10 @@ table {
   width: 100%;
 }
 
+td.mat-cell {
+  padding: 3px;
+}
+
 .mat-elevation-z8 button {
   margin-right: 15px;
 }

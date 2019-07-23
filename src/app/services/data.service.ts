@@ -11,13 +11,13 @@ export class DataService {
 
   constructor(private http: HttpClient) { }
 
-  addField(body: NewField): Observable<object>  {
+  addField(body: NewField): Observable<NewField>  {
     const options = {headers: {'Content-Type': 'application/json'}};
     return this.http.post<NewField>(this.baseURL + '/purchases', JSON.stringify(body), options);
   }
 
-  getAllFields() {
-    return this.http.get(this.baseURL + '/purchases');
+  getAllFields(): Observable<NewField[]> {
+    return this.http.get<NewField[]>(this.baseURL + '/purchases');
   }
 
 }
