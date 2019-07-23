@@ -14,6 +14,8 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { LoadingScreenInterceptor } from './core/loading-screen/loading.interceptor';
 
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -26,7 +28,7 @@ import { LoadingScreenInterceptor } from './core/loading-screen/loading.intercep
     LogModule,
     CoreModule,
     HttpClientModule,
-    FlexLayoutModule
+    FlexLayoutModule,
   ],
   providers: [ {
     provide: HTTP_INTERCEPTORS,

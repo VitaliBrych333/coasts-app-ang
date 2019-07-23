@@ -22,7 +22,7 @@ export class ButtonsComponent implements OnInit {
   }
 
   getAll(): void {
-    // this.router.navigate(['/purchases/new'])
+    this.router.navigate(['/purchases/all'])
   }
 
 }

@@ -16,4 +16,8 @@ export class DataService {
     return this.http.post<NewField>(this.baseURL + '/purchases', JSON.stringify(body), options);
   }
 
+  getAllFields() {
+    return this.http.get(this.baseURL + '/purchases');
+  }
+
 }
