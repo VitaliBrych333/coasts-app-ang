@@ -1,9 +1,11 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewContainerRef, ComponentFactoryResolver } from '@angular/core';
 import { MatPaginator} from '@angular/material/paginator';
-import { MatTableDataSource} from '@angular/material/table';
+import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { DataService } from '../../services/data.service';
 import { NewField } from '../field.model';
+import { MatSort } from '@angular/material/sort';
+import { ModalDialogComponent } from '../modal-dialog/modal-dialog.component';
 /**
  * @title Table with pagination
  */
@@ -11,7 +13,8 @@ import { NewField } from '../field.model';
 @Component({
   selector: 'app-field-list',
   templateUrl: './field-list.component.html',
-  styleUrls: ['./field-list.component.css']
+  styleUrls: ['./field-list.component.css'],
+
 })
 export class FieldListComponent implements OnInit {
 
@@ -21,21 +24,39 @@ export class FieldListComponent implements OnInit {
   listData: NewField[];
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
-
+  @ViewChild(MatSort, {static: true}) sort: MatSort;
 
   constructor(private router: Router,
-              private dataService: DataService) { }
+              private dataService: DataService,
+              private viewContainerRef: ViewContainerRef,
+              private componentFactoryResolver: ComponentFactoryResolver) { }
 
   ngOnInit() {
     this.dataService.getAllFields().subscribe(data => {
       this.listData = data;
       this.dataSource = new MatTableDataSource<NewField>(this.listData)
       this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+    })
+
+  }
+
+  showMenu(): void {
+    this.router.navigate(['/main'])
+  }
+
+  deleteField(fieldDelete: NewField): void {
+    const componentFactory = this.componentFactoryResolver.resolveComponentFactory(ModalDialogComponent);
+    let componentRef = this.viewContainerRef.createComponent(componentFactory);
+
+    componentRef.instance.fieldDelete = fieldDelete;
+
+    componentRef.instance.deleteItem.subscribe(() => {
+      componentRef.destroy();
+      componentRef = null;
     })
   }
 
-  back(): void {
-    this.router.navigate(['/main'])
-  }
+
 }
 

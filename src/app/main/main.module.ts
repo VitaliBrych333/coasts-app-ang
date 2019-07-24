@@ -10,10 +10,13 @@ import { MatSortModule } from '@angular/material/sort';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatButtonModule } from '@angular/material/button';
+import { ModalDialogComponent } from './modal-dialog/modal-dialog.component';
+
+
 
 
 @NgModule({
-  declarations: [ FormComponent, ButtonsComponent, NoContentComponent, FieldListComponent ],
+  declarations: [ FormComponent, ButtonsComponent, NoContentComponent, FieldListComponent, ModalDialogComponent],
   imports: [
     CommonModule,
     ReactiveFormsModule,
@@ -24,6 +27,7 @@ import { MatButtonModule } from '@angular/material/button';
     MatPaginatorModule,
     MatButtonModule,
   ],
+  entryComponents: [ ModalDialogComponent ],
   exports: [ FormComponent, NoContentComponent ]
 })
 export class MainModule { }
