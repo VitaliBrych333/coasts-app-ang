@@ -14,8 +14,8 @@ import { ModalDialogComponent } from '../modal-dialog/modal-dialog.component';
   selector: 'app-field-list',
   templateUrl: './field-list.component.html',
   styleUrls: ['./field-list.component.css'],
-
 })
+
 export class FieldListComponent implements OnInit {
 
   displayedColumns: string[] = ['id', 'date', 'price', 'type', 'other', 'author', 'actions'];
@@ -34,15 +34,18 @@ export class FieldListComponent implements OnInit {
   ngOnInit() {
     this.dataService.getAllFields().subscribe(data => {
       this.listData = data;
-      this.dataSource = new MatTableDataSource<NewField>(this.listData)
-      this.dataSource.paginator = this.paginator;
-      this.dataSource.sort = this.sort;
+      this.createTable(this.listData);
     })
+  }
 
+  createTable(data: NewField[]): void {
+    this.dataSource = new MatTableDataSource<NewField>(data);
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
   }
 
   showMenu(): void {
-    this.router.navigate(['/main'])
+    this.router.navigate(['/main']);
   }
 
   deleteField(fieldDelete: NewField): void {
@@ -51,7 +54,12 @@ export class FieldListComponent implements OnInit {
 
     componentRef.instance.fieldDelete = fieldDelete;
 
-    componentRef.instance.deleteItem.subscribe(() => {
+    componentRef.instance.deleteItem.subscribe((state: boolean) => {
+      if(state) {
+        this.listData = this.listData.filter(obg => obg._id !== fieldDelete._id);
+        this.createTable(this.listData);
+      }
+
       componentRef.destroy();
       componentRef = null;
     })

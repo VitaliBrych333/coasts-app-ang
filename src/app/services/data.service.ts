@@ -20,4 +20,9 @@ export class DataService {
     return this.http.get<NewField[]>(this.baseURL + '/purchases');
   }
 
+  deleteId(field: NewField): Observable<NewField> {
+    const id = field._id;
+    return this.http.delete<NewField>(this.baseURL + '/purchases' + `/${id}`);
+  }
+
 }

@@ -1,5 +1,6 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { NewField } from '../field.model';
+import { DataService } from '../../services/data.service';
 
 @Component({
   selector: 'app-modal-dialog',
@@ -9,17 +10,17 @@ import { NewField } from '../field.model';
 
 export class ModalDialogComponent {
   @Input() fieldDelete: NewField;
-  @Output() deleteItem = new EventEmitter()
+  @Output() deleteItem = new EventEmitter<boolean>()
 
-  constructor() { }
+  constructor(private dataService: DataService) { }
 
   cancel(): void {
-    this.deleteItem.emit();
+    this.deleteItem.emit(false);
   }
 
   deleteId(): void {
-    console.log(this.fieldDelete);
-    this.deleteItem.emit();
+    this.dataService.deleteId(this.fieldDelete).subscribe();
+    this.deleteItem.emit(true);
   }
 
 
