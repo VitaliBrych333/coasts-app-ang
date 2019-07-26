@@ -30,7 +30,7 @@ import { NewField } from '../field.model';
 
 export class FormComponent implements OnInit {
 
-  infoBuy: FormGroup;
+  infoBuy: object;
   listCategory: Array<string> = ['food', 'rent', 'clothes', 'child', 'petrol', 'present', 'gym', 'other'];
 
   myDate = new Date().toString();
@@ -46,12 +46,12 @@ export class FormComponent implements OnInit {
 
     this.myDate = this.datePipe.transform(this.myDate, 'yyyy-MM-dd');
 
-    this.infoBuy = this.fb.group({
-      date: [this.myDate, Validators.required],
-      price: ['', [Validators.required, Validators.min(0.01)]],
-      type: ['', Validators.required],
-      other: [null],
-    })
+    this.infoBuy = {
+      date: this.myDate,
+      price: null,
+      type: null,
+      other: null,
+    }
   }
 
   add() {

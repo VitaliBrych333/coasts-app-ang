@@ -9,6 +9,8 @@ import { HttpClient, HttpHeaders} from '@angular/common/http';
 export class DataService {
   baseURL = 'http://localhost:5500';
 
+  fieldEdit: NewField;
+
   constructor(private http: HttpClient) { }
 
   addField(body: NewField): Observable<NewField>  {
@@ -24,5 +26,10 @@ export class DataService {
     const id = field._id;
     return this.http.delete<NewField>(this.baseURL + '/purchases' + `/${id}`);
   }
+
+  getFieldId(id: string): Observable<NewField> {
+    return this.http.get<NewField>(this.baseURL + '/purchases' + `/${id}`);
+  }
+
 
 }

@@ -18,19 +18,4 @@ td.mat-cell {
   width: 170px;
 }
 
-.link {
-  width: 120px;
-  height: 40px;
-  border-radius: 10px;
-  position: relative;
-  left: 50%;
-  transform: translate(-50%, 0);
-  margin: 10px;
-}
-
-.link:hover {
-  cursor: pointer;
-  background-color: chartreuse;
-}
-
 

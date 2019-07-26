@@ -1,5 +1,4 @@
-<button class="link" (click)="showMenu()">Menu</button>
-
+<app-button-menu></app-button-menu>
 <div class="mat-elevation-z8">
     <table mat-table [dataSource]="dataSource" matSort>
 
@@ -36,7 +35,7 @@
       <ng-container matColumnDef="actions">
         <th mat-header-cell  *matHeaderCellDef></th>
         <td mat-cell *matCellDef="let row" >
-          <button mat-raised-button color="primary">Edit</button>
+          <button mat-raised-button color="primary" (click)="editField(row)">Edit</button>
           <button mat-raised-button color="warn" (click)="deleteField(row)">Delete</button>
         </td>
       </ng-container>

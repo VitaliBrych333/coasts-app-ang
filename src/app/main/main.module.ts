@@ -11,12 +11,16 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatButtonModule } from '@angular/material/button';
 import { ModalDialogComponent } from './modal-dialog/modal-dialog.component';
+import { EditComponent } from './edit/edit.component';
+import { ButtonMenuComponent } from './button-menu/button-menu.component';
+import { FormFieldComponent } from './form-field/form-field.component';
+
 
 
 
 
 @NgModule({
-  declarations: [ FormComponent, ButtonsComponent, NoContentComponent, FieldListComponent, ModalDialogComponent],
+  declarations: [ FormComponent, ButtonsComponent, NoContentComponent, FieldListComponent, ModalDialogComponent, EditComponent, ButtonMenuComponent, FormFieldComponent],
   imports: [
     CommonModule,
     ReactiveFormsModule,

@@ -44,9 +44,7 @@ export class FieldListComponent implements OnInit {
     this.dataSource.sort = this.sort;
   }
 
-  showMenu(): void {
-    this.router.navigate(['/main']);
-  }
+  
 
   deleteField(fieldDelete: NewField): void {
     const componentFactory = this.componentFactoryResolver.resolveComponentFactory(ModalDialogComponent);
@@ -63,6 +61,10 @@ export class FieldListComponent implements OnInit {
       componentRef.destroy();
       componentRef = null;
     })
+  }
+
+  editField(fieldEdit: NewField): void {
+    this.router.navigate([`/purchases/${fieldEdit._id}`])
   }
 
 

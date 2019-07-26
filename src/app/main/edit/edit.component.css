@@ -1,0 +1,113 @@
+.date label, .price label {
+  font-size: 22px;
+}
+
+.date input {
+  font-size: 18px;
+  border-radius: 5px;
+  margin: 20px;
+}
+
+.price input {
+  font-size: 18px;
+  border-radius: 5px;
+  width: 80px;
+}
+
+.container label {
+  width: 80px;
+  height: 20px;
+  border: 1px solid black;
+  border-radius: 15px;
+  padding: 5px;
+  font-weight: 700;
+}
+
+.container {
+  display: flex;
+  justify-content: space-between;
+  flex-flow: row wrap;
+  height: 100px;
+  max-width: 800px;
+  margin: 0 auto;
+  align-content: space-around;
+}
+
+.container label {
+  text-transform: capitalize;
+}
+
+.container label:nth-child(1) {
+  background-color: green;
+}
+
+.container label:nth-child(2) {
+  background-color: orange;
+}
+
+.container label:nth-child(3) {
+  background-color: red;
+}
+
+.container label:nth-child(4) {
+  background-color: pink;
+}
+
+.container label:nth-child(5) {
+  background-color: sienna;
+}
+
+.container label:nth-child(6) {
+  background-color: blue;
+}
+
+.container label:nth-child(7) {
+  background-color: yellow;
+}
+
+.container label:nth-child(8) {
+  background-color: brown;
+}
+
+.container label:hover {
+  cursor: pointer;
+  background-color: blueviolet;
+}
+
+p {
+  font-size: 22px;
+  margin-bottom: 0;
+}
+
+.notice label {
+  font-size: 22px;
+}
+
+.notice input {
+  font-size: 18px;
+  border-radius: 5px;
+  width: 340px;
+}
+
+button {
+  height: 40px;
+  border-radius: 5px;
+  margin-top: 20px;
+  font-size: 16px;
+  font-weight: 700;
+  margin-right: 30px;
+}
+
+button:hover {
+  cursor: pointer;
+  background-color: rgba(3, 126, 3, 0.692);
+}
+
+input.ng-invalid.ng-touched {
+  border: 2px solid red;
+}
+
+span {
+  color: red;
+}
+

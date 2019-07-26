@@ -1,20 +1,14 @@
-<app-buttons></app-buttons>
-<div style="text-align:center">
-  <h2>
-    Welcome, please, enter your current purchasses {{ title }}!
-  </h2>
-  <app-form-field [newField]="infoBuy"></app-form-field>
-  <!-- <form id="form" [formGroup]="infoBuy">
+<form id="form" [formGroup]="field">
 
     <div class="date">
       <label for="date">Choise a date:</label>
-      <span *ngIf="!infoBuy.controls.date.valid"> *Required</span>
+      <span *ngIf="!field.controls.date.valid"> *Required</span>
       <input type="date" id="date" formControlName="date" [min]="dataMin" [max]="dataMax">
     </div>
 
     <div class="price">
       <label for="price">Enter a price: </label>
-      <span *ngIf="!infoBuy.controls.price.valid && infoBuy.controls.price.touched"> *Required </span>
+      <span *ngIf="!field.controls.price.valid && field.controls.price.touched"> *Required </span>
       <input type="number" id="price" formControlName="price" step="0.01" placeholder="BYR">
     </div>
 
@@ -30,11 +24,5 @@
           <label for="notice">Other notification: </label>
           <input type="text" id="notice" formControlName="other" placeholder="If you need, please enter other information">
       </div>
-
     </div>
-  </form> -->
-
-  <button type="submit" form="form" (click)="add()" [disabled]="!infoBuy.valid">Add</button>
-  <button type="reset" (click)="cancel()">Cancel</button>
-
-</div>
+  </form>
