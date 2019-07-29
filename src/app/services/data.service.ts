@@ -31,5 +31,9 @@ export class DataService {
     return this.http.get<NewField>(this.baseURL + '/purchases' + `/${id}`);
   }
 
+  updateField(id: string, field: NewField): Observable<NewField> {
+    return this.http.put<NewField>(this.baseURL + '/purchases' + `/${id}/update`, field);
+  }
+
 
 }

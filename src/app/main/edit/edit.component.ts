@@ -1,9 +1,10 @@
-import { Component, OnInit, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { DataService } from '../../services/data.service';
 import { NewField } from '../field.model';
-import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder } from '@angular/forms';
 import { DatePipe } from '@angular/common';
 import { Router } from '@angular/router';
+import { ISubscription } from "rxjs/Subscription";
 
 @Component({
   selector: 'app-edit',
@@ -11,10 +12,9 @@ import { Router } from '@angular/router';
   styleUrls: ['./edit.component.css'],
   providers: [DataService, DatePipe]
 })
-export class EditComponent implements OnInit {
+export class EditComponent implements OnInit, OnDestroy {
 
   listCategory: Array<string> = ['food', 'rent', 'clothes', 'child', 'petrol', 'present', 'gym', 'other'];
-
   editField: object = {
     date: null,
     price: null,
@@ -23,7 +23,10 @@ export class EditComponent implements OnInit {
     other: null
   };
 
-  valid: boolean;
+  formForValid: FormGroup;
+  currentFieldEditId: string = this.router.url.slice(11);
+
+  subscriptionGetFieldId: ISubscription;
 
   constructor(private dataService: DataService,
               private fb: FormBuilder,
@@ -31,9 +34,7 @@ export class EditComponent implements OnInit {
               private router: Router,) { }
 
   ngOnInit() {
-    const currentFieldEditId = this.router.url.slice(11);
-
-    this.dataService.getFieldId(currentFieldEditId).subscribe(editField => {
+    this.subscriptionGetFieldId = this.dataService.getFieldId(this.currentFieldEditId).subscribe(editField => {
 
       this.editField = {
         date: editField.date,
@@ -45,15 +46,31 @@ export class EditComponent implements OnInit {
     });
   }
 
-  validForm(form: FormGroup) {
-    console.log('wwwwwwwwwwwwww', form)
-    if(form.valid) {this.valid = true;} else {
-      this.valid = false
-    }
-
-
+  ngOnDestroy() {
+    this.subscriptionGetFieldId.unsubscribe();
   }
 
+  validForm(form: FormGroup): void {
+    this.formForValid = form;
+  }
+
+  save(): void {
+    let newField: NewField = new NewField(
+      this.formForValid.value.date,
+      this.formForValid.value.price,
+      this.formForValid.value.type,
+      localStorage.getItem('userName'),
+      this.formForValid.value.other
+    );
+
+    this.dataService.updateField(this.currentFieldEditId, newField).subscribe(() =>
+      this.router.navigate(['/purchases/all'])
+    );
+  }
+
+  cancel(): void {
+    this.router.navigate(['/purchases/all']);
+  }
 
 
 }

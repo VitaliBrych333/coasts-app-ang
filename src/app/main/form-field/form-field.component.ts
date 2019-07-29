@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, SimpleChanges, OnChanges, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, EventEmitter, Output } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { NewField } from '../field.model';
 import { DatePipe } from '@angular/common';
@@ -41,12 +41,7 @@ export class FormFieldComponent implements OnInit, OnChanges {
       other: [this.newField.other],
     })
 
-    // if(this.field.valid) {
-      this.validForm.emit(this.field);
-      
-    // }
-
-
+    this.validForm.emit(this.field);
   }
 
 }

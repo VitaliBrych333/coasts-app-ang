@@ -1,5 +1,5 @@
-import { Component, OnInit, forwardRef } from '@angular/core';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR, FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormBuilder } from '@angular/forms';
 
 import { DatePipe } from '@angular/common';
 import { Router } from '@angular/router';
@@ -8,24 +8,11 @@ import { DataService } from '../../services/data.service';
 
 import { NewField } from '../field.model';
 
-
 @Component({
   selector: 'app-form',
   templateUrl: './form.component.html',
   styleUrls: ['./form.component.css'],
-  providers: [ DatePipe,
-  //   {
-  //     provide: NG_VALUE_ACCESSOR,
-  //     useExisting: forwardRef(() => FormComponent),
-  //     multi: true
-  // },
-  // {
-  //   provide: NG_VALIDATORS,
-  //   useExisting: forwardRef(() => MultipleDemoComponent),
-  //   multi: true,
-  // }
- ],
-
+  providers: [ DatePipe ],
 })
 
 export class FormComponent implements OnInit {
@@ -34,8 +21,8 @@ export class FormComponent implements OnInit {
   listCategory: Array<string> = ['food', 'rent', 'clothes', 'child', 'petrol', 'present', 'gym', 'other'];
 
   myDate = new Date().toString();
-  dataMin = `${new Date().getFullYear().toString()}` + '-01-01';
-  dataMax = `${new Date().getFullYear().toString()}` + '-12-31';
+
+  formForValid: FormGroup;
 
   constructor(private datePipe: DatePipe,
               private fb: FormBuilder,
@@ -43,29 +30,30 @@ export class FormComponent implements OnInit {
               private dataService: DataService) { }
 
   ngOnInit() {
-
     this.myDate = this.datePipe.transform(this.myDate, 'yyyy-MM-dd');
-
     this.infoBuy = {
       date: this.myDate,
+      author: localStorage.getItem('userName'),
       price: null,
       type: null,
       other: null,
     }
   }
 
+  validForm(form: FormGroup): void {
+    this.formForValid = form;
+  }
+
   add() {
     let newField: NewField = new NewField(
-      2121,
-      this.infoBuy.value.date,
-      this.infoBuy.value.price,
-      this.infoBuy.value.type,
+      this.formForValid.value.date,
+      this.formForValid.value.price,
+      this.formForValid.value.type,
       localStorage.getItem('userName'),
-      this.infoBuy.value.other
+      this.formForValid.value.other
     );
 
     this.dataService.addField(newField).subscribe();
-
     this.router.navigate(['/main'])
   }
 

@@ -1,28 +1,28 @@
 <form id="form" [formGroup]="field">
 
-    <div class="date">
-      <label for="date">Choise a date:</label>
-      <span *ngIf="!field.controls.date.valid"> *Required</span>
-      <input type="date" id="date" formControlName="date" [min]="dataMin" [max]="dataMax">
+  <div class="date">
+    <label for="date">Choise a date:</label>
+    <span *ngIf="!field.controls.date.valid"> *Required</span>
+    <input type="date" id="date" formControlName="date" [min]="dataMin" [max]="dataMax">
+  </div>
+
+  <div class="price">
+    <label for="price">Enter a price: </label>
+    <span *ngIf="!field.controls.price.valid && field.controls.price.touched"> *Required </span>
+    <input type="number" id="price" formControlName="price" step="0.01" placeholder="BYR">
+  </div>
+
+  <div>
+    <p>Select the type of purchase: </p>
+    <div class="container">
+      <label *ngFor="let kind of listCategory">
+        <input type="radio" formControlName="type" value="{{kind}}">{{kind}}
+      </label>
     </div>
 
-    <div class="price">
-      <label for="price">Enter a price: </label>
-      <span *ngIf="!field.controls.price.valid && field.controls.price.touched"> *Required </span>
-      <input type="number" id="price" formControlName="price" step="0.01" placeholder="BYR">
+    <div class="notice">
+      <label for="notice">Other notification: </label>
+      <input type="text" id="notice" formControlName="other" placeholder="If you need, please enter other information">
     </div>
-
-    <div>
-      <p>Select the type of purchase: </p>
-      <div class="container">
-          <label *ngFor="let kind of listCategory">
-            <input type="radio" formControlName="type" value="{{kind}}">{{kind}}
-          </label>
-      </div>
-
-      <div class="notice">
-          <label for="notice">Other notification: </label>
-          <input type="text" id="notice" formControlName="other" placeholder="If you need, please enter other information">
-      </div>
-    </div>
-  </form>
+  </div>
+</form>

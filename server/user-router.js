@@ -19,7 +19,6 @@ router.get(
       const id = req.params.id;
 
       const items = await coastsModel.findById(id).exec();
-      console.log('gggggggggg', items)
       res.json(items);
       res.end();
   }),
@@ -30,8 +29,11 @@ router.post(
     asyncHandler(async (req, res) => {
         const content = req.body;
 
-        await coastsModel.create(content);
-        res.end();
+        await coastsModel.create(content, (err) => {
+          if(err) return console.log(err);
+          res.end();
+        });
+
     }),
 );
 
@@ -43,6 +45,18 @@ router.delete(
     await coastsModel.findByIdAndDelete(id, (err, field) => {
       if(err) return console.log(err);
       res.send(field);
+    });
+  })
+)
+
+router.put(
+  '/:id/update',
+  asyncHandler(async (req, res) => {
+    const id = req.params.id;
+
+    await coastsModel.findByIdAndUpdate(id, {$set: req.body}, (err) => {
+      if(err) return console.log(err);
+      res.end();
     });
   })
 )

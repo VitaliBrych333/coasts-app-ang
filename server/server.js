@@ -7,7 +7,7 @@ const path = require('path');
 
 mongoose.connect(
     'mongodb://admin:admin1989@ds235417.mlab.com:35417/coasts',
-    { useNewUrlParser: true },
+    { useNewUrlParser: true, useFindAndModify: false},
 );
 
 const app = express();

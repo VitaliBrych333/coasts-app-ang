@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ViewContainerRef, ComponentFactoryResolver } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewContainerRef, ComponentFactoryResolver, OnDestroy } from '@angular/core';
 import { MatPaginator} from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
@@ -6,6 +6,7 @@ import { DataService } from '../../services/data.service';
 import { NewField } from '../field.model';
 import { MatSort } from '@angular/material/sort';
 import { ModalDialogComponent } from '../modal-dialog/modal-dialog.component';
+import { ISubscription } from "rxjs/Subscription";
 /**
  * @title Table with pagination
  */
@@ -16,12 +17,13 @@ import { ModalDialogComponent } from '../modal-dialog/modal-dialog.component';
   styleUrls: ['./field-list.component.css'],
 })
 
-export class FieldListComponent implements OnInit {
+export class FieldListComponent implements OnInit, OnDestroy {
 
-  displayedColumns: string[] = ['id', 'date', 'price', 'type', 'other', 'author', 'actions'];
+  displayedColumns: string[] = ['position', 'date', 'price', 'type', 'other', 'author', 'actions'];
 
   dataSource: MatTableDataSource<NewField>;
   listData: NewField[];
+  subscriptionGetAllFields: ISubscription;
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
@@ -32,10 +34,15 @@ export class FieldListComponent implements OnInit {
               private componentFactoryResolver: ComponentFactoryResolver) { }
 
   ngOnInit() {
-    this.dataService.getAllFields().subscribe(data => {
+    this.subscriptionGetAllFields = this.dataService.getAllFields().subscribe(data => {
+      data.forEach(obg => obg.position = (data.indexOf(obg) + 1));
       this.listData = data;
       this.createTable(this.listData);
     })
+  }
+
+  ngOnDestroy() {
+    this.subscriptionGetAllFields.unsubscribe();
   }
 
   createTable(data: NewField[]): void {
@@ -43,8 +50,6 @@ export class FieldListComponent implements OnInit {
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
   }
-
-  
 
   deleteField(fieldDelete: NewField): void {
     const componentFactory = this.componentFactoryResolver.resolveComponentFactory(ModalDialogComponent);
@@ -66,6 +71,7 @@ export class FieldListComponent implements OnInit {
   editField(fieldEdit: NewField): void {
     this.router.navigate([`/purchases/${fieldEdit._id}`])
   }
+
 
 
 }

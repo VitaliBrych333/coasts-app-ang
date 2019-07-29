@@ -3,7 +3,6 @@ const mongoose = require('mongoose');
 const { Types } = mongoose.Schema;
 
 const coastsSchema = new mongoose.Schema({
-  id: Types.Number,
   date: Types.Date,
   price: Types.Number,
   type: Types.String,
