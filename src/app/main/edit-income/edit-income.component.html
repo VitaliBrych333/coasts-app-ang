@@ -1,6 +1,6 @@
 <app-buttons></app-buttons>
 <div style="text-align:center">
-  <app-form-field [newField]="editField" (validForm)="validForm($event)"></app-form-field>
+  <app-income-form-field [newFieldIncome]="editFieldIncome" (validForm)="validForm($event)"></app-income-form-field>
 
   <button type="submit" form="form" (click)="save()" [disabled]="!formForValid.valid">Save</button>
   <button type="reset" (click)="cancel()">Cancel</button>

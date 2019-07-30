@@ -1,11 +1,11 @@
 <div>
-  <button type="button" (click)="addCoasts()">Add coasts</button>
-  <button type="button" (click)="addIncome()">Add income</button>
+  <button type="button" (click)="addCoasts()" [ngClass]="{choosed: stateOne}">Add coasts</button>
+  <button type="button" (click)="addIncome()" [ngClass]="{choosed: stateTwo}">Add income</button>
 
-  <button type="button" (click)="showTableCoasts()">Show coasts</button>
-  <button type="button" (click)="showTableIncome()">Show income</button>
+  <button type="button" (click)="showTableCoasts()" [ngClass]="{choosed: stateTree}">Show coasts</button>
+  <button type="button" (click)="showTableIncomes()" [ngClass]="{choosed: stateFour}">Show incomes</button>
 
-  <button type="button" (click)="getStatistics()">Statistics</button>
+  <button type="button" (click)="getStatistics()" [ngClass]="{choosed: stateFive}">Statistics</button>
 </div>
 
 

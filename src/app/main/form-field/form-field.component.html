@@ -1,7 +1,7 @@
 <form id="form" [formGroup]="field">
 
   <div class="date">
-    <label for="date">Choise a date:</label>
+    <label for="date">Choose a date:</label>
     <span *ngIf="!field.controls.date.valid"> *Required</span>
     <input type="date" id="date" formControlName="date" [min]="dataMin" [max]="dataMax">
   </div>
@@ -13,7 +13,7 @@
   </div>
 
   <div>
-    <p>Select the type of purchase: </p>
+    <p>Select a type of purchase: </p>
     <div class="container">
       <label *ngFor="let kind of listCategory">
         <input type="radio" formControlName="type" value="{{kind}}">{{kind}}

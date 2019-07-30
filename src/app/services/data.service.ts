@@ -8,9 +8,7 @@ import { HttpClient, HttpHeaders} from '@angular/common/http';
   providedIn: 'root'
 })
 export class DataService {
-  baseURL = 'http://localhost:5500';
-
-  fieldEdit: NewField;
+  baseURL = 'http://localhost:5500';  
 
   constructor(private http: HttpClient) { }
 
@@ -36,10 +34,33 @@ export class DataService {
     return this.http.put<NewField>(this.baseURL + '/purchases' + `/${id}/update`, field);
   }
 
+
+
+
+
+
   addFieldIncome(body: NewIncome): Observable<NewIncome>  {
     const options = {headers: {'Content-Type': 'application/json'}};
-    return this.http.post<NewIncome>(this.baseURL + '/income', JSON.stringify(body), options);
+    return this.http.post<NewIncome>(this.baseURL + '/incomes', JSON.stringify(body), options);
   }
+
+  getAllFieldsIncomes(): Observable<NewIncome[]> {
+    return this.http.get<NewIncome[]>(this.baseURL + '/incomes');
+  }
+
+  deleteIncomeId(field: NewIncome): Observable<NewIncome> {
+    const id = field._id;
+    return this.http.delete<NewIncome>(this.baseURL + '/incomes' + `/${id}`);
+  }
+
+  getFieldIncomeId(id: string): Observable<NewIncome> {
+    return this.http.get<NewIncome>(this.baseURL + '/incomes' + `/${id}`);
+  }
+
+  updateFieldIncome(id: string, field: NewIncome): Observable<NewIncome> {
+    return this.http.put<NewIncome>(this.baseURL + '/incomes' + `/${id}/update`, field);
+  }
+
 
 
 }

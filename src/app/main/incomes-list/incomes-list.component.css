@@ -31,36 +31,10 @@ span {
   font-weight: 700;
 }
 
-.food {
-  background-color: green;
+.Vitali  {
+  background-color: rgb(22, 149, 22);
 }
 
-.rent {
-  background-color: orange;
+.Nastya {
+  background-color: rgb(255, 81, 0);
 }
-
-.clothes {
-  background-color: red;
-}
-
-.child {
-  background-color: pink;
-}
-
-.petrol {
-  background-color: sienna;
-}
-
-.present {
-  background-color: blue;
-}
-
-.gym {
-  background-color: yellow;
-}
-
-.other {
-  background-color: brown;
-}
-
-

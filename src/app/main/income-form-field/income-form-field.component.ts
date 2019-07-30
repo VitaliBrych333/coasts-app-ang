@@ -19,7 +19,7 @@ export class IncomeFormFieldComponent implements OnInit, OnChanges {
   // selectFormControl = new FormControl('', Validators.required);
 
   types: string[] = ['salary', 'sick leave', 'child benefit', 'present', 'holiday pay'];
-  persons: string[] = ['Person 1', 'Person 2'];
+  persons: string[] = ['Vitali', 'Nastya'];
   fieldIncome: FormGroup;
   // fieldIncome = new FormGroup({
   //   date: new FormControl(),

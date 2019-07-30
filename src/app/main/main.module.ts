@@ -12,11 +12,13 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatButtonModule } from '@angular/material/button';
 import { ModalDialogComponent } from './modal-dialog/modal-dialog.component';
 import { EditComponent } from './edit/edit.component';
-import { ButtonMenuComponent } from './button-menu/button-menu.component';
+
 import { FormFieldComponent } from './form-field/form-field.component';
 import { IncomeFormComponent } from './income-form/income-form.component';
 import { IncomeFormFieldComponent } from './income-form-field/income-form-field.component';
 import { MatSelectModule } from '@angular/material/select';
+import { IncomesListComponent } from './incomes-list/incomes-list.component';
+import { EditIncomeComponent } from './edit-income/edit-income.component';
 
 
 
@@ -28,10 +30,11 @@ import { MatSelectModule } from '@angular/material/select';
                   FieldListComponent,
                   ModalDialogComponent,
                   EditComponent,
-                  ButtonMenuComponent,
                   FormFieldComponent,
                   IncomeFormComponent,
-                  IncomeFormFieldComponent],
+                  IncomeFormFieldComponent,
+                  IncomesListComponent,
+                  EditIncomeComponent],
   imports: [
     CommonModule,
     ReactiveFormsModule,

@@ -1,5 +1,5 @@
 const express = require('express');
-const incomeModel = require('./income-model');
+const incomesModel = require('./incomes-model');
 const asyncHandler = require('./utils');
 
 const router = new express.Router();
@@ -7,7 +7,7 @@ const router = new express.Router();
 router.get(
     '/',
     asyncHandler(async (req, res) => {
-        const items = await incomeModel.find({}).exec();
+        const items = await incomesModel.find({}).exec();
         res.json(items);
         res.end();
     }),
@@ -18,7 +18,7 @@ router.get(
   asyncHandler(async (req, res) => {
       const id = req.params.id;
 
-      const items = await incomeModel.findById(id).exec();
+      const items = await incomesModel.findById(id).exec();
       res.json(items);
       res.end();
   }),
@@ -29,7 +29,7 @@ router.post(
     asyncHandler(async (req, res) => {
         const content = req.body;
 
-        await incomeModel.create(content, (err) => {
+        await incomesModel.create(content, (err) => {
           if(err) return console.log(err);
           res.end();
         });
@@ -42,7 +42,7 @@ router.delete(
   asyncHandler(async (req, res) => {
     const id = req.params.id;
 
-    await incomeModel.findByIdAndDelete(id, (err, field) => {
+    await incomesModel.findByIdAndDelete(id, (err, field) => {
       if(err) return console.log(err);
       res.send(field);
     });
@@ -54,7 +54,7 @@ router.put(
   asyncHandler(async (req, res) => {
     const id = req.params.id;
 
-    await incomeModel.findByIdAndUpdate(id, {$set: req.body}, (err) => {
+    await incomesModel.findByIdAndUpdate(id, {$set: req.body}, (err) => {
       if(err) return console.log(err);
       res.end();
     });

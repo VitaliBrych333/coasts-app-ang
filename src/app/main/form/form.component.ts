@@ -18,7 +18,6 @@ import { NewField } from '../field.model';
 export class FormComponent implements OnInit {
 
   infoBuy: object;
-  // listCategory: Array<string> = ['food', 'rent', 'clothes', 'child', 'petrol', 'present', 'gym', 'other'];
 
   myDate = new Date().toString();
 
