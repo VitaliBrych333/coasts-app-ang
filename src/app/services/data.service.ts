@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { NewField } from '../main/field.model';
+import { NewIncome } from '../main/income.model';
 import { Observable, BehaviorSubject, Subject, } from 'rxjs';
 import { HttpClient, HttpHeaders} from '@angular/common/http';
 
@@ -33,6 +34,11 @@ export class DataService {
 
   updateField(id: string, field: NewField): Observable<NewField> {
     return this.http.put<NewField>(this.baseURL + '/purchases' + `/${id}/update`, field);
+  }
+
+  addFieldIncome(body: NewIncome): Observable<NewIncome>  {
+    const options = {headers: {'Content-Type': 'application/json'}};
+    return this.http.post<NewIncome>(this.baseURL + '/income', JSON.stringify(body), options);
   }
 
 

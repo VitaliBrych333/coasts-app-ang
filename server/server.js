@@ -1,7 +1,8 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
-const usersRouter = require('./user-router');
+const coastsRouter = require('./coasts-router');
+const incomeRouter = require('./income-router');
 const cookieParser = require('cookie-parser');
 const path = require('path');
 
@@ -25,7 +26,9 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use('/purchases', usersRouter);
+app.use('/purchases', coastsRouter);
+app.use('/income', incomeRouter);
+
 app.use((req, res) => {
     res.status(500).send('Smth went wrong');
 });

@@ -13,16 +13,24 @@ export class ButtonsComponent implements OnInit {
   ngOnInit() {
   }
 
-  add(): void {
+  addCoasts(): void {
     this.router.navigate(['/purchases/new']);
   }
 
-  edit(): void {
-    // this.router.navigate(['/purchases/new'])
+  addIncome(): void {
+    this.router.navigate(['/income/new']);
   }
 
-  getAll(): void {
+  showTableCoasts(): void {
     this.router.navigate(['/purchases/all']);
+  }
+
+  showTableIncome(): void {
+    // this.router.navigate(['/purchases/all']);
+  }
+
+  getStatistics(): void {
+    // this.router.navigate(['/purchases/all']);
   }
 
 }

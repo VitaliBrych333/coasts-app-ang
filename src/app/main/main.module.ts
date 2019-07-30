@@ -14,13 +14,24 @@ import { ModalDialogComponent } from './modal-dialog/modal-dialog.component';
 import { EditComponent } from './edit/edit.component';
 import { ButtonMenuComponent } from './button-menu/button-menu.component';
 import { FormFieldComponent } from './form-field/form-field.component';
-
+import { IncomeFormComponent } from './income-form/income-form.component';
+import { IncomeFormFieldComponent } from './income-form-field/income-form-field.component';
+import { MatSelectModule } from '@angular/material/select';
 
 
 
 
 @NgModule({
-  declarations: [ FormComponent, ButtonsComponent, NoContentComponent, FieldListComponent, ModalDialogComponent, EditComponent, ButtonMenuComponent, FormFieldComponent],
+  declarations: [ FormComponent,
+                  ButtonsComponent,
+                  NoContentComponent,
+                  FieldListComponent,
+                  ModalDialogComponent,
+                  EditComponent,
+                  ButtonMenuComponent,
+                  FormFieldComponent,
+                  IncomeFormComponent,
+                  IncomeFormFieldComponent],
   imports: [
     CommonModule,
     ReactiveFormsModule,
@@ -30,8 +41,9 @@ import { FormFieldComponent } from './form-field/form-field.component';
     BrowserAnimationsModule,
     MatPaginatorModule,
     MatButtonModule,
+    MatSelectModule
   ],
   entryComponents: [ ModalDialogComponent ],
-  exports: [ FormComponent, NoContentComponent ]
+  exports: [ FormComponent, NoContentComponent, IncomeFormComponent ]
 })
 export class MainModule { }

@@ -18,4 +18,45 @@ td.mat-cell {
   width: 170px;
 }
 
+span {
+  display: block;
+  padding: 5px;
+  text-align: center;
+  width: 50px;
+  border-radius: 10px;
+  font-weight: 700;
+}
+
+.food {
+  background-color: green;
+}
+
+.rent {
+  background-color: orange;
+}
+
+.clothes {
+  background-color: red;
+}
+
+.child {
+  background-color: pink;
+}
+
+.petrol {
+  background-color: sienna;
+}
+
+.present {
+  background-color: blue;
+}
+
+.gym {
+  background-color: yellow;
+}
+
+.other {
+  background-color: brown;
+}
+
 

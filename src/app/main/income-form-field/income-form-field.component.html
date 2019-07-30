@@ -1,0 +1,47 @@
+<form id="form" [formGroup]="fieldIncome">
+  <div class="date">
+    <label for="date">Choise a date:</label>
+    <span *ngIf="!fieldIncome.controls.date.valid"> *Required</span>
+    <input type="date" id="date" formControlName="date" [min]="dataMin" [max]="dataMax">
+  </div>
+
+  <div class="sum">
+    <label for="sum">Enter a sum: </label>
+    <span *ngIf="!fieldIncome.controls.sum.valid && fieldIncome.controls.sum.touched"> *Required </span>
+    <input type="number" id="sum" formControlName="sum" step="0.01" placeholder="BYR">
+  </div>
+
+  <div class="who">
+    <p>Chose the person:</p>
+    <mat-form-field>
+      <mat-label>Who got money</mat-label>
+      <mat-select formControlName="who">
+        <mat-option>--</mat-option>
+        <mat-option *ngFor="let person of persons" [value]="person">
+          {{person}}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="!fieldIncome.controls.who.valid">Please choose a person</mat-error>
+    </mat-form-field>
+  </div>
+
+  <div class="type">
+    <p>Chose the type:</p>
+    <mat-form-field>
+      <mat-label>Type</mat-label>
+      <mat-select formControlName="type">
+        <mat-option>--</mat-option>
+        <mat-option *ngFor="let type of types" [value]="type">
+          {{type}}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="!fieldIncome.controls.type.valid">Please choose a type</mat-error>
+    </mat-form-field>
+  </div>
+
+  <div class="notice">
+    <label for="notice">Other notification: </label>
+    <input type="text" id="notice" formControlName="other" placeholder="If you need, please enter other information">
+  </div>
+
+</form>

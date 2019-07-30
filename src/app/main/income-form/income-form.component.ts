@@ -1,42 +1,37 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
-
 import { DatePipe } from '@angular/common';
 import { Router } from '@angular/router';
-
 import { DataService } from '../../services/data.service';
-
-import { NewField } from '../field.model';
+import { NewIncome } from '../income.model';
 
 @Component({
-  selector: 'app-form',
-  templateUrl: './form.component.html',
-  styleUrls: ['./form.component.css'],
+  selector: 'app-income-form',
+  templateUrl: './income-form.component.html',
+  styleUrls: ['./income-form.component.css'],
   providers: [ DatePipe ],
 })
+export class IncomeFormComponent implements OnInit {
 
-export class FormComponent implements OnInit {
-
-  infoBuy: object;
-  // listCategory: Array<string> = ['food', 'rent', 'clothes', 'child', 'petrol', 'present', 'gym', 'other'];
-
+  infoIncome: object;
   myDate = new Date().toString();
 
   formForValid: FormGroup;
 
   constructor(private datePipe: DatePipe,
-              private fb: FormBuilder,
-              private router: Router,
-              private dataService: DataService) { }
+    private fb: FormBuilder,
+    private router: Router,
+    private dataService: DataService) { }
 
   ngOnInit() {
     this.myDate = this.datePipe.transform(this.myDate, 'yyyy-MM-dd');
-    this.infoBuy = {
+    this.infoIncome = {
       date: this.myDate,
       author: localStorage.getItem('userName'),
-      price: null,
+      sum: null,
       type: null,
       other: null,
+      who: null,
     }
   }
 
@@ -45,15 +40,16 @@ export class FormComponent implements OnInit {
   }
 
   add() {
-    let newField: NewField = new NewField(
+    let newFieldIncome: NewIncome = new NewIncome(
       this.formForValid.value.date,
-      this.formForValid.value.price,
+      this.formForValid.value.sum,
+      this.formForValid.value.who,
       this.formForValid.value.type,
       localStorage.getItem('userName'),
       this.formForValid.value.other
     );
 
-    this.dataService.addField(newField).subscribe();
+    this.dataService.addFieldIncome(newFieldIncome).subscribe();
     this.router.navigate(['/main'])
   }
 
@@ -62,5 +58,3 @@ export class FormComponent implements OnInit {
   }
 
 }
-
-
