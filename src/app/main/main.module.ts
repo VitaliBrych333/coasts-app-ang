@@ -19,10 +19,11 @@ import { IncomeFormFieldComponent } from './income-form-field/income-form-field.
 import { MatSelectModule } from '@angular/material/select';
 import { IncomesListComponent } from './incomes-list/incomes-list.component';
 import { EditIncomeComponent } from './edit-income/edit-income.component';
+import { StatisticsComponent } from './statistics/statistics.component';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 
-
-
-
+import { NgSelectModule } from '@ng-select/ng-select';
 @NgModule({
   declarations: [ FormComponent,
                   ButtonsComponent,
@@ -34,7 +35,8 @@ import { EditIncomeComponent } from './edit-income/edit-income.component';
                   IncomeFormComponent,
                   IncomeFormFieldComponent,
                   IncomesListComponent,
-                  EditIncomeComponent],
+                  EditIncomeComponent,
+                  StatisticsComponent],
   imports: [
     CommonModule,
     ReactiveFormsModule,
@@ -44,7 +46,10 @@ import { EditIncomeComponent } from './edit-income/edit-income.component';
     BrowserAnimationsModule,
     MatPaginatorModule,
     MatButtonModule,
-    MatSelectModule
+    MatSelectModule,
+    MatRadioModule,
+    MatDatepickerModule,
+    NgSelectModule
   ],
   entryComponents: [ ModalDialogComponent ],
   exports: [ FormComponent, NoContentComponent, IncomeFormComponent ]
