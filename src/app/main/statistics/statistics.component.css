@@ -1,4 +1,4 @@
-:host /deep/ .ui-select-multiple .ui-select-match-item {
+/* :host /deep/ .ui-select-multiple .ui-select-match-item {
   border: 1px solid gray;
   border-radius: 5px;
   background-color: darkgray;
@@ -19,7 +19,7 @@
 :host /deep/ .ui-select-choices-row > a {
   font-size: 18px;
   text-decoration: none;
-}
+} */
 
 .container {
   width: 100%;

@@ -1,18 +1,20 @@
+<app-buttons></app-buttons>
 <h2>Please, choose parameters for filter</h2>
 <mat-radio-group aria-label="Select an option">
-  <mat-radio-button value="1">Date</mat-radio-button>
-  <mat-radio-button value="2">Mounth</mat-radio-button>
+  <mat-radio-button value="1" color="warn">Date</mat-radio-button>
+  <mat-radio-button value="2" color="warn">Mounth</mat-radio-button>
 </mat-radio-group>
 
-<mat-form-field>
+<mat-form-field color="warn">
   <input matInput [matDatepicker]="picker" placeholder="Choose a date">
   <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
   <mat-datepicker #picker startView="year" [startAt]="startDate"></mat-datepicker>
 </mat-form-field>
-<mat-form-field>
-  <input matInput [matDatepicker]="picker" placeholder="Choose a date">
-  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-  <mat-datepicker #picker startView="year" [startAt]="startDate"></mat-datepicker>
+
+<mat-form-field color="warn">
+  <input matInput [matDatepicker]="picker2" placeholder="Choose a date">
+  <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+  <mat-datepicker #picker2 startView="year" [startAt]="startDate"></mat-datepicker>
 </mat-form-field>
 
 <p>By providing custom function to <b>[addTag]</b> you can modify result of new tag</p>

@@ -22,6 +22,8 @@ import { EditIncomeComponent } from './edit-income/edit-income.component';
 import { StatisticsComponent } from './statistics/statistics.component';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material';
+import { MatInputModule } from '@angular/material';
 
 import { NgSelectModule } from '@ng-select/ng-select';
 @NgModule({
@@ -49,8 +51,11 @@ import { NgSelectModule } from '@ng-select/ng-select';
     MatSelectModule,
     MatRadioModule,
     MatDatepickerModule,
+    MatNativeDateModule,
+    MatInputModule,
     NgSelectModule
   ],
+
   entryComponents: [ ModalDialogComponent ],
   exports: [ FormComponent, NoContentComponent, IncomeFormComponent ]
 })

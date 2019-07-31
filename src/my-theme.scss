@@ -1,5 +1,6 @@
 @import '~@angular/material/theming';
-
+// @import "~@ng-select/ng-select/themes/material.theme.css";
+@import "~@ng-select/ng-select/themes/default.theme.css";
 @include mat-core();
 
 $my-theme-primary: mat-palette($mat-lime);

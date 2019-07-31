@@ -31,9 +31,9 @@ export class ButtonsComponent implements OnInit {
       case '/incomes/all':
         this.stateFour = true;
         break;
-      // case 'incomes/all':
-      //     this.stateFive = true;
-      //     break;
+      case 'statistics':
+          this.stateFive = true;
+          break;
       default:
         // code block
     }
@@ -61,7 +61,7 @@ export class ButtonsComponent implements OnInit {
   }
 
   getStatistics(): void {
-    // this.router.navigate(['/purchases/all']);
+    this.router.navigate(['/statistics']);
   }
 
 }
