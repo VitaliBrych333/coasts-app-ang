@@ -25,7 +25,12 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material';
 import { MatInputModule } from '@angular/material';
 
+
 import { NgSelectModule } from '@ng-select/ng-select';
+import { ReportFormComponent } from './statistics/report-form/report-form.component';
+import { FiltersComponent } from './statistics/filters/filters.component';
+
+
 @NgModule({
   declarations: [ FormComponent,
                   ButtonsComponent,
@@ -38,7 +43,9 @@ import { NgSelectModule } from '@ng-select/ng-select';
                   IncomeFormFieldComponent,
                   IncomesListComponent,
                   EditIncomeComponent,
-                  StatisticsComponent],
+                  StatisticsComponent,
+                  ReportFormComponent,
+                  FiltersComponent],
   imports: [
     CommonModule,
     ReactiveFormsModule,
@@ -53,7 +60,8 @@ import { NgSelectModule } from '@ng-select/ng-select';
     MatDatepickerModule,
     MatNativeDateModule,
     MatInputModule,
-    NgSelectModule
+    NgSelectModule,
+
   ],
 
   entryComponents: [ ModalDialogComponent ],

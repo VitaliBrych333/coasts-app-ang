@@ -31,7 +31,7 @@ export class ButtonsComponent implements OnInit {
       case '/incomes/all':
         this.stateFour = true;
         break;
-      case 'statistics':
+      case '/statistics':
           this.stateFive = true;
           break;
       default:

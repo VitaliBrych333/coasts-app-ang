@@ -1,0 +1,53 @@
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+h2 {
+  font-size: 20px;
+  margin: 20px 0 30px;
+}
+
+.date p {
+  display: inline-block;
+  font-size: 20px;
+  margin-right: 10px;
+}
+
+.criterion {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.date {
+  display: flex;
+  flex-direction: column;
+}
+
+:host /deep/ .mat-radio-label {
+  margin-right: 60px;
+}
+
+:host /deep/ .mat-form-field {
+  margin-right: 40px;
+}
+
+.select {
+  width: 250px;
+}
+
+.select p {
+  font-size: 18px;
+}
+
+:host /deep/ .ng-select.ng-select-multiple .ng-select-container .ng-value-container .ng-value {
+  background-color: #e57373;
+  border-radius: 5px;
+}
+
+.disabled {
+  pointer-events: none;
+  opacity: 0.4;
+}

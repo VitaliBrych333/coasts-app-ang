@@ -1,0 +1,43 @@
+<div class="container">
+  <h2>Please, choose parameters for filter</h2>
+  <mat-radio-group aria-label="Select an option" (change)="onChange($event)">
+    <mat-radio-button value="checkDate" color="warn" checked>Date</mat-radio-button>
+    <mat-radio-button value="checkMounth" color="warn">Mounth</mat-radio-button>
+  </mat-radio-group>
+
+  <div class="criterion">
+    <div class="date" [ngClass]="{disabled: checkDate}">
+      <div>
+        <p>from:</p>
+        <mat-form-field color="warn">
+          <input matInput [matDatepicker]="picker" placeholder="Choose a date">
+          <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker startView="year" [startAt]="startDate"></mat-datepicker>
+        </mat-form-field>
+      </div>
+
+      <div>
+        <p>to:</p>
+        <mat-form-field color="warn">
+          <input matInput [matDatepicker]="picker2" placeholder="Choose a date">
+          <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+          <mat-datepicker #picker2 startView="year" [startAt]="startDate"></mat-datepicker>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="select" [ngClass]="{disabled: checkMounth}">
+      <p>Please, choose a mounth:</p>
+      <ng-select [items]="companies"
+                 [addTag]="addTagFn"
+                 [hideSelected]="true"
+                 multiple="true"
+                 bindLabel="name"
+                 [(ngModel)]="selectedCompanies">
+      </ng-select>
+    </div>
+  </div>
+</div>
+
+<br>
+Selected value: {{selectedCompanies | json}}
