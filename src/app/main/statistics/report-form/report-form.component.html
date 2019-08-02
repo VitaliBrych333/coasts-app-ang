@@ -1,33 +1,28 @@
-<div>
+<div class="wrapper">
   <div class="costs">
     <p>Costs total: {{1}}</p>
-
     <div class="required">
       <p>Required: {{1}}</p>
       <div class="types">
-        <p>Food: {{1}}</p>
-        <p>Rent: {{1}}</p>
-        <p>Child: {{1}}</p>
-        <p>Gym: {{1}}</p>
+        <ol>
+          <li *ngFor='let itemRequired of required'>{{ itemRequired }}: {{1}}</li>
+        </ol>
       </div>
     </div>
-
     <div class="optional">
       <p>Optional: {{1}}</p>
       <div class="types">
-        <p>Clothes: {{1}}</p>
-        <p>Petrol: {{1}}</p>
-        <p>Present: {{1}}</p>
-        <p>Other: {{1}}</p>
+        <ol>
+          <li *ngFor='let itemOptional of optional'>{{ itemOptional }}: {{1}}</li>
+        </ol>
       </div>
     </div>
   </div>
 
   <div class="incomes">
-    <p>Incomes total</p>
+    <p>Incomes total: {{1}}</p>
     <div class="person">
-      <p>Vitali: {{1}}</p>
-      <p>Nastya: {{1}}</p>
+      <p *ngFor='let user of users'>{{ user }}: {{1}}</p>
     </div>
   </div>
   <div>

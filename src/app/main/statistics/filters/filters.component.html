@@ -27,13 +27,22 @@
     </div>
 
     <div class="select" [ngClass]="{disabled: checkMounth}">
+      <mat-form-field>
+        <mat-label>Year</mat-label>
+        <mat-select>
+          <mat-option *ngFor="let year of years" value="year">
+            {{year}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
       <p>Please, choose a mounth:</p>
-      <ng-select [items]="companies"
+      <ng-select [items]="mounths"
                  [addTag]="addTagFn"
                  [hideSelected]="true"
                  multiple="true"
                  bindLabel="name"
-                 [(ngModel)]="selectedCompanies">
+                 [(ngModel)]="selectedMounth">
       </ng-select>
     </div>
   </div>

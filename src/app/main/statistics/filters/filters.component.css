@@ -26,8 +26,14 @@ h2 {
   flex-direction: column;
 }
 
+.date div:nth-child(2) {
+  margin-top: 7px;
+  align-self: flex-end;
+}
+
 :host /deep/ .mat-radio-label {
   margin-right: 60px;
+  margin-left: 80px;
 }
 
 :host /deep/ .mat-form-field {
@@ -39,7 +45,7 @@ h2 {
 }
 
 .select p {
-  font-size: 18px;
+  font-size: 14px;
 }
 
 :host /deep/ .ng-select.ng-select-multiple .ng-select-container .ng-value-container .ng-value {

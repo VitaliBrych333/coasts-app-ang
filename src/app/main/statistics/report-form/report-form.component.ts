@@ -6,7 +6,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./report-form.component.css']
 })
 export class ReportFormComponent implements OnInit {
-
+  required: Array<string> = ['Food', 'Rent', 'Child', 'Gym'];
+  optional: Array<string> = ['Clothes', 'Petrol', 'Present', 'Other'];
+  users: Array<string> = ['Vitali', 'Nastya'];
   constructor() { }
 
   ngOnInit() {

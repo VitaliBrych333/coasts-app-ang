@@ -1,4 +1,27 @@
+.wrapper {
+  display: flex;
+  max-width: 600px;
+}
+
 div {
   margin: 0 auto;
-  width: max-content;
 }
+
+ol {
+  margin-left: 50px;
+}
+
+.costs > p, .incomes > p, .wrapper > div:nth-child(3) {
+  font-size: 22px;
+}
+
+.required > p, .optional > p {
+  font-size: 18px;
+  margin-left: 20px;
+  margin-top: 10px;
+}
+
+p:first-child {
+  margin-top: 10px;
+}
+
