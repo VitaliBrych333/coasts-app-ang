@@ -30,7 +30,7 @@
     <div class="select" [ngClass]="{disabled: checkMounth}">
       <mat-form-field>
         <mat-label>Year</mat-label>
-        <mat-select (selectionChange)="filterYear(+$event.value)">
+        <mat-select (selectionChange)="filterFormYear($event.value)" [(value)]="selectedYear">
           <mat-option *ngFor="let year of years" [value]="year">
             {{year}}
           </mat-option>
@@ -44,7 +44,7 @@
                  multiple="true"
                  bindLabel="name"
                  [(ngModel)]="selectedMounth"
-                 (change)="filterMounth($event)">
+                 (change)="filterFormMounth($event)">
       </ng-select>
     </div>
   </div>

@@ -1,13 +1,13 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatRadioButton, MatRadioChange } from '@angular/material/radio'
+import { MatRadioButton, MatRadioChange } from '@angular/material/radio';
 import { DataService } from '../../../services/data.service';
 import { NewField } from '../../field.model';
 import { NewIncome } from '../../income.model';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { MatInput } from '@angular/material';
 interface Mounth {
-  id: number,
-  name: string
+  id: number;
+  name: string;
 }
 @Component({
   selector: 'app-filters',
@@ -24,26 +24,28 @@ export class FiltersComponent implements OnInit {
 
   startDate = new Date(2019, 0, 1);
 
-  selectedMounths: string;
+  selectedMounth: string;
   mounths: object[] = [];
   mounthsNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
-  years:  string[] = ['2019', '2020'];
+  years: Array<number> = [2019, 2020];
 
   listCoasts: NewField[];
-  listIncomes:  NewIncome[];
+  listIncomes: NewIncome[];
 
   currentListCoasts: NewField[];
-  currentListIncomes:  NewIncome[];
+  currentListIncomes: NewIncome[];
 
   topDateFilter: Date;
   lowDateFilter: Date;
 
   minDateFrom = new Date(2018, 0, 1);
   maxDateFrom = new Date();
-
   minDateTo = new Date(2018, 0, 1);
   maxDateTo = new Date();
+
+  arrayIdMounths: Array<number> = [];
+  selectedYear: number;
 
   constructor(private dataService: DataService) { }
 
@@ -61,17 +63,17 @@ export class FiltersComponent implements OnInit {
   }
 
   setDate(value: Date): Date {
-    let date = new Date(value);
-    date.setHours(0,0,0,0);
+    const date = new Date(value);
+    date.setHours(0, 0, 0, 0);
     return date;
   }
 
   setLowDateFilter(event: MatDatepickerInputEvent<Date>) {
-    if(event.value === null) {
+    if (event.value === null) {
       this.lowDateFilter = undefined;
       this.minDateTo = new Date(2018, 0, 1);
 
-      if(this.topDateFilter) {
+      if (this.topDateFilter) {
         this.currentListCoasts = this.listCoasts.filter((obg: NewField)  =>
           this.setDate(obg.date) <= this.topDateFilter
         );
@@ -88,7 +90,7 @@ export class FiltersComponent implements OnInit {
       this.lowDateFilter = new Date(event.value);
       this.minDateTo = new Date(event.value);
 
-      if(this.topDateFilter) {
+      if (this.topDateFilter) {
         this.currentListCoasts = this.listCoasts.filter((obg: NewField)  =>
           (this.setDate(obg.date) >= this.lowDateFilter) && (this.setDate(obg.date) <= this.topDateFilter)
         );
@@ -104,11 +106,11 @@ export class FiltersComponent implements OnInit {
   }
 
   setTopDateFilter(event: MatDatepickerInputEvent<Date>) {
-    if(event.value === null) {
+    if (event.value === null) {
       this.topDateFilter = undefined;
       this.maxDateFrom = new Date();
 
-      if(this.lowDateFilter) {
+      if (this.lowDateFilter) {
         this.currentListCoasts = this.listCoasts.filter((obg: NewField) =>
           this.setDate(obg.date) >= this.lowDateFilter
         );
@@ -125,7 +127,7 @@ export class FiltersComponent implements OnInit {
       this.topDateFilter = new Date(event.value);
       this.maxDateFrom = new Date(event.value);
 
-      if(this.lowDateFilter) {
+      if (this.lowDateFilter) {
         this.currentListCoasts = this.listCoasts.filter((obg: NewField) =>
           (this.setDate(obg.date) >= this.lowDateFilter) && (this.setDate(obg.date) <= this.topDateFilter)
         );
@@ -140,24 +142,47 @@ export class FiltersComponent implements OnInit {
     }
   }
 
-
-
-
-
-
-
-
-
-  filterYear(value: number): void {
-    this.currentListCoasts = this.listCoasts.filter(obg => new Date(obg.date).getFullYear() >= value);
-    this.currentListIncomes = this.listIncomes.filter(obg => new Date(obg.date).getFullYear() >= value);
+  filterByYearAndByMounth(): void {
+    this.currentListCoasts = this.listCoasts
+                                  .filter(obg => (new Date(obg.date).getFullYear() >= this.selectedYear)
+                                                  && (this.arrayIdMounths.includes(new Date(obg.date).getMonth())));
+    this.currentListIncomes = this.listIncomes
+                                  .filter(obg => (new Date(obg.date).getFullYear() >= this.selectedYear)
+                                                  && (this.arrayIdMounths.includes(new Date(obg.date).getMonth())));
   }
 
-  filterMounth(value: Array<object>):void {
-    const arrayIdMounths = [];
-    value.forEach((obj: Mounth) => arrayIdMounths.push(obj.id));
+  filterOnlyByYear(): void {
+    this.currentListCoasts = this.listCoasts.filter(obg => new Date(obg.date).getFullYear() >= this.selectedYear);
+    this.currentListIncomes = this.listIncomes.filter(obg => new Date(obg.date).getFullYear() >= this.selectedYear);
+  }
 
-    this.currentListCoasts = this.listCoasts.filter(obg => arrayIdMounths.includes(new Date(obg.date).getMonth()));
+  filterFormYear(value: number): void {
+    this.selectedYear = value;
+
+    if (this.arrayIdMounths.length) {
+      this.filterByYearAndByMounth();
+    } else {
+      this.filterOnlyByYear();
+    }
+  }
+
+  filterFormMounth(value: Array<object>): void {
+    if (!value.length) {
+      this.arrayIdMounths = [];
+    } else {
+      value.forEach((obj: Mounth) => this.arrayIdMounths.push(obj.id));
+    }
+
+    if (this.selectedYear && value.length) {
+      this.filterByYearAndByMounth();
+
+    } else if (this.selectedYear) {
+      this.filterOnlyByYear();
+
+    } else {
+      this.currentListCoasts = this.listCoasts.filter(obg => this.arrayIdMounths.includes(new Date(obg.date).getMonth()));
+      this.currentListIncomes = this.listIncomes.filter(obg => this.arrayIdMounths.includes(new Date(obg.date).getMonth()));
+    }
   }
 
   onChange() {
@@ -174,6 +199,10 @@ export class FiltersComponent implements OnInit {
     this.maxDateFrom = new Date();
     this.minDateTo = new Date(2018, 0, 1);
     this.maxDateTo = new Date();
+
+    this.selectedYear = NaN;
+    this.selectedMounth = '';
+    this.arrayIdMounths = [];
   }
 
   addTagFn(name) {
