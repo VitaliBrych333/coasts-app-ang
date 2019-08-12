@@ -5,6 +5,8 @@ import { NewField } from '../../field.model';
 import { NewIncome } from '../../income.model';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { MatInput } from '@angular/material';
+import { FilterDataService } from '../../../services/filter-data.service';
+
 interface Mounth {
   id: number;
   name: string;
@@ -47,7 +49,8 @@ export class FiltersComponent implements OnInit {
   arrayIdMounths: Array<number> = [];
   selectedYear: number;
 
-  constructor(private dataService: DataService) { }
+  constructor(private dataService: DataService,
+              private filterDataService: FilterDataService) { }
 
   ngOnInit() {
     this.mounthsNames.forEach((c, i) => {
@@ -103,6 +106,8 @@ export class FiltersComponent implements OnInit {
         this.currentListIncomes = this.listIncomes.filter(obg => this.setDate(obg.date) >= this.lowDateFilter);
       }
     }
+    this.filterDataService.changeSourceListCoasts(this.currentListCoasts);
+    this.filterDataService.changeSourceListIncomes(this.currentListIncomes);
   }
 
   setTopDateFilter(event: MatDatepickerInputEvent<Date>) {
@@ -140,6 +145,8 @@ export class FiltersComponent implements OnInit {
         this.currentListIncomes = this.listIncomes.filter(obg => this.setDate(obg.date) <= this.topDateFilter);
       }
     }
+    this.filterDataService.changeSourceListCoasts(this.currentListCoasts);
+    this.filterDataService.changeSourceListIncomes(this.currentListIncomes);
   }
 
   filterByYearAndByMounth(): void {
@@ -164,6 +171,8 @@ export class FiltersComponent implements OnInit {
     } else {
       this.filterOnlyByYear();
     }
+    this.filterDataService.changeSourceListCoasts(this.currentListCoasts);
+    this.filterDataService.changeSourceListIncomes(this.currentListIncomes);
   }
 
   filterFormMounth(value: Array<object>): void {
@@ -183,6 +192,8 @@ export class FiltersComponent implements OnInit {
       this.currentListCoasts = this.listCoasts.filter(obg => this.arrayIdMounths.includes(new Date(obg.date).getMonth()));
       this.currentListIncomes = this.listIncomes.filter(obg => this.arrayIdMounths.includes(new Date(obg.date).getMonth()));
     }
+    this.filterDataService.changeSourceListCoasts(this.currentListCoasts);
+    this.filterDataService.changeSourceListIncomes(this.currentListIncomes);
   }
 
   onChange() {
@@ -203,6 +214,9 @@ export class FiltersComponent implements OnInit {
     this.selectedYear = NaN;
     this.selectedMounth = '';
     this.arrayIdMounths = [];
+
+    this.filterDataService.changeSourceListCoasts([]);
+    this.filterDataService.changeSourceListIncomes([]);
   }
 
   addTagFn(name) {
