@@ -2,10 +2,10 @@
   <div class="costs">
     <p>Costs total: {{total}}</p>
     <div class="required">
-      <p>Required: {{333}}</p>
+      <p>Required: {{ currentRequired?.required }}</p>
       <div class="types">
         <ol>
-          <li *ngFor='let itemRequired of required'>{{ itemRequired }}: {{3}}</li>
+          <li *ngFor='let itemRequired of required'>{{ itemRequired }}: {{ currentRequired?.itemRequired }}</li>
         </ol>
       </div>
     </div>
@@ -13,7 +13,7 @@
       <p>Optional: {{1}}</p>
       <div class="types">
         <ol>
-          <li *ngFor='let itemOptional of optional'>{{ itemOptional }}: {{1}}</li>
+          <li *ngFor='let itemOptional of optional'>{{ itemOptional }}: {{ffd}}</li>
         </ol>
       </div>
     </div>
