@@ -1,12 +1,20 @@
 import { Component, OnInit } from '@angular/core';
 import { FilterDataService } from '../../../services/filter-data.service';
 
-interface RequiredObject {
+interface RequireObject {
   food: any,
   rent: any,
   child: any,
   gym: any,
   required: any,
+}
+
+interface OptionalObject {
+  clothes: any,
+  petrol: any,
+  present: any,
+  other: any,
+  optional: any,
 }
 
 @Component({
@@ -22,56 +30,56 @@ export class ReportFormComponent implements OnInit {
   optional: Array<string> = ['clothes', 'petrol', 'present', 'other'];
   users: Array<string> = ['Vitali', 'Nastya'];
 
-  listCoasts: Array<object>;
+  // listCoasts: Array<object>;
   listIncomes: Array<object>;
 
   total: number;
-
-  currentRequired: RequiredObject = {
-    food: '',
-    rent: '',
-    child: '',
-    gym: '',
-    required: 6,
-  };
+  currentRequired: RequireObject;
+  currentOptional: OptionalObject;
 
   constructor(private filterDataService: FilterDataService ) { }
 
   ngOnInit() {
 
     this.filterDataService.currentMessageListCoasts.subscribe(data => {
-      this.listCoasts = data;
-      console.log('this.listCoasts', this.listCoasts)
-      const food = data.filter(obj => obj.type === 'food').reduce((acc, cur) => acc + cur.price, 0);
-      const rent = data.filter(obj => obj.type === 'rent').reduce((acc, cur) => acc + cur.price, 0);
-      const child = data.filter(obj => obj.type === 'child').reduce((acc, cur) => acc + cur.price, 0);
-      const gym = data.filter(obj => obj.type === 'gym').reduce((acc, cur) => acc + cur.price, 0);
+      let food, rent, child, gym, required, clothes, petrol, present, other, optional;
+      if (data.length) {
+        food = +data.filter(obj => obj.type === 'food').reduce((acc, cur) => acc + cur.price, 0).toFixed(2);
+        rent = +data.filter(obj => obj.type === 'rent').reduce((acc, cur) => acc + cur.price, 0).toFixed(2);
+        child = +data.filter(obj => obj.type === 'child').reduce((acc, cur) => acc + cur.price, 0).toFixed(2);
+        gym = +data.filter(obj => obj.type === 'gym').reduce((acc, cur) => acc + cur.price, 0).toFixed(2);
 
+        clothes = +data.filter(obj => obj.type === 'clothes').reduce((acc, cur) => acc + cur.price, 0).toFixed(2);
+        petrol = +data.filter(obj => obj.type === 'petrol').reduce((acc, cur) => acc + cur.price, 0).toFixed(2);
+        present = +data.filter(obj => obj.type === 'present').reduce((acc, cur) => acc + cur.price, 0).toFixed(2);
+        other = +data.filter(obj => obj.type === 'other').reduce((acc, cur) => acc + cur.price, 0).toFixed(2);
+
+        required = +(food + rent + child + gym).toFixed(2);
+        optional = +(clothes + petrol + present + other).toFixed(2);
+      } else {
+        food = rent = child = gym = required = clothes = petrol = present = other = optional = '';
+      }
 
       this.currentRequired = {
         food: food,
         rent: rent,
         child: child,
         gym: gym,
-        required: food + rent + child + gym,
+        required: required,
       };
 
-      console.log(this.currentRequired.child)
-
-    //   console.log(data)
-    //   this.total = data.reduce((acc, cur) => acc + cur.price, 0);
-    //   this.currentRequired.food = data.filter(obj => obj.type === 'food').reduce((acc, cur) => acc + cur.price, 0);
-    //   console.log('gg', data.filter(obj => obj.type === 'child').reduce((acc, cur) => acc + cur.price, 0))
-    //   this.currentRequired.rent = data.filter(obj => obj.type === 'rent').reduce((acc, cur) => acc + cur.price, 0);
-    //   this.currentRequired.child = data.filter(obj => obj.type === 'child').reduce((acc, cur) => acc + cur.price, 0);
-    //   this.currentRequired.gym = data.filter(obj => obj.type === 'gym').reduce((acc, cur) => acc + cur.price, 0);
-    //   this.currentRequired.required = this.currentRequired.food + this.currentRequired.rent + this.currentRequired.child + this.currentRequired.gym;
-
-    //  console.log(this.total)
-
+      this.currentOptional = {
+        clothes: clothes,
+        petrol: petrol,
+        present: present,
+        other: other,
+        optional: optional,
+      }
     });
 
-    this.filterDataService.currentMessageListIncomes.subscribe(data => this.listIncomes = data);
+    this.filterDataService.currentMessageListIncomes.subscribe(data => {
+
+    });
 
   }
 
