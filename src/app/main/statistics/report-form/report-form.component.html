@@ -5,7 +5,7 @@
       <p>Required: {{ currentRequired?.required }}</p>
       <div class="types">
         <ol>
-          <li *ngFor='let itemRequired of required'>{{ itemRequired }}: {{ currentRequired?.itemRequired }}</li>
+          <li *ngFor='let itemRequired of required'>{{ itemRequired }}: {{ currentRequired[itemRequired] }}</li>
         </ol>
       </div>
     </div>
