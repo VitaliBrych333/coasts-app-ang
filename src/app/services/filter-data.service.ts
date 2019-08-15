@@ -15,10 +15,10 @@ export class FilterDataService {
   constructor() { }
 
   changeSourceListCoasts(newArray: Array<object>) {
-    this.listCoastsSource.next(newArray)
+    this.listCoastsSource.next(newArray);
   }
 
   changeSourceListIncomes(newArray: Array<object>) {
-    this.listIncomesSource.next(newArray)
+    this.listIncomesSource.next(newArray);
   }
 }

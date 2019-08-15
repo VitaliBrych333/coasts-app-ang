@@ -6,7 +6,7 @@ import { DataService } from '../../services/data.service';
 import { NewField } from '../field.model';
 import { MatSort } from '@angular/material/sort';
 import { ModalDialogComponent } from '../modal-dialog/modal-dialog.component';
-import { ISubscription } from "rxjs/Subscription";
+import { ISubscription } from 'rxjs/Subscription';
 /**
  * @title Table with pagination
  */
@@ -38,7 +38,7 @@ export class FieldListComponent implements OnInit, OnDestroy {
       data.forEach(obg => obg.position = (data.indexOf(obg) + 1));
       this.listData = data;
       this.createTable(this.listData);
-    })
+    });
   }
 
   ngOnDestroy() {
@@ -58,18 +58,18 @@ export class FieldListComponent implements OnInit, OnDestroy {
     componentRef.instance.fieldDelete = fieldDelete;
 
     componentRef.instance.deleteItem.subscribe((state: boolean) => {
-      if(state) {
+      if (state) {
         this.listData = this.listData.filter(obg => obg._id !== fieldDelete._id);
         this.createTable(this.listData);
       }
 
       componentRef.destroy();
       componentRef = null;
-    })
+    });
   }
 
   editField(fieldEdit: NewField): void {
-    this.router.navigate([`/purchases/${fieldEdit._id}`])
+    this.router.navigate([`/purchases/${fieldEdit._id}`]);
   }
 
 

@@ -22,7 +22,14 @@
   <div class="incomes">
     <p>Incomes total: {{1}}</p>
     <div class="person">
-      <p *ngFor='let user of users'>{{ user }}: {{1}}</p>
+      <div *ngFor='let user of users'>
+          <p>{{ user }}: {{1}}</p>
+          <div class="types">
+            <ol>
+              <li *ngFor='let typeIncome of typesIncomes'>{{ typeIncome }}: {{ currentOptional[itemOptional]}}</li>
+            </ol>
+          </div>
+      </div>
     </div>
   </div>
   <div>
