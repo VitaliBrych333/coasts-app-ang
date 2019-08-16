@@ -20,14 +20,16 @@
   </div>
 
   <div class="incomes">
-    <p>Incomes total: {{1}}</p>
+    <p>Incomes total: {{incomeTotal}}</p>
     <div class="person">
       <div *ngFor='let user of users'>
-          <p>{{ user }}: {{1}}</p>
+          <p>{{ user }}: {{allUsers[user].total}}</p>
           <div class="types">
             <ol>
-              <li *ngFor='let typeIncome of typesIncomes'>{{ typeIncome }}: {{ currentOptional[itemOptional]}}</li>
-            </ol>
+              <ng-container *ngFor='let typeIncome of typesIncomes'>
+                <li *ngIf='checkValue(allUsers[user][typeIncome])'>{{ typeIncome }}: {{ allUsers[user][typeIncome] }}</li>
+              </ng-container>
+            </ol>          
           </div>
       </div>
     </div>
