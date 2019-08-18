@@ -1,8 +1,8 @@
 <div class="wrapper">
   <div class="costs">
-    <p>Costs total: {{total}}</p>
+    <p>Costs total: <span>{{ coastsTotal }}</span></p>
     <div class="required">
-      <p>Required: {{ currentRequired.required }}</p>
+      <p>Required: <span>{{ currentRequired.required }}</span></p>
       <div class="types">
         <ol>
           <li *ngFor='let itemRequired of required'>{{ itemRequired }}: {{ currentRequired[itemRequired] }}</li>
@@ -10,31 +10,33 @@
       </div>
     </div>
     <div class="optional">
-      <p>Optional: {{currentOptional.optional}}</p>
+      <p>Optional: <span>{{ currentOptional.optional }}</span></p>
       <div class="types">
         <ol>
-          <li *ngFor='let itemOptional of optional'>{{ itemOptional }}: {{ currentOptional[itemOptional]}}</li>
+          <li *ngFor='let itemOptional of optional'>{{ itemOptional }}: {{ currentOptional[itemOptional] }}</li>
         </ol>
       </div>
     </div>
   </div>
 
   <div class="incomes">
-    <p>Incomes total: {{incomeTotal}}</p>
+    <p>Incomes total: <span>{{ incomesTotal }}</span></p>
     <div class="person">
-      <div *ngFor='let user of users'>
-          <p>{{ user }}: {{allUsers[user].total}}</p>
+      <div *ngFor="let user of users">
+          <p>{{ user }}: <span>{{ allUsers[user].total }}</span></p>
           <div class="types">
             <ol>
               <ng-container *ngFor='let typeIncome of typesIncomes'>
-                <li *ngIf='checkValue(allUsers[user][typeIncome])'>{{ typeIncome }}: {{ allUsers[user][typeIncome] }}</li>
+                <li *ngIf="checkValue(allUsers[user][typeIncome])">{{ typeIncome }}: {{ allUsers[user][typeIncome] }}</li>
               </ng-container>
-            </ol>          
+            </ol>
           </div>
       </div>
     </div>
   </div>
   <div>
-    <p>Accumulation: {{1}}</p>
+    <p>Accumulation:
+      <span>{{ balanse }}</span>
+    </p>
   </div>
 </div>

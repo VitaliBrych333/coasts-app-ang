@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { MatRadioButton, MatRadioChange } from '@angular/material/radio';
 import { DataService } from '../../../services/data.service';
 import { NewField } from '../../field.model';
@@ -6,6 +6,7 @@ import { NewIncome } from '../../income.model';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { MatInput } from '@angular/material';
 import { FilterDataService } from '../../../services/filter-data.service';
+import { ISubscription } from 'rxjs/Subscription';
 
 interface Mounth {
   id: number;
@@ -17,7 +18,7 @@ interface Mounth {
   styleUrls: ['./filters.component.css']
 })
 
-export class FiltersComponent implements OnInit {
+export class FiltersComponent implements OnInit, OnDestroy {
   @ViewChild('inputFrom', { read: MatInput, static: false}) inputFrom: MatInput;
   @ViewChild('inputTo', { read: MatInput, static: false}) inputTo: MatInput;
 
@@ -49,6 +50,9 @@ export class FiltersComponent implements OnInit {
   arrayIdMounths: Array<number> = [];
   selectedYear: number;
 
+  subscriptionGetAllFields: ISubscription;
+  subscriptionGetAllFieldsIncomes: ISubscription;
+
   constructor(private dataService: DataService,
               private filterDataService: FilterDataService) { }
 
@@ -57,12 +61,18 @@ export class FiltersComponent implements OnInit {
       this.mounths.push({ id: i, name: c });
     });
 
-    this.dataService.getAllFields().subscribe(data => {
+    this.subscriptionGetAllFields = this.dataService.getAllFields().subscribe(data => {
       this.listCoasts = data;
     });
-    this.dataService.getAllFieldsIncomes().subscribe(data => {
+    this.subscriptionGetAllFieldsIncomes = this.dataService.getAllFieldsIncomes().subscribe(data => {
       this.listIncomes = data;
     });
+  }
+
+  ngOnDestroy() {
+    this.onChange();
+    this.subscriptionGetAllFields.unsubscribe();
+    this.subscriptionGetAllFieldsIncomes.unsubscribe();
   }
 
   setDate(value: Date): Date {

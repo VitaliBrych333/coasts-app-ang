@@ -1,0 +1,10 @@
+1. include loadash library:
+  1.1 unsubscribe from all subscriptions
+  1.2 change metodes in different modules on loadash functions (for ins.sumKeysObject??? report-form.component)
+2. realize lifecycle onDestroy where it's necessary (unsubscribe metodes)
+3. realize register before entry in app
+  3.1 show name user in header component
+4. rewrite css to scss
+5. write tests
+6. optimize algoritmes filtres in report-form.component
+7. delete any type

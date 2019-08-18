@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild, ElementRef, ContentChild, DoCheck } from '@angular/core';
 import { FilterDataService } from '../../../services/filter-data.service';
 import { ISubscription } from 'rxjs/Subscription';
 
@@ -24,15 +24,16 @@ interface OptionalObject {
   styleUrls: ['./report-form.component.css']
 })
 
-export class ReportFormComponent implements OnInit, OnDestroy {
+export class ReportFormComponent implements OnInit, OnDestroy, DoCheck {
 
   required: Array<string> = ['food', 'rent', 'child', 'gym'];
   optional: Array<string> = ['clothes', 'petrol', 'present', 'other'];
   typesIncomes: Array<string> = ['salary', 'sick leave', 'child benefit', 'present', 'holiday pay'];
   users: Array<string> = ['Vitali', 'Nastya'];
 
-  total: number;
-  incomeTotal: number;
+  coastsTotal: number;
+  incomesTotal: number;
+  balanse: number;
 
   currentRequired: RequireObject;
   currentOptional: OptionalObject;
@@ -42,12 +43,14 @@ export class ReportFormComponent implements OnInit, OnDestroy {
     Nastya: {},
   };
 
-  subscriptionGetAllFields: ISubscription;
+  subscriptionGetAllCoasts: ISubscription;
+  subscriptionGetAllIncomes: ISubscription;
 
   constructor(private filterDataService: FilterDataService ) { }
 
   ngOnInit() {
-    this.subscriptionGetAllFields = this.filterDataService.currentMessageListCoasts.subscribe(data => {
+
+    this.subscriptionGetAllCoasts = this.filterDataService.currentMessageListCoasts.subscribe(data => {
       let food, rent, child, gym, required, clothes, petrol, present, other, optional;
 
       if (data.length) {
@@ -63,8 +66,10 @@ export class ReportFormComponent implements OnInit, OnDestroy {
 
         required = +(food + rent + child + gym).toFixed(2);
         optional = +(clothes + petrol + present + other).toFixed(2);
+        this.coastsTotal = +(required + optional).toFixed(2);
+
       } else {
-        food = rent = child = gym = required = clothes = petrol = present = other = optional = null;
+        this.coastsTotal = food = rent = child = gym = required = clothes = petrol = present = other = optional = null;
       }
 
       this.currentRequired = {
@@ -84,11 +89,11 @@ export class ReportFormComponent implements OnInit, OnDestroy {
       };
     });
 
-    this.filterDataService.currentMessageListIncomes.subscribe(data => {
+    this.subscriptionGetAllIncomes = this.filterDataService.currentMessageListIncomes.subscribe(data => {
 
       if (data.length) {
         this.users.forEach(user => {
-
+          this.allUsers[user].total = null;
           this.typesIncomes.forEach(type => {
             this.allUsers[user][type] = +data.filter(obj => obj.who === user)
                         .filter(obj => obj.type === type)
@@ -99,6 +104,8 @@ export class ReportFormComponent implements OnInit, OnDestroy {
           this.allUsers[user].total = this.sumKeysObject(this.allUsers[user]);
         });
 
+        this.incomesTotal =  +(this.allUsers.Vitali.total + this.allUsers.Nastya.total).toFixed(2);
+
       } else {
         this.users.forEach(user => {
           this.typesIncomes.forEach(type => {
@@ -106,17 +113,23 @@ export class ReportFormComponent implements OnInit, OnDestroy {
           });
 
           this.allUsers[user].total = null;
+          this.incomesTotal = null;
         });
       }
-
-      this.incomeTotal =  +(this.allUsers.Vitali.total + this.allUsers.Nastya.total).toFixed(2);
     });
   }
 
   ngOnDestroy() {
-    console.log('fffffffffff');
-    //TODO: new EventEmitter to clear data
-    this.subscriptionGetAllFields.unsubscribe();
+    this.subscriptionGetAllCoasts.unsubscribe();
+    this.subscriptionGetAllIncomes.unsubscribe();
+  }
+
+  ngDoCheck() {
+    if((this.coastsTotal || this.coastsTotal === 0) && (this.incomesTotal || this.incomesTotal === 0)) {
+      this.balanse = +(this.incomesTotal - this.coastsTotal).toFixed(2);
+    } else {
+      this.balanse = null;
+    }
   }
 
   checkValue(value: any) {
