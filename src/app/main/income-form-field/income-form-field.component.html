@@ -16,7 +16,6 @@
     <mat-form-field>
       <mat-label>Who got money</mat-label>
       <mat-select formControlName="who">
-        <mat-option>--</mat-option>
         <mat-option *ngFor="let person of persons" [value]="person">
           {{person}}
         </mat-option>
@@ -30,7 +29,6 @@
     <mat-form-field>
       <mat-label>Type</mat-label>
       <mat-select formControlName="type">
-        <mat-option>--</mat-option>
         <mat-option *ngFor="let type of types" [value]="type">
           {{type}}
         </mat-option>
