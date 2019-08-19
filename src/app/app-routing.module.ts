@@ -11,6 +11,7 @@ import { IncomesListComponent } from './main/incomes-list/incomes-list.component
 import { EditComponent } from './main/edit/edit.component';
 import { EditIncomeComponent } from './main/edit-income/edit-income.component';
 import { StatisticsComponent } from './main/statistics/statistics.component';
+import { GraphsComponent } from './main/graphs/graphs.component';
 import { AuthGuard } from './auth.guard';
 
 const routes: Routes = [
@@ -21,6 +22,7 @@ const routes: Routes = [
   { path: 'purchases/:id', component: EditComponent, canActivate: [AuthGuard] },
   { path: 'incomes/:id', component: EditIncomeComponent, canActivate: [AuthGuard] },
   { path: 'statistics', component: StatisticsComponent, canActivate: [AuthGuard] },
+  { path: 'graphs', component: GraphsComponent, canActivate: [AuthGuard] },
   { path: 'main', component: ButtonsComponent, canActivate: [AuthGuard] },
   { path: 'login', component: LoginComponent },
   { path: '', redirectTo: 'login', pathMatch: 'full'},

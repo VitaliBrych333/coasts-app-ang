@@ -29,7 +29,9 @@ import { MatInputModule } from '@angular/material';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { ReportFormComponent } from './statistics/report-form/report-form.component';
 import { FiltersComponent } from './statistics/filters/filters.component';
-
+import { GraphsComponent } from './graphs/graphs.component';
+import { ChartsModule } from 'ng2-charts';
+import { SheduleComponent } from './graphs/shedule/shedule.component';
 
 @NgModule({
   declarations: [ FormComponent,
@@ -45,7 +47,9 @@ import { FiltersComponent } from './statistics/filters/filters.component';
                   EditIncomeComponent,
                   StatisticsComponent,
                   ReportFormComponent,
-                  FiltersComponent],
+                  FiltersComponent,
+                  GraphsComponent,
+                  SheduleComponent],
   imports: [
     CommonModule,
     ReactiveFormsModule,
@@ -61,6 +65,7 @@ import { FiltersComponent } from './statistics/filters/filters.component';
     MatNativeDateModule,
     MatInputModule,
     NgSelectModule,
+    ChartsModule
 
   ],
 

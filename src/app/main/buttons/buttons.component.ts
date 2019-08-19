@@ -13,6 +13,7 @@ export class ButtonsComponent implements OnInit {
   stateTree: boolean = false;
   stateFour: boolean = false;
   stateFive: boolean = false;
+  stateSix: boolean = false;
 
   constructor(private router: Router) { }
 
@@ -33,6 +34,9 @@ export class ButtonsComponent implements OnInit {
         break;
       case '/statistics':
           this.stateFive = true;
+          break;
+      case '/graphs':
+          this.stateSix = true;
           break;
       default:
         // code block
@@ -62,6 +66,10 @@ export class ButtonsComponent implements OnInit {
 
   getStatistics(): void {
     this.router.navigate(['/statistics']);
+  }
+
+  showGraphs(): void {
+    this.router.navigate(['/graphs']);
   }
 
 }

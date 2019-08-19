@@ -20,7 +20,7 @@ import { LoadingScreenInterceptor } from './core/loading-screen/loading.intercep
 @NgModule({
   declarations: [
     AppComponent,
-   
+
 
   ],
   imports: [
@@ -30,7 +30,7 @@ import { LoadingScreenInterceptor } from './core/loading-screen/loading.intercep
     LogModule,
     CoreModule,
     HttpClientModule,
-    FlexLayoutModule,
+    FlexLayoutModule
   ],
   providers: [ {
     provide: HTTP_INTERCEPTORS,
