@@ -1,8 +1,24 @@
 .flex {
   display: flex;
   flex-direction: column;
+  justify-content: center
+
 }
 
-/* canvas.chartjs-render-monitor {
-  height: 500px
-} */
+canvas {
+  height: calc(100vh - 350px) !important;
+}
+
+.flex-item:nth-child(2) {
+  margin: 0 auto;
+}
+
+table {
+  border-spacing: 10px;
+}
+
+.container {
+  display: flex;
+  justify-content: space-around;
+
+}
