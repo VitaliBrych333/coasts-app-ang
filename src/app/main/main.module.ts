@@ -32,6 +32,7 @@ import { FiltersComponent } from './statistics/filters/filters.component';
 import { GraphsComponent } from './graphs/graphs.component';
 import { ChartsModule } from 'ng2-charts';
 import { SheduleComponent } from './graphs/shedule/shedule.component';
+import { FilterComponent } from './graphs/filter/filter.component';
 
 @NgModule({
   declarations: [ FormComponent,
@@ -49,7 +50,8 @@ import { SheduleComponent } from './graphs/shedule/shedule.component';
                   ReportFormComponent,
                   FiltersComponent,
                   GraphsComponent,
-                  SheduleComponent],
+                  SheduleComponent,
+                  FilterComponent],
   imports: [
     CommonModule,
     ReactiveFormsModule,

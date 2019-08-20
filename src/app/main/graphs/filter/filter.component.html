@@ -1,0 +1,52 @@
+<div class="container">
+  <h3>Please, choose parameters for filter</h3>
+  <mat-radio-group aria-label="Select an option" (change)="onChange($event)">
+    <mat-radio-button value="checkDate" color="warn" checked>Anniversary</mat-radio-button>
+    <mat-radio-button value="checkMounth" color="warn">On years</mat-radio-button>
+  </mat-radio-group>
+
+  <div class="criterion">
+
+    <div class="select" [ngClass]="{disabled: checkMounth}">
+      <mat-form-field>
+        <mat-label>Year</mat-label>
+        <mat-select (selectionChange)="filterFormYear($event.value)" [(value)]="selectedYear">
+          <mat-option *ngFor="let year of years" [value]="year">
+            {{year}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <p>Please, choose an parameter:</p>
+      <ng-select [items]="mounths"
+                 [addTag]="addTagFn"
+                 [hideSelected]="true"
+                 multiple="true"
+                 bindLabel="name"
+                 [(ngModel)]="selectedMounth"
+                 (change)="filterFormMounth($event)">
+      </ng-select>
+    </div>
+
+    <div class="select" [ngClass]="{disabled: checkMounth}">
+        <p>Please, select years:</p>
+        <ng-select [items]="mounths"
+                   [addTag]="addTagFn"
+                   [hideSelected]="true"
+                   multiple="true"
+                   bindLabel="name"
+                   [(ngModel)]="selectedMounth"
+                   (change)="filterFormMounth($event)">
+        </ng-select>
+
+        <mat-form-field>
+          <mat-label>Parameter</mat-label>
+          <mat-select (selectionChange)="filterFormYear($event.value)" [(value)]="selectedYear">
+            <mat-option *ngFor="let year of years" [value]="year">
+              {{year}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+  </div>
+</div>

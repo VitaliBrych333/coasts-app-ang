@@ -1,24 +1,30 @@
 .flex {
   display: flex;
   flex-direction: column;
-  justify-content: center
+  justify-content: center;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.wrapper {
+  display: flex;
+  justify-content: space-around;
 
 }
 
 canvas {
-  height: calc(100vh - 350px) !important;
+  height: calc(100vh - 410px) !important;
 }
 
-.flex-item:nth-child(2) {
+/* .flex-item:nth-child(2) {
   margin: 0 auto;
-}
+} */
 
 table {
   border-spacing: 10px;
 }
 
-.container {
+.container-button {
   display: flex;
   justify-content: space-around;
-
 }
