@@ -17,7 +17,6 @@ export class FilterComponent implements OnInit, OnDestroy {
 
   someYears: boolean = true;
   oneYear: boolean = false;
-
   // startDate = new Date(2019, 0, 1);
 
   // selectedMounth: string;
@@ -31,11 +30,8 @@ export class FilterComponent implements OnInit, OnDestroy {
                                'holiday pay', 'incomes total', 'incomes Vitali', 'incomes Nastya',
                                'coasts total', 'coasts required', 'coasts optional', 'accumulation'];
 
-
-
-
-  // listCoasts: NewField[];
-  // listIncomes: NewIncome[];
+  listCoasts: NewField[];
+  listIncomes: NewIncome[];
 
   // currentListCoasts: NewField[];
   // currentListIncomes: NewIncome[];
@@ -50,9 +46,13 @@ export class FilterComponent implements OnInit, OnDestroy {
 
   // arrayIdMounths: Array<number> = [];
   selectedYear: number;
+  selectedParameters: string[];
+
+  selectedYears: number[];
   selectedParameter: string;
-  // subscriptionGetAllFields: ISubscription;
-  // subscriptionGetAllFieldsIncomes: ISubscription;
+
+  subscriptionGetAllFields: ISubscription;
+  subscriptionGetAllFieldsIncomes: ISubscription;
 
   constructor(private dataService: DataService,
               private filterDataService: FilterDataService) { }
@@ -62,18 +62,30 @@ export class FilterComponent implements OnInit, OnDestroy {
   //     this.mounths.push({ id: i, name: c });
   //   });
 
-  //   this.subscriptionGetAllFields = this.dataService.getAllFields().subscribe(data => {
-  //     this.listCoasts = data;
-  //   });
-  //   this.subscriptionGetAllFieldsIncomes = this.dataService.getAllFieldsIncomes().subscribe(data => {
-  //     this.listIncomes = data;
-  //   });
+    this.subscriptionGetAllFields = this.dataService.getAllFields().subscribe(data => {
+      this.listCoasts = data;
+    });
+    this.subscriptionGetAllFieldsIncomes = this.dataService.getAllFieldsIncomes().subscribe(data => {
+      this.listIncomes = data;
+    });
   }
 
   ngOnDestroy() {
     // this.onChange();
     // this.subscriptionGetAllFields.unsubscribe();
     // this.subscriptionGetAllFieldsIncomes.unsubscribe();
+  }
+
+  filterAnniversary(event: []) {
+    // console.log('ddd', this.selectedYear)
+    // console.log('rrrr', this.selectedParameters)
+    // console.log('JJJJJJJJJJ', event)
+  }
+
+  filterYears(event: []) {
+    // console.log('SSSSSSSSSSSSS', this.selectedYears)
+    // console.log('RRRRRRR', this.selectedParameter)
+    // console.log('JJJJJJJJJJ', event)
   }
 
   // setDate(value: Date): Date {
@@ -208,6 +220,12 @@ export class FilterComponent implements OnInit, OnDestroy {
   // }
 
   onChange() {
+    this.selectedYear = null;
+    this.selectedParameter = null;
+
+    this.selectedYears = null;
+    this.selectedParameters = null;
+
     this.oneYear = !this.oneYear;
     this.someYears = !this.someYears;
 
@@ -222,8 +240,7 @@ export class FilterComponent implements OnInit, OnDestroy {
     // this.minDateTo = new Date(2018, 0, 1);
     // this.maxDateTo = new Date();
 
-    this.selectedYear = null;
-    this.selectedParameter = null;
+
     // this.arrayIdMounths = [];
 
     // this.filterDataService.changeSourceListCoasts([]);
