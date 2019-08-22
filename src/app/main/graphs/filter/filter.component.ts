@@ -7,7 +7,7 @@ import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { MatInput } from '@angular/material';
 import { FilterDataService } from '../../../services/filter-data.service';
 import { ISubscription } from 'rxjs/Subscription';
-
+import * as _ from 'lodash';
 @Component({
   selector: 'app-filter',
   templateUrl: './filter.component.html',
@@ -71,6 +71,7 @@ export class FilterComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
+    if ()
     // this.onChange();
     // this.subscriptionGetAllFields.unsubscribe();
     // this.subscriptionGetAllFieldsIncomes.unsubscribe();
