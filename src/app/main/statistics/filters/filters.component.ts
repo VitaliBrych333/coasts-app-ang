@@ -53,8 +53,8 @@ export class FiltersComponent implements OnInit, OnDestroy {
   subscriptionGetAllFields: ISubscription;
   subscriptionGetAllFieldsIncomes: ISubscription;
 
-  constructor(private dataService: DataService,
-              private filterDataService: FilterDataService) { }
+  constructor(public dataService: DataService,
+              public filterDataService: FilterDataService) { }
 
   ngOnInit() {
     this.mounthsNames.forEach((c, i) => {
@@ -161,16 +161,16 @@ export class FiltersComponent implements OnInit, OnDestroy {
 
   filterByYearAndByMounth(): void {
     this.currentListCoasts = this.listCoasts
-                                  .filter(obg => (new Date(obg.date).getFullYear() >= this.selectedYear)
+                                  .filter(obg => (new Date(obg.date).getFullYear() === this.selectedYear)
                                                   && (this.arrayIdMounths.includes(new Date(obg.date).getMonth())));
     this.currentListIncomes = this.listIncomes
-                                  .filter(obg => (new Date(obg.date).getFullYear() >= this.selectedYear)
+                                  .filter(obg => (new Date(obg.date).getFullYear() === this.selectedYear)
                                                   && (this.arrayIdMounths.includes(new Date(obg.date).getMonth())));
   }
 
   filterOnlyByYear(): void {
-    this.currentListCoasts = this.listCoasts.filter(obg => new Date(obg.date).getFullYear() >= this.selectedYear);
-    this.currentListIncomes = this.listIncomes.filter(obg => new Date(obg.date).getFullYear() >= this.selectedYear);
+    this.currentListCoasts = this.listCoasts.filter(obg => new Date(obg.date).getFullYear() === this.selectedYear);
+    this.currentListIncomes = this.listIncomes.filter(obg => new Date(obg.date).getFullYear() === this.selectedYear);
   }
 
   filterFormYear(value: number): void {

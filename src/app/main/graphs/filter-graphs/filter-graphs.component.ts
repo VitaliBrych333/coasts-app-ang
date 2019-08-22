@@ -8,12 +8,15 @@ import { MatInput } from '@angular/material';
 import { FilterDataService } from '../../../services/filter-data.service';
 import { ISubscription } from 'rxjs/Subscription';
 import * as _ from 'lodash';
+
+import { FiltersComponent } from '../../statistics/filters/filters.component';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 @Component({
-  selector: 'app-filter',
-  templateUrl: './filter.component.html',
-  styleUrls: ['./filter.component.css']
+  selector: 'app-filter-graphs',
+  templateUrl: './filter-graphs.component.html',
+  styleUrls: ['./filter-graphs.component.css']
 })
-export class FilterComponent implements OnInit, OnDestroy {
+export class FilterGraphsComponent extends FiltersComponent implements OnInit, OnDestroy {
 
   someYears: boolean = true;
   oneYear: boolean = false;
@@ -54,8 +57,8 @@ export class FilterComponent implements OnInit, OnDestroy {
   subscriptionGetAllFields: ISubscription;
   subscriptionGetAllFieldsIncomes: ISubscription;
 
-  constructor(private dataService: DataService,
-              private filterDataService: FilterDataService) { }
+  constructor(public dataService: DataService,
+              public filterDataService: FilterDataService) { super(dataService, filterDataService); }
 
   ngOnInit() {
   //   this.mounthsNames.forEach((c, i) => {
@@ -71,19 +74,35 @@ export class FilterComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    if ()
-    // this.onChange();
-    // this.subscriptionGetAllFields.unsubscribe();
-    // this.subscriptionGetAllFieldsIncomes.unsubscribe();
+    this.onChange();
+    this.subscriptionGetAllFields.unsubscribe();
+    this.subscriptionGetAllFieldsIncomes.unsubscribe();
   }
 
   filterAnniversary(event: []) {
+    if (_.isNil(this.selectedYear) || _.isNil(this.selectedParameters) || this.selectedParameters.length === 0) {
+      return;
+    }
+
+    this.filterOnlyByYear();
+
+    this.currentListCoasts = this.currentListCoasts.filter(obg => this.selectedParameters.includes(obg.type));
+
+
+
+    // this.listCoasts.filter(obj => )
+    // console.log('ddddddddd', this.listCoasts)
+    // console.log('ddd', this.selectedYear, this.selectedParameters )
     // console.log('ddd', this.selectedYear)
     // console.log('rrrr', this.selectedParameters)
     // console.log('JJJJJJJJJJ', event)
   }
 
   filterYears(event: []) {
+    if (_.isNil(this.selectedParameter) || _.isNil(this.selectedYears) || this.selectedYears.length === 0) {
+      return;
+    }
+    console.log('fffffff', event)
     // console.log('SSSSSSSSSSSSS', this.selectedYears)
     // console.log('RRRRRRR', this.selectedParameter)
     // console.log('JJJJJJJJJJ', event)
