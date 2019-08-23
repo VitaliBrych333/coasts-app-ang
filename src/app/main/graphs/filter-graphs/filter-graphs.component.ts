@@ -29,9 +29,17 @@ export class FilterGraphsComponent extends FiltersComponent implements OnInit, O
   years: Array<number> = [2019, 2020];
   parameters: Array<string> = ['food', 'rent', 'child', 'gym',
                                'clothes', 'petrol', 'present', 'other',
-                               'salary', 'sick leave', 'child benefit', 'present',
+                               'salary', 'sick leave', 'child benefit', 'gift',
                                'holiday pay', 'incomes total', 'incomes Vitali', 'incomes Nastya',
                                'coasts total', 'coasts required', 'coasts optional', 'accumulation'];
+// TODO concat some arrays instead to one big array
+  coastsRequired: Array<string> = ['food', 'rent', 'child', 'gym'];
+  coastsOptional: Array<string> = ['clothes', 'petrol', 'present', 'other'];
+  incomesTotal: Array<string> = ['salary', 'sick leave', 'child benefit', 'gift', 'holiday pay'];
+  incomesUsers: Array<string> = ['incomes Vitali', 'incomes Nastya'];
+  coastsKinds: Array<string> = ['coasts required', 'coasts optional'];
+
+
 
   listCoasts: NewField[];
   listIncomes: NewIncome[];
@@ -85,6 +93,50 @@ export class FilterGraphsComponent extends FiltersComponent implements OnInit, O
     }
 
     this.filterOnlyByYear();
+    this.selectedParameters.forEach(value => {
+      let newDataGraphs: Array<object>;
+
+      if (this.coastsRequired.includes(value) || this.coastsOptional.includes(value)) {
+        newDataGraphs = this.currentListCoasts.filter(obj => obj.type === value);
+
+      } else if (this.incomesTotal.includes(value)) {
+        newDataGraphs = this.currentListIncomes.filter(obj => obj.type === value);
+
+      } else if (this.incomesUsers.includes(value)) {
+        newDataGraphs = this.currentListIncomes.filter(obj => obj.who === value.slice(8));
+
+      } else {
+
+        switch(value) {
+          case 'coasts required':
+            newDataGraphs = this.currentListCoasts.filter(obj => this.coastsRequired.includes(obj.type));
+            break;
+          case 'coasts optional':
+            newDataGraphs = this.currentListCoasts.filter(obj => this.coastsOptional.includes(obj.type));
+            break;
+          case 'coasts total':
+            newDataGraphs = this.currentListCoasts;
+            break;
+          case 'incomes total':
+            newDataGraphs = this.currentListIncomes;
+            break;
+          case 'accumulation':
+            let tempListCoasts = this.currentListCoasts.slice();
+            let tempListIncomes = this.currentListIncomes.slice() as any;
+
+            tempListCoasts.forEach(obj => obj.price = -obj.price);
+            newDataGraphs = tempListIncomes.concat(tempListCoasts);
+            break;
+          default:
+            break;
+        }
+
+      }
+
+
+    })
+
+
 
     this.currentListCoasts = this.currentListCoasts.filter(obg => this.selectedParameters.includes(obg.type));
 

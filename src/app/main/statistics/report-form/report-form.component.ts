@@ -30,7 +30,7 @@ export class ReportFormComponent implements OnInit, OnDestroy {
 
   required: Array<string> = ['food', 'rent', 'child', 'gym'];
   optional: Array<string> = ['clothes', 'petrol', 'present', 'other'];
-  typesIncomes: Array<string> = ['salary', 'sick leave', 'child benefit', 'present', 'holiday pay'];
+  typesIncomes: Array<string> = ['salary', 'sick leave', 'child benefit', 'gift', 'holiday pay'];
   users: Array<string> = ['Vitali', 'Nastya'];
 
   coastsTotal: number;
