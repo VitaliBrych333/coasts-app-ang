@@ -12,6 +12,9 @@ export class FilterDataService {
   private listIncomesSource = new BehaviorSubject([]);
   currentMessageListIncomes = this.listIncomesSource.asObservable();
 
+  private arrayDataCompare = new BehaviorSubject([]);
+  currentDataCompare = this.arrayDataCompare.asObservable();
+
   constructor() { }
 
   changeSourceListCoasts(newArray: Array<object>) {
@@ -20,5 +23,9 @@ export class FilterDataService {
 
   changeSourceListIncomes(newArray: Array<object>) {
     this.listIncomesSource.next(newArray);
+  }
+
+  changeSourceDataCompare(newArray: Array<object>) {
+    this.arrayDataCompare.next(newArray);
   }
 }

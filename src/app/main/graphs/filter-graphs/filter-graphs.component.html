@@ -10,7 +10,7 @@
     <div class="select" [ngClass]="{disabled: oneYear}">
       <mat-form-field>
         <mat-label>Year</mat-label>
-        <mat-select (selectionChange)="filterAnniversary($event)" [(value)]="selectedYear">
+        <mat-select (selectionChange)="filterAnniversary()" [(value)]="selectedYear">
           <mat-option *ngFor="let year of years" [value]="year">
             {{year}}
           </mat-option>
@@ -25,9 +25,7 @@
                  bindLabel="name"
                  [(ngModel)]="selectedParameters"
                  maxSelectedItems = 3
-                 (add)="filterAnniversary($event)"
-                 (remove)="remove($event)"
-                 (clear)="clear()">
+                 (change)="filterAnniversary()">
       </ng-select>
     </div>
 

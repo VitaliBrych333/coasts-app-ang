@@ -29,19 +29,15 @@ export class FilterGraphsComponent extends FiltersComponent implements OnInit, O
   // mounthsNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
   years: Array<number> = [2019, 2020];
-  parameters: Array<string> = ['food', 'rent', 'child', 'gym',
-                               'clothes', 'petrol', 'present', 'other',
-                               'salary', 'sick leave', 'child benefit', 'gift',
-                               'holiday pay', 'incomes total', 'incomes Vitali', 'incomes Nastya',
-                               'coasts total', 'coasts required', 'coasts optional', 'accumulation'];
-// TODO concat some arrays instead to one big array
+
   coastsRequired: Array<string> = ['food', 'rent', 'child', 'gym'];
   coastsOptional: Array<string> = ['clothes', 'petrol', 'present', 'other'];
   incomesTotal: Array<string> = ['salary', 'sick leave', 'child benefit', 'gift', 'holiday pay'];
   incomesUsers: Array<string> = ['incomes Vitali', 'incomes Nastya'];
   coastsKinds: Array<string> = ['coasts required', 'coasts optional'];
 
-
+  parameters: Array<string> = this.coastsRequired.concat(this.coastsOptional, this.incomesTotal, this.incomesUsers,
+                                                         this.coastsKinds, 'coasts total', 'incomes total', 'accumulation')
 
   listCoasts: NewField[];
   listIncomes: NewIncome[];
@@ -67,10 +63,13 @@ export class FilterGraphsComponent extends FiltersComponent implements OnInit, O
   subscriptionGetAllFields: ISubscription;
   subscriptionGetAllFieldsIncomes: ISubscription;
 
+  arrayDataCompare: object[] = [];
+
   constructor(public dataService: DataService,
               public filterDataService: FilterDataService) { super(dataService, filterDataService); }
 
   ngOnInit() {
+
   //   this.mounthsNames.forEach((c, i) => {
   //     this.mounths.push({ id: i, name: c });
   //   });
@@ -89,91 +88,71 @@ export class FilterGraphsComponent extends FiltersComponent implements OnInit, O
     this.subscriptionGetAllFieldsIncomes.unsubscribe();
   }
 
-  remove(event) {
-    console.log('ffffffffffffffffffffffffffffffffffff', event)
-  }
+  filterAnniversary() {
+    this.arrayDataCompare = [];
 
-  clear() {
-    console.log('jjjjjjjjjjjjjj')
-  }
-
-  filterAnniversary(event: []) {
     if (_.isNil(this.selectedYear) || _.isNil(this.selectedParameters) || this.selectedParameters.length === 0) {
+      this.filterDataService.changeSourceDataCompare(this.arrayDataCompare);
       return;
     }
 
     this.filterOnlyByYear();
     this.selectedParameters.forEach((value, index) => {
-      if (index === (this.selectedParameters.length - 1)) {
-        let newDataGraphs: Array<object>;
 
-        if (this.coastsRequired.includes(value) || this.coastsOptional.includes(value)) {
+      let newDataGraphs: Array<object>;
+
+      if (this.coastsRequired.includes(value) || this.coastsOptional.includes(value)) {
           newDataGraphs = this.currentListCoasts.filter(obj => obj.type === value);
 
-        } else if (this.incomesTotal.includes(value)) {
-          newDataGraphs = this.currentListIncomes.filter(obj => obj.type === value);
+      } else if (this.incomesTotal.includes(value)) {
+        newDataGraphs = this.currentListIncomes.filter(obj => obj.type === value);
 
-        } else if (this.incomesUsers.includes(value)) {
-          newDataGraphs = this.currentListIncomes.filter(obj => obj.who === value.slice(8));
+      } else if (this.incomesUsers.includes(value)) {
+        newDataGraphs = this.currentListIncomes.filter(obj => obj.who === value.slice(8));
 
-        } else {
+      } else {
 
-          switch (value) {
-            case 'coasts required':
-              newDataGraphs = this.currentListCoasts.filter(obj => this.coastsRequired.includes(obj.type));
-              break;
-            case 'coasts optional':
-              newDataGraphs = this.currentListCoasts.filter(obj => this.coastsOptional.includes(obj.type));
-              break;
-            case 'coasts total':
-              newDataGraphs = this.currentListCoasts;
-              break;
-            case 'incomes total':
-              newDataGraphs = this.currentListIncomes;
-              break;
-            case 'accumulation':
-              let tempListCoasts = this.currentListCoasts.slice();
-              let tempListIncomes = this.currentListIncomes.slice() as any;
+        switch (value) {
+          case 'coasts required':
+            newDataGraphs = this.currentListCoasts.filter(obj => this.coastsRequired.includes(obj.type));
+            break;
+          case 'coasts optional':
+            newDataGraphs = this.currentListCoasts.filter(obj => this.coastsOptional.includes(obj.type));
+            break;
+          case 'coasts total':
+            newDataGraphs = this.currentListCoasts;
+            break;
+          case 'incomes total':
+            newDataGraphs = this.currentListIncomes;
+            break;
+          case 'accumulation':
+            const tempListCoasts = this.currentListCoasts.slice();
+            const tempListIncomes = this.currentListIncomes.slice() as any;
 
-              tempListCoasts.forEach(obj => obj.sum = -obj.sum);
-              newDataGraphs = tempListIncomes.concat(tempListCoasts);
-              break;
-            default:
-              break;
-          }
+            tempListCoasts.forEach(obj => obj.sum = -obj.sum);
+            newDataGraphs = tempListIncomes.concat(tempListCoasts);
+            break;
+          default:
+            break;
         }
-
-        function getSumDataByMonths(newDataGraphs: object[]) {
-          let newData = new Map();
-
-          for (let i = 0; i < 12; i++) {
-            let sumResult = +_.sumBy(newDataGraphs.filter((obj: any) => new Date(obj.date).getMonth() === i), 'sum').toFixed(2);
-            newData.set(i, sumResult);
-          }
-          return newData;
-        }
-
-        let newData = getSumDataByMonths(newDataGraphs);
-        newData.set(12, this.selectedParameters[index]);
-
-        console.log('ttttttttt', newData);
       }
 
+      let newData = this.getSumDataByMonths(newDataGraphs);
+      newData.set(12, this.selectedParameters[index]);
+      this.arrayDataCompare.push(newData);
     });
 
+    this.filterDataService.changeSourceDataCompare(this.arrayDataCompare);
+  }
 
+  private getSumDataByMonths(newDataGraphs: object[]) {
+    let newData = new Map();
 
-
-    // this.currentListCoasts = this.currentListCoasts.filter(obg => this.selectedParameters.includes(obg.type));
-
-
-
-    // this.listCoasts.filter(obj => )
-    // console.log('ddddddddd', this.listCoasts)
-    // console.log('ddd', this.selectedYear, this.selectedParameters )
-    // console.log('ddd', this.selectedYear)
-    // console.log('rrrr', this.selectedParameters)
-    // console.log('JJJJJJJJJJ', event)
+    for (let i = 0; i < 12; i++) {
+      let sumResult = +_.sumBy(newDataGraphs.filter((obj: any) => new Date(obj.date).getMonth() === i), 'sum').toFixed(2);
+      newData.set(i, sumResult);
+    }
+    return newData;
   }
 
   filterYears(event: []) {
@@ -326,7 +305,9 @@ export class FilterGraphsComponent extends FiltersComponent implements OnInit, O
 
     this.oneYear = !this.oneYear;
     this.someYears = !this.someYears;
-
+    //TODO: probable change arrayDataCompare on []
+    this.arrayDataCompare = [];
+    this.filterDataService.changeSourceDataCompare(this.arrayDataCompare);
     // this.currentListCoasts = this.listCoasts;
     // this.currentListIncomes = this.listIncomes;
 
