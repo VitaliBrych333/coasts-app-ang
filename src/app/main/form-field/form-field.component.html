@@ -6,10 +6,10 @@
     <input type="date" id="date" formControlName="date" [min]="dataMin" [max]="dataMax">
   </div>
 
-  <div class="price">
-    <label for="price">Enter a price: </label>
-    <span *ngIf="!field.controls.price.valid && field.controls.price.touched"> *Required </span>
-    <input type="number" id="price" formControlName="price" step="0.01" placeholder="BYR">
+  <div class="sum">
+    <label for="sum">Enter a price: </label>
+    <span *ngIf="!field.controls.sum.valid && field.controls.sum.touched"> *Required </span>
+    <input type="number" id="sum" formControlName="sum" step="0.01" placeholder="BYR">
   </div>
 
   <div>

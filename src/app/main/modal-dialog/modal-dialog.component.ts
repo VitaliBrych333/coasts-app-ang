@@ -19,17 +19,17 @@ export class ModalDialogComponent {
   constructor(private dataService: DataService) { }
 
   cancel(): void {
-    if(this.fieldDelete) this.deleteItem.emit(false);
-    if(this.fieldIncomeDelete) this.deleteItemIcome.emit(false);
+    if (this.fieldDelete) this.deleteItem.emit(false);
+    if (this.fieldIncomeDelete) this.deleteItemIcome.emit(false);
   }
 
   deleteId(): void {
-    if(this.fieldDelete) {
+    if (this.fieldDelete) {
       this.dataService.deleteId(this.fieldDelete).subscribe();
       this.deleteItem.emit(true);
     }
 
-    if(this.fieldIncomeDelete) {
+    if (this.fieldIncomeDelete) {
       this.dataService.deleteIncomeId(this.fieldIncomeDelete).subscribe();
       this.deleteItemIcome.emit(true);
     }

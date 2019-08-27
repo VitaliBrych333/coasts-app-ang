@@ -1,7 +1,7 @@
 interface Field {
   position?: number;
   date: Date;
-  price: number;
+  sum: number;
   type: string;
   other?: string;
   author: string;
@@ -13,25 +13,25 @@ interface Field {
 export class NewField implements Field {
   position?: number;
   date: Date;
-  price: number;
+  sum: number;
   type: string;
   other?: string;
   author: string;
   __v?: number;
-  _id?:string;
+  _id?: string;
 
   constructor(fieldDate: Date,
-              fieldPrice: number,
+              fieldSum: number,
               fieldType: string,
               fieldAuthor: string,
               fieldOther?: string,
-              fieldV?:number,
-              fieldIdDb?:string,
+              fieldV?: number,
+              fieldIdDb?: string,
               fieldPosition?: number) {
 
     this.position = fieldPosition;
     this.date = fieldDate;
-    this.price = fieldPrice;
+    this.sum = fieldSum;
     this.type = fieldType;
     this.other = fieldOther;
     this.author = fieldAuthor;

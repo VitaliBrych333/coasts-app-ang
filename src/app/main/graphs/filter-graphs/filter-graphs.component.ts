@@ -11,6 +11,8 @@ import * as _ from 'lodash';
 
 import { FiltersComponent } from '../../statistics/filters/filters.component';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+import { NgDropdownPanelService } from '@ng-select/ng-select/lib/ng-dropdown-panel.service';
+import { ObserveOnMessage } from 'rxjs/internal/operators/observeOn';
 @Component({
   selector: 'app-filter-graphs',
   templateUrl: './filter-graphs.component.html',
@@ -87,58 +89,82 @@ export class FilterGraphsComponent extends FiltersComponent implements OnInit, O
     this.subscriptionGetAllFieldsIncomes.unsubscribe();
   }
 
+  remove(event) {
+    console.log('ffffffffffffffffffffffffffffffffffff', event)
+  }
+
+  clear() {
+    console.log('jjjjjjjjjjjjjj')
+  }
+
   filterAnniversary(event: []) {
     if (_.isNil(this.selectedYear) || _.isNil(this.selectedParameters) || this.selectedParameters.length === 0) {
       return;
     }
 
     this.filterOnlyByYear();
-    this.selectedParameters.forEach(value => {
-      let newDataGraphs: Array<object>;
+    this.selectedParameters.forEach((value, index) => {
+      if (index === (this.selectedParameters.length - 1)) {
+        let newDataGraphs: Array<object>;
 
-      if (this.coastsRequired.includes(value) || this.coastsOptional.includes(value)) {
-        newDataGraphs = this.currentListCoasts.filter(obj => obj.type === value);
+        if (this.coastsRequired.includes(value) || this.coastsOptional.includes(value)) {
+          newDataGraphs = this.currentListCoasts.filter(obj => obj.type === value);
 
-      } else if (this.incomesTotal.includes(value)) {
-        newDataGraphs = this.currentListIncomes.filter(obj => obj.type === value);
+        } else if (this.incomesTotal.includes(value)) {
+          newDataGraphs = this.currentListIncomes.filter(obj => obj.type === value);
 
-      } else if (this.incomesUsers.includes(value)) {
-        newDataGraphs = this.currentListIncomes.filter(obj => obj.who === value.slice(8));
+        } else if (this.incomesUsers.includes(value)) {
+          newDataGraphs = this.currentListIncomes.filter(obj => obj.who === value.slice(8));
 
-      } else {
+        } else {
 
-        switch(value) {
-          case 'coasts required':
-            newDataGraphs = this.currentListCoasts.filter(obj => this.coastsRequired.includes(obj.type));
-            break;
-          case 'coasts optional':
-            newDataGraphs = this.currentListCoasts.filter(obj => this.coastsOptional.includes(obj.type));
-            break;
-          case 'coasts total':
-            newDataGraphs = this.currentListCoasts;
-            break;
-          case 'incomes total':
-            newDataGraphs = this.currentListIncomes;
-            break;
-          case 'accumulation':
-            let tempListCoasts = this.currentListCoasts.slice();
-            let tempListIncomes = this.currentListIncomes.slice() as any;
+          switch (value) {
+            case 'coasts required':
+              newDataGraphs = this.currentListCoasts.filter(obj => this.coastsRequired.includes(obj.type));
+              break;
+            case 'coasts optional':
+              newDataGraphs = this.currentListCoasts.filter(obj => this.coastsOptional.includes(obj.type));
+              break;
+            case 'coasts total':
+              newDataGraphs = this.currentListCoasts;
+              break;
+            case 'incomes total':
+              newDataGraphs = this.currentListIncomes;
+              break;
+            case 'accumulation':
+              let tempListCoasts = this.currentListCoasts.slice();
+              let tempListIncomes = this.currentListIncomes.slice() as any;
 
-            tempListCoasts.forEach(obj => obj.price = -obj.price);
-            newDataGraphs = tempListIncomes.concat(tempListCoasts);
-            break;
-          default:
-            break;
+              tempListCoasts.forEach(obj => obj.sum = -obj.sum);
+              newDataGraphs = tempListIncomes.concat(tempListCoasts);
+              break;
+            default:
+              break;
+          }
         }
 
+        function getSumDataByMonths(newDataGraphs: object[]) {
+          let newData = new Map();
+
+          for (let i = 0; i < 12; i++) {
+            let sumResult = +_.sumBy(newDataGraphs.filter((obj: any) => new Date(obj.date).getMonth() === i), 'sum').toFixed(2);
+            newData.set(i, sumResult);
+          }
+          return newData;
+        }
+
+        let newData = getSumDataByMonths(newDataGraphs);
+        newData.set(12, this.selectedParameters[index]);
+
+        console.log('ttttttttt', newData);
       }
 
-
-    })
-
+    });
 
 
-    this.currentListCoasts = this.currentListCoasts.filter(obg => this.selectedParameters.includes(obg.type));
+
+
+    // this.currentListCoasts = this.currentListCoasts.filter(obg => this.selectedParameters.includes(obg.type));
 
 
 

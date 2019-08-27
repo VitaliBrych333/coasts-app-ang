@@ -16,7 +16,7 @@ export class FormFieldComponent implements OnInit, OnChanges {
 
   field = new FormGroup({
     date: new FormControl(),
-    price: new FormControl(),
+    sum: new FormControl(),
     author: new FormControl(),
     type: new FormControl(),
     other: new FormControl(),
@@ -35,7 +35,7 @@ export class FormFieldComponent implements OnInit, OnChanges {
 
     this.field = this.fb.group({
       date: [date, Validators.required],
-      price: [this.newField.price, [Validators.required, Validators.min(0.01)]],
+      sum: [this.newField.sum, [Validators.required, Validators.min(0.01)]],
       author: [this.newField.author, Validators.required],
       type: [this.newField.type, Validators.required],
       other: [this.newField.other],

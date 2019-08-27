@@ -4,7 +4,7 @@ import { NewField } from '../field.model';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { DatePipe } from '@angular/common';
 import { Router } from '@angular/router';
-import { ISubscription } from "rxjs/Subscription";
+import { ISubscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-edit',
@@ -17,7 +17,7 @@ export class EditComponent implements OnInit, OnDestroy {
   listCategory: Array<string> = ['food', 'rent', 'clothes', 'child', 'petrol', 'present', 'gym', 'other'];
   editField: object = {
     date: null,
-    price: null,
+    sum: null,
     author: null,
     type: null,
     other: null
@@ -38,11 +38,11 @@ export class EditComponent implements OnInit, OnDestroy {
 
       this.editField = {
         date: editField.date,
-        price: editField.price,
+        sum: editField.sum,
         author: editField.author,
         type: editField.type,
         other: editField.other
-      }
+      };
     });
   }
 
@@ -57,7 +57,7 @@ export class EditComponent implements OnInit, OnDestroy {
   save(): void {
     let newField: NewField = new NewField(
       this.formForValid.value.date,
-      this.formForValid.value.price,
+      this.formForValid.value.sum,
       this.formForValid.value.type,
       localStorage.getItem('userName'),
       this.formForValid.value.other

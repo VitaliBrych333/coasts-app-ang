@@ -1,4 +1,4 @@
-.date label, .price label {
+.date label, .sum label {
   font-size: 22px;
 }
 
@@ -8,7 +8,7 @@
   margin: 20px;
 }
 
-.price input {
+.sum input {
   font-size: 18px;
   border-radius: 5px;
   width: 80px;

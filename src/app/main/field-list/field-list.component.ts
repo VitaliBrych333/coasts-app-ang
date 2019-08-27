@@ -19,7 +19,7 @@ import { ISubscription } from 'rxjs/Subscription';
 
 export class FieldListComponent implements OnInit, OnDestroy {
 
-  displayedColumns: string[] = ['position', 'date', 'price', 'type', 'other', 'author', 'actions'];
+  displayedColumns: string[] = ['position', 'date', 'sum', 'type', 'other', 'author', 'actions'];
 
   dataSource: MatTableDataSource<NewField>;
   listData: NewField[];

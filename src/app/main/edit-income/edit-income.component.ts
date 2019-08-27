@@ -4,7 +4,7 @@ import { NewIncome } from '../income.model';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { DatePipe } from '@angular/common';
 import { Router } from '@angular/router';
-import { ISubscription } from "rxjs/Subscription";
+import { ISubscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-edit-income',

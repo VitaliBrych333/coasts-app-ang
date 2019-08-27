@@ -56,15 +56,15 @@ export class ReportFormComponent implements OnInit, OnDestroy {
         let food, rent, child, gym, required, clothes, petrol, present, other, optional;
 
         if (dataCoasts.length) {
-          food = +dataCoasts.filter(obj => obj.type === 'food').reduce((acc, cur) => acc + cur.price, 0).toFixed(2);
-          rent = +dataCoasts.filter(obj => obj.type === 'rent').reduce((acc, cur) => acc + cur.price, 0).toFixed(2);
-          child = +dataCoasts.filter(obj => obj.type === 'child').reduce((acc, cur) => acc + cur.price, 0).toFixed(2);
-          gym = +dataCoasts.filter(obj => obj.type === 'gym').reduce((acc, cur) => acc + cur.price, 0).toFixed(2);
+          food = +dataCoasts.filter(obj => obj.type === 'food').reduce((acc, cur) => acc + cur.sum, 0).toFixed(2);
+          rent = +dataCoasts.filter(obj => obj.type === 'rent').reduce((acc, cur) => acc + cur.sum, 0).toFixed(2);
+          child = +dataCoasts.filter(obj => obj.type === 'child').reduce((acc, cur) => acc + cur.sum, 0).toFixed(2);
+          gym = +dataCoasts.filter(obj => obj.type === 'gym').reduce((acc, cur) => acc + cur.sum, 0).toFixed(2);
 
-          clothes = +dataCoasts.filter(obj => obj.type === 'clothes').reduce((acc, cur) => acc + cur.price, 0).toFixed(2);
-          petrol = +dataCoasts.filter(obj => obj.type === 'petrol').reduce((acc, cur) => acc + cur.price, 0).toFixed(2);
-          present = +dataCoasts.filter(obj => obj.type === 'present').reduce((acc, cur) => acc + cur.price, 0).toFixed(2);
-          other = +dataCoasts.filter(obj => obj.type === 'other').reduce((acc, cur) => acc + cur.price, 0).toFixed(2);
+          clothes = +dataCoasts.filter(obj => obj.type === 'clothes').reduce((acc, cur) => acc + cur.sum, 0).toFixed(2);
+          petrol = +dataCoasts.filter(obj => obj.type === 'petrol').reduce((acc, cur) => acc + cur.sum, 0).toFixed(2);
+          present = +dataCoasts.filter(obj => obj.type === 'present').reduce((acc, cur) => acc + cur.sum, 0).toFixed(2);
+          other = +dataCoasts.filter(obj => obj.type === 'other').reduce((acc, cur) => acc + cur.sum, 0).toFixed(2);
 
           required = +(food + rent + child + gym).toFixed(2);
           optional = +(clothes + petrol + present + other).toFixed(2);

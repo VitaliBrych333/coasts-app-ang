@@ -33,7 +33,7 @@ export class FormComponent implements OnInit {
     this.infoBuy = {
       date: this.myDate,
       author: localStorage.getItem('userName'),
-      price: null,
+      sum: null,
       type: null,
       other: null,
     }
@@ -46,7 +46,7 @@ export class FormComponent implements OnInit {
   add() {
     let newField: NewField = new NewField(
       this.formForValid.value.date,
-      this.formForValid.value.price,
+      this.formForValid.value.sum,
       this.formForValid.value.type,
       localStorage.getItem('userName'),
       this.formForValid.value.other

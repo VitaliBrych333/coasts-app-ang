@@ -25,7 +25,9 @@
                  bindLabel="name"
                  [(ngModel)]="selectedParameters"
                  maxSelectedItems = 3
-                 (change)="filterAnniversary($event)">
+                 (add)="filterAnniversary($event)"
+                 (remove)="remove($event)"
+                 (clear)="clear()">
       </ng-select>
     </div>
 
