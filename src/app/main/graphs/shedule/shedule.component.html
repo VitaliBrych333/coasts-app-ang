@@ -13,7 +13,7 @@
   </div>
 
   <div class="wrapper">
-    <div class="flex-item">
+    <div class="flex-item" *ngIf="lineChartData[0].data.length">
       <table class="table table-responsive table-condensed">
         <tr>
           <th *ngFor="let label of lineChartLabels">{{label}}</th>
@@ -26,8 +26,8 @@
         <!-- <button mat-button mat-raised-button color="primary" (click)="randomize()">Randomize</button>
         <button mat-button mat-raised-button color="primary" (click)="pushOne()">Push</button> -->
         <button mat-button mat-raised-button color="primary" (click)="changeColor()">Recolor</button>
-        <!-- <button mat-button mat-raised-button color="primary" (click)="hideOne()">Toggle Series B</button>
-        <button mat-button mat-raised-button color="primary" (click)="changeLabel()">Change Label</button> -->
+        <button mat-button mat-raised-button color="primary" (click)="scale()">Scale</button>
+        <!-- <button mat-button mat-raised-button color="primary" (click)="changeLabel()">Change Label</button> -->
       </div>
     </div>
 
