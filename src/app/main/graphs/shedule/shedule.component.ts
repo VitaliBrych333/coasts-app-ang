@@ -12,6 +12,8 @@ import * as _ from 'lodash';
 })
 export class SheduleComponent implements OnInit {
 
+  private arrayIndexArrayScale: number[];
+
   public lineChartData: ChartDataSets[];
 
   public lineChartLabels: Label[] = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'];
@@ -107,7 +109,11 @@ export class SheduleComponent implements OnInit {
   constructor(public filterDataService: FilterDataService) { }
 
   ngOnInit() {
+
     this.filterDataService.currentDataCompare.subscribe(data => {
+      let countTimesScale = 0;
+      let arrayMaxAbsValue = [];
+      this.arrayIndexArrayScale = [];
 
       this.lineChartData = [
         { data: [], label: '' },
@@ -117,43 +123,47 @@ export class SheduleComponent implements OnInit {
 // yAxisID: 'y-axis-1'
       if (data.length) {
         data.forEach((value, index) => {
-           let newData = Array.from(value.values()).slice(0, 12);
-           let newLabel = value.get(12);
+           const newData = Array.from(value.values()).slice(0, 12);
+           const newLabel = value.get(12);
            this.lineChartData[index].data = newData;
            this.lineChartData[index].label = newLabel;
         });
       }
 
+// it's for scale if values differ more than 10 times
+      if (this.lineChartData[1].data.length) {
+        const tempArray = [];
+
+        this.lineChartData.map((obj: any) => obj.data.map((num: number) => Math.abs(num)))
+                          .forEach((obj, index) => tempArray.push(
+                                                                    {
+                                                                      'maxNum': _.max(obj),
+                                                                      'indexArray': index,
+                                                                      'minNum': obj.filter((num: number) => num > 0).length
+                                                                                  ? _.min(obj.filter((num: number) => num > 0))
+                                                                                  : _.min(obj),
+                                                                    }
+                                                                  ));
+
+        const objMaxValue = _.maxBy(tempArray, 'maxNum');
+        const objMinValue = tempArray.filter(obj => obj['minNum'] > 0).length
+            ? _.minBy(tempArray.filter(obj => obj['minNum'] > 0), 'minNum')
+            : _.minBy(tempArray, 'minNum');
+
+        arrayMaxAbsValue = tempArray.filter(obj => obj['maxNum'] === objMaxValue['maxNum']);
+        const arrayMinAbsValue = tempArray.filter(obj => obj['minNum'] === objMinValue['minNum']);
+
+        if (arrayMaxAbsValue[0]['maxNum'] !== 0 && arrayMinAbsValue[0]['minNum'] !== 0 ) {
+          countTimesScale = _.floor(arrayMaxAbsValue[0]['maxNum'] / arrayMinAbsValue[0]['minNum']);
+        }
+      }
+
+      if (countTimesScale >= 10) {
+        arrayMaxAbsValue.forEach(obj => this.arrayIndexArrayScale.push(obj['indexArray']));
+      }
     });
   }
 
-  // public randomize(): void {
-  //   for (let i = 0; i < this.lineChartData.length; i++) {
-  //     for (let j = 0; j < this.lineChartData[i].data.length; j++) {
-  //       this.lineChartData[i].data[j] = this.generateNumber(i);
-  //     }
-  //   }
-  //   this.chart.update();
-  // }
-
-  // private generateNumber(i: number) {
-  //   return Math.floor((Math.random() * (i < 2 ? 100 : 1000)) + 1);
-  // }
-
-  // events
-  // public chartClicked({ event, active }: { event: MouseEvent, active: {}[] }): void {
-  //   console.log(event, active);
-  // }
-
-  // public chartHovered({ event, active }: { event: MouseEvent, active: {}[] }): void {
-  //   console.log(event, active);
-  // }
-
-  // public hideOne() {
-  //   const isHidden = this.chart.isDatasetHidden(1);
-  //   this.chart.hideDataset(1, !isHidden);
-  // }
-// TODO find max number in data by module
   public scale() {
     const scale =  {
       id: 'y-axis-1',
@@ -168,9 +178,6 @@ export class SheduleComponent implements OnInit {
     };
 
     this.lineChartOptions.scales.yAxes.push(scale);
-    this.lineChartData.forEach(obj => obj.data.forEach(data => +data))
-    // let f = _.maxBy(this.lineChartData, (obj) => obj.data)
-    // console.log('ffffffff', f)
 
   }
 
@@ -181,9 +188,4 @@ export class SheduleComponent implements OnInit {
       this.lineChartColors = this.stateFirstColor;
     }
   }
-
-  // public changeLabel() {
-  //   this.lineChartLabels[2] = ['1st Line', '2nd Line'];
-  //   // this.chart.update();
-  // }
 }

@@ -26,7 +26,7 @@
         <!-- <button mat-button mat-raised-button color="primary" (click)="randomize()">Randomize</button>
         <button mat-button mat-raised-button color="primary" (click)="pushOne()">Push</button> -->
         <button mat-button mat-raised-button color="primary" (click)="changeColor()">Recolor</button>
-        <button mat-button mat-raised-button color="primary" (click)="scale()">Scale</button>
+        <button *ngIf="arrayIndexArrayScale.length" mat-button mat-raised-button color="primary" (click)="scale()">Scale</button>
         <!-- <button mat-button mat-raised-button color="primary" (click)="changeLabel()">Change Label</button> -->
       </div>
     </div>
