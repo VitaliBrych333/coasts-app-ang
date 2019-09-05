@@ -17,34 +17,8 @@ export class SheduleComponent implements OnInit {
   public lineChartData: ChartDataSets[];
 
   public lineChartLabels: Label[] = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'];
-  public lineChartOptions: ChartOptions = {
-    responsive: true,
-    maintainAspectRatio: false,
-    scales: {
-      // We use this empty structure as a placeholder for dynamic theming.
-      xAxes: [{}],
-      yAxes: [
-        {
-          id: 'y-axis-0',
-          position: 'left',
-          ticks: {
-            beginAtZero: true
-          }
-        },
-        // {
-        //   id: 'y-axis-1',
-        //   position: 'right',
-        //   gridLines: {
-        //     color: 'rgba(255,0,0,0.3)',
-        //   },
-        //   ticks: {
-        //     fontColor: 'red',
-        //     beginAtZero: true
-        //   }
-        // }
-      ]
-    },
-  };
+  public lineChartOptions: ChartOptions;
+
   private color: Color[] = [
     { // orange
       backgroundColor: 'rgba(255, 191, 0, 0.2)',
@@ -104,6 +78,23 @@ export class SheduleComponent implements OnInit {
   public lineChartType = 'line';
   public lineChartPlugins = [pluginAnnotations];
 
+  private stateChartOptions: ChartOptions = {
+    responsive: true,
+    maintainAspectRatio: false,
+    scales: {
+      xAxes: [{}],
+      yAxes: [
+        {
+          id: 'y-axis-0',
+          position: 'left',
+          ticks: {
+            beginAtZero: true
+          }
+        },
+      ]
+    },
+  };
+
   @ViewChild(BaseChartDirective, { static: true }) chart: BaseChartDirective;
 
   constructor(public filterDataService: FilterDataService) { }
@@ -114,6 +105,7 @@ export class SheduleComponent implements OnInit {
       let countTimesScale = 0;
       let arrayMaxAbsValue = [];
       this.arrayIndexArrayScale = [];
+      this.lineChartOptions = this.stateChartOptions;
 
       this.lineChartData = [
         { data: [], label: '' },
@@ -165,20 +157,39 @@ export class SheduleComponent implements OnInit {
   }
 
   public scale() {
-    const scale =  {
-      id: 'y-axis-1',
-      position: 'right',
-      gridLines: {
-        color: 'rgba(255,0,0,0.3)',
-      },
-      ticks: {
-        fontColor: 'red',
-        beginAtZero: true
-      }
-    };
-
-    this.lineChartOptions.scales.yAxes.push(scale);
-
+    if (!this.lineChartOptions.scales.yAxes[1]) {
+      this.lineChartOptions = {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+          xAxes: [{}],
+          yAxes: [
+            {
+              id: 'y-axis-0',
+              position: 'left',
+              ticks: {
+                beginAtZero: true
+              }
+            },
+            {
+              id: 'y-axis-1',
+              position: 'right',
+              gridLines: {
+                color: 'rgba(255,0,0,0.3)',
+              },
+              ticks: {
+                fontColor: this.lineChartColors[this.arrayIndexArrayScale[0]].borderColor,
+                beginAtZero: true
+              }
+            }
+          ]
+        },
+      };
+      this.arrayIndexArrayScale.forEach(num => this.lineChartData[num].yAxisID ='y-axis-1');
+    } else {
+      this.lineChartData.forEach(obj => obj.yAxisID = null);
+      this.lineChartOptions = this.stateChartOptions;
+    }
   }
 
   public changeColor() {
@@ -187,5 +198,36 @@ export class SheduleComponent implements OnInit {
     } else {
       this.lineChartColors = this.stateFirstColor;
     }
+
+    if (this.arrayIndexArrayScale.length) {
+      this.lineChartOptions = {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+          xAxes: [{}],
+          yAxes: [
+            {
+              id: 'y-axis-0',
+              position: 'left',
+              ticks: {
+                beginAtZero: true
+              }
+            },
+            {
+              id: 'y-axis-1',
+              position: 'right',
+              gridLines: {
+                color: 'rgba(255,0,0,0.3)',
+              },
+              ticks: {
+                fontColor: this.lineChartColors[this.arrayIndexArrayScale[0]].borderColor,
+                beginAtZero: true
+              }
+            }
+          ]
+        },
+      };
+    }
   }
+
 }

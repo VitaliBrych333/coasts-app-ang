@@ -1,17 +1,17 @@
 <div class="flex">
   <div class="flex-item">
     <div style="display: block;">
-    <canvas baseChart widh="100"
+      <canvas baseChart widh="100"
                 [datasets]="lineChartData"
                 [labels]="lineChartLabels"
                 [options]="lineChartOptions"
                 [colors]="lineChartColors"
                 [legend]="lineChartLegend"
                 [chartType]="lineChartType"
-                [plugins]="lineChartPlugins"></canvas>
+                [plugins]="lineChartPlugins">
+      </canvas>
     </div>
   </div>
-
   <div class="wrapper">
     <div class="flex-item" *ngIf="lineChartData[0].data.length">
       <table class="table table-responsive table-condensed">
@@ -23,15 +23,11 @@
         </tr>
       </table>
       <div class="container-button">
-        <!-- <button mat-button mat-raised-button color="primary" (click)="randomize()">Randomize</button>
-        <button mat-button mat-raised-button color="primary" (click)="pushOne()">Push</button> -->
         <button mat-button mat-raised-button color="primary" (click)="changeColor()">Recolor</button>
         <button *ngIf="arrayIndexArrayScale.length" mat-button mat-raised-button color="primary" (click)="scale()">Scale</button>
-        <!-- <button mat-button mat-raised-button color="primary" (click)="changeLabel()">Change Label</button> -->
       </div>
     </div>
 
     <app-filter-graphs></app-filter-graphs>
   </div>
-
 </div>
