@@ -15,7 +15,6 @@ export class SheduleComponent implements OnInit {
   private arrayIndexArrayScale: number[];
 
   public lineChartData: ChartDataSets[];
-
   public lineChartLabels: Label[] = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'];
   public lineChartOptions: ChartOptions;
 
@@ -52,13 +51,13 @@ export class SheduleComponent implements OnInit {
       pointHoverBackgroundColor: 'rgba(0, 255, 0, 1)',
       pointHoverBorderColor: 'rgba(0, 255, 0, 0.8)'
     },
-    { // dark grey
-      backgroundColor: 'rgba(77, 83, 96, 0.2)',
-      borderColor: 'rgba(77, 83, 96, 1)',
-      pointBackgroundColor: 'rgba(77, 83, 96, 1)',
+    { // turquoise(greenish-blue)
+      backgroundColor: 'rgba(64, 214, 202, 0.2)',
+      borderColor: 'rgba(64, 214, 202, 1)',
+      pointBackgroundColor: 'rgba(64, 214, 202, 1)',
       pointBorderColor: '#fff',
-      pointHoverBackgroundColor: 'rgba(77, 83, 96, 1)',
-      pointHoverBorderColor: 'rgba(77, 83, 96, 0.8)'
+      pointHoverBackgroundColor: 'rgba(64, 214, 202, 1)',
+      pointHoverBorderColor: 'rgba(64, 214, 202, 0.8)'
     },
     { // violet
       backgroundColor: 'rgba(255, 0, 255, 0.2)',
@@ -112,7 +111,7 @@ export class SheduleComponent implements OnInit {
         { data: [], label: '' },
         { data: [], label: '' }
       ];
-// yAxisID: 'y-axis-1'
+
       if (data.length) {
         data.forEach((value, index) => {
            const newData = Array.from(value.values()).slice(0, 12);
@@ -122,7 +121,7 @@ export class SheduleComponent implements OnInit {
         });
       }
 
-// it's for scale if values differ more than 10 times
+  //for scale if values differ more than 10 times
       if (this.lineChartData[1].data.length) {
         const tempArray = [];
 
@@ -138,14 +137,15 @@ export class SheduleComponent implements OnInit {
                                                                   ));
 
         const objMaxValue = _.maxBy(tempArray, 'maxNum');
-        const objMinValue = tempArray.filter(obj => obj['minNum'] > 0).length
-            ? _.minBy(tempArray.filter(obj => obj['minNum'] > 0), 'minNum')
+        arrayMaxAbsValue = tempArray.filter(obj => obj['maxNum'] === objMaxValue['maxNum']);
+
+        const objMinValue = tempArray.filter(obj => obj['minNum'] > 0 && !_.includes(_.map(arrayMaxAbsValue, 'indexArray'), obj['indexArray'])).length
+            ? _.minBy(tempArray.filter(obj => obj['minNum'] > 0 && !_.includes(_.map(arrayMaxAbsValue, 'indexArray'), obj['indexArray'])), 'minNum')
             : _.minBy(tempArray, 'minNum');
 
-        arrayMaxAbsValue = tempArray.filter(obj => obj['maxNum'] === objMaxValue['maxNum']);
         const arrayMinAbsValue = tempArray.filter(obj => obj['minNum'] === objMinValue['minNum']);
 
-        if (arrayMaxAbsValue[0]['maxNum'] !== 0 && arrayMinAbsValue[0]['minNum'] !== 0 ) {
+        if (arrayMaxAbsValue[0]['maxNum'] !== 0 && arrayMinAbsValue[0]['minNum'] !== 0) {
           countTimesScale = _.floor(arrayMaxAbsValue[0]['maxNum'] / arrayMinAbsValue[0]['minNum']);
         }
       }
@@ -185,7 +185,7 @@ export class SheduleComponent implements OnInit {
           ]
         },
       };
-      this.arrayIndexArrayScale.forEach(num => this.lineChartData[num].yAxisID ='y-axis-1');
+      this.arrayIndexArrayScale.forEach(num => this.lineChartData[num].yAxisID = 'y-axis-1');
     } else {
       this.lineChartData.forEach(obj => obj.yAxisID = null);
       this.lineChartOptions = this.stateChartOptions;
@@ -199,7 +199,7 @@ export class SheduleComponent implements OnInit {
       this.lineChartColors = this.stateFirstColor;
     }
 
-    if (this.arrayIndexArrayScale.length) {
+    if (this.lineChartOptions.scales.yAxes[1]) {
       this.lineChartOptions = {
         responsive: true,
         maintainAspectRatio: false,
@@ -229,5 +229,4 @@ export class SheduleComponent implements OnInit {
       };
     }
   }
-
 }
