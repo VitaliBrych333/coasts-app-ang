@@ -12,7 +12,7 @@ import { EditComponent } from './main/edit/edit.component';
 import { EditIncomeComponent } from './main/edit-income/edit-income.component';
 import { StatisticsComponent } from './main/statistics/statistics.component';
 import { GraphsComponent } from './main/graphs/graphs.component';
-import { AuthGuard } from './auth.guard';
+import { AuthGuard } from './log/auth/auth.guard';
 
 const routes: Routes = [
   { path: 'purchases/new', component: FormComponent, canActivate: [AuthGuard] },

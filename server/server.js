@@ -5,6 +5,7 @@ const coastsRouter = require('./coasts-router');
 const incomesRouter = require('./incomes-router');
 const cookieParser = require('cookie-parser');
 const path = require('path');
+const jwt = require('jsonwebtoken');
 
 mongoose.connect(
     'mongodb://admin:admin1989@ds235417.mlab.com:35417/coasts',
