@@ -1,10 +1,15 @@
+require('./passportConfig.js');
+
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
-const coastsRouter = require('./coasts-router');
-const incomesRouter = require('./incomes-router');
 const cookieParser = require('cookie-parser');
 const path = require('path');
+
+const coastsRouter = require('./coasts-router');
+const incomesRouter = require('./incomes-router');
+const authRouter = require('./auth-router');
+
 const jwt = require('jsonwebtoken');
 
 mongoose.connect(
@@ -29,6 +34,7 @@ app.use((req, res, next) => {
 
 app.use('/purchases', coastsRouter);
 app.use('/incomes', incomesRouter);
+app.use('/autenticate', authRouter);
 
 app.use((req, res) => {
     res.status(500).send('Smth went wrong');
