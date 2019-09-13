@@ -23,7 +23,7 @@ export class LoginComponent implements OnInit {
     } else {
 
       this.profileForm = this.fb.group({
-        name: ['', Validators.required],
+        login: ['', Validators.required],
         password: ['', Validators.required]
       });
     }
@@ -34,11 +34,27 @@ export class LoginComponent implements OnInit {
     return this.profileForm.controls;
   }
 
-  submit(): void {
-    this.authservice.login(new NewUser(this.form.name.value, this.form.password.value)).subscribe(
+  signIn(): void {
+    this.authservice.login(new NewUser(this.form.login.value, this.form.password.value)).subscribe(
       res => {
         this.authservice.setToken(res['token']);
         this.router.navigate(['/main']);
+      },
+      err => {
+        this.authservice = err.error.message;
+      }
+    );
+    // localStorage.setItem('userName', this.profileForm.value.name);
+
+    // this.authservice.changeStatusLog(true);
+    // this.router.navigate(['/main'])
+  }
+
+  register(): void {
+    this.authservice.register(new NewUser(this.form.name.value, this.form.password.value)).subscribe(
+      res => {
+        // this.authservice.setToken(res['token']);
+        this.router.navigate(['/login']);
       },
       err => {
         this.authservice = err.error.message;

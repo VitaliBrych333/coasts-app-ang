@@ -21,6 +21,10 @@ export class AuthService {
 
   noAuthHeader = { headers: new HttpHeaders({ 'NoAuth': 'True' }) };
 
+  register(user: NewUser) {
+    return this.http.post(this.baseURL + '/register', JSON.stringify(user), this.noAuthHeader);
+  }
+
   login(user: NewUser) {
     return this.http.post(this.baseURL + '/authenticate', JSON.stringify(user), this.noAuthHeader);
   }
