@@ -14,19 +14,17 @@ export class AuthService {
   currentStatusLog = this.messageStatusLog.asObservable();
 
   baseURL = 'http://localhost:5500';
-
+  options = {headers: {'Content-Type': 'application/json'}};
   constructor(private http: HttpClient) { }
-
 
   noAuthHeader = { headers: new HttpHeaders({ 'NoAuth': 'True' }) };
 
   register(user: NewUser) {
-    return this.http.post(this.baseURL + '/register', JSON.stringify(user), this.noAuthHeader);
+    return this.http.post(this.baseURL + '/register', JSON.stringify(user), this.options);
   }
 
   login(user: NewUser) {
-    const options = {headers: {'Content-Type': 'application/json'}};
-    return this.http.post(this.baseURL + '/authenticate', JSON.stringify(user), options);
+    return this.http.post(this.baseURL + '/authenticate', JSON.stringify(user), this.options);
   }
 
   setToken(token: string) {

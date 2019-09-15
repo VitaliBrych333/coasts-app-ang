@@ -1,0 +1,36 @@
+.dialog-ovelay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.50);
+  z-index: 999999
+}
+
+.dialog {
+  width: 260px;
+  margin: 300px auto 0;
+  background-color: #fff;
+  box-shadow: 0 0 20px rgba(0,0,0,.2);
+  border-radius: 5px;
+  overflow: hidden
+}
+
+.header {
+  height: 45px;
+  background-image: linear-gradient(rgb(255, 38, 0), yellow);
+  border-bottom: 1px solid #e5e5e5
+}
+
+.dialog-msg {
+  padding: 12px 10px
+}
+
+.dialog-msg p {
+  margin: 0;
+  font-size: 18px;
+  color: #333;
+  text-align: center;
+}
+

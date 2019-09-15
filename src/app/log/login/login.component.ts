@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewContainerRef, ComponentFactoryResolver } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { NewUser } from '../user.model';
+import { ModalErrorComponent } from '../modal-error/modal-error.component';
 
 @Component({
   selector: 'app-login',
@@ -15,18 +16,23 @@ export class LoginComponent implements OnInit {
 
   constructor(private fb: FormBuilder,
               private router: Router,
-              private authservice: AuthService) { }
+              private authservice: AuthService,
+              private viewContainerRef: ViewContainerRef,
+              private componentFactoryResolver: ComponentFactoryResolver) { }
 
   ngOnInit() {
     if (this.authservice.isLoggedIn()) {
       this.router.navigateByUrl('/main');
     } else {
-
-      this.profileForm = this.fb.group({
-        login: ['', Validators.required],
-        password: ['', Validators.required]
-      });
+      this.setForm();
     }
+  }
+
+  setForm() {
+    this.profileForm = this.fb.group({
+      login: ['', Validators.required],
+      password: ['', Validators.required]
+    });
   }
 
   get form() {
@@ -41,22 +47,33 @@ export class LoginComponent implements OnInit {
         this.router.navigate(['/main']);
       },
       err => {
-        console.log(err)
-        // this.authservice = err.error.message;
+        this.setForm();
+        this.showMessageWindow('Your login or password is incorrect');
       }
     );
   }
 
   register(): void {
-    this.authservice.register(new NewUser(this.form.name.value, this.form.password.value)).subscribe(
+    this.authservice.register(new NewUser(this.form.login.value, this.form.password.value)).subscribe(
       res => {
-        // this.authservice.setToken(res['token']);
+        this.showMessageWindow('Registration completed successfully. Now log in');
         this.router.navigate(['/login']);
       },
       err => {
-        this.authservice = err.error.message;
+        this.showMessageWindow('Duplicate login or registration error');
       }
     );
   }
 
+  showMessageWindow(newContent: string) {
+    const componentFactory = this.componentFactoryResolver.resolveComponentFactory(ModalErrorComponent);
+    let componentRef = this.viewContainerRef.createComponent(componentFactory);
+
+    componentRef.instance.content = newContent;
+
+    setTimeout(() => {
+                       componentRef.destroy();
+                       componentRef = null;
+                      }, 1500);
+  }
 }

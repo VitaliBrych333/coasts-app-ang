@@ -10,7 +10,7 @@
     <span *ngIf="!profileForm.controls.password.valid && profileForm.controls.password.touched">*Required</span>
     <input type="password" formControlName="password">
   </label>
-  <button type="button" (click)="signIn()" [disabled]="!profileForm.valid">Submit</button>
+  <button type="button" (click)="signIn()" [disabled]="!profileForm.valid">Log in</button>
   <button type="button" (click)="register()" [disabled]="!profileForm.valid">Register</button>
 </form>
 
