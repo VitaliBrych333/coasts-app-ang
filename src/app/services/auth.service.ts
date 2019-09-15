@@ -15,8 +15,7 @@ export class AuthService {
 
   baseURL = 'http://localhost:5500';
 
-  constructor(private http: HttpClient,
-              private router: Router) { }
+  constructor(private http: HttpClient) { }
 
 
   noAuthHeader = { headers: new HttpHeaders({ 'NoAuth': 'True' }) };
@@ -26,7 +25,8 @@ export class AuthService {
   }
 
   login(user: NewUser) {
-    return this.http.post(this.baseURL + '/authenticate', JSON.stringify(user), this.noAuthHeader);
+    const options = {headers: {'Content-Type': 'application/json'}};
+    return this.http.post(this.baseURL + '/authenticate', JSON.stringify(user), options);
   }
 
   setToken(token: string) {
@@ -60,33 +60,8 @@ export class AuthService {
     }
   }
 
-
-  // login(user: NewUser) {
-  //   const options = {headers: {'Content-Type': 'application/json'}};
-  //   return this.http.post<NewUser>(this.baseURL + '/purchases', JSON.stringify(user), options)
-  //                   .pipe(map(user => {
-  //     // store user details and jwt token in local storage to keep user logged in between page refreshes
-  //                    localStorage.setItem('currentUser', JSON.stringify(user));
-  //     // this.currentUserSubject.next(user);
-  //                    return user;
-  //   }));
-  // }
-
-  // }
-
   changeStatusLog(message: boolean) {
     this.messageStatusLog.next(message)
-  }
-
-  exit(): void {
-    localStorage.clear();
-    this.router.navigate(['/login']);
-    this.changeStatusLog(false);
-  }
-
-  isAuth() {
-    if(localStorage.getItem('userName')) return true;
-    return false;
   }
 
 

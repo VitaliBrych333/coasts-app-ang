@@ -31,8 +31,3 @@ export class AuthInterceptor implements HttpInterceptor {
         }
     }
 }
-// https://github.com/CodAffection/MEAN-Stack-Login-and-Logout-in-Angular-6-Part-2/blob/master/Angular%206/src/app/auth/auth.interceptor.ts
-
-// https://jasonwatmore.com/post/2018/08/06/nodejs-jwt-authentication-tutorial-with-example-api
-
-// https://jasonwatmore.com/post/2019/06/22/angular-8-jwt-authentication-example-tutorial

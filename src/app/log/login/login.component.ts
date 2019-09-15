@@ -27,7 +27,6 @@ export class LoginComponent implements OnInit {
         password: ['', Validators.required]
       });
     }
-
   }
 
   get form() {
@@ -38,16 +37,14 @@ export class LoginComponent implements OnInit {
     this.authservice.login(new NewUser(this.form.login.value, this.form.password.value)).subscribe(
       res => {
         this.authservice.setToken(res['token']);
+        this.authservice.changeStatusLog(true);
         this.router.navigate(['/main']);
       },
       err => {
-        this.authservice = err.error.message;
+        console.log(err)
+        // this.authservice = err.error.message;
       }
     );
-    // localStorage.setItem('userName', this.profileForm.value.name);
-
-    // this.authservice.changeStatusLog(true);
-    // this.router.navigate(['/main'])
   }
 
   register(): void {
@@ -60,10 +57,6 @@ export class LoginComponent implements OnInit {
         this.authservice = err.error.message;
       }
     );
-    // localStorage.setItem('userName', this.profileForm.value.name);
-
-    // this.authservice.changeStatusLog(true);
-    // this.router.navigate(['/main'])
   }
 
 }
