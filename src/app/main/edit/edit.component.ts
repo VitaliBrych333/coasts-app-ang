@@ -1,5 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { DataService } from '../../services/data.service';
+import { AuthService } from '../../services/auth.service';
 import { NewField } from '../field.model';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { DatePipe } from '@angular/common';
@@ -10,7 +11,7 @@ import { ISubscription } from 'rxjs/Subscription';
   selector: 'app-edit',
   templateUrl: './edit.component.html',
   styleUrls: ['./edit.component.css'],
-  providers: [DataService, DatePipe]
+  providers: [ DatePipe ]
 })
 export class EditComponent implements OnInit, OnDestroy {
 
@@ -29,6 +30,7 @@ export class EditComponent implements OnInit, OnDestroy {
   subscriptionGetFieldId: ISubscription;
 
   constructor(private dataService: DataService,
+              private authService: AuthService,
               private fb: FormBuilder,
               private datePipe: DatePipe,
               private router: Router,) { }
@@ -59,7 +61,7 @@ export class EditComponent implements OnInit, OnDestroy {
       this.formForValid.value.date,
       this.formForValid.value.sum,
       this.formForValid.value.type,
-      localStorage.getItem('userName'),
+      this.authService.getUserPayload().login,
       this.formForValid.value.other
     );
 
@@ -71,6 +73,4 @@ export class EditComponent implements OnInit, OnDestroy {
   cancel(): void {
     this.router.navigate(['/purchases/all']);
   }
-
-
 }

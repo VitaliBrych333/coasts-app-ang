@@ -11,7 +11,9 @@
     <input type="password" formControlName="password">
   </label>
   <button type="button" (click)="signIn()" [disabled]="!profileForm.valid">Log in</button>
-  <button type="button" (click)="register()" [disabled]="!profileForm.valid">Register</button>
+
+  <!-- if need for registration -->
+  <!-- <button type="button" (click)="register()" [disabled]="!profileForm.valid">Register</button> -->
 </form>
 
 

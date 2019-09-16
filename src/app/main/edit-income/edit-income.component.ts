@@ -1,5 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { DataService } from '../../services/data.service';
+import { AuthService } from '../../services/auth.service';
 import { NewIncome } from '../income.model';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { DatePipe } from '@angular/common';
@@ -10,7 +11,7 @@ import { ISubscription } from 'rxjs/Subscription';
   selector: 'app-edit-income',
   templateUrl: './edit-income.component.html',
   styleUrls: ['./edit-income.component.css'],
-  providers: [DataService, DatePipe]
+  providers: [ DatePipe ]
 })
 export class EditIncomeComponent implements OnInit {
 
@@ -30,6 +31,7 @@ export class EditIncomeComponent implements OnInit {
   subscriptionGetFieldIncomeId: ISubscription;
 
   constructor(private dataService: DataService,
+              private authService: AuthService,
               private fb: FormBuilder,
               private datePipe: DatePipe,
               private router: Router,) { }
@@ -45,8 +47,6 @@ export class EditIncomeComponent implements OnInit {
         type: editFieldIncome.type,
         other: editFieldIncome.other
       }
-
-      console.log(this.editFieldIncome)
     });
   }
 
@@ -64,7 +64,7 @@ export class EditIncomeComponent implements OnInit {
       this.formForValid.value.sum,
       this.formForValid.value.who,
       this.formForValid.value.type,
-      localStorage.getItem('userName'),
+      this.authService.getUserPayload().login,
       this.formForValid.value.other
     );
 

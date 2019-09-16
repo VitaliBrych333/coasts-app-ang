@@ -1,4 +1,4 @@
-require('./passportConfig.js');
+require('./config/passport-config.js');
 
 const express = require('express');
 const mongoose = require('mongoose');
@@ -6,19 +6,17 @@ const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const path = require('path');
 
-const coastsRouter = require('./coasts-router');
-const incomesRouter = require('./incomes-router');
-
-const authRouter = require('./auth-router');
-const regRouther = require('./reg-router');
+const coastsRouter = require('./routers/coasts-router');
+const incomesRouter = require('./routers/incomes-router');
+const authRouter = require('./routers/auth-router');
+const regRouther = require('./routers/registr-router');
 
 const cors = require('cors');
 const passport = require('passport');
 
-
 mongoose.connect(
-    'mongodb://admin:admin1989@ds235417.mlab.com:35417/coasts',
-    { useNewUrlParser: true, useFindAndModify: false},
+  'mongodb://admin:admin1989@ds235417.mlab.com:35417/coasts',
+  { useNewUrlParser: true, useFindAndModify: false},
 );
 
 const app = express();
@@ -42,14 +40,13 @@ app.use((req, res, next) => {
 
 app.use('/purchases', coastsRouter);
 app.use('/incomes', incomesRouter);
-
 app.use('/authenticate', authRouter);
 app.use('/register', regRouther);
 
 app.use((req, res) => {
-    res.status(500).send('Smth went wrong');
+  res.status(500).send('Smth went wrong');
 });
 
 app.listen(app.get('port'), () => {
-    console.log('Node app is running at localhost:' + app.get('port'));
+  console.log('Node app is running at localhost:' + app.get('port'));
 });

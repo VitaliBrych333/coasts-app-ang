@@ -71,8 +71,4 @@ export class FieldListComponent implements OnInit, OnDestroy {
   editField(fieldEdit: NewField): void {
     this.router.navigate([`/purchases/${fieldEdit._id}`]);
   }
-
-
-
 }
-

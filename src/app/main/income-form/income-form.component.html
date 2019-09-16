@@ -1,12 +1,9 @@
 <app-buttons></app-buttons>
 <div style="text-align:center">
-  <h2>
-    Welcome, please, enter your current income!
-  </h2>
+  <h2>Welcome, please, enter your current income!</h2>
   <app-income-form-field [newFieldIncome]="infoIncome" (validForm)="validForm($event)"></app-income-form-field>
 
   <button type="submit" form="form" (click)="add()" [disabled]="!formForValid.valid">Add</button>
   <button type="reset" (click)="cancel()">Cancel</button>
-
 </div>
 

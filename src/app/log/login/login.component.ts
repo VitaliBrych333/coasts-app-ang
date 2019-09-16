@@ -53,22 +53,23 @@ export class LoginComponent implements OnInit {
     );
   }
 
-  register(): void {
-    this.authservice.register(new NewUser(this.form.login.value, this.form.password.value)).subscribe(
-      res => {
-        this.showMessageWindow('Registration completed successfully. Now log in');
-        this.router.navigate(['/login']);
-      },
-      err => {
-        this.showMessageWindow('Duplicate login or registration error');
-      }
-    );
-  }
+  // if need for regisration
+
+  // register(): void {
+  //   this.authservice.register(new NewUser(this.form.login.value, this.form.password.value)).subscribe(
+  //     res => {
+  //       this.showMessageWindow('Registration completed successfully. Now log in');
+  //       this.router.navigate(['/login']);
+  //     },
+  //     err => {
+  //       this.showMessageWindow('Duplicate login or registration error');
+  //     }
+  //   );
+  // }
 
   showMessageWindow(newContent: string) {
     const componentFactory = this.componentFactoryResolver.resolveComponentFactory(ModalErrorComponent);
     let componentRef = this.viewContainerRef.createComponent(componentFactory);
-
     componentRef.instance.content = newContent;
 
     setTimeout(() => {

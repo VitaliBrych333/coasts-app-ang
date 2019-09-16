@@ -4,7 +4,6 @@ import { Observable } from 'rxjs';
 
 import { AuthService } from '../../services/auth.service';
 
-
 @Injectable({
   providedIn: 'root'
 })
@@ -16,10 +15,6 @@ export class AuthGuard implements CanActivate, CanActivateChild, CanLoad {
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    // if (!this.authService.isAuth()) {
-    //   this.router.navigate(['/login']);
-    // }
-    // return this.authService.isAuth();
     if (!this.authService.isLoggedIn()) {
       this.router.navigateByUrl('/login');
       this.authService.deleteToken();

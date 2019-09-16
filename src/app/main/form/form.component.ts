@@ -5,7 +5,7 @@ import { DatePipe } from '@angular/common';
 import { Router } from '@angular/router';
 
 import { DataService } from '../../services/data.service';
-
+import { AuthService } from '../../services/auth.service';
 import { NewField } from '../field.model';
 
 @Component({
@@ -26,13 +26,14 @@ export class FormComponent implements OnInit {
   constructor(private datePipe: DatePipe,
               private fb: FormBuilder,
               private router: Router,
-              private dataService: DataService) { }
+              private dataService: DataService,
+              private authService: AuthService) { }
 
   ngOnInit() {
     this.myDate = this.datePipe.transform(this.myDate, 'yyyy-MM-dd');
     this.infoBuy = {
       date: this.myDate,
-      author: localStorage.getItem('userName'),
+      author: this.authService.getUserPayload().login,
       sum: null,
       type: null,
       other: null,
@@ -48,7 +49,7 @@ export class FormComponent implements OnInit {
       this.formForValid.value.date,
       this.formForValid.value.sum,
       this.formForValid.value.type,
-      localStorage.getItem('userName'),
+      this.authService.getUserPayload().login,
       this.formForValid.value.other
     );
 

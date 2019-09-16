@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-
 const { Types } = mongoose.Schema;
 
 const incomesSchema = new mongoose.Schema({
@@ -12,10 +11,11 @@ const incomesSchema = new mongoose.Schema({
 });
 
 incomesSchema.statics.findOneOrCreate = async function findOneOrCreate(condition) {
-    let income = await this.findOne(condition);
-    if (!income) {
-        income = await this.create(condition);
-    }
-    return income;
+  let income = await this.findOne(condition);
+  if (!income) {
+    income = await this.create(condition);
+  }
+  return income;
 };
+
 module.exports = incomesSchema;

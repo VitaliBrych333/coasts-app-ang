@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-
 const { Types } = mongoose.Schema;
 
 const coastsSchema = new mongoose.Schema({
@@ -11,10 +10,11 @@ const coastsSchema = new mongoose.Schema({
 });
 
 coastsSchema.statics.findOneOrCreate = async function findOneOrCreate(condition) {
-    let coast = await this.findOne(condition);
-    if (!coast) {
-        coast = await this.create(condition);
-    }
-    return coast;
+  let coast = await this.findOne(condition);
+  if (!coast) {
+    coast = await this.create(condition);
+  }
+  return coast;
 };
+
 module.exports = coastsSchema;

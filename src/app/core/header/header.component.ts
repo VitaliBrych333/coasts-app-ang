@@ -11,6 +11,7 @@ export class HeaderComponent implements OnInit {
 
   statusLog: boolean;
   name: string;
+  
   constructor(private authService: AuthService,
               private router: Router) { }
 

@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 import { DatePipe } from '@angular/common';
 import { Router } from '@angular/router';
 import { DataService } from '../../services/data.service';
+import { AuthService } from '../../services/auth.service';
 import { NewIncome } from '../income.model';
 
 @Component({
@@ -21,13 +22,14 @@ export class IncomeFormComponent implements OnInit {
   constructor(private datePipe: DatePipe,
     private fb: FormBuilder,
     private router: Router,
-    private dataService: DataService) { }
+    private dataService: DataService,
+    private authService: AuthService) { }
 
   ngOnInit() {
     this.myDate = this.datePipe.transform(this.myDate, 'yyyy-MM-dd');
     this.infoIncome = {
       date: this.myDate,
-      author: localStorage.getItem('userName'),
+      author: this.authService.getUserPayload().login,
       sum: null,
       type: null,
       other: null,
@@ -45,7 +47,7 @@ export class IncomeFormComponent implements OnInit {
       this.formForValid.value.sum,
       this.formForValid.value.who,
       this.formForValid.value.type,
-      localStorage.getItem('userName'),
+      this.authService.getUserPayload().login,
       this.formForValid.value.other
     );
 

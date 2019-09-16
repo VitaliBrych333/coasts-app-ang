@@ -1,6 +1,6 @@
 const express = require('express');
-const User = require('./auth-model');
-const asyncHandler = require('./utils');
+const User = require('../models/auth-model');
+const asyncHandler = require('../utils');
 
 const router = new express.Router();
 
