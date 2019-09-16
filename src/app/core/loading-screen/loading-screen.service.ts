@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Subject } from "rxjs";
-
+import { Subject } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
@@ -9,7 +8,7 @@ export class LoadingScreenService {
   private _loading: boolean = false;
   loadingStatus: Subject<boolean> = new Subject();
 
-  get loading():boolean {
+  get loading(): boolean {
     return this._loading;
   }
 

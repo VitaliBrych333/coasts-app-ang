@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-
-
 @Component({
   selector: 'app-graphs',
   templateUrl: './graphs.component.html',
@@ -8,9 +6,5 @@ import { Component, OnInit } from '@angular/core';
 })
 export class GraphsComponent implements OnInit {
 
-  ngOnInit() {
-
-  }
-
+  ngOnInit() {}
 }
-

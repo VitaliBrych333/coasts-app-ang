@@ -3,14 +3,13 @@ import { CanActivate, CanActivateChild, CanLoad, Route, Router, UrlSegment, Acti
 import { Observable } from 'rxjs';
 
 import { AuthService } from '../../services/auth.service';
-
 @Injectable({
   providedIn: 'root'
 })
 export class AuthGuard implements CanActivate, CanActivateChild, CanLoad {
 
   constructor(private authService: AuthService,
-              private router: Router) {};
+              private router: Router) {}
 
   canActivate(
     next: ActivatedRouteSnapshot,

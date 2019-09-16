@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-
 @Injectable({
   providedIn: 'root'
 })
+
 export class FilterDataService {
 
   private listCoastsSource = new BehaviorSubject([]);
@@ -15,7 +15,7 @@ export class FilterDataService {
   private arrayDataCompare = new BehaviorSubject([]);
   currentDataCompare = this.arrayDataCompare.asObservable();
 
-  constructor() { }
+  constructor() {}
 
   changeSourceListCoasts(newArray: Array<object>) {
     this.listCoastsSource.next(newArray);

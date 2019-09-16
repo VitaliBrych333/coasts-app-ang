@@ -1,10 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FilterDataService } from '../../../services/filter-data.service';
 import { ISubscription } from 'rxjs/Subscription';
-import { withLatestFrom, map,  } from 'rxjs/operators';
-import {  pipe, combineLatest } from 'rxjs';
+import { combineLatest } from 'rxjs';
 import * as _ from 'lodash';
-
 interface RequireObject {
   food: any;
   rent: any;
@@ -12,7 +10,6 @@ interface RequireObject {
   gym: any;
   required: any;
 }
-
 interface OptionalObject {
   clothes: any;
   petrol: any;
@@ -20,7 +17,6 @@ interface OptionalObject {
   other: any;
   optional: any;
 }
-
 @Component({
   selector: 'app-report-form',
   templateUrl: './report-form.component.html',
@@ -37,7 +33,6 @@ export class ReportFormComponent implements OnInit, OnDestroy {
   coastsTotal: number;
   incomesTotal: number;
   balanse: number;
-
   currentRequired: RequireObject;
   currentOptional: OptionalObject;
 
@@ -48,10 +43,9 @@ export class ReportFormComponent implements OnInit, OnDestroy {
 
   subscrFields: ISubscription;
 
-  constructor(private filterDataService: FilterDataService ) { }
+  constructor(private filterDataService: FilterDataService ) {}
 
   ngOnInit() {
-
     this.subscrFields = combineLatest(this.filterDataService.currentMessageListCoasts, this.filterDataService.currentMessageListIncomes)
       .subscribe(([dataCoasts, dataIncomes]) => {
         let food, rent, child, gym, required, clothes, petrol, present, other, optional;

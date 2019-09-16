@@ -7,7 +7,6 @@ import { Router } from '@angular/router';
 import { DataService } from '../../services/data.service';
 import { AuthService } from '../../services/auth.service';
 import { NewField } from '../field.model';
-
 @Component({
   selector: 'app-form',
   templateUrl: './form.component.html',
@@ -18,9 +17,7 @@ import { NewField } from '../field.model';
 export class FormComponent implements OnInit {
 
   infoBuy: object;
-
   myDate = new Date().toString();
-
   formForValid: FormGroup;
 
   constructor(private datePipe: DatePipe,
@@ -37,7 +34,7 @@ export class FormComponent implements OnInit {
       sum: null,
       type: null,
       other: null,
-    }
+    };
   }
 
   validForm(form: FormGroup): void {
@@ -54,13 +51,12 @@ export class FormComponent implements OnInit {
     );
 
     this.dataService.addField(newField).subscribe();
-    this.router.navigate(['/main'])
+    this.router.navigate(['/main']);
   }
 
   cancel(): void {
-    this.router.navigate(['/main'])
+    this.router.navigate(['/main']);
   }
-
 }
 
 

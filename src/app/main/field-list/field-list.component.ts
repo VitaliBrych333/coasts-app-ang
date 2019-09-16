@@ -10,7 +10,6 @@ import { ISubscription } from 'rxjs/Subscription';
 /**
  * @title Table with pagination
  */
-
 @Component({
   selector: 'app-field-list',
   templateUrl: './field-list.component.html',
@@ -31,7 +30,7 @@ export class FieldListComponent implements OnInit, OnDestroy {
   constructor(private router: Router,
               private dataService: DataService,
               private viewContainerRef: ViewContainerRef,
-              private componentFactoryResolver: ComponentFactoryResolver) { }
+              private componentFactoryResolver: ComponentFactoryResolver) {}
 
   ngOnInit() {
     this.subscriptionGetAllFields = this.dataService.getAllFields().subscribe(data => {

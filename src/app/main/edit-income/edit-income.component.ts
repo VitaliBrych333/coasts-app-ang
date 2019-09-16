@@ -6,14 +6,13 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 import { DatePipe } from '@angular/common';
 import { Router } from '@angular/router';
 import { ISubscription } from 'rxjs/Subscription';
-
 @Component({
   selector: 'app-edit-income',
   templateUrl: './edit-income.component.html',
   styleUrls: ['./edit-income.component.css'],
   providers: [ DatePipe ]
 })
-export class EditIncomeComponent implements OnInit {
+export class EditIncomeComponent implements OnInit, OnDestroy {
 
   listCategory: Array<string> = ['food', 'rent', 'clothes', 'child', 'petrol', 'present', 'gym', 'other'];
   editFieldIncome: object = {
@@ -46,7 +45,7 @@ export class EditIncomeComponent implements OnInit {
         author: editFieldIncome.author,
         type: editFieldIncome.type,
         other: editFieldIncome.other
-      }
+      };
     });
   }
 
@@ -76,6 +75,4 @@ export class EditIncomeComponent implements OnInit {
   cancel(): void {
     this.router.navigate(['/incomes/all']);
   }
-
-
 }

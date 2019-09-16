@@ -1,10 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders} from '@angular/common/http';
-import { Router } from '@angular/router';
 import { NewUser } from '../log/user.model';
-import { Observable, BehaviorSubject, Subject, } from 'rxjs';
-import { map } from 'rxjs/operators';
-
+import { BehaviorSubject } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
@@ -15,9 +12,9 @@ export class AuthService {
 
   baseURL = 'http://localhost:5500';
   options = {headers: {'Content-Type': 'application/json'}};
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
-  noAuthHeader = { headers: new HttpHeaders({ 'NoAuth': 'True' }) };
+  // noAuthHeader = { headers: new HttpHeaders({ 'NoAuth': 'True' }) };
 
   register(user: NewUser) {
     return this.http.post(this.baseURL + '/register', JSON.stringify(user), this.options);
@@ -61,6 +58,4 @@ export class AuthService {
   changeStatusLog(message: boolean) {
     this.messageStatusLog.next(message)
   }
-
-
 }

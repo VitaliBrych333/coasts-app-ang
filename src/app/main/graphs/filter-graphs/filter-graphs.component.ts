@@ -1,18 +1,14 @@
-import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
-import { MatRadioButton, MatRadioChange } from '@angular/material/radio';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+
 import { DataService } from '../../../services/data.service';
 import { NewField } from '../../field.model';
 import { NewIncome } from '../../income.model';
-import { MatDatepickerInputEvent } from '@angular/material/datepicker';
-import { MatInput } from '@angular/material';
+
 import { FilterDataService } from '../../../services/filter-data.service';
 import { ISubscription } from 'rxjs/Subscription';
 import * as _ from 'lodash';
 
 import { FiltersComponent } from '../../statistics/filters/filters.component';
-
-import { NgDropdownPanelService } from '@ng-select/ng-select/lib/ng-dropdown-panel.service';
-import { ObserveOnMessage } from 'rxjs/internal/operators/observeOn';
 @Component({
   selector: 'app-filter-graphs',
   templateUrl: './filter-graphs.component.html',
@@ -22,12 +18,6 @@ export class FilterGraphsComponent extends FiltersComponent implements OnInit, O
 
   someYears: boolean = true;
   oneYear: boolean = false;
-  // startDate = new Date(2019, 0, 1);
-
-  // selectedMounth: string;
-  // mounths: object[] = [];
-  // mounthsNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-
   years: Array<number> = [2019, 2020, 2021, 2022];
 
   coastsRequired: Array<string> = ['food', 'rent', 'child', 'gym'];
@@ -37,23 +27,10 @@ export class FilterGraphsComponent extends FiltersComponent implements OnInit, O
   coastsKinds: Array<string> = ['coasts required', 'coasts optional'];
 
   parameters: Array<string> = this.coastsRequired.concat(this.coastsOptional, this.incomesTotal, this.incomesUsers,
-                                                         this.coastsKinds, 'coasts total', 'incomes total', 'accumulation')
+                                                         this.coastsKinds, 'coasts total', 'incomes total', 'accumulation');
 
   listCoasts: NewField[];
   listIncomes: NewIncome[];
-
-  // currentListCoasts: NewField[];
-  // currentListIncomes: NewIncome[];
-
-  // topDateFilter: Date;
-  // lowDateFilter: Date;
-
-  // minDateFrom = new Date(2018, 0, 1);
-  // maxDateFrom = new Date();
-  // minDateTo = new Date(2018, 0, 1);
-  // maxDateTo = new Date();
-
-  // arrayIdMounths: Array<number> = [];
   selectedYear: number;
   selectedParameters: string[];
 
@@ -69,11 +46,6 @@ export class FilterGraphsComponent extends FiltersComponent implements OnInit, O
               public filterDataService: FilterDataService) { super(dataService, filterDataService); }
 
   ngOnInit() {
-
-  //   this.mounthsNames.forEach((c, i) => {
-  //     this.mounths.push({ id: i, name: c });
-  //   });
-
     this.subscriptionGetAllFields = this.dataService.getAllFields().subscribe(data => {
       this.listCoasts = data;
     });
@@ -113,11 +85,13 @@ export class FilterGraphsComponent extends FiltersComponent implements OnInit, O
     let sumResult: number = 0;
 
     for (let i = 0; i < 12; i++) {
-      if(year) {
-        sumResult = +_.sumBy(newDataGraphs.filter((obj: any) => (new Date(obj.date).getMonth() === i) && (new Date(obj.date).getFullYear() === year)), 'sum').toFixed(2);
+      if (year) {
+        sumResult = +_.sumBy(newDataGraphs.filter((obj: any) => (new Date(obj.date).getMonth() === i)
+                                                                  && (new Date(obj.date).getFullYear() === year)), 'sum').toFixed(2);
       } else {
         sumResult = +_.sumBy(newDataGraphs.filter((obj: any) => new Date(obj.date).getMonth() === i), 'sum').toFixed(2);
       }
+
       newData.set(i, sumResult);
     }
     return newData;
@@ -136,7 +110,6 @@ export class FilterGraphsComponent extends FiltersComponent implements OnInit, O
       newDataGraphs = this.currentListIncomes.filter(obj => obj.who === value.slice(8));
 
     } else {
-
       switch (value) {
         case 'coasts required':
           newDataGraphs = this.currentListCoasts.filter(obj => this.coastsRequired.includes(obj.type));
@@ -190,8 +163,6 @@ export class FilterGraphsComponent extends FiltersComponent implements OnInit, O
     this.currentListIncomes = this.listIncomes.filter(obg => arrayYears.includes(new Date(obg.date).getFullYear()));
   }
 
- 
-
   onChange() {
     this.selectedYear = null;
     this.selectedParameter = null;
@@ -201,25 +172,9 @@ export class FilterGraphsComponent extends FiltersComponent implements OnInit, O
 
     this.oneYear = !this.oneYear;
     this.someYears = !this.someYears;
-    //TODO: probable change arrayDataCompare on []
+
     this.arrayDataCompare = [];
     this.filterDataService.changeSourceDataCompare(this.arrayDataCompare);
-    // this.currentListCoasts = this.listCoasts;
-    // this.currentListIncomes = this.listIncomes;
-
-    // this.inputFrom.value = '';
-    // this.inputTo.value = '';
-
-    // this.minDateFrom = new Date(2018, 0, 1);
-    // this.maxDateFrom = new Date();
-    // this.minDateTo = new Date(2018, 0, 1);
-    // this.maxDateTo = new Date();
-
-
-    // this.arrayIdMounths = [];
-
-    // this.filterDataService.changeSourceListCoasts([]);
-    // this.filterDataService.changeSourceListIncomes([]);
   }
 
   addTagFnYear(name) {

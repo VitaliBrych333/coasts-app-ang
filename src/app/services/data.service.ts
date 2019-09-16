@@ -1,20 +1,21 @@
 import { Injectable } from '@angular/core';
 import { NewField } from '../main/field.model';
 import { NewIncome } from '../main/income.model';
-import { Observable, BehaviorSubject, Subject, } from 'rxjs';
-import { HttpClient, HttpHeaders} from '@angular/common/http';
-
+import { Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 @Injectable({
   providedIn: 'root'
 })
-export class DataService {
-  baseURL = 'http://localhost:5500';  
 
-  constructor(private http: HttpClient) { }
+export class DataService {
+
+  options = {headers: {'Content-Type': 'application/json'}};
+  baseURL = 'http://localhost:5500';
+
+  constructor(private http: HttpClient) {}
 
   addField(body: NewField): Observable<NewField>  {
-    const options = {headers: {'Content-Type': 'application/json'}};
-    return this.http.post<NewField>(this.baseURL + '/purchases', JSON.stringify(body), options);
+    return this.http.post<NewField>(this.baseURL + '/purchases', JSON.stringify(body), this.options);
   }
 
   getAllFields(): Observable<NewField[]> {
@@ -34,14 +35,8 @@ export class DataService {
     return this.http.put<NewField>(this.baseURL + '/purchases' + `/${id}/update`, field);
   }
 
-
-
-
-
-
   addFieldIncome(body: NewIncome): Observable<NewIncome>  {
-    const options = {headers: {'Content-Type': 'application/json'}};
-    return this.http.post<NewIncome>(this.baseURL + '/incomes', JSON.stringify(body), options);
+    return this.http.post<NewIncome>(this.baseURL + '/incomes', JSON.stringify(body), this.options);
   }
 
   getAllFieldsIncomes(): Observable<NewIncome[]> {
@@ -60,7 +55,4 @@ export class DataService {
   updateFieldIncome(id: string, field: NewIncome): Observable<NewIncome> {
     return this.http.put<NewIncome>(this.baseURL + '/incomes' + `/${id}/update`, field);
   }
-
-
-
 }

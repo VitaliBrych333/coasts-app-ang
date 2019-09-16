@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-
 @Component({
   selector: 'app-buttons',
   templateUrl: './buttons.component.html',
@@ -18,8 +17,7 @@ export class ButtonsComponent implements OnInit {
   constructor(private router: Router) { }
 
   ngOnInit() {
-
-    switch(this.currentUrl) {
+    switch (this.currentUrl) {
       case '/purchases/new':
         this.stateOne = true;
         break;
@@ -39,29 +37,23 @@ export class ButtonsComponent implements OnInit {
           this.stateSix = true;
           break;
       default:
-        // code block
     }
-
   }
 
   addCoasts(): void {
     this.router.navigate(['/purchases/new']);
-
   }
 
   addIncome(): void {
     this.router.navigate(['/incomes/new']);
-
   }
 
   showTableCoasts(): void {
     this.router.navigate(['/purchases/all']);
-
   }
 
   showTableIncomes(): void {
     this.router.navigate(['/incomes/all']);
-
   }
 
   getStatistics(): void {
@@ -71,5 +63,4 @@ export class ButtonsComponent implements OnInit {
   showGraphs(): void {
     this.router.navigate(['/graphs']);
   }
-
 }

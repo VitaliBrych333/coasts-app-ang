@@ -1,5 +1,4 @@
 import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
-import { MatRadioButton, MatRadioChange } from '@angular/material/radio';
 import { DataService } from '../../../services/data.service';
 import { NewField } from '../../field.model';
 import { NewIncome } from '../../income.model';
@@ -7,7 +6,6 @@ import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { MatInput } from '@angular/material';
 import { FilterDataService } from '../../../services/filter-data.service';
 import { ISubscription } from 'rxjs/Subscription';
-
 interface Mounth {
   id: number;
   name: string;
@@ -26,13 +24,11 @@ export class FiltersComponent implements OnInit, OnDestroy {
   checkMounth: boolean = true;
 
   startDate = new Date(2019, 0, 1);
-
   selectedMounth: string;
   mounths: object[] = [];
   mounthsNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
   years: Array<number> = [2019, 2020];
-
   listCoasts: NewField[];
   listIncomes: NewIncome[];
 
@@ -54,7 +50,7 @@ export class FiltersComponent implements OnInit, OnDestroy {
   subscriptionGetAllFieldsIncomes: ISubscription;
 
   constructor(public dataService: DataService,
-              public filterDataService: FilterDataService) { }
+              public filterDataService: FilterDataService) {}
 
   ngOnInit() {
     this.mounthsNames.forEach((c, i) => {
@@ -64,6 +60,7 @@ export class FiltersComponent implements OnInit, OnDestroy {
     this.subscriptionGetAllFields = this.dataService.getAllFields().subscribe(data => {
       this.listCoasts = data;
     });
+
     this.subscriptionGetAllFieldsIncomes = this.dataService.getAllFieldsIncomes().subscribe(data => {
       this.listIncomes = data;
     });

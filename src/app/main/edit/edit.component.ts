@@ -6,7 +6,6 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 import { DatePipe } from '@angular/common';
 import { Router } from '@angular/router';
 import { ISubscription } from 'rxjs/Subscription';
-
 @Component({
   selector: 'app-edit',
   templateUrl: './edit.component.html',

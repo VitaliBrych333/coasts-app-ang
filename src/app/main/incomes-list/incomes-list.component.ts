@@ -6,17 +6,16 @@ import { DataService } from '../../services/data.service';
 import { NewIncome } from '../income.model';
 import { MatSort } from '@angular/material/sort';
 import { ModalDialogComponent } from '../modal-dialog/modal-dialog.component';
-import { ISubscription } from "rxjs/Subscription";
+import { ISubscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'app-incomes-list',
   templateUrl: './incomes-list.component.html',
   styleUrls: ['./incomes-list.component.css']
 })
-export class IncomesListComponent implements OnInit {
+export class IncomesListComponent implements OnInit, OnDestroy {
 
   displayedColumns: string[] = ['position', 'date', 'sum', 'who', 'type', 'other', 'author', 'actions'];
-
   dataSource: MatTableDataSource<NewIncome>;
   listData: NewIncome[];
   subscriptionGetAllFieldsIncomes: ISubscription;
@@ -34,7 +33,7 @@ export class IncomesListComponent implements OnInit {
       data.forEach(obg => obg.position = (data.indexOf(obg) + 1));
       this.listData = data;
       this.createTable(this.listData);
-    })
+    });
   }
 
   ngOnDestroy() {
@@ -61,13 +60,10 @@ export class IncomesListComponent implements OnInit {
 
       componentRef.destroy();
       componentRef = null;
-    })
+    });
   }
 
   editField(fieldEdit: NewIncome): void {
-    this.router.navigate([`/incomes/${fieldEdit._id}`])
+    this.router.navigate([`/incomes/${fieldEdit._id}`]);
   }
-
-
-
 }

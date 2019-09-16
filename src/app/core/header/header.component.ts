@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../../services/auth.service'
+import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
-
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -11,13 +10,13 @@ export class HeaderComponent implements OnInit {
 
   statusLog: boolean;
   name: string;
-  
+
   constructor(private authService: AuthService,
               private router: Router) { }
 
   ngOnInit() {
     this.authService.currentStatusLog.subscribe(value => {
-      if(this.authService.isLoggedIn()) {
+      if (this.authService.isLoggedIn()) {
         this.statusLog = true;
         this.name = this.authService.getUserPayload().login;
       } else {
@@ -31,5 +30,4 @@ export class HeaderComponent implements OnInit {
     this.router.navigate(['/login']);
     this.authService.changeStatusLog(false);
   }
-
 }

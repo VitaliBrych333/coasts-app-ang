@@ -25,7 +25,6 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material';
 import { MatInputModule } from '@angular/material';
 
-
 import { NgSelectModule } from '@ng-select/ng-select';
 import { ReportFormComponent } from './statistics/report-form/report-form.component';
 import { FiltersComponent } from './statistics/filters/filters.component';
@@ -33,7 +32,6 @@ import { GraphsComponent } from './graphs/graphs.component';
 import { ChartsModule } from 'ng2-charts';
 import { SheduleComponent } from './graphs/shedule/shedule.component';
 import { FilterGraphsComponent } from './graphs/filter-graphs/filter-graphs.component';
-
 @NgModule({
   declarations: [ FormComponent,
                   ButtonsComponent,
@@ -51,7 +49,7 @@ import { FilterGraphsComponent } from './graphs/filter-graphs/filter-graphs.comp
                   FiltersComponent,
                   GraphsComponent,
                   SheduleComponent,
-                  FilterGraphsComponent],
+                  FilterGraphsComponent ],
   imports: [
     CommonModule,
     ReactiveFormsModule,
@@ -68,10 +66,8 @@ import { FilterGraphsComponent } from './graphs/filter-graphs/filter-graphs.comp
     MatInputModule,
     NgSelectModule,
     ChartsModule
-
   ],
-
   entryComponents: [ ModalDialogComponent ],
   exports: [ FormComponent, NoContentComponent, IncomeFormComponent ]
 })
-export class MainModule { }
+export class MainModule {}

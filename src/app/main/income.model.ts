@@ -6,19 +6,18 @@ interface Income {
   other?: string;
   author: string;
   __v?: number;
-  _id?:string;
+  _id?: string;
   position?: number;
 }
-
 export class NewIncome implements Income {
   date: Date;
   sum: number;
-  who:string;
+  who: string;
   type: string;
   other?: string;
   author: string;
   __v?: number;
-  _id?:string;
+  _id?: string;
   position?: number;
 
   constructor(fieldDate: Date,
@@ -27,8 +26,8 @@ export class NewIncome implements Income {
               fieldType: string,
               fieldAuthor: string,
               fieldOther?: string,
-              fieldV?:number,
-              fieldIdDb?:string,
+              fieldV?: number,
+              fieldIdDb?: string,
               fieldPosition?: number) {
 
     this.date = fieldDate;

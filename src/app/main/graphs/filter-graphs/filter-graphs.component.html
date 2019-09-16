@@ -6,7 +6,6 @@
   </mat-radio-group>
 
   <div class="criterion">
-
     <div class="select" [ngClass]="{disabled: oneYear}">
       <mat-form-field>
         <mat-label>Year</mat-label>
@@ -28,7 +27,7 @@
                  (change)="filterAnniversary()">
       </ng-select>
     </div>
-
+    
     <div class="select" [ngClass]="{disabled: someYears}">
         <p>Please, select years:</p>
         <ng-select [items]="years"

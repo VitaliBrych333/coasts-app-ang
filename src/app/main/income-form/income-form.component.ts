@@ -5,7 +5,6 @@ import { Router } from '@angular/router';
 import { DataService } from '../../services/data.service';
 import { AuthService } from '../../services/auth.service';
 import { NewIncome } from '../income.model';
-
 @Component({
   selector: 'app-income-form',
   templateUrl: './income-form.component.html',
@@ -16,7 +15,6 @@ export class IncomeFormComponent implements OnInit {
 
   infoIncome: object;
   myDate = new Date().toString();
-
   formForValid: FormGroup;
 
   constructor(private datePipe: DatePipe,
@@ -34,7 +32,7 @@ export class IncomeFormComponent implements OnInit {
       type: null,
       other: null,
       who: null,
-    }
+    };
   }
 
   validForm(form: FormGroup): void {
@@ -58,5 +56,4 @@ export class IncomeFormComponent implements OnInit {
   cancel(): void {
     this.router.navigate(['/main'])
   }
-
 }

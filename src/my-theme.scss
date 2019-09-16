@@ -1,5 +1,4 @@
 @import '~@angular/material/theming';
-// @import "~@ng-select/ng-select/themes/material.theme.css";
 @import "~@ng-select/ng-select/themes/default.theme.css";
 @include mat-core();
 
@@ -8,6 +7,5 @@ $my-theme-accent:  mat-palette($mat-pink, A200, A100, A400);
 $my-theme-warn:    mat-palette($mat-red);
 
 $my-theme: mat-light-theme($my-theme-primary, $my-theme-accent, $my-theme-warn);
-
 
 @include angular-material-theme($my-theme);

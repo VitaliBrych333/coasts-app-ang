@@ -13,7 +13,6 @@
           <input #inputFrom matInput [min]="minDateFrom" [max]="maxDateFrom" [matDatepicker]="picker" placeholder="Choose a date" (dateChange)="setLowDateFilter($event)">
           <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
           <mat-datepicker #picker startView="year" [startAt]="startDate"></mat-datepicker>
-          <!-- <mat-error *ngIf="picker.hasError('picker', 'maxlength')">You have more than 60 characters</mat-error> -->
         </mat-form-field>
       </div>
 

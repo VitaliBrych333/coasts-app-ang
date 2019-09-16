@@ -4,7 +4,6 @@ import { Color, BaseChartDirective, Label } from 'ng2-charts';
 import * as pluginAnnotations from 'chartjs-plugin-annotation';
 import { FilterDataService } from '../../../services/filter-data.service';
 import * as _ from 'lodash';
-
 @Component({
   selector: 'app-shedule',
   templateUrl: './shedule.component.html',
@@ -96,10 +95,9 @@ export class SheduleComponent implements OnInit {
 
   @ViewChild(BaseChartDirective, { static: true }) chart: BaseChartDirective;
 
-  constructor(public filterDataService: FilterDataService) { }
+  constructor(public filterDataService: FilterDataService) {}
 
   ngOnInit() {
-
     this.filterDataService.currentDataCompare.subscribe(data => {
       let countTimesScale = 0;
       let arrayMaxAbsValue = [];
@@ -140,8 +138,8 @@ export class SheduleComponent implements OnInit {
         arrayMaxAbsValue = tempArray.filter(obj => obj['maxNum'] === objMaxValue['maxNum']);
 
         const objMinValue = tempArray.filter(obj => obj['minNum'] > 0 && !_.includes(_.map(arrayMaxAbsValue, 'indexArray'), obj['indexArray'])).length
-            ? _.minBy(tempArray.filter(obj => obj['minNum'] > 0 && !_.includes(_.map(arrayMaxAbsValue, 'indexArray'), obj['indexArray'])), 'minNum')
-            : _.minBy(tempArray, 'minNum');
+          ? _.minBy(tempArray.filter(obj => obj['minNum'] > 0 && !_.includes(_.map(arrayMaxAbsValue, 'indexArray'), obj['indexArray'])), 'minNum')
+          : _.minBy(tempArray, 'minNum');
 
         const arrayMinAbsValue = tempArray.filter(obj => obj['minNum'] === objMinValue['minNum']);
 
@@ -186,6 +184,7 @@ export class SheduleComponent implements OnInit {
         },
       };
       this.arrayIndexArrayScale.forEach(num => this.lineChartData[num].yAxisID = 'y-axis-1');
+
     } else {
       this.lineChartData.forEach(obj => obj.yAxisID = null);
       this.lineChartOptions = this.stateChartOptions;
