@@ -4,7 +4,6 @@ import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { NewUser } from '../user.model';
 import { ModalErrorComponent } from '../modal-error/modal-error.component';
-
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -12,7 +11,10 @@ import { ModalErrorComponent } from '../modal-error/modal-error.component';
 })
 export class LoginComponent implements OnInit {
 
-  profileForm: FormGroup;
+  profileForm: FormGroup = this.fb.group({
+    login: ['', Validators.required],
+    password: ['', Validators.required]
+  });
 
   constructor(private fb: FormBuilder,
               private router: Router,
@@ -22,7 +24,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     if (this.authservice.isLoggedIn()) {
-      this.router.navigateByUrl('/main');
+      this.router.navigate(['/main']);
     } else {
       this.setForm();
     }

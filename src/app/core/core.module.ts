@@ -12,4 +12,5 @@ import { LoadingScreenComponent } from './loading-screen/loading-screen.componen
   exports: [ HeaderComponent, FooterComponent, LoadingScreenComponent ],
   providers: [ AuthService ]
 })
-export class CoreModule { }
+
+export class CoreModule {}
