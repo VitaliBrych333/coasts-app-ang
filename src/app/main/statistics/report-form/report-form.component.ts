@@ -3,6 +3,7 @@ import { FilterDataService } from '../../../services/filter-data.service';
 import { ISubscription } from 'rxjs/Subscription';
 import { withLatestFrom, map,  } from 'rxjs/operators';
 import {  pipe, combineLatest } from 'rxjs';
+import * as _ from 'lodash';
 
 interface RequireObject {
   food: any;
@@ -100,7 +101,7 @@ export class ReportFormComponent implements OnInit, OnDestroy {
                           .toFixed(2);
             });
 
-            this.allUsers[user].total = this.sumKeysObject(this.allUsers[user]);
+            this.allUsers[user].total = +_.sum(_.values(this.allUsers[user])).toFixed(2);
           });
 
           this.incomesTotal =  +(this.allUsers.Vitali.total + this.allUsers.Nastya.total).toFixed(2);
@@ -136,13 +137,4 @@ export class ReportFormComponent implements OnInit, OnDestroy {
     if (value || value === null) { return true; }
     return false;
   }
-
-  sumKeysObject(obj: object): number {
-    let total = 0;
-    for(let key in obj) {
-      total += obj[key];
-    }
-    return +total.toFixed(2);
-  }
-
 }
