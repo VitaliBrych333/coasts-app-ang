@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders} from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { NewUser } from '../log/user.model';
 import { BehaviorSubject } from 'rxjs';
 @Injectable({
@@ -56,6 +56,6 @@ export class AuthService {
   }
 
   changeStatusLog(message: boolean) {
-    this.messageStatusLog.next(message)
+    this.messageStatusLog.next(message);
   }
 }

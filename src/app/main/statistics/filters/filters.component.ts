@@ -5,7 +5,8 @@ import { NewIncome } from '../../income.model';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { MatInput } from '@angular/material';
 import { FilterDataService } from '../../../services/filter-data.service';
-import { ISubscription } from 'rxjs/Subscription';
+import { Subscription } from 'rxjs';
+import * as _ from 'lodash';
 interface Mounth {
   id: number;
   name: string;
@@ -17,6 +18,9 @@ interface Mounth {
 })
 
 export class FiltersComponent implements OnInit, OnDestroy {
+
+  protected readonly subscriptions: Subscription[] = [];
+
   @ViewChild('inputFrom', { read: MatInput, static: false}) inputFrom: MatInput;
   @ViewChild('inputTo', { read: MatInput, static: false}) inputTo: MatInput;
 
@@ -46,9 +50,6 @@ export class FiltersComponent implements OnInit, OnDestroy {
   arrayIdMounths: Array<number> = [];
   selectedYear: number;
 
-  subscriptionGetAllFields: ISubscription;
-  subscriptionGetAllFieldsIncomes: ISubscription;
-
   constructor(public dataService: DataService,
               public filterDataService: FilterDataService) {}
 
@@ -57,19 +58,20 @@ export class FiltersComponent implements OnInit, OnDestroy {
       this.mounths.push({ id: i, name: c });
     });
 
-    this.subscriptionGetAllFields = this.dataService.getAllFields().subscribe(data => {
-      this.listCoasts = data;
-    });
+    this.subscriptions.push(
+      this.dataService.getAllFields().subscribe(data => {
+        this.listCoasts = data;
+      }),
 
-    this.subscriptionGetAllFieldsIncomes = this.dataService.getAllFieldsIncomes().subscribe(data => {
-      this.listIncomes = data;
-    });
+      this.dataService.getAllFieldsIncomes().subscribe(data => {
+        this.listIncomes = data;
+      })
+    );
   }
 
   ngOnDestroy() {
     this.onChange();
-    this.subscriptionGetAllFields.unsubscribe();
-    this.subscriptionGetAllFieldsIncomes.unsubscribe();
+    _.forEach(this.subscriptions, subscription => subscription.unsubscribe());
   }
 
   setDate(value: Date): Date {

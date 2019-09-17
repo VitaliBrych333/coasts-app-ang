@@ -1,22 +1,24 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { ChartDataSets, ChartOptions } from 'chart.js';
 import { Color, BaseChartDirective, Label } from 'ng2-charts';
 import * as pluginAnnotations from 'chartjs-plugin-annotation';
 import { FilterDataService } from '../../../services/filter-data.service';
+import { Subscription } from 'rxjs';
 import * as _ from 'lodash';
 @Component({
   selector: 'app-shedule',
   templateUrl: './shedule.component.html',
   styleUrls: ['./shedule.component.css']
 })
-export class SheduleComponent implements OnInit {
+export class SheduleComponent implements OnInit, OnDestroy {
 
-  private arrayIndexArrayScale: number[];
+  protected readonly subscriptions: Subscription[] = [];
 
   public lineChartData: ChartDataSets[];
   public lineChartLabels: Label[] = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'];
   public lineChartOptions: ChartOptions;
 
+  private arrayIndexArrayScale: number[];
   private color: Color[] = [
     { // orange
       backgroundColor: 'rgba(255, 191, 0, 0.2)',
@@ -98,60 +100,66 @@ export class SheduleComponent implements OnInit {
   constructor(public filterDataService: FilterDataService) {}
 
   ngOnInit() {
-    this.filterDataService.currentDataCompare.subscribe(data => {
-      let countTimesScale = 0;
-      let arrayMaxAbsValue = [];
-      this.arrayIndexArrayScale = [];
-      this.lineChartOptions = this.stateChartOptions;
+    this.subscriptions.push(
+      this.filterDataService.currentDataCompare.subscribe(data => {
+        let countTimesScale = 0;
+        let arrayMaxAbsValue = [];
+        this.arrayIndexArrayScale = [];
+        this.lineChartOptions = this.stateChartOptions;
 
-      this.lineChartData = [
-        { data: [], label: '' },
-        { data: [], label: '' },
-        { data: [], label: '' }
-      ];
+        this.lineChartData = [
+          { data: [], label: '' },
+          { data: [], label: '' },
+          { data: [], label: '' }
+        ];
 
-      if (data.length) {
-        data.forEach((value, index) => {
-           const newData = Array.from(value.values()).slice(0, 12);
-           const newLabel = value.get(12);
-           this.lineChartData[index].data = newData;
-           this.lineChartData[index].label = newLabel;
-        });
-      }
-
-  //for scale if values differ more than 10 times
-      if (this.lineChartData[1].data.length) {
-        const tempArray = [];
-
-        this.lineChartData.map((obj: any) => obj.data.map((num: number) => Math.abs(num)))
-                          .forEach((obj, index) => tempArray.push(
-                                                                    {
-                                                                      'maxNum': _.max(obj),
-                                                                      'indexArray': index,
-                                                                      'minNum': obj.filter((num: number) => num > 0).length
-                                                                                  ? _.min(obj.filter((num: number) => num > 0))
-                                                                                  : _.min(obj),
-                                                                    }
-                                                                  ));
-
-        const objMaxValue = _.maxBy(tempArray, 'maxNum');
-        arrayMaxAbsValue = tempArray.filter(obj => obj['maxNum'] === objMaxValue['maxNum']);
-
-        const objMinValue = tempArray.filter(obj => obj['minNum'] > 0 && !_.includes(_.map(arrayMaxAbsValue, 'indexArray'), obj['indexArray'])).length
-          ? _.minBy(tempArray.filter(obj => obj['minNum'] > 0 && !_.includes(_.map(arrayMaxAbsValue, 'indexArray'), obj['indexArray'])), 'minNum')
-          : _.minBy(tempArray, 'minNum');
-
-        const arrayMinAbsValue = tempArray.filter(obj => obj['minNum'] === objMinValue['minNum']);
-
-        if (arrayMaxAbsValue[0]['maxNum'] !== 0 && arrayMinAbsValue[0]['minNum'] !== 0) {
-          countTimesScale = _.floor(arrayMaxAbsValue[0]['maxNum'] / arrayMinAbsValue[0]['minNum']);
+        if (data.length) {
+          data.forEach((value, index) => {
+             const newData = Array.from(value.values()).slice(0, 12);
+             const newLabel = value.get(12);
+             this.lineChartData[index].data = newData;
+             this.lineChartData[index].label = newLabel;
+          });
         }
-      }
 
-      if (countTimesScale >= 10) {
-        arrayMaxAbsValue.forEach(obj => this.arrayIndexArrayScale.push(obj['indexArray']));
-      }
-    });
+    //for scale if values differ more than 10 times
+        if (this.lineChartData[1].data.length) {
+          const tempArray = [];
+
+          this.lineChartData.map((obj: any) => obj.data.map((num: number) => Math.abs(num)))
+                            .forEach((obj, index) => tempArray.push(
+                                                                      {
+                                                                        'maxNum': _.max(obj),
+                                                                        'indexArray': index,
+                                                                        'minNum': obj.filter((num: number) => num > 0).length
+                                                                                    ? _.min(obj.filter((num: number) => num > 0))
+                                                                                    : _.min(obj),
+                                                                      }
+                                                                    ));
+
+          const objMaxValue = _.maxBy(tempArray, 'maxNum');
+          arrayMaxAbsValue = tempArray.filter(obj => obj['maxNum'] === objMaxValue['maxNum']);
+
+          const objMinValue = tempArray.filter(obj => obj['minNum'] > 0 && !_.includes(_.map(arrayMaxAbsValue, 'indexArray'), obj['indexArray'])).length
+            ? _.minBy(tempArray.filter(obj => obj['minNum'] > 0 && !_.includes(_.map(arrayMaxAbsValue, 'indexArray'), obj['indexArray'])), 'minNum')
+            : _.minBy(tempArray, 'minNum');
+
+          const arrayMinAbsValue = tempArray.filter(obj => obj['minNum'] === objMinValue['minNum']);
+
+          if (arrayMaxAbsValue[0]['maxNum'] !== 0 && arrayMinAbsValue[0]['minNum'] !== 0) {
+            countTimesScale = _.floor(arrayMaxAbsValue[0]['maxNum'] / arrayMinAbsValue[0]['minNum']);
+          }
+        }
+
+        if (countTimesScale >= 10) {
+          arrayMaxAbsValue.forEach(obj => this.arrayIndexArrayScale.push(obj['indexArray']));
+        }
+      })
+    );
+  }
+
+  ngOnDestroy() {
+    _.forEach(this.subscriptions, subscription => subscription.unsubscribe());
   }
 
   public scale() {

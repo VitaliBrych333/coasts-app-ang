@@ -6,8 +6,8 @@ import { DataService } from '../../services/data.service';
 import { NewIncome } from '../income.model';
 import { MatSort } from '@angular/material/sort';
 import { ModalDialogComponent } from '../modal-dialog/modal-dialog.component';
-import { ISubscription } from 'rxjs/Subscription';
-
+import { Subscription } from 'rxjs';
+import * as _ from 'lodash';
 @Component({
   selector: 'app-incomes-list',
   templateUrl: './incomes-list.component.html',
@@ -15,10 +15,11 @@ import { ISubscription } from 'rxjs/Subscription';
 })
 export class IncomesListComponent implements OnInit, OnDestroy {
 
+  protected readonly subscriptions: Subscription[] = [];
+
   displayedColumns: string[] = ['position', 'date', 'sum', 'who', 'type', 'other', 'author', 'actions'];
   dataSource: MatTableDataSource<NewIncome>;
   listData: NewIncome[];
-  subscriptionGetAllFieldsIncomes: ISubscription;
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
@@ -29,15 +30,17 @@ export class IncomesListComponent implements OnInit, OnDestroy {
               private componentFactoryResolver: ComponentFactoryResolver) { }
 
   ngOnInit() {
-    this.subscriptionGetAllFieldsIncomes = this.dataService.getAllFieldsIncomes().subscribe(data => {
-      data.forEach(obg => obg.position = (data.indexOf(obg) + 1));
-      this.listData = data;
-      this.createTable(this.listData);
-    });
+    this.subscriptions.push(
+      this.dataService.getAllFieldsIncomes().subscribe(data => {
+        data.forEach(obg => obg.position = (data.indexOf(obg) + 1));
+        this.listData = data;
+        this.createTable(this.listData);
+      })
+    );
   }
 
   ngOnDestroy() {
-    this.subscriptionGetAllFieldsIncomes.unsubscribe();
+    _.forEach(this.subscriptions, subscription => subscription.unsubscribe());
   }
 
   createTable(data: NewIncome[]): void {
@@ -52,15 +55,17 @@ export class IncomesListComponent implements OnInit, OnDestroy {
 
     componentRef.instance.fieldIncomeDelete = fieldDelete;
 
-    componentRef.instance.deleteItemIcome.subscribe((state: boolean) => {
-      if(state) {
-        this.listData = this.listData.filter(obg => obg._id !== fieldDelete._id);
-        this.createTable(this.listData);
-      }
+    this.subscriptions.push(
+      componentRef.instance.deleteItemIcome.subscribe((state: boolean) => {
+        if (state) {
+          this.listData = this.listData.filter(obg => obg._id !== fieldDelete._id);
+          this.createTable(this.listData);
+        }
 
-      componentRef.destroy();
-      componentRef = null;
-    });
+        componentRef.destroy();
+        componentRef = null;
+      })
+    );
   }
 
   editField(fieldEdit: NewIncome): void {

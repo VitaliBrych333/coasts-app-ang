@@ -1,15 +1,19 @@
-import { Component, OnInit, ViewContainerRef, ComponentFactoryResolver } from '@angular/core';
+import { Component, OnInit, ViewContainerRef, ComponentFactoryResolver, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { NewUser } from '../user.model';
 import { ModalErrorComponent } from '../modal-error/modal-error.component';
+import { Subscription } from 'rxjs';
+import * as _ from 'lodash';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, OnDestroy {
+
+  protected readonly subscriptions: Subscription[] = [];
 
   profileForm: FormGroup = this.fb.group({
     login: ['', Validators.required],
@@ -42,30 +46,34 @@ export class LoginComponent implements OnInit {
   }
 
   signIn(): void {
-    this.authservice.login(new NewUser(this.form.login.value, this.form.password.value)).subscribe(
-      res => {
-        this.authservice.setToken(res['token']);
-        this.authservice.changeStatusLog(true);
-        this.router.navigate(['/main']);
-      },
-      err => {
-        this.setForm();
-        this.showMessageWindow('Your login or password is incorrect');
-      }
+    this.subscriptions.push(
+      this.authservice.login(new NewUser(this.form.login.value, this.form.password.value)).subscribe(
+        res => {
+          this.authservice.setToken(res['token']);
+          this.authservice.changeStatusLog(true);
+          this.router.navigate(['/main']);
+        },
+        err => {
+          this.setForm();
+          this.showMessageWindow('Your login or password is incorrect');
+        }
+      )
     );
   }
 
   // if need for regisration
 
   // register(): void {
-  //   this.authservice.register(new NewUser(this.form.login.value, this.form.password.value)).subscribe(
-  //     res => {
-  //       this.showMessageWindow('Registration completed successfully. Now log in');
-  //       this.router.navigate(['/login']);
-  //     },
-  //     err => {
-  //       this.showMessageWindow('Duplicate login or registration error');
-  //     }
+  //   this.subscriptions.push(
+  //     this.authservice.register(new NewUser(this.form.login.value, this.form.password.value)).subscribe(
+  //       res => {
+  //         this.showMessageWindow('Registration completed successfully. Now log in');
+  //         this.router.navigate(['/login']);
+  //       },
+  //       err => {
+  //         this.showMessageWindow('Duplicate login or registration error');
+  //       }
+  //     )
   //   );
   // }
 
@@ -78,5 +86,9 @@ export class LoginComponent implements OnInit {
                        componentRef.destroy();
                        componentRef = null;
                       }, 1500);
+  }
+
+  ngOnDestroy(): void {
+    _.forEach(this.subscriptions, subscription => subscription.unsubscribe());
   }
 }

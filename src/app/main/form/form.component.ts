@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 
 import { DatePipe } from '@angular/common';
@@ -7,6 +7,9 @@ import { Router } from '@angular/router';
 import { DataService } from '../../services/data.service';
 import { AuthService } from '../../services/auth.service';
 import { NewField } from '../field.model';
+
+import { Subscription } from 'rxjs';
+import * as _ from 'lodash';
 @Component({
   selector: 'app-form',
   templateUrl: './form.component.html',
@@ -14,7 +17,9 @@ import { NewField } from '../field.model';
   providers: [ DatePipe ],
 })
 
-export class FormComponent implements OnInit {
+export class FormComponent implements OnInit, OnDestroy {
+
+  protected readonly subscriptions: Subscription[] = [];
 
   infoBuy: object;
   myDate = new Date().toString();
@@ -37,6 +42,10 @@ export class FormComponent implements OnInit {
     };
   }
 
+  ngOnDestroy() {
+    _.forEach(this.subscriptions, subscription => subscription.unsubscribe());
+  }
+
   validForm(form: FormGroup): void {
     this.formForValid = form;
   }
@@ -50,7 +59,7 @@ export class FormComponent implements OnInit {
       this.formForValid.value.other
     );
 
-    this.dataService.addField(newField).subscribe();
+    this.subscriptions.push(this.dataService.addField(newField).subscribe());
     this.router.navigate(['/main']);
   }
 

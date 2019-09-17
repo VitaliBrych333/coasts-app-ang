@@ -6,7 +6,8 @@ import { DataService } from '../../services/data.service';
 import { NewField } from '../field.model';
 import { MatSort } from '@angular/material/sort';
 import { ModalDialogComponent } from '../modal-dialog/modal-dialog.component';
-import { ISubscription } from 'rxjs/Subscription';
+import { Subscription } from 'rxjs';
+import * as _ from 'lodash';
 /**
  * @title Table with pagination
  */
@@ -18,11 +19,12 @@ import { ISubscription } from 'rxjs/Subscription';
 
 export class FieldListComponent implements OnInit, OnDestroy {
 
+  protected readonly subscriptions: Subscription[] = [];
+
   displayedColumns: string[] = ['position', 'date', 'sum', 'type', 'other', 'author', 'actions'];
 
   dataSource: MatTableDataSource<NewField>;
   listData: NewField[];
-  subscriptionGetAllFields: ISubscription;
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
@@ -33,15 +35,17 @@ export class FieldListComponent implements OnInit, OnDestroy {
               private componentFactoryResolver: ComponentFactoryResolver) {}
 
   ngOnInit() {
-    this.subscriptionGetAllFields = this.dataService.getAllFields().subscribe(data => {
-      data.forEach(obg => obg.position = (data.indexOf(obg) + 1));
-      this.listData = data;
-      this.createTable(this.listData);
-    });
+    this.subscriptions.push(
+      this.dataService.getAllFields().subscribe(data => {
+        data.forEach(obg => obg.position = (data.indexOf(obg) + 1));
+        this.listData = data;
+        this.createTable(this.listData);
+      })
+    );
   }
 
   ngOnDestroy() {
-    this.subscriptionGetAllFields.unsubscribe();
+    _.forEach(this.subscriptions, subscription => subscription.unsubscribe());
   }
 
   createTable(data: NewField[]): void {
@@ -56,15 +60,18 @@ export class FieldListComponent implements OnInit, OnDestroy {
 
     componentRef.instance.fieldDelete = fieldDelete;
 
-    componentRef.instance.deleteItem.subscribe((state: boolean) => {
-      if (state) {
-        this.listData = this.listData.filter(obg => obg._id !== fieldDelete._id);
-        this.createTable(this.listData);
-      }
+    this.subscriptions.push(
 
-      componentRef.destroy();
-      componentRef = null;
-    });
+      componentRef.instance.deleteItem.subscribe((state: boolean) => {
+        if (state) {
+          this.listData = this.listData.filter(obg => obg._id !== fieldDelete._id);
+          this.createTable(this.listData);
+        }
+
+        componentRef.destroy();
+        componentRef = null;
+      })
+    );
   }
 
   editField(fieldEdit: NewField): void {

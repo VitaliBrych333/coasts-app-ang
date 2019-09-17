@@ -1,7 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FilterDataService } from '../../../services/filter-data.service';
-import { ISubscription } from 'rxjs/Subscription';
-import { combineLatest } from 'rxjs';
+import { combineLatest, Subscription } from 'rxjs';
 import * as _ from 'lodash';
 interface RequireObject {
   food: any;
@@ -25,6 +24,8 @@ interface OptionalObject {
 
 export class ReportFormComponent implements OnInit, OnDestroy {
 
+  protected readonly subscriptions: Subscription[] = [];
+
   required: Array<string> = ['food', 'rent', 'child', 'gym'];
   optional: Array<string> = ['clothes', 'petrol', 'present', 'other'];
   typesIncomes: Array<string> = ['salary', 'sick leave', 'child benefit', 'gift', 'holiday pay'];
@@ -41,12 +42,12 @@ export class ReportFormComponent implements OnInit, OnDestroy {
     Nastya: {},
   };
 
-  subscrFields: ISubscription;
-
   constructor(private filterDataService: FilterDataService ) {}
 
   ngOnInit() {
-    this.subscrFields = combineLatest(this.filterDataService.currentMessageListCoasts, this.filterDataService.currentMessageListIncomes)
+
+    this.subscriptions.push(
+      combineLatest(this.filterDataService.currentMessageListCoasts, this.filterDataService.currentMessageListIncomes)
       .subscribe(([dataCoasts, dataIncomes]) => {
         let food, rent, child, gym, required, clothes, petrol, present, other, optional;
 
@@ -120,11 +121,12 @@ export class ReportFormComponent implements OnInit, OnDestroy {
         } else {
           this.balanse = null;
         }
-      });
+      })
+    );
   }
 
   ngOnDestroy() {
-    this.subscrFields.unsubscribe();
+    _.forEach(this.subscriptions, subscription => subscription.unsubscribe());
   }
 
   checkValue(value: any) {

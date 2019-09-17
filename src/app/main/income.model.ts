@@ -1,7 +1,7 @@
 interface Income {
   date: Date;
   sum: number;
-  who: string,
+  who: string;
   type: string;
   other?: string;
   author: string;
