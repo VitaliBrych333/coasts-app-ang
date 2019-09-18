@@ -16,12 +16,12 @@ export class AuthService {
 
   // noAuthHeader = { headers: new HttpHeaders({ 'NoAuth': 'True' }) };
 
-  register(user: NewUser) {
-    return this.http.post(this.baseURL + '/register', JSON.stringify(user), this.options);
+  register(user: NewUser): Promise<object> {
+    return this.http.post(this.baseURL + '/register', JSON.stringify(user), this.options).toPromise();
   }
 
-  login(user: NewUser) {
-    return this.http.post(this.baseURL + '/authenticate', JSON.stringify(user), this.options);
+  login(user: NewUser): Promise<object> {
+    return this.http.post(this.baseURL + '/authenticate', JSON.stringify(user), this.options).toPromise();
   }
 
   setToken(token: string) {

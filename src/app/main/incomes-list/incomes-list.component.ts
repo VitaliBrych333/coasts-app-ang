@@ -30,13 +30,11 @@ export class IncomesListComponent implements OnInit, OnDestroy {
               private componentFactoryResolver: ComponentFactoryResolver) { }
 
   ngOnInit() {
-    this.subscriptions.push(
-      this.dataService.getAllFieldsIncomes().subscribe(data => {
-        data.forEach(obg => obg.position = (data.indexOf(obg) + 1));
-        this.listData = data;
-        this.createTable(this.listData);
-      })
-    );
+    this.dataService.getAllFieldsIncomes().then(data => {
+      data.forEach(obg => obg.position = (data.indexOf(obg) + 1));
+      this.listData = data;
+      this.createTable(this.listData);
+    });
   }
 
   ngOnDestroy() {

@@ -1,21 +1,17 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { DataService } from '../../services/data.service';
 import { AuthService } from '../../services/auth.service';
 import { NewIncome } from '../income.model';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup } from '@angular/forms';
 import { DatePipe } from '@angular/common';
 import { Router } from '@angular/router';
-import { Subscription } from 'rxjs';
-import * as _ from 'lodash';
 @Component({
   selector: 'app-edit-income',
   templateUrl: './edit-income.component.html',
   styleUrls: ['./edit-income.component.css'],
   providers: [ DatePipe ]
 })
-export class EditIncomeComponent implements OnInit, OnDestroy {
-
-  protected readonly subscriptions: Subscription[] = [];
+export class EditIncomeComponent implements OnInit {
 
   listCategory: Array<string> = ['food', 'rent', 'clothes', 'child', 'petrol', 'present', 'gym', 'other'];
   editFieldIncome: object = {
@@ -32,27 +28,19 @@ export class EditIncomeComponent implements OnInit, OnDestroy {
 
   constructor(private dataService: DataService,
               private authService: AuthService,
-              private fb: FormBuilder,
-              private datePipe: DatePipe,
-              private router: Router,) { }
+              private router: Router) { }
 
   ngOnInit() {
-    this.subscriptions.push(
-      this.dataService.getFieldIncomeId(this.currentFieldEditId).subscribe(editFieldIncome => {
-        this.editFieldIncome = {
-          date: editFieldIncome.date,
-          sum: editFieldIncome.sum,
-          who: editFieldIncome.who,
-          author: editFieldIncome.author,
-          type: editFieldIncome.type,
-          other: editFieldIncome.other
-        };
-      })
-    );
-  }
-
-  ngOnDestroy() {
-    _.forEach(this.subscriptions, subscription => subscription.unsubscribe());
+    this.dataService.getFieldIncomeId(this.currentFieldEditId).then(editFieldIncome => {
+      this.editFieldIncome = {
+        date: editFieldIncome.date,
+        sum: editFieldIncome.sum,
+        who: editFieldIncome.who,
+        author: editFieldIncome.author,
+        type: editFieldIncome.type,
+        other: editFieldIncome.other
+      };
+    });
   }
 
   validForm(form: FormGroup): void {
@@ -69,9 +57,7 @@ export class EditIncomeComponent implements OnInit, OnDestroy {
       this.formForValid.value.other
     );
 
-    this.subscriptions.push(
-      this.dataService.updateFieldIncome(this.currentFieldEditId, newField).subscribe(() => this.router.navigate(['/incomes/all']))
-    );
+    this.dataService.updateFieldIncome(this.currentFieldEditId, newField).then(() => this.router.navigate(['/incomes/all']));
   }
 
   cancel(): void {

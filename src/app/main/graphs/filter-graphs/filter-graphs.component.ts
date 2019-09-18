@@ -3,20 +3,15 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { DataService } from '../../../services/data.service';
 import { NewField } from '../../field.model';
 import { NewIncome } from '../../income.model';
-
-import { FilterDataService } from '../../../services/filter-data.service';
-import { Subscription } from 'rxjs';
-import * as _ from 'lodash';
-
 import { FiltersComponent } from '../../statistics/filters/filters.component';
+import { FilterDataService } from '../../../services/filter-data.service';
+import * as _ from 'lodash';
 @Component({
   selector: 'app-filter-graphs',
   templateUrl: './filter-graphs.component.html',
   styleUrls: ['./filter-graphs.component.css']
 })
 export class FilterGraphsComponent extends FiltersComponent implements OnInit, OnDestroy {
-
-  protected readonly subscriptions: Subscription[] = [];
 
   someYears: boolean = true;
   oneYear: boolean = false;
@@ -44,20 +39,18 @@ export class FilterGraphsComponent extends FiltersComponent implements OnInit, O
               public filterDataService: FilterDataService) { super(dataService, filterDataService); }
 
   ngOnInit() {
-    this.subscriptions.push(
-      this.dataService.getAllFields().subscribe(data => {
-        this.listCoasts = data;
-      }),
+    console.log(this.selectedYear, this.selectedParameter, this.selectedYears, this.selectedParameters, this.oneYear, this.someYears)
+    this.dataService.getAllFields().then(data => {
+      this.listCoasts = data;
+    });
 
-      this.dataService.getAllFieldsIncomes().subscribe(data => {
-        this.listIncomes = data;
-      })
-    );
+    this.dataService.getAllFieldsIncomes().then(data => {
+      this.listIncomes = data;
+    });
   }
 
   ngOnDestroy() {
     this.onChange();
-    _.forEach(this.subscriptions, subscription => subscription.unsubscribe());
   }
 
   filterAnniversary() {

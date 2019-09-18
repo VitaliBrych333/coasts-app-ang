@@ -5,8 +5,6 @@ import { NewIncome } from '../../income.model';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { MatInput } from '@angular/material';
 import { FilterDataService } from '../../../services/filter-data.service';
-import { Subscription } from 'rxjs';
-import * as _ from 'lodash';
 interface Mounth {
   id: number;
   name: string;
@@ -18,8 +16,6 @@ interface Mounth {
 })
 
 export class FiltersComponent implements OnInit, OnDestroy {
-
-  protected readonly subscriptions: Subscription[] = [];
 
   @ViewChild('inputFrom', { read: MatInput, static: false}) inputFrom: MatInput;
   @ViewChild('inputTo', { read: MatInput, static: false}) inputTo: MatInput;
@@ -58,20 +54,17 @@ export class FiltersComponent implements OnInit, OnDestroy {
       this.mounths.push({ id: i, name: c });
     });
 
-    this.subscriptions.push(
-      this.dataService.getAllFields().subscribe(data => {
-        this.listCoasts = data;
-      }),
+    this.dataService.getAllFields().then(data => {
+      this.listCoasts = data;
+    });
 
-      this.dataService.getAllFieldsIncomes().subscribe(data => {
-        this.listIncomes = data;
-      })
-    );
+    this.dataService.getAllFieldsIncomes().then(data => {
+      this.listIncomes = data;
+    });
   }
 
   ngOnDestroy() {
     this.onChange();
-    _.forEach(this.subscriptions, subscription => subscription.unsubscribe());
   }
 
   setDate(value: Date): Date {

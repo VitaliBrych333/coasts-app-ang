@@ -35,13 +35,11 @@ export class FieldListComponent implements OnInit, OnDestroy {
               private componentFactoryResolver: ComponentFactoryResolver) {}
 
   ngOnInit() {
-    this.subscriptions.push(
-      this.dataService.getAllFields().subscribe(data => {
-        data.forEach(obg => obg.position = (data.indexOf(obg) + 1));
-        this.listData = data;
-        this.createTable(this.listData);
-      })
-    );
+    this.dataService.getAllFields().then(data => {
+      data.forEach(obg => obg.position = (data.indexOf(obg) + 1));
+      this.listData = data;
+      this.createTable(this.listData);
+    });
   }
 
   ngOnDestroy() {

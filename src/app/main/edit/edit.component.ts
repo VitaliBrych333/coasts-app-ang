@@ -1,21 +1,17 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { DataService } from '../../services/data.service';
 import { AuthService } from '../../services/auth.service';
 import { NewField } from '../field.model';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup } from '@angular/forms';
 import { DatePipe } from '@angular/common';
 import { Router } from '@angular/router';
-import { Subscription } from 'rxjs';
-import * as _ from 'lodash';
 @Component({
   selector: 'app-edit',
   templateUrl: './edit.component.html',
   styleUrls: ['./edit.component.css'],
   providers: [ DatePipe ]
 })
-export class EditComponent implements OnInit, OnDestroy {
-
-  protected readonly subscriptions: Subscription[] = [];
+export class EditComponent implements OnInit {
 
   listCategory: Array<string> = ['food', 'rent', 'clothes', 'child', 'petrol', 'present', 'gym', 'other'];
   editField: object = {
@@ -31,26 +27,18 @@ export class EditComponent implements OnInit, OnDestroy {
 
   constructor(private dataService: DataService,
               private authService: AuthService,
-              private fb: FormBuilder,
-              private datePipe: DatePipe,
-              private router: Router,) { }
+              private router: Router) { }
 
   ngOnInit() {
-    this.subscriptions.push(
-      this.dataService.getFieldId(this.currentFieldEditId).subscribe(editField => {
-        this.editField = {
-          date: editField.date,
-          sum: editField.sum,
-          author: editField.author,
-          type: editField.type,
-          other: editField.other
-        };
-      })
-    );
-  }
-
-  ngOnDestroy() {
-    _.forEach(this.subscriptions, subscription => subscription.unsubscribe());
+    this.dataService.getFieldId(this.currentFieldEditId).then(editField => {
+      this.editField = {
+        date: editField.date,
+        sum: editField.sum,
+        author: editField.author,
+        type: editField.type,
+        other: editField.other
+      };
+    });
   }
 
   validForm(form: FormGroup): void {
@@ -66,9 +54,7 @@ export class EditComponent implements OnInit, OnDestroy {
       this.formForValid.value.other
     );
 
-    this.subscriptions.push(
-      this.dataService.updateField(this.currentFieldEditId, newField).subscribe(() => this.router.navigate(['/purchases/all']))
-    );
+    this.dataService.updateField(this.currentFieldEditId, newField).then(() => this.router.navigate(['/purchases/all']));
   }
 
   cancel(): void {

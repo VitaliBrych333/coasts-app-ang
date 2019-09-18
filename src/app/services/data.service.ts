@@ -14,45 +14,45 @@ export class DataService {
 
   constructor(private http: HttpClient) {}
 
-  addField(body: NewField): Observable<NewField>  {
-    return this.http.post<NewField>(this.baseURL + '/purchases', JSON.stringify(body), this.options);
+  addField(body: NewField): Promise<NewField>  {
+    return this.http.post<NewField>(this.baseURL + '/purchases', JSON.stringify(body), this.options).toPromise();
   }
 
-  getAllFields(): Observable<NewField[]> {
-    return this.http.get<NewField[]>(this.baseURL + '/purchases');
+  getAllFields(): Promise<NewField[]> {
+    return this.http.get<NewField[]>(this.baseURL + '/purchases').toPromise();
   }
 
-  deleteId(field: NewField): Observable<NewField> {
+  deleteId(field: NewField): Promise<NewField> {
     const id = field._id;
-    return this.http.delete<NewField>(this.baseURL + '/purchases' + `/${id}`);
+    return this.http.delete<NewField>(this.baseURL + '/purchases' + `/${id}`).toPromise();
   }
 
-  getFieldId(id: string): Observable<NewField> {
-    return this.http.get<NewField>(this.baseURL + '/purchases' + `/${id}`);
+  getFieldId(id: string): Promise<NewField> {
+    return this.http.get<NewField>(this.baseURL + '/purchases' + `/${id}`).toPromise();
   }
 
-  updateField(id: string, field: NewField): Observable<NewField> {
-    return this.http.put<NewField>(this.baseURL + '/purchases' + `/${id}/update`, field);
+  updateField(id: string, field: NewField): Promise<NewField> {
+    return this.http.put<NewField>(this.baseURL + '/purchases' + `/${id}/update`, field).toPromise();
   }
 
-  addFieldIncome(body: NewIncome): Observable<NewIncome>  {
-    return this.http.post<NewIncome>(this.baseURL + '/incomes', JSON.stringify(body), this.options);
+  addFieldIncome(body: NewIncome): Promise<NewIncome>  {
+    return this.http.post<NewIncome>(this.baseURL + '/incomes', JSON.stringify(body), this.options).toPromise();
   }
 
-  getAllFieldsIncomes(): Observable<NewIncome[]> {
-    return this.http.get<NewIncome[]>(this.baseURL + '/incomes');
+  getAllFieldsIncomes(): Promise<NewIncome[]> {
+    return this.http.get<NewIncome[]>(this.baseURL + '/incomes').toPromise();
   }
 
-  deleteIncomeId(field: NewIncome): Observable<NewIncome> {
+  deleteIncomeId(field: NewIncome): Promise<NewIncome> {
     const id = field._id;
-    return this.http.delete<NewIncome>(this.baseURL + '/incomes' + `/${id}`);
+    return this.http.delete<NewIncome>(this.baseURL + '/incomes' + `/${id}`).toPromise();
   }
 
-  getFieldIncomeId(id: string): Observable<NewIncome> {
-    return this.http.get<NewIncome>(this.baseURL + '/incomes' + `/${id}`);
+  getFieldIncomeId(id: string): Promise<NewIncome> {
+    return this.http.get<NewIncome>(this.baseURL + '/incomes' + `/${id}`).toPromise();
   }
 
-  updateFieldIncome(id: string, field: NewIncome): Observable<NewIncome> {
-    return this.http.put<NewIncome>(this.baseURL + '/incomes' + `/${id}/update`, field);
+  updateFieldIncome(id: string, field: NewIncome): Promise<NewIncome> {
+    return this.http.put<NewIncome>(this.baseURL + '/incomes' + `/${id}/update`, field).toPromise();
   }
 }
