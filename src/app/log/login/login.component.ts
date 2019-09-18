@@ -3,7 +3,8 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { NewUser } from '../user.model';
-import { ModalErrorComponent } from '../modal-error/modal-error.component';
+import { NewContent } from '../../shared/content-model';
+import { MessageWindowComponent } from '../../shared/message-window/message-window.component';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -50,7 +51,7 @@ export class LoginComponent implements OnInit {
       },
       err => {
         this.setForm();
-        this.showMessageWindow('Your login or password is incorrect');
+        this.showMessageWindow({content: 'Your login or password is incorrect', class: 'error'});
       }
     );
   }
@@ -60,23 +61,31 @@ export class LoginComponent implements OnInit {
   // register(): void {
   //   this.authservice.register(new NewUser(this.form.login.value, this.form.password.value)).then(
   //     res => {
-  //       this.showMessageWindow('Registration completed successfully. Now log in');
-  //       this.router.navigate(['/login']);
+  //       this.showMessageWindow({content: 'Registration completed successfully. Now log in', class: 'success'})
+  //         .then(() => this.router.navigate(['/login']));
   //     },
   //     err => {
-  //       this.showMessageWindow('Duplicate login or registration error');
+  //       this.showMessageWindow({content: 'Duplicate login or registration error', class: 'error'})
+  //         .then(() => this.router.navigate(['/login']));
   //     }
   //   );
   // }
 
-  showMessageWindow(newContent: string) {
-    const componentFactory = this.componentFactoryResolver.resolveComponentFactory(ModalErrorComponent);
-    let componentRef = this.viewContainerRef.createComponent(componentFactory);
-    componentRef.instance.content = newContent;
+  showMessageWindow(newContent: NewContent): Promise<void> {
+    const promise = new Promise<void>((resolve, reject) => {
+      const componentFactory = this.componentFactoryResolver.resolveComponentFactory(MessageWindowComponent);
+      let componentRef = this.viewContainerRef.createComponent(componentFactory);
 
-    setTimeout(() => {
-                       componentRef.destroy();
-                       componentRef = null;
-                      }, 1500);
+      componentRef.instance.content = newContent.content;
+      componentRef.instance.myClass = newContent.class;
+
+      setTimeout(() => {
+                        componentRef.destroy();
+                        componentRef = null;
+                        resolve();
+                      }, 1200);
+      });
+
+    return promise;
   }
 }

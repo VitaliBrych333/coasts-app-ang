@@ -39,7 +39,6 @@ export class FilterGraphsComponent extends FiltersComponent implements OnInit, O
               public filterDataService: FilterDataService) { super(dataService, filterDataService); }
 
   ngOnInit() {
-    console.log(this.selectedYear, this.selectedParameter, this.selectedYears, this.selectedParameters, this.oneYear, this.someYears)
     this.dataService.getAllFields().then(data => {
       this.listCoasts = data;
     });

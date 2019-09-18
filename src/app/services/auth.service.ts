@@ -12,6 +12,7 @@ export class AuthService {
 
   baseURL = 'http://localhost:5500';
   options = {headers: {'Content-Type': 'application/json'}};
+
   constructor(private http: HttpClient) {}
 
   // noAuthHeader = { headers: new HttpHeaders({ 'NoAuth': 'True' }) };

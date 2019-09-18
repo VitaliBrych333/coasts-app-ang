@@ -1,10 +1,11 @@
 1. include loadash library:
-  1.1 unsubscribe from all subscriptions
-  1.2 change metodes in different modules on loadash functions
-2. realize lifecycle onDestroy where it's necessary (unsubscribe metodes)
-3. realize register before entry in app
-  3.1 show name user in header component
+  1.1 change metodes in different modules on loadash functions
+2. may be add current date in header near the login
+3. add service message to show window
 4. rewrite css to scss
 5. write tests
 6. optimize algoritmes filtres in report-form.component
 7. delete any type
+8. change favicon
+9. change style for graphs component (table and filter)
+10. change const instead let
