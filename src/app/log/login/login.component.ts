@@ -3,8 +3,11 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { NewUser } from '../user.model';
+
 import { NewContent } from '../../shared/content-model';
 import { MessageWindowComponent } from '../../shared/message-window/message-window.component';
+import { MatDialog } from '@angular/material/dialog';
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -21,7 +24,8 @@ export class LoginComponent implements OnInit {
               private router: Router,
               private authservice: AuthService,
               private viewContainerRef: ViewContainerRef,
-              private componentFactoryResolver: ComponentFactoryResolver) { }
+              private componentFactoryResolver: ComponentFactoryResolver,
+              public dialog: MatDialog) { }
 
   ngOnInit() {
     if (this.authservice.isLoggedIn()) {
@@ -51,7 +55,15 @@ export class LoginComponent implements OnInit {
       },
       err => {
         this.setForm();
-        this.showMessageWindow({content: 'Your login or password is incorrect', class: 'error'});
+        const dialogRef = this.dialog.open(MessageWindowComponent, {
+          panelClass: 'my-custom-container',
+          data: {content: 'fffffffff', class: 'error', time: 1200}
+        });
+
+        dialogRef.afterClosed().subscribe(result => {
+          this.router.navigate(['/login']);
+        });
+        // this.showMessageWindow({content: 'Your login or password is incorrect', class: 'error'});
       }
     );
   }

@@ -26,7 +26,7 @@ const routes: Routes = [
   { path: 'main', component: ButtonsComponent, canActivate: [AuthGuard] },
   { path: 'login', component: LoginComponent },
   { path: '', redirectTo: 'login', pathMatch: 'full'},
-  { path: '**', component: NoContentComponent },
+  { path: '**', component: NoContentComponent, canActivate: [AuthGuard] },
 ];
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

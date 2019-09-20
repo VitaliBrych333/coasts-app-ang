@@ -6,3 +6,8 @@
 html, body, .container {
   height: 100%;
 }
+
+/* for window of messages */
+.my-custom-container .mat-dialog-container {
+  padding: 0;
+}

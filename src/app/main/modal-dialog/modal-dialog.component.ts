@@ -2,6 +2,7 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { NewField } from '../field.model';
 import { NewIncome } from '../income.model';
 import { DataService } from '../../services/data.service';
+
 @Component({
   selector: 'app-modal-dialog',
   templateUrl: './modal-dialog.component.html',
