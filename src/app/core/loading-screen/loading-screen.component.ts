@@ -3,11 +3,13 @@ import { LoadingScreenService } from './loading-screen.service';
 import { Subscription } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
 import * as _ from 'lodash';
+
 @Component({
   selector: 'app-loading-screen',
   templateUrl: './loading-screen.component.html',
   styleUrls: ['./loading-screen.component.css']
 })
+
 export class LoadingScreenComponent implements OnInit, OnDestroy {
 
   protected readonly subscriptions: Subscription[] = [];
@@ -26,7 +28,7 @@ export class LoadingScreenComponent implements OnInit, OnDestroy {
     );
   }
 
-  ngOnDestroy(): void {
+  ngOnDestroy() {
     _.forEach(this.subscriptions, subscription => subscription.unsubscribe());
   }
 }

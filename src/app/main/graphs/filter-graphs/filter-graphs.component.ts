@@ -1,16 +1,17 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-
 import { DataService } from '../../../services/data.service';
 import { NewField } from '../../field.model';
 import { NewIncome } from '../../income.model';
 import { FiltersComponent } from '../../statistics/filters/filters.component';
 import { FilterDataService } from '../../../services/filter-data.service';
 import * as _ from 'lodash';
+
 @Component({
   selector: 'app-filter-graphs',
   templateUrl: './filter-graphs.component.html',
   styleUrls: ['./filter-graphs.component.css']
 })
+
 export class FilterGraphsComponent extends FiltersComponent implements OnInit, OnDestroy {
 
   someYears: boolean = true;

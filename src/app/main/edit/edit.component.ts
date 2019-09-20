@@ -18,6 +18,7 @@ import * as _ from 'lodash';
 })
 
 export class EditComponent implements OnInit, OnDestroy {
+
   protected readonly subscriptions: Subscription[] = [];
 
   listCategory: Array<string> = ['food', 'rent', 'clothes', 'child', 'petrol', 'present', 'gym', 'other'];
@@ -35,7 +36,7 @@ export class EditComponent implements OnInit, OnDestroy {
   constructor(private dataService: DataService,
               private authService: AuthService,
               private router: Router,
-              private message: MatDialog) { }
+              private message: MatDialog) {}
 
   ngOnInit() {
     this.dataService.getFieldId(this.currentFieldEditId).then(editField => {
@@ -52,7 +53,6 @@ export class EditComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     _.forEach(this.subscriptions, subscription => subscription.unsubscribe());
   }
-
 
   validForm(form: FormGroup): void {
     this.formForValid = form;
@@ -74,9 +74,11 @@ export class EditComponent implements OnInit, OnDestroy {
           data: {content: 'The purchase was changed successfully', class: 'success', time: 800}
         });
 
-        this.subscriptions.push(messageWindowRef.afterClosed().subscribe(() => {
-          this.router.navigate(['/purchases/all']);
-        }));
+        this.subscriptions.push(
+          messageWindowRef.afterClosed().subscribe(() => {
+            this.router.navigate(['/purchases/all']);
+          })
+        );
       },
 
       err => {
@@ -85,9 +87,11 @@ export class EditComponent implements OnInit, OnDestroy {
           data: {content: 'Error, the purchase was not changed', class: 'error', time: 800}
         });
 
-        this.subscriptions.push(messageWindowRef.afterClosed().subscribe(() => {
-          this.router.navigate(['/purchases/all']);
-        }));
+        this.subscriptions.push(
+          messageWindowRef.afterClosed().subscribe(() => {
+            this.router.navigate(['/purchases/all']);
+          })
+        );
       }
     );
   }

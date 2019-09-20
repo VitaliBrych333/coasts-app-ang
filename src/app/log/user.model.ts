@@ -3,6 +3,7 @@ interface User {
   login: string;
   password: string;
 }
+
 export class NewUser implements User {
   id?: number;
   login: string;

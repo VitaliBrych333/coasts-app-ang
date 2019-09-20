@@ -14,6 +14,7 @@ import * as _ from 'lodash';
   templateUrl: './incomes-list.component.html',
   styleUrls: ['./incomes-list.component.css']
 })
+
 export class IncomesListComponent implements OnInit, OnDestroy {
 
   protected readonly subscriptions: Subscription[] = [];

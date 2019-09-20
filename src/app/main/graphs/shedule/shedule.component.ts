@@ -5,11 +5,13 @@ import * as pluginAnnotations from 'chartjs-plugin-annotation';
 import { FilterDataService } from '../../../services/filter-data.service';
 import { Subscription } from 'rxjs';
 import * as _ from 'lodash';
+
 @Component({
   selector: 'app-shedule',
   templateUrl: './shedule.component.html',
   styleUrls: ['./shedule.component.css']
 })
+
 export class SheduleComponent implements OnInit, OnDestroy {
 
   protected readonly subscriptions: Subscription[] = [];

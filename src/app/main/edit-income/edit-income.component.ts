@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { DataService } from '../../services/data.service';
 import { AuthService } from '../../services/auth.service';
 import { NewIncome } from '../income.model';
@@ -7,6 +7,8 @@ import { DatePipe } from '@angular/common';
 import { Router } from '@angular/router';
 import { MessageWindowComponent } from '../../shared/message-window/message-window.component';
 import { MatDialog } from '@angular/material/dialog';
+import { Subscription } from 'rxjs';
+import * as _ from 'lodash';
 
 @Component({
   selector: 'app-edit-income',
@@ -14,7 +16,10 @@ import { MatDialog } from '@angular/material/dialog';
   styleUrls: ['./edit-income.component.css'],
   providers: [ DatePipe ]
 })
-export class EditIncomeComponent implements OnInit {
+
+export class EditIncomeComponent implements OnInit, OnDestroy {
+
+  protected readonly subscriptions: Subscription[] = [];
 
   listCategory: Array<string> = ['food', 'rent', 'clothes', 'child', 'petrol', 'present', 'gym', 'other'];
   editFieldIncome: object = {
@@ -32,7 +37,7 @@ export class EditIncomeComponent implements OnInit {
   constructor(private dataService: DataService,
               private authService: AuthService,
               private router: Router,
-              private message: MatDialog) { }
+              private message: MatDialog) {}
 
   ngOnInit() {
     this.dataService.getFieldIncomeId(this.currentFieldEditId).then(editFieldIncome => {
@@ -45,6 +50,10 @@ export class EditIncomeComponent implements OnInit {
         other: editFieldIncome.other
       };
     });
+  }
+
+  ngOnDestroy() {
+    _.forEach(this.subscriptions, subscription => subscription.unsubscribe());
   }
 
   validForm(form: FormGroup): void {
@@ -68,9 +77,11 @@ export class EditIncomeComponent implements OnInit {
           data: {content: 'The income was changed successfully', class: 'success', time: 800}
         });
 
-        messageWindowRef.afterClosed().subscribe(() => {
-          this.router.navigate(['/incomes/all']);
-        });
+        this.subscriptions.push(
+          messageWindowRef.afterClosed().subscribe(() => {
+            this.router.navigate(['/incomes/all']);
+          })
+        );
       },
 
       err => {
@@ -79,9 +90,11 @@ export class EditIncomeComponent implements OnInit {
           data: {content: 'Error, the income was not changed', class: 'error', time: 800}
         });
 
-        messageWindowRef.afterClosed().subscribe(() => {
-          this.router.navigate(['/incomes/all']);
-        });
+        this.subscriptions.push(
+          messageWindowRef.afterClosed().subscribe(() => {
+            this.router.navigate(['/incomes/all']);
+          })
+        );
       }
     );
   }

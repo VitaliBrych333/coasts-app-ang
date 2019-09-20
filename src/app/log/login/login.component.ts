@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
@@ -6,6 +6,8 @@ import { NewUser } from '../user.model';
 
 import { MessageWindowComponent } from '../../shared/message-window/message-window.component';
 import { MatDialog } from '@angular/material/dialog';
+import { Subscription } from 'rxjs';
+import * as _ from 'lodash';
 
 @Component({
   selector: 'app-login',
@@ -13,7 +15,10 @@ import { MatDialog } from '@angular/material/dialog';
   styleUrls: ['./login.component.css']
 })
 
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, OnDestroy {
+
+  protected readonly subscriptions: Subscription[] = [];
+
   profileForm: FormGroup = this.fb.group({
     login: ['', Validators.required],
     password: ['', Validators.required]
@@ -30,6 +35,10 @@ export class LoginComponent implements OnInit {
     } else {
       this.setForm();
     }
+  }
+
+  ngOnDestroy() {
+    _.forEach(this.subscriptions, subscription => subscription.unsubscribe());
   }
 
   setForm() {
@@ -50,6 +59,7 @@ export class LoginComponent implements OnInit {
         this.authservice.changeStatusLog(true);
         this.router.navigate(['/main']);
       },
+
       err => {
         this.setForm();
         this.message.open(MessageWindowComponent, {
@@ -70,19 +80,24 @@ export class LoginComponent implements OnInit {
   //         data: {content: 'Registration completed successfully. Now log in', class: 'success', time: 1200}
   //       });
 
-  //       messageWindowRef.afterClosed().subscribe(() => {
-  //         this.router.navigate(['/login']);
-  //       });
+  //       this.subscriptions.push(
+  //         messageWindowRef.afterClosed().subscribe(() => {
+  //           this.router.navigate(['/login']);
+  //         })
+  //       );
   //     },
+
   //     err => {
   //       const messageWindowRef = this.message.open(MessageWindowComponent, {
   //         panelClass: 'my-custom-container',
   //         data: { content: 'Duplicate login or registration error', class: 'error', time: 1200}
   //       });
 
-  //       messageWindowRef.afterClosed().subscribe(() => {
-  //         this.router.navigate(['/login']);
-  //       });
+  //       this.subscriptions.push(
+  //         messageWindowRef.afterClosed().subscribe(() => {
+  //           this.router.navigate(['/login']);
+  //         })
+  //       );
   //     }
   //   );
   // }

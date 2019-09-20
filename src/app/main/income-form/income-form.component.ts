@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { DatePipe } from '@angular/common';
 import { Router } from '@angular/router';
@@ -7,6 +7,8 @@ import { AuthService } from '../../services/auth.service';
 import { NewIncome } from '../income.model';
 import { MessageWindowComponent } from '../../shared/message-window/message-window.component';
 import { MatDialog } from '@angular/material/dialog';
+import { Subscription } from 'rxjs';
+import * as _ from 'lodash';
 
 @Component({
   selector: 'app-income-form',
@@ -15,7 +17,9 @@ import { MatDialog } from '@angular/material/dialog';
   providers: [ DatePipe ],
 })
 
-export class IncomeFormComponent implements OnInit {
+export class IncomeFormComponent implements OnInit, OnDestroy {
+
+  protected readonly subscriptions: Subscription[] = [];
 
   infoIncome: object;
   myDate = new Date().toString();
@@ -39,6 +43,10 @@ export class IncomeFormComponent implements OnInit {
     };
   }
 
+  ngOnDestroy() {
+    _.forEach(this.subscriptions, subscription => subscription.unsubscribe());
+  }
+
   validForm(form: FormGroup): void {
     this.formForValid = form;
   }
@@ -60,9 +68,11 @@ export class IncomeFormComponent implements OnInit {
           data: {content: 'The income was saved successfully', class: 'success', time: 800}
         });
 
-        messageWindowRef.afterClosed().subscribe(() => {
-          this.router.navigate(['/main']);
-        });
+        this.subscriptions.push(
+          messageWindowRef.afterClosed().subscribe(() => {
+            this.router.navigate(['/main']);
+          })
+        );
       },
 
       err => {
@@ -71,9 +81,11 @@ export class IncomeFormComponent implements OnInit {
           data: {content: 'Error, the income was not saved', class: 'error', time: 800}
         });
 
-        messageWindowRef.afterClosed().subscribe(() => {
-          this.router.navigate(['/main']);
-        });
+        this.subscriptions.push(
+          messageWindowRef.afterClosed().subscribe(() => {
+            this.router.navigate(['/main']);
+          })
+        );
       }
     );
   }

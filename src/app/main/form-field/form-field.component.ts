@@ -2,12 +2,15 @@ import { Component, Input, OnChanges, EventEmitter, Output } from '@angular/core
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { NewField } from '../field.model';
 import { DatePipe } from '@angular/common';
+
 @Component({
   selector: 'app-form-field',
   templateUrl: './form-field.component.html',
   styleUrls: ['./form-field.component.css']
 })
+
 export class FormFieldComponent implements OnChanges {
+  
   @Input() newField: NewField;
   @Output() validForm = new EventEmitter<FormGroup>();
 

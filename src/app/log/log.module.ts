@@ -15,4 +15,5 @@ import { MatDialogModule } from '@angular/material/dialog';
   entryComponents: [ MessageWindowComponent ],
   exports: [ LoginComponent ]
 })
+
 export class LogModule { }

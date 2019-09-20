@@ -2,6 +2,7 @@ import { Component, Input, OnChanges, EventEmitter, Output } from '@angular/core
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { NewIncome } from '../income.model';
 import { DatePipe } from '@angular/common';
+
 @Component({
   selector: 'app-income-form-field',
   templateUrl: './income-form-field.component.html',
@@ -9,6 +10,7 @@ import { DatePipe } from '@angular/common';
 })
 
 export class IncomeFormFieldComponent implements OnChanges {
+  
   @Input() newFieldIncome: NewIncome;
   @Output() validForm = new EventEmitter<FormGroup>();
 

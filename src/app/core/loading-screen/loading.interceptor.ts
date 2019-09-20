@@ -3,7 +3,9 @@ import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/c
 import { Observable } from 'rxjs';
 import { LoadingScreenService } from './loading-screen.service';
 import { finalize } from 'rxjs/operators';
+
 @Injectable()
+
 export class LoadingScreenInterceptor implements HttpInterceptor {
 
   activeRequests: number = 0;
