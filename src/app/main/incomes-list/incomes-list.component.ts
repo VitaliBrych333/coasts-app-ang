@@ -8,6 +8,7 @@ import { MatSort } from '@angular/material/sort';
 import { ModalDialogComponent } from '../modal-dialog/modal-dialog.component';
 import { Subscription } from 'rxjs';
 import * as _ from 'lodash';
+
 @Component({
   selector: 'app-incomes-list',
   templateUrl: './incomes-list.component.html',

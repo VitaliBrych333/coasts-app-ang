@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { DataService } from '../../services/data.service';
 import { AuthService } from '../../services/auth.service';
 import { NewField } from '../field.model';
@@ -7,6 +7,8 @@ import { DatePipe } from '@angular/common';
 import { Router } from '@angular/router';
 import { MessageWindowComponent } from '../../shared/message-window/message-window.component';
 import { MatDialog } from '@angular/material/dialog';
+import { Subscription } from 'rxjs';
+import * as _ from 'lodash';
 
 @Component({
   selector: 'app-edit',
@@ -15,7 +17,8 @@ import { MatDialog } from '@angular/material/dialog';
   providers: [ DatePipe ]
 })
 
-export class EditComponent implements OnInit {
+export class EditComponent implements OnInit, OnDestroy {
+  protected readonly subscriptions: Subscription[] = [];
 
   listCategory: Array<string> = ['food', 'rent', 'clothes', 'child', 'petrol', 'present', 'gym', 'other'];
   editField: object = {
@@ -46,6 +49,11 @@ export class EditComponent implements OnInit {
     });
   }
 
+  ngOnDestroy() {
+    _.forEach(this.subscriptions, subscription => subscription.unsubscribe());
+  }
+
+
   validForm(form: FormGroup): void {
     this.formForValid = form;
   }
@@ -66,9 +74,9 @@ export class EditComponent implements OnInit {
           data: {content: 'The purchase was changed successfully', class: 'success', time: 800}
         });
 
-        messageWindowRef.afterClosed().subscribe(() => {
+        this.subscriptions.push(messageWindowRef.afterClosed().subscribe(() => {
           this.router.navigate(['/purchases/all']);
-        });
+        }));
       },
 
       err => {
@@ -77,9 +85,9 @@ export class EditComponent implements OnInit {
           data: {content: 'Error, the purchase was not changed', class: 'error', time: 800}
         });
 
-        messageWindowRef.afterClosed().subscribe(() => {
+        this.subscriptions.push(messageWindowRef.afterClosed().subscribe(() => {
           this.router.navigate(['/purchases/all']);
-        });
+        }));
       }
     );
   }

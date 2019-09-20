@@ -9,3 +9,4 @@
 8. change favicon
 9. change style for graphs component (table and filter)
 10. change const instead let
+11. inheritance incomes list from field list (rename fieldlist)

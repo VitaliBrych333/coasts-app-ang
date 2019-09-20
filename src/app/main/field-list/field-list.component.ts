@@ -8,9 +8,7 @@ import { MatSort } from '@angular/material/sort';
 import { ModalDialogComponent } from '../modal-dialog/modal-dialog.component';
 import { Subscription } from 'rxjs';
 import * as _ from 'lodash';
-/**
- * @title Table with pagination
- */
+
 @Component({
   selector: 'app-field-list',
   templateUrl: './field-list.component.html',
