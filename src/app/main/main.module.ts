@@ -32,6 +32,7 @@ import { GraphsComponent } from './graphs/graphs.component';
 import { ChartsModule } from 'ng2-charts';
 import { SheduleComponent } from './graphs/shedule/shedule.component';
 import { FilterGraphsComponent } from './graphs/filter-graphs/filter-graphs.component';
+
 @NgModule({
   declarations: [ FormComponent,
                   ButtonsComponent,
@@ -70,4 +71,5 @@ import { FilterGraphsComponent } from './graphs/filter-graphs/filter-graphs.comp
   entryComponents: [ ModalDialogComponent ],
   exports: [ FormComponent, NoContentComponent, IncomeFormComponent ]
 })
+
 export class MainModule {}

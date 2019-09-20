@@ -8,6 +8,7 @@ interface Field {
   __v?: number;
   _id?: string;
 }
+
 export class NewField implements Field {
   position?: number;
   date: Date;

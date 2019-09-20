@@ -1,18 +1,20 @@
-import { Component, OnInit, ViewContainerRef, ComponentFactoryResolver } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { DatePipe } from '@angular/common';
 import { Router } from '@angular/router';
 import { DataService } from '../../services/data.service';
 import { AuthService } from '../../services/auth.service';
 import { NewIncome } from '../income.model';
-import { NewContent } from '../../shared/content-model';
 import { MessageWindowComponent } from '../../shared/message-window/message-window.component';
+import { MatDialog } from '@angular/material/dialog';
+
 @Component({
   selector: 'app-income-form',
   templateUrl: './income-form.component.html',
   styleUrls: ['./income-form.component.css'],
   providers: [ DatePipe ],
 })
+
 export class IncomeFormComponent implements OnInit {
 
   infoIncome: object;
@@ -23,8 +25,7 @@ export class IncomeFormComponent implements OnInit {
               private router: Router,
               private dataService: DataService,
               private authService: AuthService,
-              private viewContainerRef: ViewContainerRef,
-              private componentFactoryResolver: ComponentFactoryResolver) {}
+              private message: MatDialog) {}
 
   ngOnInit() {
     this.myDate = this.datePipe.transform(this.myDate, 'yyyy-MM-dd');
@@ -54,36 +55,30 @@ export class IncomeFormComponent implements OnInit {
 
     this.dataService.addFieldIncome(newFieldIncome).then(
       res => {
-        this.showMessageWindow({content: 'The income was saved successfully', class: 'success'})
-          .then(() => this.router.navigate(['/main']));
+        const messageWindowRef = this.message.open(MessageWindowComponent, {
+          panelClass: 'my-custom-container',
+          data: {content: 'The income was saved successfully', class: 'success', time: 800}
+        });
+
+        messageWindowRef.afterClosed().subscribe(() => {
+          this.router.navigate(['/main']);
+        });
       },
 
       err => {
-        this.showMessageWindow({content: 'Error, the income was not saved', class: 'error'})
-          .then(() => this.router.navigate(['/main']));
+        const messageWindowRef = this.message.open(MessageWindowComponent, {
+          panelClass: 'my-custom-container',
+          data: {content: 'Error, the income was not saved', class: 'error', time: 800}
+        });
+
+        messageWindowRef.afterClosed().subscribe(() => {
+          this.router.navigate(['/main']);
+        });
       }
     );
   }
 
   cancel(): void {
     this.router.navigate(['/main']);
-  }
-
-  showMessageWindow(newContent: NewContent): Promise<void> {
-    const promise = new Promise<void>((resolve, reject) => {
-      const componentFactory = this.componentFactoryResolver.resolveComponentFactory(MessageWindowComponent);
-      let componentRef = this.viewContainerRef.createComponent(componentFactory);
-
-      componentRef.instance.content = newContent.content;
-      componentRef.instance.myClass = newContent.class;
-
-      setTimeout(() => {
-                        componentRef.destroy();
-                        componentRef = null;
-                        resolve();
-                      }, 800);
-      });
-
-    return promise;
   }
 }

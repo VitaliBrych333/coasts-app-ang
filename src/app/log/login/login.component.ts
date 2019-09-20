@@ -1,10 +1,9 @@
-import { Component, OnInit, ViewContainerRef, ComponentFactoryResolver } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { NewUser } from '../user.model';
 
-import { NewContent } from '../../shared/content-model';
 import { MessageWindowComponent } from '../../shared/message-window/message-window.component';
 import { MatDialog } from '@angular/material/dialog';
 
@@ -23,9 +22,7 @@ export class LoginComponent implements OnInit {
   constructor(private fb: FormBuilder,
               private router: Router,
               private authservice: AuthService,
-              private viewContainerRef: ViewContainerRef,
-              private componentFactoryResolver: ComponentFactoryResolver,
-              public dialog: MatDialog) { }
+              private message: MatDialog) { }
 
   ngOnInit() {
     if (this.authservice.isLoggedIn()) {
@@ -55,15 +52,10 @@ export class LoginComponent implements OnInit {
       },
       err => {
         this.setForm();
-        const dialogRef = this.dialog.open(MessageWindowComponent, {
+        this.message.open(MessageWindowComponent, {
           panelClass: 'my-custom-container',
-          data: {content: 'fffffffff', class: 'error', time: 1200}
+          data: {content: 'Your login or password is incorrect', class: 'error', time: 1200}
         });
-
-        dialogRef.afterClosed().subscribe(result => {
-          this.router.navigate(['/login']);
-        });
-        // this.showMessageWindow({content: 'Your login or password is incorrect', class: 'error'});
       }
     );
   }
@@ -73,31 +65,25 @@ export class LoginComponent implements OnInit {
   // register(): void {
   //   this.authservice.register(new NewUser(this.form.login.value, this.form.password.value)).then(
   //     res => {
-  //       this.showMessageWindow({content: 'Registration completed successfully. Now log in', class: 'success'})
-  //         .then(() => this.router.navigate(['/login']));
+  //       const messageWindowRef = this.message.open(MessageWindowComponent, {
+  //         panelClass: 'my-custom-container',
+  //         data: {content: 'Registration completed successfully. Now log in', class: 'success', time: 1200}
+  //       });
+
+  //       messageWindowRef.afterClosed().subscribe(() => {
+  //         this.router.navigate(['/login']);
+  //       });
   //     },
   //     err => {
-  //       this.showMessageWindow({content: 'Duplicate login or registration error', class: 'error'})
-  //         .then(() => this.router.navigate(['/login']));
+  //       const messageWindowRef = this.message.open(MessageWindowComponent, {
+  //         panelClass: 'my-custom-container',
+  //         data: { content: 'Duplicate login or registration error', class: 'error', time: 1200}
+  //       });
+
+  //       messageWindowRef.afterClosed().subscribe(() => {
+  //         this.router.navigate(['/login']);
+  //       });
   //     }
   //   );
   // }
-
-  showMessageWindow(newContent: NewContent): Promise<void> {
-    const promise = new Promise<void>((resolve, reject) => {
-      const componentFactory = this.componentFactoryResolver.resolveComponentFactory(MessageWindowComponent);
-      let componentRef = this.viewContainerRef.createComponent(componentFactory);
-
-      componentRef.instance.content = newContent.content;
-      componentRef.instance.myClass = newContent.class;
-
-      setTimeout(() => {
-                        componentRef.destroy();
-                        componentRef = null;
-                        resolve();
-                      }, 1200);
-      });
-
-    return promise;
-  }
 }

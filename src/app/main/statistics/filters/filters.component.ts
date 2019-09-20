@@ -5,10 +5,12 @@ import { NewIncome } from '../../income.model';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { MatInput } from '@angular/material';
 import { FilterDataService } from '../../../services/filter-data.service';
+
 interface Mounth {
   id: number;
   name: string;
 }
+
 @Component({
   selector: 'app-filters',
   templateUrl: './filters.component.html',

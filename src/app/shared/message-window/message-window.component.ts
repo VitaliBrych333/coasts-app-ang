@@ -7,6 +7,7 @@ import { NewContent } from '../content-model';
   templateUrl: './message-window.component.html',
   styleUrls: ['./message-window.component.css']
 })
+
 export class MessageWindowComponent implements OnInit {
 
   content: string;

@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FilterDataService } from '../../../services/filter-data.service';
 import { combineLatest, Subscription } from 'rxjs';
 import * as _ from 'lodash';
+
 interface RequireObject {
   food: any;
   rent: any;
@@ -9,6 +10,7 @@ interface RequireObject {
   gym: any;
   required: any;
 }
+
 interface OptionalObject {
   clothes: any;
   petrol: any;
@@ -16,6 +18,7 @@ interface OptionalObject {
   other: any;
   optional: any;
 }
+
 @Component({
   selector: 'app-report-form',
   templateUrl: './report-form.component.html',

@@ -9,6 +9,7 @@ interface Income {
   _id?: string;
   position?: number;
 }
+
 export class NewIncome implements Income {
   date: Date;
   sum: number;

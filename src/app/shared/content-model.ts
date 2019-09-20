@@ -3,6 +3,7 @@ interface DataContent {
   class: string;
   time: number;
 }
+
 export class NewContent implements DataContent {
   content: string;
   class: string;
