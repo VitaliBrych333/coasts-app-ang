@@ -11,13 +11,13 @@ import { Subscription } from 'rxjs';
 import * as _ from 'lodash';
 
 @Component({
-  selector: 'app-form',
-  templateUrl: './form.component.html',
-  styleUrls: ['./form.component.css'],
+  selector: 'app-coast-form',
+  templateUrl: './coast-form.component.html',
+  styleUrls: ['./coast-form.component.css'],
   providers: [ DatePipe ],
 })
 
-export class FormComponent implements OnInit, OnDestroy {
+export class CoastFormComponent implements OnInit, OnDestroy {
 
   protected readonly subscriptions: Subscription[] = [];
 

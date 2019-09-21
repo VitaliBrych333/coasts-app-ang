@@ -10,12 +10,12 @@ import { Subscription } from 'rxjs';
 import * as _ from 'lodash';
 
 @Component({
-  selector: 'app-field-list',
-  templateUrl: './field-list.component.html',
-  styleUrls: ['./field-list.component.css'],
+  selector: 'app-coasts-list',
+  templateUrl: './coasts-list.component.html',
+  styleUrls: ['./coasts-list.component.css'],
 })
 
-export class FieldListComponent implements OnInit, OnDestroy {
+export class CoastsListComponent implements OnInit, OnDestroy {
 
   protected readonly subscriptions: Subscription[] = [];
 

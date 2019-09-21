@@ -1,7 +1,7 @@
 <app-buttons></app-buttons>
 <div style="text-align:center">
   <h2>Welcome, please, enter your current purchasses!</h2>
-  <app-form-field [newField]="infoBuy" (validForm)="validForm($event)"></app-form-field>
+  <app-coast-form-field [newField]="infoBuy" (validForm)="validForm($event)"></app-coast-form-field>
 
   <button type="submit" form="form" (click)="add()" [disabled]="!formForValid.valid">Add</button>
   <button type="reset" (click)="cancel()">Cancel</button>

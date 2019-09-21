@@ -4,13 +4,13 @@ import { NewField } from '../field.model';
 import { DatePipe } from '@angular/common';
 
 @Component({
-  selector: 'app-form-field',
-  templateUrl: './form-field.component.html',
-  styleUrls: ['./form-field.component.css']
+  selector: 'app-coast-form-field',
+  templateUrl: './coast-form-field.component.html',
+  styleUrls: ['./coast-form-field.component.css']
 })
 
-export class FormFieldComponent implements OnChanges {
-  
+export class CoastFormFieldComponent implements OnChanges {
+
   @Input() newField: NewField;
   @Output() validForm = new EventEmitter<FormGroup>();
 

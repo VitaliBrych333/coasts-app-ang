@@ -11,13 +11,13 @@ import { Subscription } from 'rxjs';
 import * as _ from 'lodash';
 
 @Component({
-  selector: 'app-edit',
-  templateUrl: './edit.component.html',
-  styleUrls: ['./edit.component.css'],
+  selector: 'app-edit-coast',
+  templateUrl: './edit-coast.component.html',
+  styleUrls: ['./edit-coast.component.css'],
   providers: [ DatePipe ]
 })
 
-export class EditComponent implements OnInit, OnDestroy {
+export class EditCoastComponent implements OnInit, OnDestroy {
 
   protected readonly subscriptions: Subscription[] = [];
 

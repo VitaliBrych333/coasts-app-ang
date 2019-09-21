@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { FieldListComponent } from './field-list.component';
+import { CoastsListComponent } from './coasts-list.component';
 
-describe('FieldListComponent', () => {
-  let component: FieldListComponent;
-  let fixture: ComponentFixture<FieldListComponent>;
+describe('CoastsListComponent', () => {
+  let component: CoastsListComponent;
+  let fixture: ComponentFixture<CoastsListComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ FieldListComponent ]
+      declarations: [ CoastsListComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(FieldListComponent);
+    fixture = TestBed.createComponent(CoastsListComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
