@@ -4,7 +4,6 @@
 3. write tests
 4. optimize algoritmes filtres in report-form.component
 5. change favicon
-6. change style for graphs component (table and filter)
-7. change const instead let
-8. inheritance incomes list from field list (rename fieldlist)
-9. add Flex
+6. change const instead let
+7. inheritance incomes list from field list (rename fieldlist)
+8. add Flex

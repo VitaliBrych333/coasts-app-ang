@@ -32,17 +32,16 @@ h3 {
   align-self: flex-end;
 }
 
-:host /deep/ .mat-radio-label {
-  margin-right: 60px;
-  margin-left: 80px;
-}
-
-:host /deep/ .mat-form-field {
-  margin-right: 40px;
+:host /deep/ .mat-radio-group {
+  margin: 0 auto;
+  width: 420px;
+  display: flex;
+  justify-content: space-around;
 }
 
 .select {
   width: 250px;
+  padding: 0 20px;
 }
 
 .select p {

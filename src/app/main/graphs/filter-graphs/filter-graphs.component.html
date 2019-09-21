@@ -27,8 +27,17 @@
                  (change)="filterAnniversary()">
       </ng-select>
     </div>
-    
+
     <div class="select" [ngClass]="{disabled: someYears}">
+        <mat-form-field>
+          <mat-label>Parameter</mat-label>
+          <mat-select (selectionChange)="filterYears($event)" [(value)]="selectedParameter">
+            <mat-option *ngFor="let parameter of parameters" [value]="parameter">
+              {{parameter}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+
         <p>Please, select years:</p>
         <ng-select [items]="years"
                    [addTag]="addTagFnYear"
@@ -39,15 +48,6 @@
                    maxSelectedItems = 3
                    (change)="filterYears($event)">
         </ng-select>
-
-        <mat-form-field>
-          <mat-label>Parameter</mat-label>
-          <mat-select (selectionChange)="filterYears($event)" [(value)]="selectedParameter">
-            <mat-option *ngFor="let parameter of parameters" [value]="parameter">
-              {{parameter}}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
       </div>
   </div>
 </div>
