@@ -1,4 +1,4 @@
-interface Field {
+interface Coast {
   position?: number;
   date: Date;
   sum: number;
@@ -9,7 +9,7 @@ interface Field {
   _id?: string;
 }
 
-export class NewField implements Field {
+export class NewCoast implements Coast {
   position?: number;
   date: Date;
   sum: number;

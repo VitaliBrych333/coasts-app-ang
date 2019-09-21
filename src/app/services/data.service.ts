@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { NewField } from '../main/field.model';
+import { NewCoast } from '../main/coast.model';
 import { NewIncome } from '../main/income.model';
 import { HttpClient } from '@angular/common/http';
 
@@ -14,25 +14,25 @@ export class DataService {
 
   constructor(private http: HttpClient) {}
 
-  addField(body: NewField): Promise<NewField>  {
-    return this.http.post<NewField>(this.baseURL + '/purchases', JSON.stringify(body), this.options).toPromise();
+  addField(body: NewCoast): Promise<NewCoast>  {
+    return this.http.post<NewCoast>(this.baseURL + '/purchases', JSON.stringify(body), this.options).toPromise();
   }
 
-  getAllFields(): Promise<NewField[]> {
-    return this.http.get<NewField[]>(this.baseURL + '/purchases').toPromise();
+  getAllFieldsCoasts(): Promise<NewCoast[]> {
+    return this.http.get<NewCoast[]>(this.baseURL + '/purchases').toPromise();
   }
 
-  deleteId(field: NewField): Promise<NewField> {
+  deleteId(field: NewCoast): Promise<NewCoast> {
     const id = field._id;
-    return this.http.delete<NewField>(this.baseURL + '/purchases' + `/${id}`).toPromise();
+    return this.http.delete<NewCoast>(this.baseURL + '/purchases' + `/${id}`).toPromise();
   }
 
-  getFieldId(id: string): Promise<NewField> {
-    return this.http.get<NewField>(this.baseURL + '/purchases' + `/${id}`).toPromise();
+  getFieldId(id: string): Promise<NewCoast> {
+    return this.http.get<NewCoast>(this.baseURL + '/purchases' + `/${id}`).toPromise();
   }
 
-  updateField(id: string, field: NewField): Promise<NewField> {
-    return this.http.put<NewField>(this.baseURL + '/purchases' + `/${id}/update`, field).toPromise();
+  updateField(id: string, field: NewCoast): Promise<NewCoast> {
+    return this.http.put<NewCoast>(this.baseURL + '/purchases' + `/${id}/update`, field).toPromise();
   }
 
   addFieldIncome(body: NewIncome): Promise<NewIncome>  {

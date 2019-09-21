@@ -1,9 +1,7 @@
-1. include loadash library:
-  1.1 change metodes in different modules on loadash functions
+1. create getting years from dates
 2. rewrite css to scss
 3. write tests
-4. optimize algoritmes filtres in report-form.component
-5. change favicon
-6. change const instead let
-7. inheritance incomes list from field list
-8. add Flex
+4. change favicon
+5. change const instead let
+6. inheritance incomes list from coasts list
+7. add Flex

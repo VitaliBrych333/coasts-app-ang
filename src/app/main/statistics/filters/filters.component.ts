@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { DataService } from '../../../services/data.service';
-import { NewField } from '../../field.model';
+import { NewCoast } from '../../coast.model';
 import { NewIncome } from '../../income.model';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { MatInput } from '@angular/material';
@@ -31,10 +31,10 @@ export class FiltersComponent implements OnInit, OnDestroy {
   mounthsNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
   years: Array<number> = [2019, 2020];
-  listCoasts: NewField[];
+  listCoasts: NewCoast[];
   listIncomes: NewIncome[];
 
-  currentListCoasts: NewField[];
+  currentListCoasts: NewCoast[];
   currentListIncomes: NewIncome[];
 
   topDateFilter: Date;
@@ -56,7 +56,7 @@ export class FiltersComponent implements OnInit, OnDestroy {
       this.mounths.push({ id: i, name: c });
     });
 
-    this.dataService.getAllFields().then(data => {
+    this.dataService.getAllFieldsCoasts().then(data => {
       this.listCoasts = data;
     });
 
@@ -81,7 +81,7 @@ export class FiltersComponent implements OnInit, OnDestroy {
       this.minDateTo = new Date(2018, 0, 1);
 
       if (this.topDateFilter) {
-        this.currentListCoasts = this.listCoasts.filter((obg: NewField)  =>
+        this.currentListCoasts = this.listCoasts.filter((obg: NewCoast)  =>
           this.setDate(obg.date) <= this.topDateFilter
         );
         this.currentListIncomes = this.listIncomes.filter((obg: NewIncome) =>
@@ -98,7 +98,7 @@ export class FiltersComponent implements OnInit, OnDestroy {
       this.minDateTo = new Date(event.value);
 
       if (this.topDateFilter) {
-        this.currentListCoasts = this.listCoasts.filter((obg: NewField)  =>
+        this.currentListCoasts = this.listCoasts.filter((obg: NewCoast)  =>
           (this.setDate(obg.date) >= this.lowDateFilter) && (this.setDate(obg.date) <= this.topDateFilter)
         );
         this.currentListIncomes = this.listIncomes.filter((obg: NewIncome) =>
@@ -120,7 +120,7 @@ export class FiltersComponent implements OnInit, OnDestroy {
       this.maxDateFrom = new Date();
 
       if (this.lowDateFilter) {
-        this.currentListCoasts = this.listCoasts.filter((obg: NewField) =>
+        this.currentListCoasts = this.listCoasts.filter((obg: NewCoast) =>
           this.setDate(obg.date) >= this.lowDateFilter
         );
         this.currentListIncomes = this.listIncomes.filter((obg: NewIncome) =>
@@ -137,7 +137,7 @@ export class FiltersComponent implements OnInit, OnDestroy {
       this.maxDateFrom = new Date(event.value);
 
       if (this.lowDateFilter) {
-        this.currentListCoasts = this.listCoasts.filter((obg: NewField) =>
+        this.currentListCoasts = this.listCoasts.filter((obg: NewCoast) =>
           (this.setDate(obg.date) >= this.lowDateFilter) && (this.setDate(obg.date) <= this.topDateFilter)
         );
         this.currentListIncomes = this.listIncomes.filter((obg: NewIncome) =>

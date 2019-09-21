@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
 })
 
 export class ButtonsComponent implements OnInit {
-  
+
   currentUrl: string = this.router.url;
   stateOne: boolean = false;
   stateTwo: boolean = false;
@@ -34,11 +34,11 @@ export class ButtonsComponent implements OnInit {
         this.stateFour = true;
         break;
       case '/statistics':
-          this.stateFive = true;
-          break;
+        this.stateFive = true;
+        break;
       case '/graphs':
-          this.stateSix = true;
-          break;
+        this.stateSix = true;
+        break;
       default:
     }
   }

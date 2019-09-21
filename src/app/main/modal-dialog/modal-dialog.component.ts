@@ -1,5 +1,5 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { NewField } from '../field.model';
+import { NewCoast } from '../coast.model';
 import { NewIncome } from '../income.model';
 import { DataService } from '../../services/data.service';
 
@@ -11,7 +11,7 @@ import { DataService } from '../../services/data.service';
 
 export class ModalDialogComponent {
 
-  @Input() fieldDelete: NewField;
+  @Input() fieldDelete: NewCoast;
   @Input() fieldIncomeDelete: NewIncome;
 
   @Output() deleteItem = new EventEmitter<boolean>();

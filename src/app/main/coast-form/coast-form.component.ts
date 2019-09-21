@@ -4,7 +4,7 @@ import { DatePipe } from '@angular/common';
 import { Router } from '@angular/router';
 import { DataService } from '../../services/data.service';
 import { AuthService } from '../../services/auth.service';
-import { NewField } from '../field.model';
+import { NewCoast } from '../coast.model';
 import { MessageWindowComponent } from '../../shared/message-window/message-window.component';
 import { MatDialog } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
@@ -51,7 +51,7 @@ export class CoastFormComponent implements OnInit, OnDestroy {
   }
 
   add() {
-    const newField: NewField = new NewField(
+    const newField: NewCoast = new NewCoast(
       this.formForValid.value.date,
       this.formForValid.value.sum,
       this.formForValid.value.type,

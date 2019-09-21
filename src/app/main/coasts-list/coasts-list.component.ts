@@ -3,7 +3,7 @@ import { MatPaginator} from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { DataService } from '../../services/data.service';
-import { NewField } from '../field.model';
+import { NewCoast } from '../coast.model';
 import { MatSort } from '@angular/material/sort';
 import { ModalDialogComponent } from '../modal-dialog/modal-dialog.component';
 import { Subscription } from 'rxjs';
@@ -21,8 +21,8 @@ export class CoastsListComponent implements OnInit, OnDestroy {
 
   displayedColumns: string[] = ['position', 'date', 'sum', 'type', 'other', 'author', 'actions'];
 
-  dataSource: MatTableDataSource<NewField>;
-  listData: NewField[];
+  dataSource: MatTableDataSource<NewCoast>;
+  listData: NewCoast[];
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
@@ -33,7 +33,7 @@ export class CoastsListComponent implements OnInit, OnDestroy {
               private componentFactoryResolver: ComponentFactoryResolver) {}
 
   ngOnInit() {
-    this.dataService.getAllFields().then(data => {
+    this.dataService.getAllFieldsCoasts().then(data => {
       data.forEach(obg => obg.position = (data.indexOf(obg) + 1));
       this.listData = data;
       this.createTable(this.listData);
@@ -44,13 +44,13 @@ export class CoastsListComponent implements OnInit, OnDestroy {
     _.forEach(this.subscriptions, subscription => subscription.unsubscribe());
   }
 
-  createTable(data: NewField[]): void {
-    this.dataSource = new MatTableDataSource<NewField>(data);
+  createTable(data: NewCoast[]): void {
+    this.dataSource = new MatTableDataSource<NewCoast>(data);
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
   }
 
-  deleteField(fieldDelete: NewField): void {
+  deleteField(fieldDelete: NewCoast): void {
     const componentFactory = this.componentFactoryResolver.resolveComponentFactory(ModalDialogComponent);
     let componentRef = this.viewContainerRef.createComponent(componentFactory);
 
@@ -70,7 +70,7 @@ export class CoastsListComponent implements OnInit, OnDestroy {
     );
   }
 
-  editField(fieldEdit: NewField): void {
+  editField(fieldEdit: NewCoast): void {
     this.router.navigate([`/purchases/${fieldEdit._id}`]);
   }
 }

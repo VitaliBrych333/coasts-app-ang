@@ -1,6 +1,6 @@
 import { Component, Input, OnChanges, EventEmitter, Output } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
-import { NewField } from '../field.model';
+import { NewCoast } from '../coast.model';
 import { DatePipe } from '@angular/common';
 
 @Component({
@@ -11,7 +11,7 @@ import { DatePipe } from '@angular/common';
 
 export class CoastFormFieldComponent implements OnChanges {
 
-  @Input() newField: NewField;
+  @Input() newField: NewCoast;
   @Output() validForm = new EventEmitter<FormGroup>();
 
   listCategory: Array<string> = ['food', 'rent', 'clothes', 'child', 'petrol', 'present', 'gym', 'other'];

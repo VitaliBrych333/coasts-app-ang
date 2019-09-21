@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { DataService } from '../../services/data.service';
 import { AuthService } from '../../services/auth.service';
-import { NewField } from '../field.model';
+import { NewCoast } from '../coast.model';
 import { FormGroup } from '@angular/forms';
 import { DatePipe } from '@angular/common';
 import { Router } from '@angular/router';
@@ -59,7 +59,7 @@ export class EditCoastComponent implements OnInit, OnDestroy {
   }
 
   save(): void {
-    const newField: NewField = new NewField(
+    const newField: NewCoast = new NewCoast(
       this.formForValid.value.date,
       this.formForValid.value.sum,
       this.formForValid.value.type,

@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { DataService } from '../../../services/data.service';
-import { NewField } from '../../field.model';
+import { NewCoast } from '../../coast.model';
 import { NewIncome } from '../../income.model';
 import { FiltersComponent } from '../../statistics/filters/filters.component';
 import { FilterDataService } from '../../../services/filter-data.service';
@@ -27,7 +27,7 @@ export class FilterGraphsComponent extends FiltersComponent implements OnInit, O
   parameters: Array<string> = this.coastsRequired.concat(this.coastsOptional, this.incomesTotal, this.incomesUsers,
                                                          this.coastsKinds, 'coasts total', 'incomes total', 'accumulation');
 
-  listCoasts: NewField[];
+  listCoasts: NewCoast[];
   listIncomes: NewIncome[];
   selectedYear: number;
   selectedParameters: string[];
@@ -40,7 +40,7 @@ export class FilterGraphsComponent extends FiltersComponent implements OnInit, O
               public filterDataService: FilterDataService) { super(dataService, filterDataService); }
 
   ngOnInit() {
-    this.dataService.getAllFields().then(data => {
+    this.dataService.getAllFieldsCoasts().then(data => {
       this.listCoasts = data;
     });
 
