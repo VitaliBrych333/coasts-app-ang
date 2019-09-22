@@ -1,7 +1,5 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component } from '@angular/core';
 import { DataService } from '../../../services/data.service';
-import { NewCoast } from '../../coast.model';
-import { NewIncome } from '../../income.model';
 import { FiltersComponent } from '../../statistics/filters/filters.component';
 import { FilterDataService } from '../../../services/filter-data.service';
 import * as _ from 'lodash';
@@ -12,11 +10,10 @@ import * as _ from 'lodash';
   styleUrls: ['./filter-graphs.component.css']
 })
 
-export class FilterGraphsComponent extends FiltersComponent implements OnInit, OnDestroy {
+export class FilterGraphsComponent extends FiltersComponent {
 
   someYears: boolean = true;
   oneYear: boolean = false;
-  years: Array<number> = [2019, 2020, 2021, 2022];
 
   coastsRequired: Array<string> = ['food', 'rent', 'child', 'gym'];
   coastsOptional: Array<string> = ['clothes', 'petrol', 'present', 'other'];
@@ -27,8 +24,6 @@ export class FilterGraphsComponent extends FiltersComponent implements OnInit, O
   parameters: Array<string> = this.coastsRequired.concat(this.coastsOptional, this.incomesTotal, this.incomesUsers,
                                                          this.coastsKinds, 'coasts total', 'incomes total', 'accumulation');
 
-  listCoasts: NewCoast[];
-  listIncomes: NewIncome[];
   selectedYear: number;
   selectedParameters: string[];
 
@@ -38,20 +33,6 @@ export class FilterGraphsComponent extends FiltersComponent implements OnInit, O
 
   constructor(public dataService: DataService,
               public filterDataService: FilterDataService) { super(dataService, filterDataService); }
-
-  ngOnInit() {
-    this.dataService.getAllFieldsCoasts().then(data => {
-      this.listCoasts = data;
-    });
-
-    this.dataService.getAllFieldsIncomes().then(data => {
-      this.listIncomes = data;
-    });
-  }
-
-  ngOnDestroy() {
-    this.onChange();
-  }
 
   filterAnniversary() {
     this.arrayDataCompare = [];

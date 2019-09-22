@@ -5,6 +5,7 @@ import { NewIncome } from '../../income.model';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { MatInput } from '@angular/material';
 import { FilterDataService } from '../../../services/filter-data.service';
+import * as _ from 'lodash';
 
 interface Mounth {
   id: number;
@@ -30,7 +31,7 @@ export class FiltersComponent implements OnInit, OnDestroy {
   mounths: object[] = [];
   mounthsNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
-  years: Array<number> = [2019, 2020];
+  years: Array<number>;
   listCoasts: NewCoast[];
   listIncomes: NewIncome[];
 
@@ -56,13 +57,20 @@ export class FiltersComponent implements OnInit, OnDestroy {
       this.mounths.push({ id: i, name: c });
     });
 
-    this.dataService.getAllFieldsCoasts().then(data => {
+    let tempYearsCoasts = [];
+    let tempYearsIncomes = [];
+
+    let promiseCoasts = this.dataService.getAllFieldsCoasts().then(data => {
       this.listCoasts = data;
+      data.forEach(obj => tempYearsCoasts.push(new Date(obj.date).getFullYear()));
     });
 
-    this.dataService.getAllFieldsIncomes().then(data => {
+    let promiseIncomes = this.dataService.getAllFieldsIncomes().then(data => {
       this.listIncomes = data;
+      data.forEach(obj => tempYearsIncomes.push(new Date(obj.date).getFullYear()));
     });
+
+    Promise.all([promiseCoasts, promiseIncomes]).then(() => this.years = _.uniq(tempYearsCoasts.concat(tempYearsIncomes)));
   }
 
   ngOnDestroy() {
