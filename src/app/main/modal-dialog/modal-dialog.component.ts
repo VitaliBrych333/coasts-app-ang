@@ -1,6 +1,4 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { NewCoast } from '../coast.model';
-import { NewIncome } from '../income.model';
 import { DataService } from '../../services/data.service';
 
 @Component({
@@ -11,30 +9,21 @@ import { DataService } from '../../services/data.service';
 
 export class ModalDialogComponent {
 
-  @Input() fieldDelete: NewCoast;
-  @Input() fieldIncomeDelete: NewIncome;
+  @Input() fieldDelete: any;
 
-  @Output() deleteItem = new EventEmitter<boolean>();
-  @Output() deleteItemIcome = new EventEmitter<boolean>();
+  @Output() deleteField = new EventEmitter<boolean>();
 
   constructor(private dataService: DataService) {}
 
   cancel(): void {
-    if (this.fieldDelete) {
-       this.deleteItem.emit(false);
-    }
-    if (this.fieldIncomeDelete) {
-      this.deleteItemIcome.emit(false);
-    }
+    this.deleteField.emit(false);
   }
 
   deleteId(): void {
-    if (this.fieldDelete) {
-      this.dataService.deleteId(this.fieldDelete).then(() => this.deleteItem.emit(true));
-    }
-
-    if (this.fieldIncomeDelete) {
-      this.dataService.deleteIncomeId(this.fieldIncomeDelete).then(() => this.deleteItemIcome.emit(true));
+    if (this.fieldDelete.who) {
+      this.dataService.deleteIncomeId(this.fieldDelete).then(() => this.deleteField.emit(true));
+    } else {
+      this.dataService.deleteId(this.fieldDelete).then(() => this.deleteField.emit(true));
     }
   }
 }

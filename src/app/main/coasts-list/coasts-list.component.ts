@@ -21,16 +21,16 @@ export class CoastsListComponent implements OnInit, OnDestroy {
 
   displayedColumns: string[] = ['position', 'date', 'sum', 'type', 'other', 'author', 'actions'];
 
-  dataSource: MatTableDataSource<NewCoast>;
-  listData: NewCoast[];
+  dataSource: MatTableDataSource<object>;
+  listData: object[];
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
 
-  constructor(private router: Router,
-              private dataService: DataService,
-              private viewContainerRef: ViewContainerRef,
-              private componentFactoryResolver: ComponentFactoryResolver) {}
+  constructor(public router: Router,
+              public dataService: DataService,
+              public viewContainerRef: ViewContainerRef,
+              public componentFactoryResolver: ComponentFactoryResolver) {}
 
   ngOnInit() {
     this.dataService.getAllFieldsCoasts().then(data => {
@@ -44,13 +44,13 @@ export class CoastsListComponent implements OnInit, OnDestroy {
     _.forEach(this.subscriptions, subscription => subscription.unsubscribe());
   }
 
-  createTable(data: NewCoast[]): void {
-    this.dataSource = new MatTableDataSource<NewCoast>(data);
+  createTable(data: object[]): void {
+    this.dataSource = new MatTableDataSource<object>(data);
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
   }
 
-  deleteField(fieldDelete: NewCoast): void {
+  deleteField(fieldDelete: any): void {
     const componentFactory = this.componentFactoryResolver.resolveComponentFactory(ModalDialogComponent);
     let componentRef = this.viewContainerRef.createComponent(componentFactory);
 
@@ -58,9 +58,9 @@ export class CoastsListComponent implements OnInit, OnDestroy {
 
     this.subscriptions.push(
 
-      componentRef.instance.deleteItem.subscribe((state: boolean) => {
+      componentRef.instance.deleteField.subscribe((state: boolean) => {
         if (state) {
-          this.listData = this.listData.filter(obg => obg._id !== fieldDelete._id);
+          this.listData = this.listData.filter((obg: any) => obg._id !== fieldDelete._id);
           this.createTable(this.listData);
         }
 

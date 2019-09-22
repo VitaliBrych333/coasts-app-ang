@@ -3,5 +3,5 @@
 3. write tests
 4. change favicon
 5. change const instead let
-6. inheritance incomes list from coasts list
-7. add Flex
+6. add Flex
+7. may be create global variable string
