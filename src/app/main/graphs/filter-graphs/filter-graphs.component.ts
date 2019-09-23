@@ -44,9 +44,9 @@ export class FilterGraphsComponent extends FiltersComponent {
 
     this.filterOnlyByYear();
     this.selectedParameters.forEach(value => {
-      let newDataGraphs: Array<object> = this.filterByKindParameter(value);
+      const newDataGraphs: Array<object> = this.filterByKindParameter(value);
 
-      let newData = this.getSumDataByMonths(newDataGraphs);
+      const newData = this.getSumDataByMonths(newDataGraphs);
       newData.set(12, value);
       this.arrayDataCompare.push(newData);
     });
@@ -55,7 +55,7 @@ export class FilterGraphsComponent extends FiltersComponent {
   }
 
   private getSumDataByMonths(newDataGraphs: object[], year?: number) {
-    let newData = new Map();
+    const newData = new Map();
     let sumResult: number = 0;
 
     for (let i = 0; i < 12; i++) {
@@ -71,7 +71,7 @@ export class FilterGraphsComponent extends FiltersComponent {
     return newData;
   }
 
-  filterByKindParameter(value: string):  Array<object>  {
+  filterByKindParameter(value: string): Array<object>  {
     let newDataGraphs: Array<object>;
 
     if (this.coastsRequired.includes(value) || this.coastsOptional.includes(value)) {
@@ -122,9 +122,9 @@ export class FilterGraphsComponent extends FiltersComponent {
     this.filterOnlyByYears(this.selectedYears);
 
     this.selectedYears.forEach(value => {
-      let newDataGraphs: Array<object> = this.filterByKindParameter(this.selectedParameter);
+      const newDataGraphs: Array<object> = this.filterByKindParameter(this.selectedParameter);
 
-      let newData = this.getSumDataByMonths(newDataGraphs, value);
+      const newData = this.getSumDataByMonths(newDataGraphs, value);
       newData.set(12, value);
       this.arrayDataCompare.push(newData);
     });

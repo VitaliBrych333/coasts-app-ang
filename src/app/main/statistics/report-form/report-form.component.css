@@ -12,7 +12,7 @@ ol {
 }
 
 .costs > p, .incomes > p, .wrapper > div:nth-child(3) {
-  font-size: 22px;
+  font-size: 24px;
 }
 
 .required > p, .optional > p, .person p {

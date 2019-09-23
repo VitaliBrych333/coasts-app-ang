@@ -10,7 +10,7 @@ import { DatePipe } from '@angular/common';
 })
 
 export class IncomeFormFieldComponent implements OnChanges {
-  
+
   @Input() newFieldIncome: NewIncome;
   @Output() validForm = new EventEmitter<FormGroup>();
 

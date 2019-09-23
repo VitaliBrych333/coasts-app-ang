@@ -2,7 +2,7 @@ import { Component, OnInit, ViewContainerRef, ComponentFactoryResolver } from '@
 import { Router } from '@angular/router';
 import { DataService } from '../../services/data.service';
 import { NewIncome } from '../income.model';
-import { CoastsListComponent } from '../coasts-list/coasts-list.component'
+import { CoastsListComponent } from '../coasts-list/coasts-list.component';
 
 @Component({
   selector: 'app-incomes-list',
@@ -17,8 +17,9 @@ export class IncomesListComponent extends CoastsListComponent implements OnInit 
   constructor(public router: Router,
               public dataService: DataService,
               public viewContainerRef: ViewContainerRef,
-              public componentFactoryResolver: ComponentFactoryResolver)
-              { super(router, dataService, viewContainerRef, componentFactoryResolver); }
+              public componentFactoryResolver: ComponentFactoryResolver) {
+                super(router, dataService, viewContainerRef, componentFactoryResolver);
+              }
 
   ngOnInit() {
     this.dataService.getAllFieldsIncomes().then(data => {

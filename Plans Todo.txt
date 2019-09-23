@@ -1,6 +1,4 @@
 1. rewrite css to scss
 2. write tests
-3. change favicon
-4. change const instead let
-5. add Flex
-6. may be create global variable string
+3. add Flex
+4. may be create global variable string

@@ -57,15 +57,15 @@ export class FiltersComponent implements OnInit, OnDestroy {
       this.mounths.push({ id: i, name: c });
     });
 
-    let tempYearsCoasts = [];
-    let tempYearsIncomes = [];
+    const tempYearsCoasts = [];
+    const tempYearsIncomes = [];
 
-    let promiseCoasts = this.dataService.getAllFieldsCoasts().then(data => {
+    const promiseCoasts = this.dataService.getAllFieldsCoasts().then(data => {
       this.listCoasts = data;
       data.forEach(obj => tempYearsCoasts.push(new Date(obj.date).getFullYear()));
     });
 
-    let promiseIncomes = this.dataService.getAllFieldsIncomes().then(data => {
+    const promiseIncomes = this.dataService.getAllFieldsIncomes().then(data => {
       this.listIncomes = data;
       data.forEach(obj => tempYearsIncomes.push(new Date(obj.date).getFullYear()));
     });
@@ -188,6 +188,8 @@ export class FiltersComponent implements OnInit, OnDestroy {
   }
 
   filterFormMounth(value: Array<object>): void {
+    this.arrayIdMounths = [];
+
     if (!value.length) {
       this.arrayIdMounths = [];
     } else {
@@ -203,6 +205,7 @@ export class FiltersComponent implements OnInit, OnDestroy {
     } else {
       this.currentListCoasts = this.listCoasts.filter(obg => this.arrayIdMounths.includes(new Date(obg.date).getMonth()));
       this.currentListIncomes = this.listIncomes.filter(obg => this.arrayIdMounths.includes(new Date(obg.date).getMonth()));
+
     }
     this.filterDataService.changeSourceListCoasts(this.currentListCoasts);
     this.filterDataService.changeSourceListIncomes(this.currentListIncomes);
@@ -226,6 +229,9 @@ export class FiltersComponent implements OnInit, OnDestroy {
     this.selectedYear = NaN;
     this.selectedMounth = '';
     this.arrayIdMounths = [];
+
+    this.lowDateFilter = undefined;
+    this.topDateFilter = undefined;
 
     this.filterDataService.changeSourceListCoasts([]);
     this.filterDataService.changeSourceListIncomes([]);

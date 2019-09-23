@@ -124,7 +124,7 @@ export class SheduleComponent implements OnInit, OnDestroy {
           });
         }
 
-    //for scale if values differ more than 10 times
+    // for scale if values differ more than 10 times
         if (this.lineChartData[1].data.length) {
           const tempArray = [];
 

@@ -133,7 +133,6 @@ export class ReportFormComponent implements OnInit, OnDestroy {
   }
 
   checkValue(value: any) {
-    if (value || value === null) { return true; }
-    return false;
+    return value || _.isNull(value);
   }
 }
