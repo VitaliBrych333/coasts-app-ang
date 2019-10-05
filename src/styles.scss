@@ -1,3 +1,5 @@
+$selectColor: #e57373;
+
 * {
   margin: 0;
   padding: 0;
@@ -13,14 +15,14 @@ html, body, .container {
 }
 
 .ng-dropdown-panel .ng-dropdown-panel-items .ng-option.ng-option-marked {
-  background-color: #e57373;
+  background-color: $selectColor;
 }
 
 .ng-select.ng-select-multiple {
   .ng-select-container {
     .ng-value-container {
       .ng-value {
-        background-color: #e57373;
+        background-color: $selectColor;
         border-radius: 5px;
 
         .ng-value-icon {

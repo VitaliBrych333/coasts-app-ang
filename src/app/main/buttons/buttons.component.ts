@@ -17,7 +17,7 @@ export class ButtonsComponent implements OnInit {
   stateFive: boolean = false;
   stateSix: boolean = false;
 
-  constructor(private router: Router) { }
+  constructor(private router: Router) {}
 
   ngOnInit() {
     switch (this.currentUrl) {

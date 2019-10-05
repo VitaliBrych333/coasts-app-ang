@@ -25,7 +25,7 @@ const routes: Routes = [
   { path: 'graphs', component: GraphsComponent, canActivate: [AuthGuard] },
   { path: 'main', component: ButtonsComponent, canActivate: [AuthGuard] },
   { path: 'login', component: LoginComponent },
-  { path: '', redirectTo: 'login', pathMatch: 'full'},
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: '**', component: NoContentComponent, canActivate: [AuthGuard] },
 ];
 

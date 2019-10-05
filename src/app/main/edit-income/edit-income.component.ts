@@ -21,7 +21,7 @@ export class EditIncomeComponent implements OnInit, OnDestroy {
 
   protected readonly subscriptions: Subscription[] = [];
 
-  listCategory: Array<string> = ['food', 'rent', 'clothes', 'child', 'petrol', 'present', 'gym', 'other'];
+  //listCategory: Array<string> = ['food', 'rent', 'clothes', 'child', 'petrol', 'present', 'gym', 'other'];
   editFieldIncome: object = {
     date: null,
     sum: null,
