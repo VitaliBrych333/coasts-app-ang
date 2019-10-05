@@ -9,7 +9,7 @@ import * as _ from 'lodash';
 @Component({
   selector: 'app-shedule',
   templateUrl: './shedule.component.html',
-  styleUrls: ['./shedule.component.css']
+  styleUrls: ['./shedule.component.scss']
 })
 
 export class SheduleComponent implements OnInit, OnDestroy {

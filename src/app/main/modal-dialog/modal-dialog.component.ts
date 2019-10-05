@@ -4,7 +4,7 @@ import { DataService } from '../../services/data.service';
 @Component({
   selector: 'app-modal-dialog',
   templateUrl: './modal-dialog.component.html',
-  styleUrls: ['./modal-dialog.component.css']
+  styleUrls: ['./modal-dialog.component.scss']
 })
 
 export class ModalDialogComponent {

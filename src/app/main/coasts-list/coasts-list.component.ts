@@ -12,7 +12,7 @@ import * as _ from 'lodash';
 @Component({
   selector: 'app-coasts-list',
   templateUrl: './coasts-list.component.html',
-  styleUrls: ['./coasts-list.component.css'],
+  styleUrls: ['./coasts-list.component.scss'],
 })
 
 export class CoastsListComponent implements OnInit, OnDestroy {

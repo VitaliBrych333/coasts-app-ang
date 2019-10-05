@@ -1,0 +1,17 @@
+button {
+  height: 40px;
+  border-radius: 5px;
+  margin: {
+    top: 20px;
+    right: 30px;
+  }
+  font: {
+    size: 16px;
+    weight: 700;
+  }
+
+  &:hover {
+    cursor: pointer;
+    background-color: rgba(3, 126, 3, 0.692);
+  }
+}

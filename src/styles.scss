@@ -1,0 +1,37 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+html, body, .container {
+  height: 100%;
+}
+
+/* for window of messages */
+.my-custom-container .mat-dialog-container {
+  padding: 0;
+}
+
+.ng-dropdown-panel .ng-dropdown-panel-items .ng-option.ng-option-marked {
+  background-color: #e57373;
+}
+
+.ng-select.ng-select-multiple {
+  .ng-select-container {
+    .ng-value-container {
+      .ng-value {
+        background-color: #e57373;
+        border-radius: 5px;
+
+        .ng-value-icon {
+          &:hover {
+            border: {
+              top-left-radius: 4px;
+              bottom-left-radius: 4px;
+            }
+          }
+        }
+      }
+    }
+  }
+}

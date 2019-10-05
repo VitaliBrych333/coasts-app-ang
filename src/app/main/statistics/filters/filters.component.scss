@@ -1,0 +1,53 @@
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+h2 {
+  font-size: 20px;
+  margin: 20px 0 30px;
+}
+
+.criterion {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.date {
+  display: flex;
+  flex-direction: column;
+  margin-right: 40px;
+
+  p {
+    display: inline-block;
+    font-size: 20px;
+    margin-right: 10px;
+  }
+
+  div:nth-child(2) {
+    margin-top: 7px;
+    align-self: flex-end;
+  }
+}
+
+.mat-radio-button {
+  margin: {
+    right: 80px;
+    left: 80px;
+  }
+}
+
+.select {
+  width: 250px;
+
+  p {
+    font-size: 14px;
+  }
+}
+
+.disabled {
+  pointer-events: none;
+  opacity: 0.4;
+}

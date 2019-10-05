@@ -6,7 +6,7 @@ import { DatePipe } from '@angular/common';
 @Component({
   selector: 'app-income-form-field',
   templateUrl: './income-form-field.component.html',
-  styleUrls: ['./income-form-field.component.css']
+  styleUrls: ['./income-form-field.component.scss']
 })
 
 export class IncomeFormFieldComponent implements OnChanges {

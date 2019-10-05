@@ -4,18 +4,18 @@ table {
 
 td.mat-cell {
   padding: 3px;
-}
 
-td.mat-cell:first-child {
-  padding-left: 24px;
+  &:first-child {
+    padding-left: 24px;
+  }
 }
 
 .mat-elevation-z8 button {
   margin-right: 15px;
-}
 
-.mat-elevation-z8 button:hover {
-  background-color: rgb(69, 172, 185);
+  &:hover {
+    background-color: rgb(69, 172, 185);
+  }
 }
 
 .cdk-column-actions {

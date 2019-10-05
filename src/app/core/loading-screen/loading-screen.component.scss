@@ -14,18 +14,20 @@
   display: inline-block;
   width: 104px;
   height: 104px;
-}
 
-.lds-dual-ring:after {
-  content: " ";
-  display: block;
-  width: 80px;
-  height: 80px;
-  margin: 1px;
-  border-radius: 50%;
-  border: 15px solid rgb(185, 27, 27);
-  border-color: rgb(32, 230, 14) transparent rgb(25, 77, 197) transparent;
-  animation: lds-dual-ring 1.2s linear infinite;
+  &:after {
+    content: " ";
+    display: block;
+    width: 80px;
+    height: 80px;
+    margin: 1px;
+    animation: lds-dual-ring 1.2s linear infinite;
+    border: 15px solid rgb(185, 27, 27);
+    border: {
+      radius: 50%;
+      color: rgb(32, 230, 14) transparent rgb(25, 77, 197) transparent;
+    }
+  }
 }
 
 @keyframes lds-dual-ring {

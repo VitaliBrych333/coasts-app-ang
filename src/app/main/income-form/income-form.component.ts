@@ -13,7 +13,7 @@ import * as _ from 'lodash';
 @Component({
   selector: 'app-income-form',
   templateUrl: './income-form.component.html',
-  styleUrls: ['./income-form.component.css'],
+  styleUrls: ['./income-form.component.scss'],
   providers: [ DatePipe ],
 })
 

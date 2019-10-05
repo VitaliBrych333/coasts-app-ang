@@ -7,37 +7,37 @@
 }
 
 h1 {
-  font-size: 24px;
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font: {
+    size: 24px;
+    family: Verdana, Geneva, Tahoma, sans-serif;
+  }
   color: #607D8B;
   float: right;
   margin-top: 12px;
   text-shadow: 2px -3px 2px rgb(26, 192, 26);
 }
 
-
 button {
   width: 70px;
   height: 30px;
   border-radius: 5px;
   margin-top: 4px;
-}
 
-button:hover {
-  cursor: pointer;
-  background-color: cadetblue;
+  &:hover {
+    cursor: pointer;
+    background-color: cadetblue;
+  }
 }
 
 .info-user {
   margin-right: 20px;
   float: left;
-}
 
-.info-user + div {
-  display: inline-block;
+  & + div {
+    display: inline-block;
+  }
 }
 
 p {
   margin-top: 8px;
 }
-

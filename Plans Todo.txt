@@ -1,4 +1,4 @@
-1. rewrite css to scss
+1. add fonts
 2. write tests
 3. add Flex
 4. may be create global variable string

@@ -7,7 +7,7 @@ import { CoastsListComponent } from '../coasts-list/coasts-list.component';
 @Component({
   selector: 'app-incomes-list',
   templateUrl: './incomes-list.component.html',
-  styleUrls: ['./incomes-list.component.css']
+  styleUrls: ['./incomes-list.component.scss']
 })
 
 export class IncomesListComponent extends CoastsListComponent implements OnInit {

@@ -22,7 +22,7 @@ interface OptionalObject {
 @Component({
   selector: 'app-report-form',
   templateUrl: './report-form.component.html',
-  styleUrls: ['./report-form.component.css']
+  styleUrls: ['./report-form.component.scss']
 })
 
 export class ReportFormComponent implements OnInit, OnDestroy {

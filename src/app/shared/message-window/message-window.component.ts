@@ -5,7 +5,7 @@ import { NewContent } from '../content-model';
 @Component({
   selector: 'app-message-window',
   templateUrl: './message-window.component.html',
-  styleUrls: ['./message-window.component.css']
+  styleUrls: ['./message-window.component.scss']
 })
 
 export class MessageWindowComponent implements OnInit {

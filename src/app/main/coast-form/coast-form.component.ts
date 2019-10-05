@@ -13,7 +13,7 @@ import * as _ from 'lodash';
 @Component({
   selector: 'app-coast-form',
   templateUrl: './coast-form.component.html',
-  styleUrls: ['./coast-form.component.css'],
+  styleUrls: ['./coast-form.component.scss'],
   providers: [ DatePipe ],
 })
 

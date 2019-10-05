@@ -8,7 +8,9 @@ div {
 }
 
 p {
-  font-size: 12px;
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font: {
+    size: 12px;
+    family: Verdana, Geneva, Tahoma, sans-serif;
+  }
   color: #607D8B;
 }

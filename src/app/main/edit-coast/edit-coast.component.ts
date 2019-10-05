@@ -13,7 +13,7 @@ import * as _ from 'lodash';
 @Component({
   selector: 'app-edit-coast',
   templateUrl: './edit-coast.component.html',
-  styleUrls: ['./edit-coast.component.css'],
+  styleUrls: ['./edit-coast.component.scss'],
   providers: [ DatePipe ]
 })
 

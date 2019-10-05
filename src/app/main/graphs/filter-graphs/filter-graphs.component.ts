@@ -7,7 +7,7 @@ import * as _ from 'lodash';
 @Component({
   selector: 'app-filter-graphs',
   templateUrl: './filter-graphs.component.html',
-  styleUrls: ['./filter-graphs.component.css']
+  styleUrls: ['./filter-graphs.component.scss']
 })
 
 export class FilterGraphsComponent extends FiltersComponent {

@@ -6,7 +6,7 @@ import { DatePipe } from '@angular/common';
 @Component({
   selector: 'app-coast-form-field',
   templateUrl: './coast-form-field.component.html',
-  styleUrls: ['./coast-form-field.component.css']
+  styleUrls: ['./coast-form-field.component.scss']
 })
 
 export class CoastFormFieldComponent implements OnChanges {

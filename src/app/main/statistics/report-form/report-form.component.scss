@@ -1,6 +1,10 @@
 .wrapper {
   display: flex;
   max-width: 600px;
+
+  & > div:nth-child(3) span {
+    color: rgb(49, 59, 204);
+  }
 }
 
 div {
@@ -17,8 +21,10 @@ ol {
 
 .required > p, .optional > p, .person p {
   font-size: 18px;
-  margin-left: 20px;
-  margin-top: 10px;
+  margin: {
+    left: 20px;
+    top: 10px;
+  }
 }
 
 p:first-child {
@@ -31,8 +37,4 @@ p:first-child {
 
 .incomes span {
   color: green;
-}
-
-.wrapper > div:nth-child(3) span {
-  color: rgb(49, 59, 204);
 }

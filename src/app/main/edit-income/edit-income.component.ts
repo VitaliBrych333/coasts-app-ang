@@ -13,7 +13,7 @@ import * as _ from 'lodash';
 @Component({
   selector: 'app-edit-income',
   templateUrl: './edit-income.component.html',
-  styleUrls: ['./edit-income.component.css'],
+  styleUrls: ['./edit-income.component.scss'],
   providers: [ DatePipe ]
 })
 
