@@ -9,8 +9,8 @@
 
 .lds-dual-ring {
   position: absolute;
-  top: 50%;
-  left: 50%;
+  top: 40%;
+  left: 45%;
   display: inline-block;
   width: 104px;
   height: 104px;
@@ -25,7 +25,7 @@
     border: 15px solid rgb(185, 27, 27);
     border: {
       radius: 50%;
-      color: rgb(32, 230, 14) transparent rgb(25, 77, 197) transparent;
+      color: rgb(32, 230, 14) transparent rgb(32, 230, 14) transparent;
     }
   }
 }

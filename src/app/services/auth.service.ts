@@ -13,11 +13,9 @@ export class AuthService {
   currentStatusLog = this.messageStatusLog.asObservable();
 
   baseURL = 'http://localhost:5500';
-  options = {headers: {'Content-Type': 'application/json'}};
+  options = { headers: {'Content-Type': 'application/json'} };
 
   constructor(private http: HttpClient) {}
-
-  // noAuthHeader = { headers: new HttpHeaders({ 'NoAuth': 'True' }) };
 
   register(user: NewUser): Promise<object> {
     return this.http.post(this.baseURL + '/register', JSON.stringify(user), this.options).toPromise();

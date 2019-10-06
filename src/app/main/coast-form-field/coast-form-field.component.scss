@@ -14,8 +14,12 @@
     height: 20px;
     border: 1px solid black;
     border-radius: 15px;
-    padding: 5px;
+    padding: 7px 4px 4px;
     font-weight: 700;
+
+    input {
+      margin-right: 5px;
+    }
   }
 }
 
@@ -61,5 +65,8 @@
 }
 
 p {
-  margin-right: 0;
+  margin: {
+    right: 0;
+    top: 15px;
+  }
 }
