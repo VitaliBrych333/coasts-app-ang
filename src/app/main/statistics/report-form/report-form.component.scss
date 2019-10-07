@@ -16,11 +16,17 @@ ol {
 }
 
 .costs > p, .incomes > p, .wrapper > div:nth-child(3) {
-  font-size: 24px;
+  font: {
+    family: Arial, Tahoma, sans-serif;
+    size: 24px;
+  }
 }
 
 .required > p, .optional > p, .person p {
-  font-size: 18px;
+  font: {
+    family: Arial, Tahoma, sans-serif;
+    size: 18px;
+  }
   margin: {
     left: 20px;
     top: 10px;

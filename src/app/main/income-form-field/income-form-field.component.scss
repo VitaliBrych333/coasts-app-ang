@@ -1,11 +1,17 @@
 .date, .sum, .notice {
 
   label {
-    font-size: 22px;
+    font: {
+      size: 22px;
+      family: Arial, Tahoma, sans-serif;
+    }
   }
 
   input {
-    font-size: 18px;
+    font: {
+      size: 18px;
+      family: Arial, Tahoma, sans-serif;
+    }
     border-radius: 5px;
   }
 }
@@ -33,7 +39,10 @@
 
 p {
   display: inline-block;
-  font-size: 22px;
+  font: {
+    size: 22px;
+    family: Arial, Tahoma, sans-serif;
+  }
   margin: {
     bottom: 0;
     right: 10px;

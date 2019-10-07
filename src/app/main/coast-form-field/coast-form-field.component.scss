@@ -1,5 +1,10 @@
 @import '../income-form-field/income-form-field.component.scss';
 
+@font-face {
+  font-family: 'EIisabethische';
+  src: url('../../../assets/fonts/EIisabethische.ttf');
+}
+
 .container {
   display: flex;
   justify-content: space-between;
@@ -15,7 +20,10 @@
     border: 1px solid black;
     border-radius: 15px;
     padding: 7px 4px 4px;
-    font-weight: 700;
+    font: {
+      weight: 700;
+      family: EIisabethische, sans-serif;
+    }
 
     input {
       margin-right: 5px;
