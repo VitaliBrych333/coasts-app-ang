@@ -70,7 +70,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     );
   }
 
-  // if need for regisration
+  // if need the regisration
 
   // register(): void {
   //   this.authservice.register(new NewUser(this.form.login.value, this.form.password.value)).then(

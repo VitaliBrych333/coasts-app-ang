@@ -1,5 +1,5 @@
 const express = require('express');
-const asyncHandler = require('../utils');
+const asyncHandler = require('../handleMiddleware/utils');
 const router = new express.Router();
 
 const passport = require('passport');
@@ -13,7 +13,7 @@ router.post(
 
       } else if (user) {
         return res.status(200).json({ 'token': user.generateJwt() });
-        
+
       } else {
         return res.status(404).json(info);
       }

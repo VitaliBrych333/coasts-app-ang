@@ -13,15 +13,16 @@ const regRouther = require('./routers/registr-router');
 
 const cors = require('cors');
 const passport = require('passport');
+const CONFIG = require('./config/config');
 
 mongoose.connect(
-  'mongodb://admin:admin1989@ds235417.mlab.com:35417/coasts',
+  CONFIG.URL_DB,
   { useNewUrlParser: true, useFindAndModify: false},
 );
 
 const app = express();
 
-app.set('port', (process.env.PORT || 5500));
+app.set('port', (process.env.PORT || CONFIG.PORT));
 
 app.use(express.static(path.join(__dirname, '../src')));
 

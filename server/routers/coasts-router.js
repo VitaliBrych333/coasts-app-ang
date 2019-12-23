@@ -1,6 +1,6 @@
 const express = require('express');
 const coastsModel = require('../models/coasts-model');
-const asyncHandler = require('../utils');
+const asyncHandler = require('../handleMiddleware/utils');
 
 const router = new express.Router();
 

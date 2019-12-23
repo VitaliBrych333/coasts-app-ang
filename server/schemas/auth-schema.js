@@ -10,23 +10,24 @@ const authSchema = new mongoose.Schema({
   password: Types.String,
 });
 
-authSchema.pre('save', (next) => {
-  bcrypt.genSalt(10, (err, salt) => {
-    bcrypt.hash(this.password, salt, (err, hash) => {
-      this.password = hash;
-      this.saltSecret = salt;
-      next();
-    });
+authSchema.pre('save', function (next) {
+
+  let user = this;
+
+  if (!user.isModified('password')) return next();
+
+  bcrypt.genSalt(10, function (err, salt) {
+    if (err) return next(err);
+
+      bcrypt.hash(user.password, salt, function (err, hash) {
+        if (err) return next(err);
+
+        user.password = hash;
+        user.saltSecret = salt;
+        next();
+      });
   });
 });
-
-authSchema.statics.findOneOrCreate = async function findOneOrCreate(condition) {
-  let user = await this.findOne(condition);
-  if (!user) {
-    user = await this.create(condition);
-  }
-  return user;
-};
 
 authSchema.methods.verifyPassword = function (password) {
   return bcrypt.compareSync(password, this.password);
