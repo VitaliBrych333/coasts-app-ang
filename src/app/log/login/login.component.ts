@@ -72,33 +72,33 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   // if need for regisration
 
-  // register(): void {
-  //   this.authservice.register(new NewUser(this.form.login.value, this.form.password.value)).then(
-  //     res => {
-  //       const messageWindowRef = this.message.open(MessageWindowComponent, {
-  //         panelClass: 'my-custom-container',
-  //         data: {content: 'Registration completed successfully. Now log in', class: 'success', time: 1200}
-  //       });
+  register(): void {
+    this.authservice.register(new NewUser(this.form.login.value, this.form.password.value)).then(
+      res => {
+        const messageWindowRef = this.message.open(MessageWindowComponent, {
+          panelClass: 'my-custom-container',
+          data: {content: 'Registration completed successfully. Now log in', class: 'success', time: 1200}
+        });
 
-  //       this.subscriptions.push(
-  //         messageWindowRef.afterClosed().subscribe(() => {
-  //           this.router.navigate(['/login']);
-  //         })
-  //       );
-  //     },
+        this.subscriptions.push(
+          messageWindowRef.afterClosed().subscribe(() => {
+            this.router.navigate(['/login']);
+          })
+        );
+      },
 
-  //     err => {
-  //       const messageWindowRef = this.message.open(MessageWindowComponent, {
-  //         panelClass: 'my-custom-container',
-  //         data: { content: 'Duplicate login or registration error', class: 'error', time: 1200}
-  //       });
+      err => {
+        const messageWindowRef = this.message.open(MessageWindowComponent, {
+          panelClass: 'my-custom-container',
+          data: { content: 'Duplicate login or registration error', class: 'error', time: 1200}
+        });
 
-  //       this.subscriptions.push(
-  //         messageWindowRef.afterClosed().subscribe(() => {
-  //           this.router.navigate(['/login']);
-  //         })
-  //       );
-  //     }
-  //   );
-  // }
+        this.subscriptions.push(
+          messageWindowRef.afterClosed().subscribe(() => {
+            this.router.navigate(['/login']);
+          })
+        );
+      }
+    );
+  }
 }
