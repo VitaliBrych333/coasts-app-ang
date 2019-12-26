@@ -22,7 +22,7 @@ export class AuthService {
   }
 
   login(user: NewUser): Promise<object> {
-    return this.http.post(this.baseURL + '/authenticate', JSON.stringify(user), this.options).toPromise();
+    return this.http.post(this.baseURL + '/authenticate', user, this.options).toPromise();
   }
 
   setToken(token: string) {

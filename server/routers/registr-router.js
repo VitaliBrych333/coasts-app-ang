@@ -1,6 +1,7 @@
 const express = require('express');
 const User = require('../models/auth-model');
-const asyncHandler = require('../utils');
+const asyncHandler = require('../handleMiddleware/utils');
+
 const router = new express.Router();
 
 router.post(
@@ -10,15 +11,17 @@ router.post(
     user.login = req.body.login;
     user.password = req.body.password;
 
-    let items = await User.find({login: user.login}).exec();
+    const userDB = await User.find({login: user.login}).exec();
 
-    if (items.length !== 0) {
+    if (userDB.length !== 0) {
       res.status(422).send(['Duplicate login found.']);
-    } else {
 
+    } else {
       user.save((err, doc) => {
+
         if (!err) {
           res.send(doc);
+
         } else {
           return next(err);
         }

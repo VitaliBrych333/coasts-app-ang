@@ -8,12 +8,9 @@
   <label>
     Password:
     <span *ngIf="!profileForm.controls.password.valid && profileForm.controls.password.touched">*Required</span>
-    <input type="password" formControlName="password">
+    <input type="password" formControlName="password" autocomplete="on">
   </label>
   <button type="button" (click)="signIn()" [disabled]="!profileForm.valid">Log in</button>
 
-  <!-- if need for registration -->
-  <button type="button" (click)="register()" [disabled]="!profileForm.valid">Register</button>
-</form>
-
-
+  <!-- if need the registration -->
+  <!-- <button type="button" (click)="register()" [disabled]="!profileForm.valid">Register</button> -->

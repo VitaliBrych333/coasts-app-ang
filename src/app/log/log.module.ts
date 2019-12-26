@@ -10,10 +10,10 @@ import { MatDialogModule } from '@angular/material/dialog';
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    MatDialogModule
+    MatDialogModule,
   ],
   entryComponents: [ MessageWindowComponent ],
-  exports: [ LoginComponent ]
+  exports: [ LoginComponent ],
 })
 
 export class LogModule { }
