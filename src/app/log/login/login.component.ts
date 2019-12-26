@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ɵConsole } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
@@ -9,10 +9,16 @@ import { MatDialog } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
 import * as _ from 'lodash';
 
+import { Store, select } from '@ngrx/store';
+import { AppState, selectAuthState } from '../../store/state/app.states'
+import { LogIn, LogInFailure } from '../../store/actions/user.actions';
+import { AuthEffects } from '../../store/effects/auth.effects';
+import { Observable } from 'rxjs/Observable';
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  styleUrls: ['./login.component.scss'],
 })
 
 export class LoginComponent implements OnInit, OnDestroy {
@@ -24,12 +30,29 @@ export class LoginComponent implements OnInit, OnDestroy {
     password: ['', Validators.required]
   });
 
+  getState: Observable<any>;
+  errorMessage: string | null;
+
   constructor(private fb: FormBuilder,
               private router: Router,
               private authservice: AuthService,
-              private message: MatDialog) { }
+              private message: MatDialog,
+              private store: Store<AppState>) { this.getState = this.store.select(selectAuthState);}
 
   ngOnInit() {
+    this.getState.subscribe((state) => {
+      this.errorMessage = state.errorMessage;
+      if (this.errorMessage) {
+        // this.store.dispatch(new LogInFailure({error: 'ffff'}));
+        this.setForm();
+        this.message.open(MessageWindowComponent, {
+          panelClass: 'my-custom-container',
+          data: {content: 'Your login or password is incorrect', class: 'error', time: 1200}
+        });
+
+      }
+    });
+
     if (this.authservice.isLoggedIn()) {
       this.router.navigate(['/main']);
     } else {
@@ -53,21 +76,24 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   signIn(): void {
-    this.authservice.login(new NewUser(this.form.login.value, this.form.password.value)).then(
-      res => {
-        this.authservice.setToken(res['token']);
-        this.authservice.changeStatusLog(true);
-        this.router.navigate(['/main']);
-      },
+    this.store.dispatch(new LogIn(this.form));
 
-      err => {
-        this.setForm();
-        this.message.open(MessageWindowComponent, {
-          panelClass: 'my-custom-container',
-          data: {content: 'Your login or password is incorrect', class: 'error', time: 1200}
-        });
-      }
-    );
+    // this.setForm();
+    // this.authservice.login(new NewUser(this.form.login.value, this.form.password.value)).then(
+    //   res => {
+    //     this.authservice.setToken(res['token']);
+    //     this.authservice.changeStatusLog(true);
+    //     this.router.navigate(['/main']);
+    //   },
+
+    //   err => {
+    //     this.setForm();
+    //     this.message.open(MessageWindowComponent, {
+    //       panelClass: 'my-custom-container',
+    //       data: {content: 'Your login or password is incorrect', class: 'error', time: 1200}
+    //     });
+    //   }
+    // );
   }
 
   // if need the regisration

@@ -11,9 +11,23 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { LoadingScreenInterceptor } from './core/loading-screen/loading.interceptor';
 import { AuthInterceptor } from './log/auth/auth.interceptor';
 
+import { StoreModule, ActionReducerMap } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+import { AuthEffects } from './store/effects/auth.effects';
+// import { CoursesEffects } from './store/effects/courses.effects';
+import { reducer } from './store/reducers/auth.reducers';
+// import { reducerCoursesList } from './store/reducers/courses.reducers';
+import { AppState } from './store/state/app.states';
+import { LoginComponent } from '../app/log/login/login.component';
+
+export const appReducers: ActionReducerMap<AppState, any> = {
+  authState: reducer,
+  // coursesState: reducerCoursesList
+};
+
 @NgModule({
   declarations: [
-    AppComponent,
+    AppComponent
   ],
   imports: [
     BrowserModule,
@@ -23,6 +37,10 @@ import { AuthInterceptor } from './log/auth/auth.interceptor';
     CoreModule,
     SharedModule,
     HttpClientModule,
+    StoreModule.forRoot(appReducers),
+    EffectsModule.forRoot([AuthEffects,
+      // CoursesEffects
+     ]),
     FlexLayoutModule
   ],
   providers: [ {

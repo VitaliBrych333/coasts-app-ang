@@ -4,6 +4,10 @@ import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import * as _ from 'lodash';
 
+import { Store, select } from '@ngrx/store';
+import { AppState } from '../../store/state/app.states'
+import { LogOut } from '../../store/actions/user.actions';
+
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -18,7 +22,8 @@ export class HeaderComponent implements OnInit, OnDestroy {
   name: string;
 
   constructor(private authService: AuthService,
-              private router: Router) { }
+              private router: Router,
+              private store: Store<AppState> ) { }
 
   ngOnInit() {
     this.subscriptions.push(
@@ -34,9 +39,10 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   logOut() {
-    this.authService.deleteToken();
-    this.router.navigate(['/login']);
-    this.authService.changeStatusLog(false);
+    this.store.dispatch(new LogOut());
+    // this.authService.deleteToken();
+    // this.router.navigate(['/login']);
+    // this.authService.changeStatusLog(false);
   }
 
   ngOnDestroy(): void {
