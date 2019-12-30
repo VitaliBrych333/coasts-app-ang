@@ -1,19 +1,16 @@
-import { Component, OnInit, OnDestroy, ɵConsole } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
-import { NewUser } from '../user.model';
-
-import { MessageWindowComponent } from '../../shared/message-window/message-window.component';
-import { MatDialog } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
-import * as _ from 'lodash';
-
-import { Store, select } from '@ngrx/store';
-import { AppState, selectAuthState } from '../../store/state/app.states';
-import { LogIn, LogInFailure } from '../../store/actions/auth.actions';
+import { Store } from '@ngrx/store';
+import { AppState, selectAuthState, selectRegistrState } from '../../store/state/app.states';
+import { LogIn } from '../../store/actions/auth.actions';
+import { RegIn } from '../../store/actions/registr.actions';
 import { Observable } from 'rxjs/Observable';
-import { State } from '../../store/reducers/auth.reducers';
+import { AuthState } from '../../store/reducers/auth.reducers';
+import { RegistrState } from '../../store/reducers/registr.reducers';
+import * as _ from 'lodash';
 
 @Component({
   selector: 'app-login',
@@ -30,19 +27,26 @@ export class LoginComponent implements OnInit, OnDestroy {
     password: ['', Validators.required]
   });
 
-  getState: Observable<object>;
+  getStateAuth: Observable<object>;
+  getStateRegistr: Observable<object>;
 
   constructor(private fb: FormBuilder,
               private router: Router,
               private authservice: AuthService,
-              private message: MatDialog,
               private store: Store<AppState>) { }
 
   ngOnInit() {
-    this.getState = this.store.select(selectAuthState);
+    this.getStateAuth = this.store.select(selectAuthState);
+    this.getStateRegistr = this.store.select(selectRegistrState);
 
     this.subscriptions.push(
-      this.getState.subscribe((state: State) => {
+      this.getStateAuth.subscribe((state: AuthState) => {
+        if (state.errorMessage) {
+          this.setForm();
+        }
+      }),
+
+      this.getStateRegistr.subscribe((state: RegistrState) => {
         if (state.errorMessage) {
           this.setForm();
         }
@@ -69,39 +73,13 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.store.dispatch(new LogIn({ login: this.form.login.value, password: this.form.password.value }));
   }
 
+  // if need the regisration
+
+  register(): void {
+    this.store.dispatch(new RegIn({ login: this.form.login.value, password: this.form.password.value }));
+  }
+
   private get form() {
     return this.profileForm.controls;
   }
-
-  // if need the regisration
-
-  // register(): void {
-  //   this.authservice.register(new NewUser(this.form.login.value, this.form.password.value)).then(
-  //     res => {
-  //       const messageWindowRef = this.message.open(MessageWindowComponent, {
-  //         panelClass: 'my-custom-container',
-  //         data: {content: 'Registration completed successfully. Now log in', class: 'success', time: 1200}
-  //       });
-
-  //       this.subscriptions.push(
-  //         messageWindowRef.afterClosed().subscribe(() => {
-  //           this.router.navigate(['/login']);
-  //         })
-  //       );
-  //     },
-
-  //     err => {
-  //       const messageWindowRef = this.message.open(MessageWindowComponent, {
-  //         panelClass: 'my-custom-container',
-  //         data: { content: 'Duplicate login or registration error', class: 'error', time: 1200}
-  //       });
-
-  //       this.subscriptions.push(
-  //         messageWindowRef.afterClosed().subscribe(() => {
-  //           this.router.navigate(['/login']);
-  //         })
-  //       );
-  //     }
-  //   );
-  // }
 }

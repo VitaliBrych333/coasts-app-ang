@@ -68,11 +68,8 @@ export class AuthEffects {
     tap(() => {
       this.message.open(MessageWindowComponent, {
         panelClass: 'my-custom-container',
-        data: {content: 'Your login or password is incorrect', class: 'error', time: 1200}
+        data: { content: 'Your login or password is incorrect', class: 'error', time: 1200 }
       });
     })
   );
 }
-
-
-
