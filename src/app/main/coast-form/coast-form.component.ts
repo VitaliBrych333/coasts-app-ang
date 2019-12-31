@@ -63,7 +63,7 @@ export class CoastFormComponent implements OnInit, OnDestroy {
       res => {
         const messageWindowRef = this.message.open(MessageWindowComponent, {
           panelClass: 'my-custom-container',
-          data: {content: 'The purchase was saved successfully', class: 'success', time: 800}
+          data: { content: 'The purchase was saved successfully', class: 'success', time: 800 }
         });
 
         this.subscriptions.push(
@@ -76,7 +76,7 @@ export class CoastFormComponent implements OnInit, OnDestroy {
       err => {
         const messageWindowRef = this.message.open(MessageWindowComponent, {
           panelClass: 'my-custom-container',
-          data: {content: 'Error, the purchase was not saved', class: 'error', time: 800}
+          data: { content: 'Error, the purchase was not saved', class: 'error', time: 800 }
         });
 
         this.subscriptions.push(

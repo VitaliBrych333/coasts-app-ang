@@ -16,8 +16,8 @@ import { EffectsModule } from '@ngrx/effects';
 import { AuthEffects } from './store/effects/auth.effects';
 import { RegistrEffects } from './store/effects/registr.effects';
 // import { CoursesEffects } from './store/effects/courses.effects';
-import { reducerAuth } from './store/reducers/auth.reducers';
-import { reducerRegistr } from './store/reducers/registr.reducers';
+import { reducerAuth } from './store/reducers/auth.reducer';
+import { reducerRegistr } from './store/reducers/registr.reducer';
 // import { reducerCoursesList } from './store/reducers/courses.reducers';
 import { AppState } from './store/state/app.states';
 

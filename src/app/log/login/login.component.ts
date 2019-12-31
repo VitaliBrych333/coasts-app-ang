@@ -8,8 +8,8 @@ import { AppState, selectAuthState, selectRegistrState } from '../../store/state
 import { LogIn } from '../../store/actions/auth.actions';
 import { RegIn } from '../../store/actions/registr.actions';
 import { Observable } from 'rxjs/Observable';
-import { AuthState } from '../../store/reducers/auth.reducers';
-import { RegistrState } from '../../store/reducers/registr.reducers';
+import { AuthState } from '../../store/reducers/auth.reducer';
+import { RegistrState } from '../../store/reducers/registr.reducer';
 import * as _ from 'lodash';
 
 @Component({
