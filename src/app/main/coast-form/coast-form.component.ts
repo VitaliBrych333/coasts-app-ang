@@ -8,7 +8,12 @@ import { NewCoast } from '../coast.model';
 import { MessageWindowComponent } from '../../shared/message-window/message-window.component';
 import { MatDialog } from '@angular/material/dialog';
 import { Subscription } from 'rxjs';
+import { Observable } from 'rxjs/Observable';
 import * as _ from 'lodash';
+import { Store } from '@ngrx/store';
+import { AppState, selectCoastState } from '../../store/state/app.states';
+import { CoastState } from '../../store/reducers/coast.reducer';
+import { AddCoast, ClearStateCoast } from '../../store/actions/coast.actions';
 
 @Component({
   selector: 'app-coast-form',
@@ -24,15 +29,18 @@ export class CoastFormComponent implements OnInit, OnDestroy {
   infoBuy: object;
   myDate = new Date().toString();
   formForValid: FormGroup;
+  getStateCoast: Observable<object>;
 
   constructor(private datePipe: DatePipe,
               private router: Router,
-              private dataService: DataService,
               private authService: AuthService,
-              private message: MatDialog) {}
+              private message: MatDialog,
+              private store: Store<AppState>) {}
 
   ngOnInit() {
+    this.getStateCoast = this.store.select(selectCoastState);
     this.myDate = this.datePipe.transform(this.myDate, 'yyyy-MM-dd');
+
     this.infoBuy = {
       date: this.myDate,
       author: this.authService.getUserPayload().login,
@@ -40,9 +48,40 @@ export class CoastFormComponent implements OnInit, OnDestroy {
       type: null,
       other: null,
     };
+
+    this.subscriptions.push(
+      this.getStateCoast.subscribe((state: CoastState) => {
+        if (state.errorMessage) {
+          const messageWindowRef = this.message.open(MessageWindowComponent, {
+            panelClass: 'my-custom-container',
+            data: { content: 'Error, the purchase was not saved', class: 'error', time: 800 }
+          });
+
+          this.subscriptions.push(
+            messageWindowRef.afterClosed().subscribe(() => {
+              this.router.navigate(['/main']);
+            })
+          );
+        }
+
+        if (state.isAdded) {
+          const messageWindowRef = this.message.open(MessageWindowComponent, {
+            panelClass: 'my-custom-container',
+            data: { content: 'The purchase was saved successfully', class: 'success', time: 800 }
+          });
+
+          this.subscriptions.push(
+            messageWindowRef.afterClosed().subscribe(() => {
+              this.router.navigate(['/main']);
+            })
+          );
+        }
+      }),
+    );
   }
 
   ngOnDestroy() {
+    this.store.dispatch(new ClearStateCoast());
     _.forEach(this.subscriptions, subscription => subscription.unsubscribe());
   }
 
@@ -59,33 +98,7 @@ export class CoastFormComponent implements OnInit, OnDestroy {
       this.formForValid.value.other
     );
 
-    this.dataService.addField(newField).then(
-      res => {
-        const messageWindowRef = this.message.open(MessageWindowComponent, {
-          panelClass: 'my-custom-container',
-          data: { content: 'The purchase was saved successfully', class: 'success', time: 800 }
-        });
-
-        this.subscriptions.push(
-          messageWindowRef.afterClosed().subscribe(() => {
-            this.router.navigate(['/main']);
-          })
-        );
-      },
-
-      err => {
-        const messageWindowRef = this.message.open(MessageWindowComponent, {
-          panelClass: 'my-custom-container',
-          data: { content: 'Error, the purchase was not saved', class: 'error', time: 800 }
-        });
-
-        this.subscriptions.push(
-          messageWindowRef.afterClosed().subscribe(() => {
-            this.router.navigate(['/main']);
-          })
-        );
-      }
-    );
+    this.store.dispatch(new AddCoast({ newCoast: newField }));
   }
 
   cancel(): void {

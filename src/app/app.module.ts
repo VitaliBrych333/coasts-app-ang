@@ -15,15 +15,18 @@ import { StoreModule, ActionReducerMap } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { AuthEffects } from './store/effects/auth.effects';
 import { RegistrEffects } from './store/effects/registr.effects';
+import { CoastEffects } from './store/effects/coast.effects';
 // import { CoursesEffects } from './store/effects/courses.effects';
 import { reducerAuth } from './store/reducers/auth.reducer';
 import { reducerRegistr } from './store/reducers/registr.reducer';
+import { reducerCoast } from './store/reducers/coast.reducer';
 // import { reducerCoursesList } from './store/reducers/courses.reducers';
 import { AppState } from './store/state/app.states';
 
 export const appReducers: ActionReducerMap<AppState, any> = {
   authState: reducerAuth,
-  registrState: reducerRegistr
+  registrState: reducerRegistr,
+  coastState: reducerCoast,
   // coursesState: reducerCoursesList
 };
 
@@ -40,7 +43,7 @@ export const appReducers: ActionReducerMap<AppState, any> = {
     SharedModule,
     HttpClientModule,
     StoreModule.forRoot(appReducers),
-    EffectsModule.forRoot([AuthEffects, RegistrEffects
+    EffectsModule.forRoot([AuthEffects, RegistrEffects, CoastEffects
       // CoursesEffects
      ]),
     FlexLayoutModule
