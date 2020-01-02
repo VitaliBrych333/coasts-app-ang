@@ -27,7 +27,7 @@ export class RegistrEffects {
   ) {}
 
   @Effect()
-  LogIn: Observable<object> = this.actions.pipe(
+  RegIn: Observable<object> = this.actions.pipe(
     ofType(RegistrActionTypes.REGIN)).pipe(
       map((action: RegIn) => action.payload))
       .switchMap(payload => {
@@ -41,7 +41,7 @@ export class RegistrEffects {
       });
 
   @Effect({ dispatch: false })
-  LogInSuccess: Observable<any> = this.actions.pipe(
+  RegInSuccess: Observable<any> = this.actions.pipe(
     ofType(RegistrActionTypes.REGIN_SUCCESS),
     tap((user) => {
       this.message.open(MessageWindowComponent, {
@@ -52,7 +52,7 @@ export class RegistrEffects {
   );
 
   @Effect({ dispatch: false })
-  LogInFailure: Observable<object> = this.actions.pipe(
+  RegInFailure: Observable<object> = this.actions.pipe(
     ofType(RegistrActionTypes.REGIN_FAILURE),
     tap(() => {
       this.message.open(MessageWindowComponent, {

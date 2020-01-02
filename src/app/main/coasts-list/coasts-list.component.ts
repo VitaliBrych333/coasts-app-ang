@@ -2,11 +2,16 @@ import { Component, OnInit, ViewChild, ViewContainerRef, ComponentFactoryResolve
 import { MatPaginator} from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
+import { MatSort } from '@angular/material/sort';
+import { Subscription, Observable } from 'rxjs';
+import { Store } from '@ngrx/store';
 import { DataService } from '../../services/data.service';
 import { NewCoast } from '../coast.model';
-import { MatSort } from '@angular/material/sort';
 import { ModalDialogComponent } from '../modal-dialog/modal-dialog.component';
-import { Subscription } from 'rxjs';
+import { AppState, selectCoastState } from '../../store/state/app.states';
+import { CoastState } from '../../store/reducers/coast.reducer';
+import { LoadCoasts, ClearStateCoast } from '../../store/actions/coast.actions';
+import { ClearStateIncome } from '../../store/actions/income.actions';
 import * as _ from 'lodash';
 
 @Component({
@@ -22,7 +27,8 @@ export class CoastsListComponent implements OnInit, OnDestroy {
   displayedColumns: string[] = ['position', 'date', 'sum', 'type', 'other', 'author', 'actions'];
 
   dataSource: MatTableDataSource<object>;
-  listData: object[];
+  listData: object[] = [];
+  getStateCoast: Observable<object>;
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
@@ -30,17 +36,28 @@ export class CoastsListComponent implements OnInit, OnDestroy {
   constructor(public router: Router,
               public dataService: DataService,
               public viewContainerRef: ViewContainerRef,
-              public componentFactoryResolver: ComponentFactoryResolver) {}
+              public componentFactoryResolver: ComponentFactoryResolver,
+              protected store: Store<AppState>) {}
 
   ngOnInit() {
-    this.dataService.getAllFieldsCoasts().then(data => {
-      data.forEach(obg => obg.position = (data.indexOf(obg) + 1));
-      this.listData = data;
-      this.createTable(this.listData);
-    });
+    this.getStateCoast = this.store.select(selectCoastState);
+
+    this.subscriptions.push(
+      this.getStateCoast.subscribe((state: CoastState) => {
+        if (state.coasts) {
+          state.coasts.forEach((obj: NewCoast) => this.listData.push(Object.assign({}, obj)));
+          this.listData.forEach((obj: NewCoast) => obj.position = (this.listData.indexOf(obj) + 1));
+          this.createTable(this.listData);
+        }
+      }),
+    );
+
+    this.store.dispatch(new LoadCoasts());
   }
 
   ngOnDestroy() {
+    this.store.dispatch(new ClearStateCoast());
+    this.store.dispatch(new ClearStateIncome());
     _.forEach(this.subscriptions, subscription => subscription.unsubscribe());
   }
 

@@ -2,18 +2,17 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { DatePipe } from '@angular/common';
 import { Router } from '@angular/router';
-import { DataService } from '../../services/data.service';
+import { MatDialog } from '@angular/material/dialog';
+import { Store } from '@ngrx/store';
+import { Subscription, Observable } from 'rxjs';
 import { AuthService } from '../../services/auth.service';
 import { NewCoast } from '../coast.model';
+import { NewContent } from '../../shared/content-model';
 import { MessageWindowComponent } from '../../shared/message-window/message-window.component';
-import { MatDialog } from '@angular/material/dialog';
-import { Subscription } from 'rxjs';
-import { Observable } from 'rxjs/Observable';
-import * as _ from 'lodash';
-import { Store } from '@ngrx/store';
 import { AppState, selectCoastState } from '../../store/state/app.states';
 import { CoastState } from '../../store/reducers/coast.reducer';
 import { AddCoast, ClearStateCoast } from '../../store/actions/coast.actions';
+import * as _ from 'lodash';
 
 @Component({
   selector: 'app-coast-form',
@@ -51,23 +50,18 @@ export class CoastFormComponent implements OnInit, OnDestroy {
 
     this.subscriptions.push(
       this.getStateCoast.subscribe((state: CoastState) => {
-        if (state.errorMessage) {
+        if (state.errorMessage || state.isAdded) {
+          let settingMessage: NewContent;
+
+          if (state.errorMessage) {
+            settingMessage = { content: 'Error, the purchase was not saved', class: 'error', time: 800 };
+          } else {
+            settingMessage = { content: 'The purchase was saved successfully', class: 'success', time: 800 };
+          }
+
           const messageWindowRef = this.message.open(MessageWindowComponent, {
             panelClass: 'my-custom-container',
-            data: { content: 'Error, the purchase was not saved', class: 'error', time: 800 }
-          });
-
-          this.subscriptions.push(
-            messageWindowRef.afterClosed().subscribe(() => {
-              this.router.navigate(['/main']);
-            })
-          );
-        }
-
-        if (state.isAdded) {
-          const messageWindowRef = this.message.open(MessageWindowComponent, {
-            panelClass: 'my-custom-container',
-            data: { content: 'The purchase was saved successfully', class: 'success', time: 800 }
+            data: settingMessage
           });
 
           this.subscriptions.push(

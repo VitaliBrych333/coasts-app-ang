@@ -3,19 +3,19 @@ import { Actions, Effect, ofType } from '@ngrx/effects';
 import { Observable, of } from 'rxjs';
 import { map, switchMap, catchError } from 'rxjs/operators';
 import { DataService } from '../../services/data.service';
-import { NewCoast } from '../../main/coast.model';
+import { NewIncome } from '../../main/income.model';
 // import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/fromPromise';
 import {
-  CoastActionTypes,
-  AddCoast, AddCoastSuccess, AddCoastFailure, LoadSuccess, LoadFailure
-} from '../actions/coast.actions';
+  IncomeActionTypes,
+  AddIncome, AddIncomeSuccess, AddIncomeFailure, LoadSuccess, LoadFailure
+} from '../actions/income.actions';
 
 @Injectable()
-export class CoastEffects {
+export class IncomeEffects {
 
   constructor(
     private actions: Actions,
@@ -23,25 +23,25 @@ export class CoastEffects {
   ) {}
 
   @Effect()
-  AddCoast: Observable<object> = this.actions.pipe(
-    ofType(CoastActionTypes.ADD_COAST)).pipe(
-      map((action: AddCoast) => action.payload))
+  AddIncome: Observable<object> = this.actions.pipe(
+    ofType(IncomeActionTypes.ADD_INCOME)).pipe(
+      map((action: AddIncome) => action.payload))
       .switchMap(payload => {
-        return Observable.fromPromise(this.dataService.addField(payload.newCoast))
+        return Observable.fromPromise(this.dataService.addFieldIncome(payload.newIncome))
         .map((res) => {
-          return new AddCoastSuccess();
+          return new AddIncomeSuccess();
         })
         .catch((err) => {
-          return Observable.of(new AddCoastFailure({ error: err }));
+          return Observable.of(new AddIncomeFailure({ error: err }));
         });
       });
 
   @Effect()
-  LoadCoasts: Observable<object> = this.actions.pipe(
-    ofType(CoastActionTypes.LOAD_COASTS),
+  LoadIncomes: Observable<object> = this.actions.pipe(
+    ofType(IncomeActionTypes.LOAD_INCOMES),
     switchMap(() =>
-      Observable.fromPromise(this.dataService.getAllFieldsCoasts()).pipe(
-        map((res: NewCoast[]) => new LoadSuccess({ coasts: res })),
+      Observable.fromPromise(this.dataService.getAllFieldsIncomes()).pipe(
+        map((res: NewIncome[]) => new LoadSuccess({ incomes: res })),
         catchError(err => of(new LoadFailure({ error: err }))),
       ),
     ),

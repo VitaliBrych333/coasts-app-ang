@@ -6,11 +6,6 @@ export enum AuthActionTypes {
   LOGIN_SUCCESS = '[Auth] Login Success',
   LOGIN_FAILURE = '[Auth] Login Failure',
   LOGOUT = '[Auth] Logout',
-  // LOAD_MORE = '[Course] LoadMore',
-  // LOAD_MORE_SUCCESS = '[Course] LoadMoreSucces',
-  // ADD_COURSE = '[Course] ADDCourse',
-  // UPDATE_COURSE = '[Course] UpdateCourse'
-
 }
 
 export class LogIn implements Action {
