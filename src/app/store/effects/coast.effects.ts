@@ -11,7 +11,10 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/fromPromise';
 import {
   CoastActionTypes,
-  AddCoast, AddCoastSuccess, AddCoastFailure, LoadSuccess, LoadFailure
+  AddCoast, AddCoastSuccess, AddCoastFailure,
+  LoadSuccess, LoadFailure,
+  LoadCoastById, LoadCoastByIdSuccess, LoadCoastByIdFailure,
+  UpdateCoast, UpdateCoastSuccess, UpdateCoastFailure
 } from '../actions/coast.actions';
 
 @Injectable()
@@ -46,4 +49,32 @@ export class CoastEffects {
       ),
     ),
   );
+
+  @Effect()
+  LoadCoastById: Observable<object> = this.actions.pipe(
+    ofType(CoastActionTypes.LOAD_COAST_BY_ID)).pipe(
+      map((action: LoadCoastById) => action.payload))
+      .switchMap(payload => {
+        return Observable.fromPromise(this.dataService.getFieldId(payload.Id))
+        .map((res) => {
+          return new LoadCoastByIdSuccess({ coastById: res });
+        })
+        .catch((err) => {
+          return Observable.of(new LoadCoastByIdFailure({ error: err }));
+        });
+      });
+
+  @Effect()
+  UpdateCoast: Observable<object> = this.actions.pipe(
+    ofType(CoastActionTypes.UPDATE_COAST)).pipe(
+      map((action: UpdateCoast) => action.payload))
+      .switchMap(payload => {
+        return Observable.fromPromise(this.dataService.updateField(payload.Id, payload.newValueCoast))
+        .map((res) => {
+          return new UpdateCoastSuccess();
+        })
+        .catch((err) => {
+          return Observable.of(new UpdateCoastFailure({ error: err }));
+        });
+      });
 }

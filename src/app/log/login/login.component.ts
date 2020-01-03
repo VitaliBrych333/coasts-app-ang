@@ -1,15 +1,14 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AuthService } from '../../services/auth.service';
-import { Subscription } from 'rxjs';
+import { Subscription, Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { AppState, selectAuthState, selectRegistrState } from '../../store/state/app.states';
 import { LogIn } from '../../store/actions/auth.actions';
 import { RegIn } from '../../store/actions/registr.actions';
-import { Observable } from 'rxjs/Observable';
 import { AuthState } from '../../store/reducers/auth.reducer';
 import { RegistrState } from '../../store/reducers/registr.reducer';
+import { AuthService } from '../../services/auth.service';
 import * as _ from 'lodash';
 
 @Component({

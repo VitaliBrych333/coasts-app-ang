@@ -1,12 +1,10 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { AuthService } from '../../services/auth.service';
-import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import * as _ from 'lodash';
-
-import { Store, select } from '@ngrx/store';
-import { AppState } from '../../store/state/app.states'
+import { Store } from '@ngrx/store';
+import { AppState } from '../../store/state/app.states';
 import { LogOut } from '../../store/actions/auth.actions';
+import { AuthService } from '../../services/auth.service';
+import * as _ from 'lodash';
 
 @Component({
   selector: 'app-header',
@@ -22,7 +20,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
   name: string;
 
   constructor(private authService: AuthService,
-              private router: Router,
               private store: Store<AppState> ) { }
 
   ngOnInit() {
@@ -40,9 +37,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   logOut() {
     this.store.dispatch(new LogOut());
-    // this.authService.deleteToken();
-    // this.router.navigate(['/login']);
-    // this.authService.changeStatusLog(false);
   }
 
   ngOnDestroy(): void {

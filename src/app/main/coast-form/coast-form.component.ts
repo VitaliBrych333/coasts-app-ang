@@ -5,13 +5,13 @@ import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
 import { Subscription, Observable } from 'rxjs';
+import { AppState, selectCoastState } from '../../store/state/app.states';
+import { CoastState } from '../../store/reducers/coast.reducer';
+import { AddCoast, ClearStateCoast } from '../../store/actions/coast.actions';
 import { AuthService } from '../../services/auth.service';
 import { NewCoast } from '../coast.model';
 import { NewContent } from '../../shared/content-model';
 import { MessageWindowComponent } from '../../shared/message-window/message-window.component';
-import { AppState, selectCoastState } from '../../store/state/app.states';
-import { CoastState } from '../../store/reducers/coast.reducer';
-import { AddCoast, ClearStateCoast } from '../../store/actions/coast.actions';
 import * as _ from 'lodash';
 
 @Component({
@@ -66,7 +66,7 @@ export class CoastFormComponent implements OnInit, OnDestroy {
 
           this.subscriptions.push(
             messageWindowRef.afterClosed().subscribe(() => {
-              this.router.navigate(['/main']);
+              this.cancel();
             })
           );
         }

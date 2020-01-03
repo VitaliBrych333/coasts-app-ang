@@ -1,13 +1,17 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { DataService } from '../../services/data.service';
-import { AuthService } from '../../services/auth.service';
-import { NewIncome } from '../income.model';
 import { FormGroup } from '@angular/forms';
 import { DatePipe } from '@angular/common';
 import { Router } from '@angular/router';
-import { MessageWindowComponent } from '../../shared/message-window/message-window.component';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { Subscription } from 'rxjs';
+import { Subscription, Observable } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { AppState, selectIncomeState } from '../../store/state/app.states';
+import { IncomeState } from '../../store/reducers/income.reducer';
+import { LoadIncomeById, UpdateIncome, ClearStateIncome } from '../../store/actions/income.actions';
+import { AuthService } from '../../services/auth.service';
+import { NewIncome } from '../income.model';
+import { NewContent } from '../../shared/content-model';
+import { MessageWindowComponent } from '../../shared/message-window/message-window.component';
 import * as _ from 'lodash';
 
 @Component({
@@ -33,26 +37,59 @@ export class EditIncomeComponent implements OnInit, OnDestroy {
 
   formForValid: FormGroup;
   currentFieldEditId: string = this.router.url.slice(9);
+  getStateIncome: Observable<object>;
 
-  constructor(private dataService: DataService,
-              private authService: AuthService,
+  constructor(private authService: AuthService,
               private router: Router,
-              private message: MatDialog) {}
+              private message: MatDialog,
+              private store: Store<AppState>) {}
 
   ngOnInit() {
-    this.dataService.getFieldIncomeId(this.currentFieldEditId).then(editFieldIncome => {
-      this.editFieldIncome = {
-        date: editFieldIncome.date,
-        sum: editFieldIncome.sum,
-        who: editFieldIncome.who,
-        author: editFieldIncome.author,
-        type: editFieldIncome.type,
-        other: editFieldIncome.other
-      };
-    });
+    this.getStateIncome = this.store.select(selectIncomeState);
+
+    this.subscriptions.push(
+      this.getStateIncome.subscribe((state: IncomeState) => {
+        if (state.incomeById) {
+          const editFieldIncome = Object.assign({}, state.incomeById);
+
+          this.editFieldIncome = {
+            date: editFieldIncome.date,
+            sum: editFieldIncome.sum,
+            who: editFieldIncome.who,
+            author: editFieldIncome.author,
+            type: editFieldIncome.type,
+            other: editFieldIncome.other
+          };
+        }
+
+        if (state.errorMessage || state.isAdded) {
+          let settingMessage: NewContent;
+
+          if (state.errorMessage) {
+            settingMessage = { content: 'Error, the income was not changed', class: 'error', time: 800 };
+          } else {
+            settingMessage = { content: 'The income was changed successfully', class: 'success', time: 800 };
+          }
+
+          const messageWindowRef = this.message.open(MessageWindowComponent, {
+            panelClass: 'my-custom-container',
+            data: settingMessage
+          });
+
+          this.subscriptions.push(
+            messageWindowRef.afterClosed().subscribe(() => {
+              this.cancel();
+            })
+          );
+        }
+      }),
+    );
+
+    this.store.dispatch(new LoadIncomeById({ Id: this.currentFieldEditId }));
   }
 
   ngOnDestroy() {
+    this.store.dispatch(new ClearStateIncome());
     _.forEach(this.subscriptions, subscription => subscription.unsubscribe());
   }
 
@@ -70,33 +107,7 @@ export class EditIncomeComponent implements OnInit, OnDestroy {
       this.formForValid.value.other
     );
 
-    this.dataService.updateFieldIncome(this.currentFieldEditId, newField).then(
-      res => {
-        const messageWindowRef = this.message.open(MessageWindowComponent, {
-          panelClass: 'my-custom-container',
-          data: {content: 'The income was changed successfully', class: 'success', time: 800}
-        });
-
-        this.subscriptions.push(
-          messageWindowRef.afterClosed().subscribe(() => {
-            this.router.navigate(['/incomes/all']);
-          })
-        );
-      },
-
-      err => {
-        const messageWindowRef = this.message.open(MessageWindowComponent, {
-          panelClass: 'my-custom-container',
-          data: {content: 'Error, the income was not changed', class: 'error', time: 800}
-        });
-
-        this.subscriptions.push(
-          messageWindowRef.afterClosed().subscribe(() => {
-            this.router.navigate(['/incomes/all']);
-          })
-        );
-      }
-    );
+    this.store.dispatch(new UpdateIncome({ Id: this.currentFieldEditId, newValueIncome: newField }));
   }
 
   cancel(): void {

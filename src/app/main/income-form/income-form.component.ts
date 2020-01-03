@@ -5,13 +5,13 @@ import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
 import { Subscription, Observable } from 'rxjs';
+import { AppState, selectIncomeState } from '../../store/state/app.states';
+import { IncomeState } from '../../store/reducers/income.reducer';
+import { AddIncome, ClearStateIncome } from '../../store/actions/income.actions';
 import { NewIncome } from '../income.model';
 import { NewContent } from '../../shared/content-model';
 import { MessageWindowComponent } from '../../shared/message-window/message-window.component';
 import { AuthService } from '../../services/auth.service';
-import { AppState, selectIncomeState } from '../../store/state/app.states';
-import { IncomeState } from '../../store/reducers/income.reducer';
-import { AddIncome, ClearStateIncome } from '../../store/actions/income.actions';
 import * as _ from 'lodash';
 
 @Component({
@@ -67,7 +67,7 @@ export class IncomeFormComponent implements OnInit, OnDestroy {
 
           this.subscriptions.push(
             messageWindowRef.afterClosed().subscribe(() => {
-              this.router.navigate(['/main']);
+              this.cancel();
             })
           );
         }

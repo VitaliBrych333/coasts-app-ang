@@ -1,7 +1,7 @@
 import { Component, Input, OnChanges, EventEmitter, Output } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { NewIncome } from '../income.model';
 import { DatePipe } from '@angular/common';
+import { NewIncome } from '../income.model';
 
 @Component({
   selector: 'app-income-form-field',

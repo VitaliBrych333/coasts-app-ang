@@ -3,13 +3,15 @@ import { NewIncome } from '../../main/income.model';
 
 export interface IncomeState {
   isAdded: boolean;
-  incomes: NewIncome[] | null,
+  incomes: NewIncome[] | null;
+  incomeById: NewIncome | null;
   errorMessage: string | null;
 }
 
 export const initialState: IncomeState = {
   isAdded: false,
   incomes: null,
+  incomeById: null,
   errorMessage: null
 };
 
@@ -45,6 +47,34 @@ export function reducerIncome(state = initialState, action: All): IncomeState {
       return {
         ...state,
         errorMessage: 'Can not load the incomes.'
+      };
+    }
+
+    case IncomeActionTypes.LOAD_INCOME_BY_ID_SUCCESS: {
+      return {
+        ...state,
+        incomeById: action.payload.incomeById,
+      };
+    }
+
+    case IncomeActionTypes.LOAD_INCOME_BY_ID_FAILURE: {
+      return {
+        ...state,
+        errorMessage: 'Can not load an income by id'
+      };
+    }
+
+    case IncomeActionTypes.UPDATE_INCOME_SUCCESS: {
+      return {
+        ...state,
+        isAdded: true
+      };
+    }
+
+    case IncomeActionTypes.UPDATE_INCOME_FAILURE: {
+      return {
+        ...state,
+        errorMessage: 'Can not update an income.'
       };
     }
 

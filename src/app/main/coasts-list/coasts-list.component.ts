@@ -5,13 +5,13 @@ import { Router } from '@angular/router';
 import { MatSort } from '@angular/material/sort';
 import { Subscription, Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
-import { DataService } from '../../services/data.service';
-import { NewCoast } from '../coast.model';
-import { ModalDialogComponent } from '../modal-dialog/modal-dialog.component';
 import { AppState, selectCoastState } from '../../store/state/app.states';
 import { CoastState } from '../../store/reducers/coast.reducer';
 import { LoadCoasts, ClearStateCoast } from '../../store/actions/coast.actions';
 import { ClearStateIncome } from '../../store/actions/income.actions';
+import { DataService } from '../../services/data.service';
+import { NewCoast } from '../coast.model';
+import { ModalDialogComponent } from '../modal-dialog/modal-dialog.component';
 import * as _ from 'lodash';
 
 @Component({

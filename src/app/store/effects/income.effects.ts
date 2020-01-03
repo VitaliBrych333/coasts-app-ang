@@ -11,7 +11,10 @@ import 'rxjs/add/operator/catch';
 import 'rxjs/add/observable/fromPromise';
 import {
   IncomeActionTypes,
-  AddIncome, AddIncomeSuccess, AddIncomeFailure, LoadSuccess, LoadFailure
+  AddIncome, AddIncomeSuccess, AddIncomeFailure,
+  LoadSuccess, LoadFailure,
+  LoadIncomeById, LoadIncomeByIdSuccess, LoadIncomeByIdFailure,
+  UpdateIncome, UpdateIncomeSuccess, UpdateIncomeFailure
 } from '../actions/income.actions';
 
 @Injectable()
@@ -46,4 +49,32 @@ export class IncomeEffects {
       ),
     ),
   );
+
+  @Effect()
+  LoadIncomeById: Observable<object> = this.actions.pipe(
+    ofType(IncomeActionTypes.LOAD_INCOME_BY_ID)).pipe(
+      map((action: LoadIncomeById) => action.payload))
+      .switchMap(payload => {
+        return Observable.fromPromise(this.dataService.getFieldIncomeId(payload.Id))
+        .map((res) => {
+          return new LoadIncomeByIdSuccess({ incomeById: res });
+        })
+        .catch((err) => {
+          return Observable.of(new LoadIncomeByIdFailure({ error: err }));
+        });
+      });
+
+  @Effect()
+  UpdateIncome: Observable<object> = this.actions.pipe(
+    ofType(IncomeActionTypes.UPDATE_INCOME)).pipe(
+      map((action: UpdateIncome) => action.payload))
+      .switchMap(payload => {
+        return Observable.fromPromise(this.dataService.updateFieldIncome(payload.Id, payload.newValueIncome))
+        .map((res) => {
+          return new UpdateIncomeSuccess();
+        })
+        .catch((err) => {
+          return Observable.of(new UpdateIncomeFailure({ error: err }));
+        });
+      });
 }

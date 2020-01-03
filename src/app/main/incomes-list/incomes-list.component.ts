@@ -2,12 +2,12 @@ import { Component, OnInit, ViewContainerRef, ComponentFactoryResolver } from '@
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { DataService } from '../../services/data.service';
-import { NewIncome } from '../income.model';
-import { CoastsListComponent } from '../coasts-list/coasts-list.component';
 import { AppState, selectIncomeState } from '../../store/state/app.states';
 import { IncomeState } from '../../store/reducers/income.reducer';
 import { LoadIncomes } from '../../store/actions/income.actions';
+import { DataService } from '../../services/data.service';
+import { NewIncome } from '../income.model';
+import { CoastsListComponent } from '../coasts-list/coasts-list.component';
 
 @Component({
   selector: 'app-incomes-list',

@@ -3,13 +3,15 @@ import { NewCoast } from '../../main/coast.model';
 
 export interface CoastState {
   isAdded: boolean;
-  coasts: NewCoast[] | null,
+  coasts: NewCoast[] | null;
+  coastById: NewCoast | null;
   errorMessage: string | null;
 }
 
 export const initialState: CoastState = {
   isAdded: false,
   coasts: null,
+  coastById: null,
   errorMessage: null
 };
 
@@ -44,6 +46,34 @@ export function reducerCoast(state = initialState, action: All): CoastState {
       return {
         ...state,
         errorMessage: 'Can not load the coasts.'
+      };
+    }
+
+    case CoastActionTypes.LOAD_COAST_BY_ID_SUCCESS: {
+      return {
+        ...state,
+        coastById: action.payload.coastById,
+      };
+    }
+
+    case CoastActionTypes.LOAD_COAST_BY_ID_FAILURE: {
+      return {
+        ...state,
+        errorMessage: 'Can not load a coast by id'
+      };
+    }
+
+    case CoastActionTypes.UPDATE_COAST_SUCCESS: {
+      return {
+        ...state,
+        isAdded: true
+      };
+    }
+
+    case CoastActionTypes.UPDATE_COAST_FAILURE: {
+      return {
+        ...state,
+        errorMessage: 'Can not update a coast.'
       };
     }
 

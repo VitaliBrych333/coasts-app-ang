@@ -1,7 +1,7 @@
 import { HttpInterceptor, HttpRequest, HttpHandler } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { tap } from 'rxjs/operators';
 import { AuthService } from '../../services/auth.service';
 
 @Injectable()

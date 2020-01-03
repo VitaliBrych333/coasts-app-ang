@@ -5,10 +5,20 @@ export enum CoastActionTypes {
   ADD_COAST = '[Coast] AddCoast',
   ADD_COAST_SUCCESS = '[Coast] AddCoast Success',
   ADD_COAST_FAILURE = '[Coast] AddCoast Failure',
+
   CLEAR_STATE_COAST = '[Coast] Clear State Coast',
+
   LOAD_COASTS = '[Coast] LoadCoasts',
   LOAD_COASTS_SUCCESS = '[Coast] LoadCoasts Success',
   LOAD_COASTS_FAILURE = '[Coast] LoadCoasts Failure',
+
+  LOAD_COAST_BY_ID = '[Coast] LoadCoastById',
+  LOAD_COAST_BY_ID_SUCCESS = '[Coast] LoadCoastById Success',
+  LOAD_COAST_BY_ID_FAILURE = '[Coast] LoadCoastById Failure',
+
+  UPDATE_COAST = '[Coast] UpdateCoast',
+  UPDATE_COAST_SUCCESS = '[Coast] UpdateCoast Success',
+  UPDATE_COAST_FAILURE = '[Coast] UpdateCoast Failure',
 }
 
 export class AddCoast implements Action {
@@ -46,6 +56,36 @@ export class LoadFailure implements Action {
   constructor(public payload: { error: string }) {}
 }
 
+export class LoadCoastById implements Action {
+  readonly type = CoastActionTypes.LOAD_COAST_BY_ID;
+  constructor(public payload: { Id: string }) {}
+}
+
+export class LoadCoastByIdSuccess implements Action {
+  readonly type = CoastActionTypes.LOAD_COAST_BY_ID_SUCCESS;
+  constructor(public payload: { coastById: NewCoast }) {}
+}
+
+export class LoadCoastByIdFailure implements Action {
+  readonly type = CoastActionTypes.LOAD_COAST_BY_ID_FAILURE;
+  constructor(public payload: { error: string }) {}
+}
+
+export class UpdateCoast implements Action {
+  readonly type = CoastActionTypes.UPDATE_COAST;
+  constructor(public payload: { Id: string, newValueCoast: NewCoast }) {}
+}
+
+export class UpdateCoastSuccess implements Action {
+  readonly type = CoastActionTypes.UPDATE_COAST_SUCCESS;
+  constructor() {}
+}
+
+export class UpdateCoastFailure implements Action {
+  readonly type = CoastActionTypes.UPDATE_COAST_FAILURE;
+  constructor(public payload: { error: string }) {}
+}
+
 export type All =
   | AddCoast
   | AddCoastSuccess
@@ -54,3 +94,9 @@ export type All =
   | LoadCoasts
   | LoadSuccess
   | LoadFailure
+  | LoadCoastById
+  | LoadCoastByIdSuccess
+  | LoadCoastByIdFailure
+  | UpdateCoast
+  | UpdateCoastSuccess
+  | UpdateCoastFailure;

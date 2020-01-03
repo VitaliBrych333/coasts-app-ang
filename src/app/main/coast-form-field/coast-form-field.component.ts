@@ -1,7 +1,7 @@
 import { Component, Input, OnChanges, EventEmitter, Output } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
-import { NewCoast } from '../coast.model';
 import { DatePipe } from '@angular/common';
+import { NewCoast } from '../coast.model';
 
 @Component({
   selector: 'app-coast-form-field',
