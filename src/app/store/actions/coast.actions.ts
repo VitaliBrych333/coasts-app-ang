@@ -19,6 +19,10 @@ export enum CoastActionTypes {
   UPDATE_COAST = '[Coast] UpdateCoast',
   UPDATE_COAST_SUCCESS = '[Coast] UpdateCoast Success',
   UPDATE_COAST_FAILURE = '[Coast] UpdateCoast Failure',
+
+  DELETE_COAST = '[Coast] DeleteCoast',
+  DELETE_COAST_SUCCESS = '[Coast] DeleteCoast Success',
+  DELETE_COAST_FAILURE = '[Coast] DeleteCoast Failure',
 }
 
 export class AddCoast implements Action {
@@ -86,6 +90,21 @@ export class UpdateCoastFailure implements Action {
   constructor(public payload: { error: string }) {}
 }
 
+export class DeleteCoast implements Action {
+  readonly type = CoastActionTypes.DELETE_COAST;
+  constructor(public payload: { coastDel: NewCoast }) {}
+}
+
+export class DeleteCoastSuccess implements Action {
+  readonly type = CoastActionTypes.DELETE_COAST_SUCCESS;
+  constructor() {}
+}
+
+export class DeleteCoastFailure implements Action {
+  readonly type = CoastActionTypes.DELETE_COAST_FAILURE;
+  constructor(public payload: { error: string }) {}
+}
+
 export type All =
   | AddCoast
   | AddCoastSuccess
@@ -99,4 +118,7 @@ export type All =
   | LoadCoastByIdFailure
   | UpdateCoast
   | UpdateCoastSuccess
-  | UpdateCoastFailure;
+  | UpdateCoastFailure
+  | DeleteCoast
+  | DeleteCoastSuccess
+  | DeleteCoastFailure;

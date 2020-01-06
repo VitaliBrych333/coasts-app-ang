@@ -14,7 +14,8 @@ import {
   AddCoast, AddCoastSuccess, AddCoastFailure,
   LoadSuccess, LoadFailure,
   LoadCoastById, LoadCoastByIdSuccess, LoadCoastByIdFailure,
-  UpdateCoast, UpdateCoastSuccess, UpdateCoastFailure
+  UpdateCoast, UpdateCoastSuccess, UpdateCoastFailure,
+  DeleteCoast, DeleteCoastSuccess, DeleteCoastFailure
 } from '../actions/coast.actions';
 
 @Injectable()
@@ -75,6 +76,20 @@ export class CoastEffects {
         })
         .catch((err) => {
           return Observable.of(new UpdateCoastFailure({ error: err }));
+        });
+      });
+
+  @Effect()
+  DeleteCoast: Observable<object> = this.actions.pipe(
+    ofType(CoastActionTypes.DELETE_COAST)).pipe(
+      map((action: DeleteCoast) => action.payload))
+      .switchMap(payload => {
+        return Observable.fromPromise(this.dataService.deleteId(payload.coastDel))
+        .map((res) => {
+          return new DeleteCoastSuccess();
+        })
+        .catch((err) => {
+          return Observable.of(new DeleteCoastFailure({ error: err }));
         });
       });
 }

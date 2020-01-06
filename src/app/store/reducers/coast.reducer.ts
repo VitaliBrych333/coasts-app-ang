@@ -3,6 +3,7 @@ import { NewCoast } from '../../main/coast.model';
 
 export interface CoastState {
   isAdded: boolean;
+  isDeleted: boolean;
   coasts: NewCoast[] | null;
   coastById: NewCoast | null;
   errorMessage: string | null;
@@ -10,6 +11,7 @@ export interface CoastState {
 
 export const initialState: CoastState = {
   isAdded: false,
+  isDeleted: false,
   coasts: null,
   coastById: null,
   errorMessage: null
@@ -74,6 +76,20 @@ export function reducerCoast(state = initialState, action: All): CoastState {
       return {
         ...state,
         errorMessage: 'Can not update a coast.'
+      };
+    }
+
+    case CoastActionTypes.DELETE_COAST_SUCCESS: {
+      return {
+        ...state,
+        isDeleted: true
+      };
+    }
+
+    case CoastActionTypes.DELETE_COAST_FAILURE: {
+      return {
+        ...state,
+        errorMessage: 'Can not delete a coast.'
       };
     }
 

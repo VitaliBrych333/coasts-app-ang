@@ -3,6 +3,7 @@ import { NewIncome } from '../../main/income.model';
 
 export interface IncomeState {
   isAdded: boolean;
+  isDeleted: boolean;
   incomes: NewIncome[] | null;
   incomeById: NewIncome | null;
   errorMessage: string | null;
@@ -10,6 +11,7 @@ export interface IncomeState {
 
 export const initialState: IncomeState = {
   isAdded: false,
+  isDeleted: false,
   incomes: null,
   incomeById: null,
   errorMessage: null
@@ -75,6 +77,20 @@ export function reducerIncome(state = initialState, action: All): IncomeState {
       return {
         ...state,
         errorMessage: 'Can not update an income.'
+      };
+    }
+
+    case IncomeActionTypes.DELETE_INCOME_SUCCESS: {
+      return {
+        ...state,
+        isDeleted: true
+      };
+    }
+
+    case IncomeActionTypes.DELETE_INCOME_FAILURE: {
+      return {
+        ...state,
+        errorMessage: 'Can not delete an income.'
       };
     }
 

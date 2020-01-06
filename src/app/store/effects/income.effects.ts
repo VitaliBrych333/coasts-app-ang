@@ -14,7 +14,8 @@ import {
   AddIncome, AddIncomeSuccess, AddIncomeFailure,
   LoadSuccess, LoadFailure,
   LoadIncomeById, LoadIncomeByIdSuccess, LoadIncomeByIdFailure,
-  UpdateIncome, UpdateIncomeSuccess, UpdateIncomeFailure
+  UpdateIncome, UpdateIncomeSuccess, UpdateIncomeFailure,
+  DeleteIncome, DeleteIncomeSuccess, DeleteIncomeFailure
 } from '../actions/income.actions';
 
 @Injectable()
@@ -75,6 +76,20 @@ export class IncomeEffects {
         })
         .catch((err) => {
           return Observable.of(new UpdateIncomeFailure({ error: err }));
+        });
+      });
+
+  @Effect()
+  DeleteIncome: Observable<object> = this.actions.pipe(
+    ofType(IncomeActionTypes.DELETE_INCOME)).pipe(
+      map((action: DeleteIncome) => action.payload))
+      .switchMap(payload => {
+        return Observable.fromPromise(this.dataService.deleteIncomeId(payload.incomeDel))
+        .map((res) => {
+          return new DeleteIncomeSuccess();
+        })
+        .catch((err) => {
+          return Observable.of(new DeleteIncomeFailure({ error: err }));
         });
       });
 }

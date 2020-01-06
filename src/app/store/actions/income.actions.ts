@@ -19,6 +19,10 @@ export enum IncomeActionTypes {
   UPDATE_INCOME = '[Income] UpdateIncome',
   UPDATE_INCOME_SUCCESS = '[Income] UpdateIncome Success',
   UPDATE_INCOME_FAILURE = '[Income] UpdateIncome Failure',
+
+  DELETE_INCOME = '[Income] DeleteIncome',
+  DELETE_INCOME_SUCCESS = '[Income] DeleteIncome Success',
+  DELETE_INCOME_FAILURE = '[Income] DeleteIncome Failure',
 }
 
 export class AddIncome implements Action {
@@ -86,6 +90,21 @@ export class UpdateIncomeFailure implements Action {
   constructor(public payload: { error: string }) {}
 }
 
+export class DeleteIncome implements Action {
+  readonly type = IncomeActionTypes.DELETE_INCOME;
+  constructor(public payload: { incomeDel: NewIncome }) {}
+}
+
+export class DeleteIncomeSuccess implements Action {
+  readonly type = IncomeActionTypes.DELETE_INCOME_SUCCESS;
+  constructor() {}
+}
+
+export class DeleteIncomeFailure implements Action {
+  readonly type = IncomeActionTypes.DELETE_INCOME_FAILURE;
+  constructor(public payload: { error: string }) {}
+}
+
 export type All =
   | AddIncome
   | AddIncomeSuccess
@@ -99,4 +118,7 @@ export type All =
   | LoadIncomeByIdFailure
   | UpdateIncome
   | UpdateIncomeSuccess
-  | UpdateIncomeFailure;
+  | UpdateIncomeFailure
+  | DeleteIncome
+  | DeleteIncomeSuccess
+  | DeleteIncomeFailure;
