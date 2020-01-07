@@ -1,9 +1,15 @@
 import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
-import { DataService } from '../../../services/data.service';
+import { MatInput } from '@angular/material';
+import { MatDatepickerInputEvent } from '@angular/material/datepicker';
+import { Subscription, Observable, combineLatest } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { AppState, selectCoastState, selectIncomeState } from '../../../store/state/app.states';
+import { CoastState } from '../../../store/reducers/coast.reducer';
+import { IncomeState } from '../../../store/reducers/income.reducer';
+import { LoadCoasts, ClearStateCoast } from '../../../store/actions/coast.actions';
+import { LoadIncomes, ClearStateIncome } from '../../../store/actions/income.actions';
 import { NewCoast } from '../../coast.model';
 import { NewIncome } from '../../income.model';
-import { MatDatepickerInputEvent } from '@angular/material/datepicker';
-import { MatInput } from '@angular/material';
 import { FilterDataService } from '../../../services/filter-data.service';
 import * as _ from 'lodash';
 
@@ -20,67 +26,94 @@ interface Mounth {
 
 export class FiltersComponent implements OnInit, OnDestroy {
 
+  protected readonly subscriptions: Subscription[] = [];
+
   @ViewChild('inputFrom', { read: MatInput, static: false}) inputFrom: MatInput;
   @ViewChild('inputTo', { read: MatInput, static: false}) inputTo: MatInput;
 
   checkDate: boolean = false;
   checkMounth: boolean = true;
 
-  startDate = new Date(2019, 0, 1);
+  startDate = new Date();
   selectedMounth: string;
   mounths: object[] = [];
   mounthsNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
   years: Array<number>;
-  listCoasts: NewCoast[];
-  listIncomes: NewIncome[];
+  listCoasts: NewCoast[] = [];
+  listIncomes: NewIncome[] = [];
 
   currentListCoasts: NewCoast[];
   currentListIncomes: NewIncome[];
 
   topDateFilter: Date;
   lowDateFilter: Date;
-
-  minDateFrom = new Date(2018, 0, 1);
-  maxDateFrom = new Date();
-  minDateTo = new Date(2018, 0, 1);
-  maxDateTo = new Date();
+  minDateFrom: Date;
+  maxDateFrom: Date;
+  minDateTo: Date;
+  maxDateTo: Date;
 
   arrayIdMounths: Array<number> = [];
   selectedYear: number;
 
-  constructor(public dataService: DataService,
-              public filterDataService: FilterDataService) {}
+  getStateCoast: Observable<object>;
+  getStateIncome: Observable<object>;
+
+  constructor(public filterDataService: FilterDataService,
+              protected store: Store<AppState>) {}
 
   ngOnInit() {
-    this.mounthsNames.forEach((c, i) => {
-      this.mounths.push({ id: i, name: c });
-    });
+    this.getStateCoast = this.store.select(selectCoastState);
+    this.getStateIncome = this.store.select(selectIncomeState);
+
+    this.setInitialDateFilter();
 
     const tempYearsCoasts = [];
     const tempYearsIncomes = [];
 
-    const promiseCoasts = this.dataService.getAllFieldsCoasts().then(data => {
-      this.listCoasts = data;
-      data.forEach(obj => tempYearsCoasts.push(new Date(obj.date).getFullYear()));
+    this.subscriptions.push(
+      combineLatest(this.getStateCoast, this.getStateIncome)
+        .subscribe(([stateCoast, stateIncome]: [CoastState, IncomeState]) => {
+          if (stateCoast.coasts) {
+            stateCoast.coasts.forEach((obj: NewCoast) => this.listCoasts.push(Object.assign({}, obj)));
+            this.listCoasts.forEach(obj => tempYearsCoasts.push(new Date(obj.date).getFullYear()));
+          }
+
+          if (stateIncome.incomes) {
+            stateIncome.incomes.forEach((obj: NewIncome) => this.listIncomes.push(Object.assign({}, obj)));
+            this.listIncomes.forEach(obj => tempYearsIncomes.push(new Date(obj.date).getFullYear()));
+          }
+
+          this.years = _.uniq(tempYearsCoasts.concat(tempYearsIncomes));
+        })
+    );
+
+    this.mounthsNames.forEach((c, i) => {
+      this.mounths.push({ id: i, name: c });
     });
 
-    const promiseIncomes = this.dataService.getAllFieldsIncomes().then(data => {
-      this.listIncomes = data;
-      data.forEach(obj => tempYearsIncomes.push(new Date(obj.date).getFullYear()));
-    });
-
-    Promise.all([promiseCoasts, promiseIncomes]).then(() => this.years = _.uniq(tempYearsCoasts.concat(tempYearsIncomes)));
+    this.store.dispatch(new LoadCoasts());
+    this.store.dispatch(new LoadIncomes());
   }
 
   ngOnDestroy() {
     this.onChange();
+    this.store.dispatch(new ClearStateCoast());
+    this.store.dispatch(new ClearStateIncome());
+    _.forEach(this.subscriptions, subscription => subscription.unsubscribe());
   }
 
   setDate(value: Date): Date {
     const date = new Date(value);
     date.setHours(0, 0, 0, 0);
     return date;
+  }
+
+  setInitialDateFilter(): void {
+    this.minDateFrom = new Date(2018, 0, 1);
+    this.maxDateFrom = new Date();
+    this.minDateTo = new Date(2018, 0, 1);
+    this.maxDateTo = new Date();
   }
 
   setLowDateFilter(event: MatDatepickerInputEvent<Date>) {
@@ -205,8 +238,8 @@ export class FiltersComponent implements OnInit, OnDestroy {
     } else {
       this.currentListCoasts = this.listCoasts.filter(obg => this.arrayIdMounths.includes(new Date(obg.date).getMonth()));
       this.currentListIncomes = this.listIncomes.filter(obg => this.arrayIdMounths.includes(new Date(obg.date).getMonth()));
-
     }
+
     this.filterDataService.changeSourceListCoasts(this.currentListCoasts);
     this.filterDataService.changeSourceListIncomes(this.currentListIncomes);
   }
@@ -221,10 +254,7 @@ export class FiltersComponent implements OnInit, OnDestroy {
     this.inputFrom.value = '';
     this.inputTo.value = '';
 
-    this.minDateFrom = new Date(2018, 0, 1);
-    this.maxDateFrom = new Date();
-    this.minDateTo = new Date(2018, 0, 1);
-    this.maxDateTo = new Date();
+    this.setInitialDateFilter();
 
     this.selectedYear = NaN;
     this.selectedMounth = '';

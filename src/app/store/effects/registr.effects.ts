@@ -6,11 +6,11 @@ import { NewUser } from '../../log/user.model';
 import { MatDialog } from '@angular/material/dialog';
 import { AuthService } from '../../services/auth.service';
 import { MessageWindowComponent } from '../../shared/message-window/message-window.component';
-import 'rxjs/add/observable/of';
+// import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/catch';
-import 'rxjs/add/observable/fromPromise';
+// import 'rxjs/add/observable/fromPromise';
 
 import {
   RegistrActionTypes,

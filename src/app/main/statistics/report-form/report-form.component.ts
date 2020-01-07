@@ -1,22 +1,22 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FilterDataService } from '../../../services/filter-data.service';
-import { combineLatest, Subscription } from 'rxjs';
+import { Subscription, combineLatest } from 'rxjs';
 import * as _ from 'lodash';
 
 interface RequireObject {
-  food: any;
-  rent: any;
-  child: any;
-  gym: any;
-  required: any;
+  food: number;
+  rent: number;
+  child: number;
+  gym: number;
+  required: number;
 }
 
 interface OptionalObject {
-  clothes: any;
-  petrol: any;
-  present: any;
-  other: any;
-  optional: any;
+  clothes: number;
+  petrol: number;
+  present: number;
+  other: number;
+  optional: number;
 }
 
 @Component({

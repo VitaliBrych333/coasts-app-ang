@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { DataService } from '../../../services/data.service';
+import { Store } from '@ngrx/store';
+import { AppState } from '../../../store/state/app.states';
 import { FiltersComponent } from '../../statistics/filters/filters.component';
 import { FilterDataService } from '../../../services/filter-data.service';
 import * as _ from 'lodash';
@@ -31,8 +32,8 @@ export class FilterGraphsComponent extends FiltersComponent {
   selectedParameter: string;
   arrayDataCompare: object[] = [];
 
-  constructor(public dataService: DataService,
-              public filterDataService: FilterDataService) { super(dataService, filterDataService); }
+  constructor(public filterDataService: FilterDataService,
+              protected store: Store<AppState>) { super(filterDataService, store); }
 
   filterAnniversary() {
     this.arrayDataCompare = [];
@@ -52,23 +53,6 @@ export class FilterGraphsComponent extends FiltersComponent {
     });
 
     this.filterDataService.changeSourceDataCompare(this.arrayDataCompare);
-  }
-
-  private getSumDataByMonths(newDataGraphs: object[], year?: number) {
-    const newData = new Map();
-    let sumResult: number = 0;
-
-    for (let i = 0; i < 12; i++) {
-      if (year) {
-        sumResult = +_.sumBy(newDataGraphs.filter((obj: any) => (new Date(obj.date).getMonth() === i)
-                                                                  && (new Date(obj.date).getFullYear() === year)), 'sum').toFixed(2);
-      } else {
-        sumResult = +_.sumBy(newDataGraphs.filter((obj: any) => new Date(obj.date).getMonth() === i), 'sum').toFixed(2);
-      }
-
-      newData.set(i, sumResult);
-    }
-    return newData;
   }
 
   filterByKindParameter(value: string): Array<object>  {
@@ -157,5 +141,22 @@ export class FilterGraphsComponent extends FiltersComponent {
 
   addTagFnParameter(name) {
     return { name: name, tag: true };
+  }
+
+  private getSumDataByMonths(newDataGraphs: object[], year?: number) {
+    const newData = new Map();
+    let sumResult: number = 0;
+
+    for (let i = 0; i < 12; i++) {
+      if (year) {
+        sumResult = +_.sumBy(newDataGraphs.filter((obj: any) => (new Date(obj.date).getMonth() === i)
+                                                                  && (new Date(obj.date).getFullYear() === year)), 'sum').toFixed(2);
+      } else {
+        sumResult = +_.sumBy(newDataGraphs.filter((obj: any) => new Date(obj.date).getMonth() === i), 'sum').toFixed(2);
+      }
+
+      newData.set(i, sumResult);
+    }
+    return newData;
   }
 }

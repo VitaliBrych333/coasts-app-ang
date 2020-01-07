@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import { map, switchMap, catchError } from 'rxjs/operators';
 import { DataService } from '../../services/data.service';
 import { NewCoast } from '../../main/coast.model';
@@ -8,7 +8,7 @@ import { NewCoast } from '../../main/coast.model';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/catch';
-import 'rxjs/add/observable/fromPromise';
+// import 'rxjs/add/observable/fromPromise';
 import {
   CoastActionTypes,
   AddCoast, AddCoastSuccess, AddCoastFailure,
@@ -46,7 +46,7 @@ export class CoastEffects {
     switchMap(() =>
       Observable.fromPromise(this.dataService.getAllFieldsCoasts()).pipe(
         map((res: NewCoast[]) => new LoadSuccess({ coasts: res })),
-        catchError(err => of(new LoadFailure({ error: err }))),
+        catchError(err => Observable.of(new LoadFailure({ error: err }))),
       ),
     ),
   );
