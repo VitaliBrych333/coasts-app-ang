@@ -14,9 +14,9 @@ export class CoastFormFieldComponent implements OnChanges {
   @Input() newField: NewCoast;
   @Output() validForm = new EventEmitter<FormGroup>();
 
-  listCategory: Array<string> = ['food', 'rent', 'clothes', 'child', 'petrol', 'present', 'gym', 'other'];
+  public listCategory: Array<string> = ['food', 'rent', 'clothes', 'child', 'petrol', 'present', 'gym', 'other'];
 
-  field = new FormGroup({
+  public field = new FormGroup({
     date: new FormControl(),
     sum: new FormControl(),
     author: new FormControl(),
@@ -24,13 +24,13 @@ export class CoastFormFieldComponent implements OnChanges {
     other: new FormControl(),
   });
 
-  dataMin = `${new Date().getFullYear().toString()}` + '-01-01';
-  dataMax = `${new Date().getFullYear().toString()}` + '-12-31';
+  public dataMin = `${new Date().getFullYear().toString()}` + '-01-01';
+         dataMax = `${new Date().getFullYear().toString()}` + '-12-31';
 
   constructor(private fb: FormBuilder,
               private datePipe: DatePipe) {}
 
-  ngOnChanges() {
+  public ngOnChanges(): void {
     const date = this.datePipe.transform(this.newField.date, 'yyyy-MM-dd');
 
     this.field = this.fb.group({

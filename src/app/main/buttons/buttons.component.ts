@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Url } from '../../shared/constants/url-enum';
 
 @Component({
   selector: 'app-buttons',
@@ -9,61 +10,61 @@ import { Router } from '@angular/router';
 
 export class ButtonsComponent implements OnInit {
 
-  currentUrl: string = this.router.url;
-  stateOne: boolean = false;
-  stateTwo: boolean = false;
-  stateTree: boolean = false;
-  stateFour: boolean = false;
-  stateFive: boolean = false;
-  stateSix: boolean = false;
+  private currentUrl: string = this.router.url;
+  private stateOne: boolean = false;
+  private stateTwo: boolean = false;
+  private stateTree: boolean = false;
+  private stateFour: boolean = false;
+  private stateFive: boolean = false;
+  private stateSix: boolean = false;
 
   constructor(private router: Router) {}
 
-  ngOnInit() {
+  public ngOnInit(): void {
     switch (this.currentUrl) {
-      case '/purchases/new':
+      case Url.NEWPURCH:
         this.stateOne = true;
         break;
-      case '/incomes/new':
+      case Url.NEWINC:
         this.stateTwo = true;
         break;
-      case '/purchases/all':
+      case Url.ALLPURCH:
         this.stateTree = true;
         break;
-      case '/incomes/all':
+      case Url.ALLINC:
         this.stateFour = true;
         break;
-      case '/statistics':
+      case Url.STATIST:
         this.stateFive = true;
         break;
-      case '/graphs':
+      case Url.GRAPHS:
         this.stateSix = true;
         break;
       default:
     }
   }
 
-  addCoasts(): void {
-    this.router.navigate(['/purchases/new']);
+  public addCoasts(): void {
+    this.router.navigate([Url.NEWPURCH]);
   }
 
-  addIncome(): void {
-    this.router.navigate(['/incomes/new']);
+  public addIncome(): void {
+    this.router.navigate([Url.NEWINC]);
   }
 
-  showTableCoasts(): void {
-    this.router.navigate(['/purchases/all']);
+  public showTableCoasts(): void {
+    this.router.navigate([Url.ALLPURCH]);
   }
 
-  showTableIncomes(): void {
-    this.router.navigate(['/incomes/all']);
+  public showTableIncomes(): void {
+    this.router.navigate([Url.ALLINC]);
   }
 
-  getStatistics(): void {
-    this.router.navigate(['/statistics']);
+  public getStatistics(): void {
+    this.router.navigate([Url.STATIST]);
   }
 
-  showGraphs(): void {
-    this.router.navigate(['/graphs']);
+  public showGraphs(): void {
+    this.router.navigate([Url.GRAPHS]);
   }
 }

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { NewUser } from '../log/user.model';
 import { BehaviorSubject } from 'rxjs';
+import { Url } from '../shared/constants/url-enum';
 
 @Injectable({
   providedIn: 'root'
@@ -10,34 +11,33 @@ import { BehaviorSubject } from 'rxjs';
 export class AuthService {
 
   public messageStatusLog = new BehaviorSubject<boolean>(false);
-  currentStatusLog = this.messageStatusLog.asObservable();
+         currentStatusLog = this.messageStatusLog.asObservable();
 
-  baseURL = 'http://localhost:5500';
-  options = { headers: {'Content-Type': 'application/json'} };
+         options = { headers: {'Content-Type': 'application/json'} };
 
   constructor(private http: HttpClient) {}
 
-  register(user: NewUser): Promise<object> {
-    return this.http.post(this.baseURL + '/register', user, this.options).toPromise();
+  public register(user: NewUser): Promise<object> {
+    return this.http.post(Url.BASE + Url.REGIST, user, this.options).toPromise();
   }
 
-  login(user: NewUser): Promise<object> {
-    return this.http.post(this.baseURL + '/authenticate', user, this.options).toPromise();
+  public login(user: NewUser): Promise<object> {
+    return this.http.post(Url.BASE + Url.AUTH, user, this.options).toPromise();
   }
 
-  setToken(token: string) {
+  public setToken(token: string): void {
     localStorage.setItem('token', token);
   }
 
-  getToken() {
+  public getToken(): string {
     return localStorage.getItem('token');
   }
 
-  deleteToken() {
+  public deleteToken(): void {
     localStorage.removeItem('token');
   }
 
-  getUserPayload() {
+  public getUserPayload(): any {
     const token = this.getToken();
     if (token) {
       const userPayload = atob(token.split('.')[1]);
@@ -47,7 +47,7 @@ export class AuthService {
     }
   }
 
-  isLoggedIn() {
+  public isLoggedIn(): boolean {
     const userPayload = this.getUserPayload();
     if (userPayload) {
       return userPayload.exp > Date.now() / 1000;
@@ -56,7 +56,7 @@ export class AuthService {
     }
   }
 
-  changeStatusLog(message: boolean) {
+  public changeStatusLog(message: boolean): void {
     this.messageStatusLog.next(message);
   }
 }

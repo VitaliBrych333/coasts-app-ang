@@ -10,15 +10,15 @@ import { NewContent } from '../content-model';
 
 export class MessageWindowComponent implements OnInit {
 
-  content: string;
-  myClass: string;
-  time: number;
+  public content: string;
+         myClass: string;
+         time: number;
 
   constructor(
     public messageRef: MatDialogRef<MessageWindowComponent>,
     @Inject(MAT_DIALOG_DATA) public data: NewContent) {}
 
-  ngOnInit() {
+  public ngOnInit(): void {
     this.content = this.data.content;
     this.myClass = this.data.class;
     this.time = this.data.time;

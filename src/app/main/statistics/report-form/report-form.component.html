@@ -27,7 +27,7 @@
           <div class="types">
             <ol>
               <ng-container *ngFor='let typeIncome of typesIncomes'>
-                <li *ngIf="checkValue(allUsers[user][typeIncome])">{{ typeIncome }}: {{ allUsers[user][typeIncome] }}</li>
+                <li *ngIf='checkValue(allUsers[user][typeIncome])'>{{ typeIncome }}: {{ allUsers[user][typeIncome] }}</li>
               </ng-container>
             </ol>
           </div>

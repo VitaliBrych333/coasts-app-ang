@@ -12,6 +12,7 @@ import { AuthService } from '../../services/auth.service';
 import { NewIncome } from '../income.model';
 import { NewContent } from '../../shared/content-model';
 import { MessageWindowComponent } from '../../shared/message-window/message-window.component';
+import { Url } from '../../shared/constants/url-enum';
 import * as _ from 'lodash';
 
 @Component({
@@ -23,10 +24,8 @@ import * as _ from 'lodash';
 
 export class EditIncomeComponent implements OnInit, OnDestroy {
 
-  protected readonly subscriptions: Subscription[] = [];
-
-  //listCategory: Array<string> = ['food', 'rent', 'clothes', 'child', 'petrol', 'present', 'gym', 'other'];
-  editFieldIncome: object = {
+  //public listCategory: Array<string> = ['food', 'rent', 'clothes', 'child', 'petrol', 'present', 'gym', 'other'];
+  public editFieldIncome: object = {
     date: null,
     sum: null,
     who: null,
@@ -35,16 +34,19 @@ export class EditIncomeComponent implements OnInit, OnDestroy {
     other: null
   };
 
-  formForValid: FormGroup;
-  currentFieldEditId: string = this.router.url.slice(9);
-  getStateIncome: Observable<object>;
+  public formForValid: FormGroup;
+         getStateIncome: Observable<object>;
+
+  protected readonly subscriptions: Subscription[] = [];
+
+  private currentFieldEditId: string = this.router.url.slice(9);
 
   constructor(private authService: AuthService,
               private router: Router,
               private message: MatDialog,
               private store: Store<AppState>) {}
 
-  ngOnInit() {
+  public ngOnInit(): void {
     this.getStateIncome = this.store.select(selectIncomeState);
 
     this.subscriptions.push(
@@ -88,16 +90,16 @@ export class EditIncomeComponent implements OnInit, OnDestroy {
     this.store.dispatch(new LoadIncomeById({ Id: this.currentFieldEditId }));
   }
 
-  ngOnDestroy() {
+  public ngOnDestroy(): void {
     this.store.dispatch(new ClearStateIncome());
     _.forEach(this.subscriptions, subscription => subscription.unsubscribe());
   }
 
-  validForm(form: FormGroup): void {
+  public validForm(form: FormGroup): void {
     this.formForValid = form;
   }
 
-  save(): void {
+  public save(): void {
     const newField: NewIncome = new NewIncome(
       this.formForValid.value.date,
       this.formForValid.value.sum,
@@ -110,7 +112,7 @@ export class EditIncomeComponent implements OnInit, OnDestroy {
     this.store.dispatch(new UpdateIncome({ Id: this.currentFieldEditId, newValueIncome: newField }));
   }
 
-  cancel(): void {
-    this.router.navigate(['/incomes/all']);
+  public cancel(): void {
+    this.router.navigate([Url.ALLINC]);
   }
 }

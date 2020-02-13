@@ -12,6 +12,7 @@ import { NewIncome } from '../income.model';
 import { NewContent } from '../../shared/content-model';
 import { MessageWindowComponent } from '../../shared/message-window/message-window.component';
 import { AuthService } from '../../services/auth.service';
+import { Url } from '../../shared/constants/url-enum';
 import * as _ from 'lodash';
 
 @Component({
@@ -23,12 +24,13 @@ import * as _ from 'lodash';
 
 export class IncomeFormComponent implements OnInit, OnDestroy {
 
+  public infoIncome: object;
+         getStateIncome: Observable<object>;
+
   protected readonly subscriptions: Subscription[] = [];
 
-  infoIncome: object;
-  myDate = new Date().toString();
-  formForValid: FormGroup;
-  getStateIncome: Observable<object>;
+  private myDate = new Date().toString();
+  private formForValid: FormGroup;
 
   constructor(private datePipe: DatePipe,
               private router: Router,
@@ -36,7 +38,7 @@ export class IncomeFormComponent implements OnInit, OnDestroy {
               private message: MatDialog,
               private store: Store<AppState>) {}
 
-  ngOnInit() {
+  public ngOnInit(): void {
     this.getStateIncome = this.store.select(selectIncomeState);
     this.myDate = this.datePipe.transform(this.myDate, 'yyyy-MM-dd');
 
@@ -75,16 +77,16 @@ export class IncomeFormComponent implements OnInit, OnDestroy {
     );
   }
 
-  ngOnDestroy() {
+  public ngOnDestroy(): void {
     this.store.dispatch(new ClearStateIncome());
     _.forEach(this.subscriptions, subscription => subscription.unsubscribe());
   }
 
-  validForm(form: FormGroup): void {
+  public validForm(form: FormGroup): void {
     this.formForValid = form;
   }
 
-  add() {
+  public add(): void {
     const newFieldIncome: NewIncome = new NewIncome(
       this.formForValid.value.date,
       this.formForValid.value.sum,
@@ -97,7 +99,7 @@ export class IncomeFormComponent implements OnInit, OnDestroy {
     this.store.dispatch(new AddIncome({ newIncome: newFieldIncome }));
   }
 
-  cancel(): void {
-    this.router.navigate(['/main']);
+  public cancel(): void {
+    this.router.navigate([Url.MAIN]);
   }
 }

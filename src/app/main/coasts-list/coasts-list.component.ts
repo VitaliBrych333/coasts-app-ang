@@ -12,6 +12,7 @@ import { ClearStateIncome } from '../../store/actions/income.actions';
 import { DataService } from '../../services/data.service';
 import { NewCoast } from '../coast.model';
 import { ModalDialogComponent } from '../modal-dialog/modal-dialog.component';
+import { Url } from '../../shared/constants/url-enum';
 import * as _ from 'lodash';
 
 @Component({
@@ -22,16 +23,16 @@ import * as _ from 'lodash';
 
 export class CoastsListComponent implements OnInit, OnDestroy {
 
-  protected readonly subscriptions: Subscription[] = [];
-
-  displayedColumns: string[] = ['position', 'date', 'sum', 'type', 'other', 'author', 'actions'];
-
-  dataSource: MatTableDataSource<object>;
-  listData: object[] = [];
-  getStateCoast: Observable<object>;
-
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
+
+  public displayedColumns: string[] = ['position', 'date', 'sum', 'type', 'other', 'author', 'actions'];
+
+  public dataSource: MatTableDataSource<object>;
+         listData: object[] = [];
+         getStateCoast: Observable<object>;
+
+  protected readonly subscriptions: Subscription[] = [];
 
   constructor(public router: Router,
               public dataService: DataService,
@@ -39,7 +40,7 @@ export class CoastsListComponent implements OnInit, OnDestroy {
               public componentFactoryResolver: ComponentFactoryResolver,
               protected store: Store<AppState>) {}
 
-  ngOnInit() {
+  public ngOnInit(): void {
     this.getStateCoast = this.store.select(selectCoastState);
 
     this.subscriptions.push(
@@ -55,19 +56,19 @@ export class CoastsListComponent implements OnInit, OnDestroy {
     this.store.dispatch(new LoadCoasts());
   }
 
-  ngOnDestroy() {
+  public ngOnDestroy(): void {
     this.store.dispatch(new ClearStateCoast());
     this.store.dispatch(new ClearStateIncome());
     _.forEach(this.subscriptions, subscription => subscription.unsubscribe());
   }
 
-  createTable(data: object[]): void {
+  public createTable(data: object[]): void {
     this.dataSource = new MatTableDataSource<object>(data);
     this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
   }
 
-  deleteField(fieldDelete: any): void {
+  public deleteField(fieldDelete: any): void {
     const componentFactory = this.componentFactoryResolver.resolveComponentFactory(ModalDialogComponent);
     let componentRef = this.viewContainerRef.createComponent(componentFactory);
 
@@ -87,7 +88,7 @@ export class CoastsListComponent implements OnInit, OnDestroy {
     );
   }
 
-  editField(fieldEdit: NewCoast): void {
-    this.router.navigate([`/purchases/${fieldEdit._id}`]);
+  public editField(fieldEdit: NewCoast): void {
+    this.router.navigate([`${Url.PURCH}/${fieldEdit._id}`]);
   }
 }

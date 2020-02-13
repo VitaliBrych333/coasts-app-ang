@@ -12,6 +12,7 @@ import { AuthService } from '../../services/auth.service';
 import { NewCoast } from '../coast.model';
 import { NewContent } from '../../shared/content-model';
 import { MessageWindowComponent } from '../../shared/message-window/message-window.component';
+import { Url } from '../../shared/constants/url-enum';
 import * as _ from 'lodash';
 
 @Component({
@@ -23,10 +24,8 @@ import * as _ from 'lodash';
 
 export class EditCoastComponent implements OnInit, OnDestroy {
 
-  protected readonly subscriptions: Subscription[] = [];
-
-  //listCategory: Array<string> = ['food', 'rent', 'clothes', 'child', 'petrol', 'present', 'gym', 'other'];
-  editField: object = {
+  //public listCategory: Array<string> = ['food', 'rent', 'clothes', 'child', 'petrol', 'present', 'gym', 'other'];
+  public editField: object = {
     date: null,
     sum: null,
     author: null,
@@ -34,16 +33,19 @@ export class EditCoastComponent implements OnInit, OnDestroy {
     other: null
   };
 
-  formForValid: FormGroup;
-  currentFieldEditId: string = this.router.url.slice(11);
-  getStateCoast: Observable<object>;
+  public formForValid: FormGroup;
+         getStateCoast: Observable<object>;
+
+  protected readonly subscriptions: Subscription[] = [];
+
+  private currentFieldEditId: string = this.router.url.slice(11);
 
   constructor(private authService: AuthService,
               private router: Router,
               private message: MatDialog,
               protected store: Store<AppState>) {}
 
-  ngOnInit() {
+  public ngOnInit(): void {
     this.getStateCoast = this.store.select(selectCoastState);
 
     this.subscriptions.push(
@@ -86,16 +88,16 @@ export class EditCoastComponent implements OnInit, OnDestroy {
     this.store.dispatch(new LoadCoastById({ Id: this.currentFieldEditId }));
   }
 
-  ngOnDestroy() {
+  public ngOnDestroy(): void {
     this.store.dispatch(new ClearStateCoast());
     _.forEach(this.subscriptions, subscription => subscription.unsubscribe());
   }
 
-  validForm(form: FormGroup): void {
+  public validForm(form: FormGroup): void {
     this.formForValid = form;
   }
 
-  save(): void {
+  public save(): void {
     const newField: NewCoast = new NewCoast(
       this.formForValid.value.date,
       this.formForValid.value.sum,
@@ -107,7 +109,7 @@ export class EditCoastComponent implements OnInit, OnDestroy {
     this.store.dispatch(new UpdateCoast({ Id: this.currentFieldEditId, newValueCoast: newField }));
   }
 
-  cancel(): void {
-    this.router.navigate(['/purchases/all']);
+  public cancel(): void {
+    this.router.navigate([Url.ALLPURCH]);
   }
 }

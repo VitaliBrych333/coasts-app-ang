@@ -8,6 +8,7 @@ import { LoadIncomes } from '../../store/actions/income.actions';
 import { DataService } from '../../services/data.service';
 import { NewIncome } from '../income.model';
 import { CoastsListComponent } from '../coasts-list/coasts-list.component';
+import { Url } from '../../shared/constants/url-enum';
 
 @Component({
   selector: 'app-incomes-list',
@@ -17,8 +18,8 @@ import { CoastsListComponent } from '../coasts-list/coasts-list.component';
 
 export class IncomesListComponent extends CoastsListComponent implements OnInit {
 
-  displayedColumns: string[] = ['position', 'date', 'sum', 'who', 'type', 'other', 'author', 'actions'];
-  getStateIncome: Observable<object>;
+  public displayedColumns: string[] = ['position', 'date', 'sum', 'who', 'type', 'other', 'author', 'actions'];
+         getStateIncome: Observable<object>;
 
   constructor(public router: Router,
               public dataService: DataService,
@@ -28,7 +29,7 @@ export class IncomesListComponent extends CoastsListComponent implements OnInit 
                 super(router, dataService, viewContainerRef, componentFactoryResolver, store);
               }
 
-  ngOnInit() {
+  public ngOnInit(): void {
     this.getStateIncome = this.store.select(selectIncomeState);
 
     this.subscriptions.push(
@@ -44,7 +45,7 @@ export class IncomesListComponent extends CoastsListComponent implements OnInit 
     this.store.dispatch(new LoadIncomes());
   }
 
-  editField(fieldEdit: NewIncome): void {
-    this.router.navigate([`/incomes/${fieldEdit._id}`]);
+  public editField(fieldEdit: NewIncome): void {
+    this.router.navigate([`${Url.INC}/${fieldEdit._id}`]);
   }
 }

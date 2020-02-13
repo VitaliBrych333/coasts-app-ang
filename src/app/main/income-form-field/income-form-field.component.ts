@@ -14,17 +14,17 @@ export class IncomeFormFieldComponent implements OnChanges {
   @Input() newFieldIncome: NewIncome;
   @Output() validForm = new EventEmitter<FormGroup>();
 
-  types: string[] = ['salary', 'sick leave', 'child benefit', 'gift', 'holiday pay'];
-  persons: string[] = ['Vitali', 'Nastya'];
-  fieldIncome: FormGroup;
+  public types: string[] = ['salary', 'sick leave', 'child benefit', 'gift', 'holiday pay'];
+         persons: string[] = ['Vitali', 'Nastya'];
+         fieldIncome: FormGroup;
 
-  dataMin = `${new Date().getFullYear().toString()}` + '-01-01';
-  dataMax = `${new Date().getFullYear().toString()}` + '-12-31';
+  public dataMin = `${new Date().getFullYear().toString()}` + '-01-01';
+         dataMax = `${new Date().getFullYear().toString()}` + '-12-31';
 
   constructor(private fb: FormBuilder,
               private datePipe: DatePipe) {}
 
-  ngOnChanges() {
+  public ngOnChanges(): void {
     const date = this.datePipe.transform(this.newFieldIncome.date, 'yyyy-MM-dd');
 
     this.fieldIncome = this.fb.group({

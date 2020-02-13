@@ -8,25 +8,22 @@ import { BehaviorSubject } from 'rxjs';
 export class FilterDataService {
 
   private listCoastsSource = new BehaviorSubject([]);
-  currentMessageListCoasts = this.listCoastsSource.asObservable();
-
   private listIncomesSource = new BehaviorSubject([]);
-  currentMessageListIncomes = this.listIncomesSource.asObservable();
-
   private arrayDataCompare = new BehaviorSubject([]);
-  currentDataCompare = this.arrayDataCompare.asObservable();
 
-  constructor() {}
+  public currentMessageListCoasts = this.listCoastsSource.asObservable();
+         currentMessageListIncomes = this.listIncomesSource.asObservable();
+         currentDataCompare = this.arrayDataCompare.asObservable();
 
-  changeSourceListCoasts(newArray: Array<object>) {
+  public changeSourceListCoasts(newArray: Array<object>): void {
     this.listCoastsSource.next(newArray);
   }
 
-  changeSourceListIncomes(newArray: Array<object>) {
+  public changeSourceListIncomes(newArray: Array<object>): void {
     this.listIncomesSource.next(newArray);
   }
 
-  changeSourceDataCompare(newArray: Array<object>) {
+  public changeSourceDataCompare(newArray: Array<object>): void {
     this.arrayDataCompare.next(newArray);
   }
 }

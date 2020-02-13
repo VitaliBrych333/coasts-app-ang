@@ -12,13 +12,14 @@ import * as _ from 'lodash';
 
 export class LoadingScreenComponent implements OnInit, OnDestroy {
 
+  public loading: boolean = false;
+         loadingSubscription: Subscription;
+
   protected readonly subscriptions: Subscription[] = [];
-  loading: boolean = false;
-  loadingSubscription: Subscription;
 
   constructor(private loadingScreenService: LoadingScreenService) {}
 
-  ngOnInit() {
+  public ngOnInit(): void {
     this.subscriptions.push(
       this.loadingScreenService.loadingStatus.pipe(
         debounceTime(20)
@@ -28,7 +29,7 @@ export class LoadingScreenComponent implements OnInit, OnDestroy {
     );
   }
 
-  ngOnDestroy() {
+  public ngOnDestroy(): void {
     _.forEach(this.subscriptions, subscription => subscription.unsubscribe());
   }
 }

@@ -14,15 +14,15 @@ import * as _ from 'lodash';
 
 export class HeaderComponent implements OnInit, OnDestroy {
 
-  protected readonly subscriptions: Subscription[] = [];
+  public statusLog: boolean;
+         name: string;
 
-  statusLog: boolean;
-  name: string;
+  protected readonly subscriptions: Subscription[] = [];
 
   constructor(private authService: AuthService,
               private store: Store<AppState> ) { }
 
-  ngOnInit() {
+  public ngOnInit(): void {
     this.subscriptions.push(
       this.authService.currentStatusLog.subscribe(value => {
         if (this.authService.isLoggedIn()) {
@@ -35,11 +35,11 @@ export class HeaderComponent implements OnInit, OnDestroy {
     );
   }
 
-  logOut() {
+  public logOut(): void {
     this.store.dispatch(new LogOut());
   }
 
-  ngOnDestroy(): void {
+  public ngOnDestroy(): void {
     _.forEach(this.subscriptions, subscription => subscription.unsubscribe());
   }
 }

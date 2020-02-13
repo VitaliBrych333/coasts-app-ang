@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { NewCoast } from '../main/coast.model';
 import { NewIncome } from '../main/income.model';
 import { HttpClient } from '@angular/common/http';
+import { Url } from '../shared/constants/url-enum';
 
 @Injectable({
   providedIn: 'root'
@@ -9,50 +10,49 @@ import { HttpClient } from '@angular/common/http';
 
 export class DataService {
 
-  options = {headers: {'Content-Type': 'application/json'}};
-  baseURL = 'http://localhost:5500';
+  public options = { headers: {'Content-Type': 'application/json'} };
 
   constructor(private http: HttpClient) {}
 
-  addField(body: NewCoast): Promise<NewCoast>  {
-    return this.http.post<NewCoast>(this.baseURL + '/purchases', JSON.stringify(body), this.options).toPromise();
+  public addField(body: NewCoast): Promise<NewCoast>  {
+    return this.http.post<NewCoast>(Url.BASE + Url.PURCH, JSON.stringify(body), this.options).toPromise();
   }
 
-  getAllFieldsCoasts(): Promise<NewCoast[]> {
-    return this.http.get<NewCoast[]>(this.baseURL + '/purchases').toPromise();
+  public getAllFieldsCoasts(): Promise<NewCoast[]> {
+    return this.http.get<NewCoast[]>(Url.BASE + Url.PURCH).toPromise();
   }
 
-  deleteId(field: NewCoast): Promise<NewCoast> {
+  public deleteId(field: NewCoast): Promise<NewCoast> {
     const id = field._id;
-    return this.http.delete<NewCoast>(this.baseURL + '/purchases' + `/${id}`).toPromise();
+    return this.http.delete<NewCoast>(Url.BASE + Url.PURCH + `/${id}`).toPromise();
   }
 
-  getFieldId(id: string): Promise<NewCoast> {
-    return this.http.get<NewCoast>(this.baseURL + '/purchases' + `/${id}`).toPromise();
+  public getFieldId(id: string): Promise<NewCoast> {
+    return this.http.get<NewCoast>(Url.BASE + Url.PURCH + `/${id}`).toPromise();
   }
 
-  updateField(id: string, field: NewCoast): Promise<NewCoast> {
-    return this.http.put<NewCoast>(this.baseURL + '/purchases' + `/${id}/update`, field).toPromise();
+  public updateField(id: string, field: NewCoast): Promise<NewCoast> {
+    return this.http.put<NewCoast>(Url.BASE + Url.PURCH + `/${id + Url.UPD}`, field).toPromise();
   }
 
-  addFieldIncome(body: NewIncome): Promise<NewIncome>  {
-    return this.http.post<NewIncome>(this.baseURL + '/incomes', JSON.stringify(body), this.options).toPromise();
+  public addFieldIncome(body: NewIncome): Promise<NewIncome>  {
+    return this.http.post<NewIncome>(Url.BASE + Url.INC, JSON.stringify(body), this.options).toPromise();
   }
 
-  getAllFieldsIncomes(): Promise<NewIncome[]> {
-    return this.http.get<NewIncome[]>(this.baseURL + '/incomes').toPromise();
+  public getAllFieldsIncomes(): Promise<NewIncome[]> {
+    return this.http.get<NewIncome[]>(Url.BASE + Url.INC).toPromise();
   }
 
-  deleteIncomeId(field: NewIncome): Promise<NewIncome> {
+  public deleteIncomeId(field: NewIncome): Promise<NewIncome> {
     const id = field._id;
-    return this.http.delete<NewIncome>(this.baseURL + '/incomes' + `/${id}`).toPromise();
+    return this.http.delete<NewIncome>(Url.BASE + Url.INC + `/${id}`).toPromise();
   }
 
-  getFieldIncomeId(id: string): Promise<NewIncome> {
-    return this.http.get<NewIncome>(this.baseURL + '/incomes' + `/${id}`).toPromise();
+  public getFieldIncomeId(id: string): Promise<NewIncome> {
+    return this.http.get<NewIncome>(Url.BASE + Url.INC + `/${id}`).toPromise();
   }
 
-  updateFieldIncome(id: string, field: NewIncome): Promise<NewIncome> {
-    return this.http.put<NewIncome>(this.baseURL + '/incomes' + `/${id}/update`, field).toPromise();
+  public updateFieldIncome(id: string, field: NewIncome): Promise<NewIncome> {
+    return this.http.put<NewIncome>(Url.BASE + Url.INC + `/${id + Url.UPD}`, field).toPromise();
   }
 }

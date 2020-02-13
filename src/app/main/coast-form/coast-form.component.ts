@@ -12,6 +12,7 @@ import { AuthService } from '../../services/auth.service';
 import { NewCoast } from '../coast.model';
 import { NewContent } from '../../shared/content-model';
 import { MessageWindowComponent } from '../../shared/message-window/message-window.component';
+import { Url } from '../../shared/constants/url-enum';
 import * as _ from 'lodash';
 
 @Component({
@@ -23,12 +24,13 @@ import * as _ from 'lodash';
 
 export class CoastFormComponent implements OnInit, OnDestroy {
 
+  public getStateCoast: Observable<object>;
+         infoBuy: object;
+
   protected readonly subscriptions: Subscription[] = [];
 
-  infoBuy: object;
-  myDate = new Date().toString();
-  formForValid: FormGroup;
-  getStateCoast: Observable<object>;
+  private myDate = new Date().toString();
+  private formForValid: FormGroup;
 
   constructor(private datePipe: DatePipe,
               private router: Router,
@@ -36,7 +38,7 @@ export class CoastFormComponent implements OnInit, OnDestroy {
               private message: MatDialog,
               private store: Store<AppState>) {}
 
-  ngOnInit() {
+  public ngOnInit(): void {
     this.getStateCoast = this.store.select(selectCoastState);
     this.myDate = this.datePipe.transform(this.myDate, 'yyyy-MM-dd');
 
@@ -74,16 +76,16 @@ export class CoastFormComponent implements OnInit, OnDestroy {
     );
   }
 
-  ngOnDestroy() {
+  public ngOnDestroy(): void {
     this.store.dispatch(new ClearStateCoast());
     _.forEach(this.subscriptions, subscription => subscription.unsubscribe());
   }
 
-  validForm(form: FormGroup): void {
+  public validForm(form: FormGroup): void {
     this.formForValid = form;
   }
 
-  add() {
+  public add(): void {
     const newField: NewCoast = new NewCoast(
       this.formForValid.value.date,
       this.formForValid.value.sum,
@@ -95,8 +97,8 @@ export class CoastFormComponent implements OnInit, OnDestroy {
     this.store.dispatch(new AddCoast({ newCoast: newField }));
   }
 
-  cancel(): void {
-    this.router.navigate(['/main']);
+  public cancel(): void {
+    this.router.navigate([Url.MAIN]);
   }
 }
 

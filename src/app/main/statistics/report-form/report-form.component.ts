@@ -27,27 +27,27 @@ interface OptionalObject {
 
 export class ReportFormComponent implements OnInit, OnDestroy {
 
-  protected readonly subscriptions: Subscription[] = [];
+  public required: Array<string> = ['food', 'rent', 'child', 'gym'];
+         optional: Array<string> = ['clothes', 'petrol', 'present', 'other'];
+         typesIncomes: Array<string> = ['salary', 'sick leave', 'child benefit', 'gift', 'holiday pay'];
+         users: Array<string> = ['Vitali', 'Nastya'];
 
-  required: Array<string> = ['food', 'rent', 'child', 'gym'];
-  optional: Array<string> = ['clothes', 'petrol', 'present', 'other'];
-  typesIncomes: Array<string> = ['salary', 'sick leave', 'child benefit', 'gift', 'holiday pay'];
-  users: Array<string> = ['Vitali', 'Nastya'];
+         coastsTotal: number;
+         incomesTotal: number;
+         balanse: number;
+         currentRequired: RequireObject;
+         currentOptional: OptionalObject;
 
-  coastsTotal: number;
-  incomesTotal: number;
-  balanse: number;
-  currentRequired: RequireObject;
-  currentOptional: OptionalObject;
-
-  allUsers: any = {
+  public allUsers: any = {
     Vitali: {},
     Nastya: {},
   };
 
+  protected readonly subscriptions: Subscription[] = [];
+
   constructor(private filterDataService: FilterDataService ) {}
 
-  ngOnInit() {
+  public ngOnInit(): void {
 
     this.subscriptions.push(
       combineLatest(this.filterDataService.currentMessageListCoasts, this.filterDataService.currentMessageListIncomes)
@@ -128,11 +128,11 @@ export class ReportFormComponent implements OnInit, OnDestroy {
     );
   }
 
-  ngOnDestroy() {
+  public ngOnDestroy(): void {
     _.forEach(this.subscriptions, subscription => subscription.unsubscribe());
   }
 
-  checkValue(value: any) {
+  public checkValue(value: any): boolean {
     return value || _.isNull(value);
   }
 }

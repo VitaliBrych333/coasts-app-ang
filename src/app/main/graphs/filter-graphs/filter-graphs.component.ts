@@ -13,29 +13,29 @@ import * as _ from 'lodash';
 
 export class FilterGraphsComponent extends FiltersComponent {
 
-  someYears: boolean = true;
-  oneYear: boolean = false;
+  public someYears: boolean = true;
+         oneYear: boolean = false;
 
-  coastsRequired: Array<string> = ['food', 'rent', 'child', 'gym'];
-  coastsOptional: Array<string> = ['clothes', 'petrol', 'present', 'other'];
-  incomesTotal: Array<string> = ['salary', 'sick leave', 'child benefit', 'gift', 'holiday pay'];
-  incomesUsers: Array<string> = ['incomes Vitali', 'incomes Nastya'];
-  coastsKinds: Array<string> = ['coasts required', 'coasts optional'];
+         coastsRequired: Array<string> = ['food', 'rent', 'child', 'gym'];
+         coastsOptional: Array<string> = ['clothes', 'petrol', 'present', 'other'];
+         incomesTotal: Array<string> = ['salary', 'sick leave', 'child benefit', 'gift', 'holiday pay'];
+         incomesUsers: Array<string> = ['incomes Vitali', 'incomes Nastya'];
+         coastsKinds: Array<string> = ['coasts required', 'coasts optional'];
 
-  parameters: Array<string> = this.coastsRequired.concat(this.coastsOptional, this.incomesTotal, this.incomesUsers,
-                                                         this.coastsKinds, 'coasts total', 'incomes total', 'accumulation');
+         parameters: Array<string> = this.coastsRequired.concat(this.coastsOptional, this.incomesTotal, this.incomesUsers,
+                                                           this.coastsKinds, 'coasts total', 'incomes total', 'accumulation');
 
-  selectedYear: number;
-  selectedParameters: string[];
+         selectedYear: number;
+         selectedParameters: string[];
 
-  selectedYears: number[];
-  selectedParameter: string;
-  arrayDataCompare: object[] = [];
+         selectedYears: number[];
+         selectedParameter: string;
+         arrayDataCompare: object[] = [];
 
   constructor(public filterDataService: FilterDataService,
               protected store: Store<AppState>) { super(filterDataService, store); }
 
-  filterAnniversary() {
+  public filterAnniversary(): void {
     this.arrayDataCompare = [];
 
     if (_.isNil(this.selectedYear) || _.isNil(this.selectedParameters) || this.selectedParameters.length === 0) {
@@ -55,7 +55,7 @@ export class FilterGraphsComponent extends FiltersComponent {
     this.filterDataService.changeSourceDataCompare(this.arrayDataCompare);
   }
 
-  filterByKindParameter(value: string): Array<object>  {
+  public filterByKindParameter(value: string): Array<object>  {
     let newDataGraphs: Array<object>;
 
     if (this.coastsRequired.includes(value) || this.coastsOptional.includes(value)) {
@@ -95,7 +95,7 @@ export class FilterGraphsComponent extends FiltersComponent {
     return newDataGraphs;
   }
 
-  filterYears() {
+  public filterYears(): void {
     this.arrayDataCompare = [];
 
     if (_.isNil(this.selectedParameter) || _.isNil(this.selectedYears) || this.selectedYears.length === 0) {
@@ -116,12 +116,12 @@ export class FilterGraphsComponent extends FiltersComponent {
     this.filterDataService.changeSourceDataCompare(this.arrayDataCompare);
   }
 
-  filterOnlyByYears(arrayYears: number[]): void {
+  public filterOnlyByYears(arrayYears: number[]): void {
     this.currentListCoasts = this.listCoasts.filter(obg => arrayYears.includes(new Date(obg.date).getFullYear()));
     this.currentListIncomes = this.listIncomes.filter(obg => arrayYears.includes(new Date(obg.date).getFullYear()));
   }
 
-  onChange() {
+  public onChange(): void {
     this.selectedYear = null;
     this.selectedParameter = null;
 
@@ -135,15 +135,15 @@ export class FilterGraphsComponent extends FiltersComponent {
     this.filterDataService.changeSourceDataCompare(this.arrayDataCompare);
   }
 
-  addTagFnYear(name) {
+  public addTagFnYear(name): object {
     return { name: name, tag: true };
   }
 
-  addTagFnParameter(name) {
+  public addTagFnParameter(name): object {
     return { name: name, tag: true };
   }
 
-  private getSumDataByMonths(newDataGraphs: object[], year?: number) {
+  private getSumDataByMonths(newDataGraphs: object[], year?: number): Map<number, number | string> {
     const newData = new Map();
     let sumResult: number = 0;
 

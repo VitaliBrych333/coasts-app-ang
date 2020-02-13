@@ -3,20 +3,21 @@ import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/c
 import { Observable } from 'rxjs';
 import { finalize } from 'rxjs/operators';
 import { LoadingScreenService } from './loading-screen.service';
+import { Url } from '../../shared/constants/url-enum';
 
 @Injectable()
 
 export class LoadingScreenInterceptor implements HttpInterceptor {
 
-  activeRequests: number = 0;
+  public activeRequests: number = 0;
   // URLs for which the loading screen should not be enabled
-  skippUrls = [
-    '/login',
+  private skippUrls: string[] = [
+    Url.LOGIN
   ];
 
   constructor(private loadingScreenService: LoadingScreenService) {}
 
-  intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+  public intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     let displayLoadingScreen = true;
 
     for (const skippUrl of this.skippUrls) {

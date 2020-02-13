@@ -26,43 +26,43 @@ interface Mounth {
 
 export class FiltersComponent implements OnInit, OnDestroy {
 
-  protected readonly subscriptions: Subscription[] = [];
-
   @ViewChild('inputFrom', { read: MatInput, static: false}) inputFrom: MatInput;
   @ViewChild('inputTo', { read: MatInput, static: false}) inputTo: MatInput;
 
-  checkDate: boolean = false;
-  checkMounth: boolean = true;
+  public checkDate: boolean = false;
+         checkMounth: boolean = true;
 
-  startDate = new Date();
-  selectedMounth: string;
-  mounths: object[] = [];
-  mounthsNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+         startDate = new Date();
+         selectedMounth: string;
+         mounths: object[] = [];
+         mounthsNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
-  years: Array<number>;
-  listCoasts: NewCoast[] = [];
-  listIncomes: NewIncome[] = [];
+         years: Array<number>;
+         listCoasts: NewCoast[] = [];
+         listIncomes: NewIncome[] = [];
 
-  currentListCoasts: NewCoast[];
-  currentListIncomes: NewIncome[];
+         currentListCoasts: NewCoast[];
+         currentListIncomes: NewIncome[];
 
-  topDateFilter: Date;
-  lowDateFilter: Date;
-  minDateFrom: Date;
-  maxDateFrom: Date;
-  minDateTo: Date;
-  maxDateTo: Date;
+         topDateFilter: Date;
+         lowDateFilter: Date;
+         minDateFrom: Date;
+         maxDateFrom: Date;
+         minDateTo: Date;
+         maxDateTo: Date;
 
-  arrayIdMounths: Array<number> = [];
-  selectedYear: number;
+         arrayIdMounths: Array<number> = [];
+         selectedYear: number;
 
-  getStateCoast: Observable<object>;
-  getStateIncome: Observable<object>;
+         getStateCoast: Observable<object>;
+         getStateIncome: Observable<object>;
+
+  protected readonly subscriptions: Subscription[] = [];
 
   constructor(public filterDataService: FilterDataService,
               protected store: Store<AppState>) {}
 
-  ngOnInit() {
+  public ngOnInit(): void {
     this.getStateCoast = this.store.select(selectCoastState);
     this.getStateIncome = this.store.select(selectIncomeState);
 
@@ -96,27 +96,27 @@ export class FiltersComponent implements OnInit, OnDestroy {
     this.store.dispatch(new LoadIncomes());
   }
 
-  ngOnDestroy() {
+  public ngOnDestroy(): void {
     this.onChange();
     this.store.dispatch(new ClearStateCoast());
     this.store.dispatch(new ClearStateIncome());
     _.forEach(this.subscriptions, subscription => subscription.unsubscribe());
   }
 
-  setDate(value: Date): Date {
+  public setDate(value: Date): Date {
     const date = new Date(value);
     date.setHours(0, 0, 0, 0);
     return date;
   }
 
-  setInitialDateFilter(): void {
+  public setInitialDateFilter(): void {
     this.minDateFrom = new Date(2018, 0, 1);
     this.maxDateFrom = new Date();
     this.minDateTo = new Date(2018, 0, 1);
     this.maxDateTo = new Date();
   }
 
-  setLowDateFilter(event: MatDatepickerInputEvent<Date>) {
+  public setLowDateFilter(event: MatDatepickerInputEvent<Date>): void {
     if (event.value === null) {
       this.lowDateFilter = undefined;
       this.minDateTo = new Date(2018, 0, 1);
@@ -155,7 +155,7 @@ export class FiltersComponent implements OnInit, OnDestroy {
     this.filterDataService.changeSourceListIncomes(this.currentListIncomes);
   }
 
-  setTopDateFilter(event: MatDatepickerInputEvent<Date>) {
+  public setTopDateFilter(event: MatDatepickerInputEvent<Date>): void {
     if (event.value === null) {
       this.topDateFilter = undefined;
       this.maxDateFrom = new Date();
@@ -194,7 +194,7 @@ export class FiltersComponent implements OnInit, OnDestroy {
     this.filterDataService.changeSourceListIncomes(this.currentListIncomes);
   }
 
-  filterByYearAndByMounth(): void {
+  public filterByYearAndByMounth(): void {
     this.currentListCoasts = this.listCoasts
                                   .filter(obg => (new Date(obg.date).getFullYear() === this.selectedYear)
                                                   && (this.arrayIdMounths.includes(new Date(obg.date).getMonth())));
@@ -203,12 +203,12 @@ export class FiltersComponent implements OnInit, OnDestroy {
                                                   && (this.arrayIdMounths.includes(new Date(obg.date).getMonth())));
   }
 
-  filterOnlyByYear(): void {
+  public filterOnlyByYear(): void {
     this.currentListCoasts = this.listCoasts.filter(obg => new Date(obg.date).getFullYear() === this.selectedYear);
     this.currentListIncomes = this.listIncomes.filter(obg => new Date(obg.date).getFullYear() === this.selectedYear);
   }
 
-  filterFormYear(value: number): void {
+  public filterFormYear(value: number): void {
     this.selectedYear = value;
 
     if (this.arrayIdMounths.length) {
@@ -220,7 +220,7 @@ export class FiltersComponent implements OnInit, OnDestroy {
     this.filterDataService.changeSourceListIncomes(this.currentListIncomes);
   }
 
-  filterFormMounth(value: Array<object>): void {
+  public filterFormMounth(value: Array<object>): void {
     this.arrayIdMounths = [];
 
     if (!value.length) {
@@ -244,7 +244,7 @@ export class FiltersComponent implements OnInit, OnDestroy {
     this.filterDataService.changeSourceListIncomes(this.currentListIncomes);
   }
 
-  onChange() {
+  public onChange(): void {
     this.checkDate = !this.checkDate;
     this.checkMounth = !this.checkMounth;
 
@@ -267,7 +267,7 @@ export class FiltersComponent implements OnInit, OnDestroy {
     this.filterDataService.changeSourceListIncomes([]);
   }
 
-  addTagFn(name) {
+  public addTagFn(name): object {
     return { name: name, tag: true };
   }
 }

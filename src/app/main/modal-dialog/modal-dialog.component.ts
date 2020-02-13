@@ -20,14 +20,14 @@ export class ModalDialogComponent implements OnInit, OnDestroy {
 
   @Output() deleteField = new EventEmitter<boolean>();
 
-  protected readonly subscriptions: Subscription[] = [];
+  public getStateCoast: Observable<object>;
+         getStateIncome: Observable<object>;
 
-  getStateCoast: Observable<object>;
-  getStateIncome: Observable<object>;
+  protected readonly subscriptions: Subscription[] = [];
 
   constructor(protected store: Store<AppState>) {}
 
-  ngOnInit() {
+  public ngOnInit(): void {
     this.getStateCoast = this.store.select(selectCoastState);
     this.getStateIncome = this.store.select(selectIncomeState);
 
@@ -46,17 +46,17 @@ export class ModalDialogComponent implements OnInit, OnDestroy {
     );
   }
 
-  ngOnDestroy() {
+  public ngOnDestroy(): void {
     this.store.dispatch(new ClearStateCoast());
     this.store.dispatch(new ClearStateIncome());
     _.forEach(this.subscriptions, subscription => subscription.unsubscribe());
   }
 
-  cancel(): void {
+  public cancel(): void {
     this.deleteField.emit(false);
   }
 
-  deleteId(): void {
+  public deleteId(): void {
     if (this.fieldDelete.who) {
       this.store.dispatch(new DeleteIncome({ incomeDel: this.fieldDelete }));
     } else {

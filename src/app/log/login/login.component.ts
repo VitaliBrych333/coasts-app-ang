@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Subscription, Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
@@ -9,6 +9,7 @@ import { RegIn } from '../../store/actions/registr.actions';
 import { AuthState } from '../../store/reducers/auth.reducer';
 import { RegistrState } from '../../store/reducers/registr.reducer';
 import { AuthService } from '../../services/auth.service';
+import { Url } from '../../shared/constants/url-enum';
 import * as _ from 'lodash';
 
 @Component({
@@ -19,22 +20,22 @@ import * as _ from 'lodash';
 
 export class LoginComponent implements OnInit, OnDestroy {
 
-  protected readonly subscriptions: Subscription[] = [];
-
-  profileForm: FormGroup = this.fb.group({
+  public profileForm: FormGroup = this.fb.group({
     login: ['', Validators.required],
     password: ['', Validators.required]
   });
 
-  getStateAuth: Observable<object>;
-  getStateRegistr: Observable<object>;
+  public getStateAuth: Observable<object>;
+         getStateRegistr: Observable<object>;
+
+  protected readonly subscriptions: Subscription[] = [];
 
   constructor(private fb: FormBuilder,
               private router: Router,
               private authservice: AuthService,
               private store: Store<AppState>) { }
 
-  ngOnInit() {
+  public ngOnInit(): void {
     this.getStateAuth = this.store.select(selectAuthState);
     this.getStateRegistr = this.store.select(selectRegistrState);
 
@@ -53,32 +54,32 @@ export class LoginComponent implements OnInit, OnDestroy {
     );
 
     if (this.authservice.isLoggedIn()) {
-      this.router.navigate(['/main']);
+      this.router.navigate([Url.MAIN]);
     }
   }
 
-  ngOnDestroy() {
+  public ngOnDestroy(): void {
     _.forEach(this.subscriptions, subscription => subscription.unsubscribe());
   }
 
-  setForm() {
+  public setForm(): void {
     this.profileForm = this.fb.group({
       login: ['', Validators.required],
       password: ['', Validators.required]
     });
   }
 
-  signIn(): void {
+  public signIn(): void {
     this.store.dispatch(new LogIn({ login: this.form.login.value, password: this.form.password.value }));
   }
 
   // if need the regisration
 
-  register(): void {
+  public register(): void {
     this.store.dispatch(new RegIn({ login: this.form.login.value, password: this.form.password.value }));
   }
 
-  private get form() {
+  private get form(): { [key: string]: AbstractControl } {
     return this.profileForm.controls;
   }
 }

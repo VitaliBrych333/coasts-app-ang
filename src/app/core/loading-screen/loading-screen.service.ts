@@ -7,23 +7,24 @@ import { Subject } from 'rxjs';
 
 export class LoadingScreenService {
 
-  private _loading: boolean = false;
-  loadingStatus: Subject<boolean> = new Subject();
+  public loadingStatus: Subject<boolean> = new Subject();
 
-  get loading(): boolean {
+  private _loading: boolean = false;
+
+  public get loading(): boolean {
     return this._loading;
   }
 
-  set loading(value) {
+  public set loading(value) {
     this._loading = value;
     this.loadingStatus.next(value);
   }
 
-  startLoading() {
+  public startLoading(): void {
     this.loading = true;
   }
 
-  stopLoading() {
+  public stopLoading(): void {
     this.loading = false;
   }
 }

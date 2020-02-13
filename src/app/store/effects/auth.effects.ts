@@ -7,6 +7,7 @@ import { NewUser } from '../../log/user.model';
 import { MatDialog } from '@angular/material/dialog';
 import { AuthService } from '../../services/auth.service';
 import { MessageWindowComponent } from '../../shared/message-window/message-window.component';
+import { Url } from '../../shared/constants/url-enum';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/switchMap';
@@ -48,7 +49,7 @@ export class AuthEffects {
     tap((user) => {
       this.authService.setToken(user.payload.token);
       this.authService.changeStatusLog(true);
-      this.router.navigate(['/main']);
+      this.router.navigate([Url.MAIN]);
     })
   );
 
@@ -57,7 +58,7 @@ export class AuthEffects {
     ofType(AuthActionTypes.LOGOUT),
     tap(() => {
       this.authService.deleteToken();
-      this.router.navigate(['/login']);
+      this.router.navigate([Url.LOGIN]);
       this.authService.changeStatusLog(false);
     })
   );

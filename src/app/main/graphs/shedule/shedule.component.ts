@@ -14,11 +14,17 @@ import * as _ from 'lodash';
 
 export class SheduleComponent implements OnInit, OnDestroy {
 
-  protected readonly subscriptions: Subscription[] = [];
+  @ViewChild(BaseChartDirective, { static: true }) chart: BaseChartDirective;
 
   public lineChartData: ChartDataSets[];
-  public lineChartLabels: Label[] = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'];
-  public lineChartOptions: ChartOptions;
+         lineChartLabels: Label[] = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'];
+         lineChartOptions: ChartOptions;
+         lineChartLegend = true;
+         lineChartType = 'line';
+         lineChartPlugins = [pluginAnnotations];
+         lineChartColors: Color[];
+
+  protected readonly subscriptions: Subscription[] = [];
 
   private arrayIndexArrayScale: number[];
   private color: Color[] = [
@@ -75,11 +81,6 @@ export class SheduleComponent implements OnInit, OnDestroy {
   private stateFirstColor = this.color.slice(0, 3);
   private stateSecondColor = this.color.slice(3);
 
-  public lineChartColors: Color[] = this.stateFirstColor;
-  public lineChartLegend = true;
-  public lineChartType = 'line';
-  public lineChartPlugins = [pluginAnnotations];
-
   private stateChartOptions: ChartOptions = {
     responsive: true,
     maintainAspectRatio: false,
@@ -97,11 +98,14 @@ export class SheduleComponent implements OnInit, OnDestroy {
     },
   };
 
-  @ViewChild(BaseChartDirective, { static: true }) chart: BaseChartDirective;
+
+
 
   constructor(public filterDataService: FilterDataService) {}
 
-  ngOnInit() {
+  public ngOnInit(): void {
+    this.lineChartColors = this.stateFirstColor;
+
     this.subscriptions.push(
       this.filterDataService.currentDataCompare.subscribe(data => {
         let countTimesScale = 0;
@@ -160,11 +164,11 @@ export class SheduleComponent implements OnInit, OnDestroy {
     );
   }
 
-  ngOnDestroy() {
+  public ngOnDestroy(): void {
     _.forEach(this.subscriptions, subscription => subscription.unsubscribe());
   }
 
-  public scale() {
+  public scale(): void {
     if (!this.lineChartOptions.scales.yAxes[1]) {
       this.lineChartOptions = {
         responsive: true,
@@ -201,7 +205,7 @@ export class SheduleComponent implements OnInit, OnDestroy {
     }
   }
 
-  public changeColor() {
+  public changeColor(): void {
     if (this.lineChartColors === this.stateFirstColor) {
       this.lineChartColors = this.stateSecondColor;
     } else {
