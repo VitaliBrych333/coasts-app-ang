@@ -1,2 +1,5 @@
 1. write tests
 2. add Flex
+3. Push strategy
+4. Change on Activated router
+5. Check modificators
