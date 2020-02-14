@@ -13,7 +13,6 @@ import { NewContent } from '../../shared/content-model';
 import { MessageWindowComponent } from '../../shared/message-window/message-window.component';
 import { AuthService } from '../../services/auth.service';
 import { Url } from '../../shared/constants/url-enum';
-import * as _ from 'lodash';
 
 @Component({
   selector: 'app-income-form',

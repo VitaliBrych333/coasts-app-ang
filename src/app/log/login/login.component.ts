@@ -10,7 +10,6 @@ import { AuthState } from '../../store/reducers/auth.reducer';
 import { RegistrState } from '../../store/reducers/registr.reducer';
 import { AuthService } from '../../services/auth.service';
 import { Url } from '../../shared/constants/url-enum';
-import * as _ from 'lodash';
 
 @Component({
   selector: 'app-login',

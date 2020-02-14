@@ -4,7 +4,6 @@ import { Store } from '@ngrx/store';
 import { AppState } from '../../store/state/app.states';
 import { LogOut } from '../../store/actions/auth.actions';
 import { AuthService } from '../../services/auth.service';
-import * as _ from 'lodash';
 
 @Component({
   selector: 'app-header',

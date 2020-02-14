@@ -3,7 +3,6 @@ import { Store } from '@ngrx/store';
 import { AppState } from '../../../store/state/app.states';
 import { FiltersComponent } from '../../statistics/filters/filters.component';
 import { FilterDataService } from '../../../services/filter-data.service';
-import * as _ from 'lodash';
 
 @Component({
   selector: 'app-filter-graphs',

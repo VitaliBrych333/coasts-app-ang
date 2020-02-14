@@ -4,7 +4,7 @@ import { Color, BaseChartDirective, Label } from 'ng2-charts';
 import * as pluginAnnotations from 'chartjs-plugin-annotation';
 import { FilterDataService } from '../../../services/filter-data.service';
 import { Subscription } from 'rxjs';
-import * as _ from 'lodash';
+
 
 @Component({
   selector: 'app-shedule',

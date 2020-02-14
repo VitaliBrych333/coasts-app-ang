@@ -6,7 +6,7 @@ import { CoastState } from '../../store/reducers/coast.reducer';
 import { IncomeState } from '../../store/reducers/income.reducer';
 import { DeleteCoast, ClearStateCoast } from '../../store/actions/coast.actions';
 import { DeleteIncome, ClearStateIncome } from '../../store/actions/income.actions';
-import * as _ from 'lodash';
+
 
 @Component({
   selector: 'app-modal-dialog',

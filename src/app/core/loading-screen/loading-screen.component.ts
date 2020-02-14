@@ -2,7 +2,6 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
 import { LoadingScreenService } from './loading-screen.service';
-import * as _ from 'lodash';
 
 @Component({
   selector: 'app-loading-screen',

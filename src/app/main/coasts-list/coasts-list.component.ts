@@ -13,7 +13,6 @@ import { DataService } from '../../services/data.service';
 import { NewCoast } from '../coast.model';
 import { ModalDialogComponent } from '../modal-dialog/modal-dialog.component';
 import { Url } from '../../shared/constants/url-enum';
-import * as _ from 'lodash';
 
 @Component({
   selector: 'app-coasts-list',

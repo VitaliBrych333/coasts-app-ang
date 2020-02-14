@@ -11,7 +11,6 @@ import { LoadIncomes, ClearStateIncome } from '../../../store/actions/income.act
 import { NewCoast } from '../../coast.model';
 import { NewIncome } from '../../income.model';
 import { FilterDataService } from '../../../services/filter-data.service';
-import * as _ from 'lodash';
 
 interface Mounth {
   id: number;

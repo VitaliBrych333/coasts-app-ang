@@ -1,7 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FilterDataService } from '../../../services/filter-data.service';
 import { Subscription, combineLatest } from 'rxjs';
-import * as _ from 'lodash';
 
 interface RequireObject {
   food: number;

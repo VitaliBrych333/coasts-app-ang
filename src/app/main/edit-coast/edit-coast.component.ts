@@ -13,7 +13,6 @@ import { NewCoast } from '../coast.model';
 import { NewContent } from '../../shared/content-model';
 import { MessageWindowComponent } from '../../shared/message-window/message-window.component';
 import { Url } from '../../shared/constants/url-enum';
-import * as _ from 'lodash';
 
 @Component({
   selector: 'app-edit-coast',
