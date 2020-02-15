@@ -1,12 +1,12 @@
 <div>
-  <button type="button" (click)="addCoasts()" [ngClass]="{choosed: stateOne}">Add coasts</button>
-  <button type="button" (click)="addIncome()" [ngClass]="{choosed: stateTwo}">Add income</button>
+  <button *ngFor="let button of buttons" type="button" (click)="handleClick(button.link)" [ngClass]="{choosed: currentUrl === button.link}">{{button.title}}</button>
+  <!-- <button type="button" (click)="addIncome()" [ngClass]="{choosed: stateTwo}">Add income</button>
 
   <button type="button" (click)="showTableCoasts()" [ngClass]="{choosed: stateTree}">Show coasts</button>
   <button type="button" (click)="showTableIncomes()" [ngClass]="{choosed: stateFour}">Show incomes</button>
 
   <button type="button" (click)="getStatistics()" [ngClass]="{choosed: stateFive}">Statistics</button>
-  <button type="button" (click)="showGraphs()" [ngClass]="{choosed: stateSix}">Graphs</button>
+  <button type="button" (click)="showGraphs()" [ngClass]="{choosed: stateSix}">Graphs</button> -->
 </div>
 
 
