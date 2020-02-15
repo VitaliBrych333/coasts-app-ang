@@ -22,7 +22,7 @@ export class FilterGraphsComponent extends FiltersComponent {
          coastsKinds: Array<string> = ['coasts required', 'coasts optional'];
 
          parameters: Array<string> = this.coastsRequired.concat(this.coastsOptional, this.incomesTotal, this.incomesUsers,
-                                                           this.coastsKinds, 'coasts total', 'incomes total', 'accumulation');
+                                                          this.coastsKinds, 'coasts total', 'incomes total', 'accumulation');
 
          selectedYear: number;
          selectedParameters: string[];

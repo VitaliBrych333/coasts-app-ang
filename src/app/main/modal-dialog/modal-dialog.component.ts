@@ -7,7 +7,6 @@ import { IncomeState } from '../../store/reducers/income.reducer';
 import { DeleteCoast, ClearStateCoast } from '../../store/actions/coast.actions';
 import { DeleteIncome, ClearStateIncome } from '../../store/actions/income.actions';
 
-
 @Component({
   selector: 'app-modal-dialog',
   templateUrl: './modal-dialog.component.html',
@@ -18,7 +17,7 @@ export class ModalDialogComponent implements OnInit, OnDestroy {
 
   @Input() fieldDelete: any;
 
-  @Output() deleteField = new EventEmitter<boolean>();
+  @Output() deleteField: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   public getStateCoast: Observable<object>;
          getStateIncome: Observable<object>;

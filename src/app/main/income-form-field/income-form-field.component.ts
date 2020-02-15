@@ -12,7 +12,7 @@ import { NewIncome } from '../income.model';
 export class IncomeFormFieldComponent implements OnChanges {
 
   @Input() newFieldIncome: NewIncome;
-  @Output() validForm = new EventEmitter<FormGroup>();
+  @Output() validForm: EventEmitter<FormGroup> = new EventEmitter<FormGroup>();
 
   public types: string[] = ['salary', 'sick leave', 'child benefit', 'gift', 'holiday pay'];
          persons: string[] = ['Vitali', 'Nastya'];

@@ -3,3 +3,4 @@
 3. Push strategy
 4. Change on Activated router
 5. Check modificators
+6. Rewrite buttons on ngFor

@@ -5,7 +5,6 @@ import * as pluginAnnotations from 'chartjs-plugin-annotation';
 import { FilterDataService } from '../../../services/filter-data.service';
 import { Subscription } from 'rxjs';
 
-
 @Component({
   selector: 'app-shedule',
   templateUrl: './shedule.component.html',
@@ -97,9 +96,6 @@ export class SheduleComponent implements OnInit, OnDestroy {
       ]
     },
   };
-
-
-
 
   constructor(public filterDataService: FilterDataService) {}
 

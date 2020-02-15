@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { DatePipe } from '@angular/common';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { Subscription, Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
@@ -37,9 +37,10 @@ export class EditCoastComponent implements OnInit, OnDestroy {
 
   protected readonly subscriptions: Subscription[] = [];
 
-  private currentFieldEditId: string = this.router.url.slice(11);
+  private currentFieldEditId: string = this.activatedRouter.snapshot.paramMap.get('id');
 
   constructor(private authService: AuthService,
+              private activatedRouter: ActivatedRoute,
               private router: Router,
               private message: MatDialog,
               protected store: Store<AppState>) {}

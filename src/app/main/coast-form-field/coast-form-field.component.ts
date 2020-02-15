@@ -12,11 +12,11 @@ import { NewCoast } from '../coast.model';
 export class CoastFormFieldComponent implements OnChanges {
 
   @Input() newField: NewCoast;
-  @Output() validForm = new EventEmitter<FormGroup>();
+  @Output() validForm: EventEmitter<FormGroup> = new EventEmitter<FormGroup>();
 
   public listCategory: Array<string> = ['food', 'rent', 'clothes', 'child', 'petrol', 'present', 'gym', 'other'];
 
-  public field = new FormGroup({
+  public field: FormGroup = new FormGroup({
     date: new FormControl(),
     sum: new FormControl(),
     author: new FormControl(),
