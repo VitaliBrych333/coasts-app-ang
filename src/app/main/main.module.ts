@@ -1,5 +1,4 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { CoastFormComponent } from './coast-form/coast-form.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ButtonsComponent } from './buttons/buttons.component';
@@ -24,6 +23,7 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material';
 import { MatInputModule } from '@angular/material';
+import { SharedModule } from '../shared/shared.module';
 
 import { NgSelectModule } from '@ng-select/ng-select';
 import { ReportFormComponent } from './statistics/report-form/report-form.component';
@@ -52,7 +52,7 @@ import { FilterGraphsComponent } from './graphs/filter-graphs/filter-graphs.comp
                   SheduleComponent,
                   FilterGraphsComponent ],
   imports: [
-    CommonModule,
+    SharedModule,
     ReactiveFormsModule,
     FormsModule,
     MatTableModule,

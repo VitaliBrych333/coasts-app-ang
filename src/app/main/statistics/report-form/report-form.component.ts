@@ -1,27 +1,13 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FilterDataService } from '../../../services/filter-data.service';
 import { Subscription, combineLatest } from 'rxjs';
-
-interface RequireObject {
-  food: number;
-  rent: number;
-  child: number;
-  gym: number;
-  required: number;
-}
-
-interface OptionalObject {
-  clothes: number;
-  petrol: number;
-  present: number;
-  other: number;
-  optional: number;
-}
+import { RequireObject } from '../../../shared/interfaces/requireObject.interface';
+import { OptionalObject } from '../../../shared/interfaces/optionalObject.interface';
 
 @Component({
   selector: 'app-report-form',
   templateUrl: './report-form.component.html',
-  styleUrls: ['./report-form.component.scss']
+  styleUrls: ['./report-form.component.scss'],
 })
 
 export class ReportFormComponent implements OnInit, OnDestroy {

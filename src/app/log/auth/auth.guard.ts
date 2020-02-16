@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { CanActivate, Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
-import { Url } from '../../shared/constants/url-enum';
+import { Url } from '../../shared/constants/url.enum';
 
 @Injectable({
   providedIn: 'root'

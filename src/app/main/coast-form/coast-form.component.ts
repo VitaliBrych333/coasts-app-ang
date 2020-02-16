@@ -9,16 +9,16 @@ import { AppState, selectCoastState } from '../../store/state/app.states';
 import { CoastState } from '../../store/reducers/coast.reducer';
 import { AddCoast, ClearStateCoast } from '../../store/actions/coast.actions';
 import { AuthService } from '../../services/auth.service';
-import { NewCoast } from '../coast.model';
-import { NewContent } from '../../shared/content-model';
-import { MessageWindowComponent } from '../../shared/message-window/message-window.component';
-import { Url } from '../../shared/constants/url-enum';
+import { NewCoast } from '../../shared/models/coast.model';
+import { NewContent } from '../../shared/models/content.model';
+import { MessageWindowComponent } from '../../shared/components/message-window/message-window.component';
+import { Url } from '../../shared/constants/url.enum';
 
 @Component({
   selector: 'app-coast-form',
   templateUrl: './coast-form.component.html',
   styleUrls: ['./coast-form.component.scss'],
-  providers: [ DatePipe ],
+  providers: [ DatePipe ]
 })
 
 export class CoastFormComponent implements OnInit, OnDestroy {
@@ -100,5 +100,3 @@ export class CoastFormComponent implements OnInit, OnDestroy {
     this.router.navigate([Url.MAIN]);
   }
 }
-
-

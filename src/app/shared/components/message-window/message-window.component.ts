@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { NewContent } from '../content-model';
+import { NewContent } from '../../models/content.model';
 
 @Component({
   selector: 'app-message-window',

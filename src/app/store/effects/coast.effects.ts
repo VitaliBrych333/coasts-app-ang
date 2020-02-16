@@ -3,7 +3,7 @@ import { Actions, Effect, ofType } from '@ngrx/effects';
 import { Observable } from 'rxjs';
 import { map, switchMap, catchError } from 'rxjs/operators';
 import { DataService } from '../../services/data.service';
-import { NewCoast } from '../../main/coast.model';
+import { NewCoast } from '../../shared/models/coast.model';
 // import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/switchMap';
@@ -72,7 +72,7 @@ export class CoastEffects {
       .switchMap(payload => {
         return Observable.fromPromise(this.dataService.updateField(payload.Id, payload.newValueCoast))
         .map((res) => {
-          return new UpdateCoastSuccess();
+          return new UpdateCoastSuccess({ newValueCoast: payload.newValueCoast });
         })
         .catch((err) => {
           return Observable.of(new UpdateCoastFailure({ error: err }));

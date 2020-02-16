@@ -8,17 +8,17 @@ import { Subscription, Observable } from 'rxjs';
 import { AppState, selectIncomeState } from '../../store/state/app.states';
 import { IncomeState } from '../../store/reducers/income.reducer';
 import { AddIncome, ClearStateIncome } from '../../store/actions/income.actions';
-import { NewIncome } from '../income.model';
-import { NewContent } from '../../shared/content-model';
-import { MessageWindowComponent } from '../../shared/message-window/message-window.component';
+import { NewIncome } from '../../shared/models/income.model';
+import { NewContent } from '../../shared/models/content.model';
+import { MessageWindowComponent } from '../../shared/components/message-window/message-window.component';
+import { Url } from '../../shared/constants/url.enum';
 import { AuthService } from '../../services/auth.service';
-import { Url } from '../../shared/constants/url-enum';
 
 @Component({
   selector: 'app-income-form',
   templateUrl: './income-form.component.html',
   styleUrls: ['./income-form.component.scss'],
-  providers: [ DatePipe ],
+  providers: [ DatePipe ]
 })
 
 export class IncomeFormComponent implements OnInit, OnDestroy {

@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { NewCoast } from '../main/coast.model';
-import { NewIncome } from '../main/income.model';
+import { NewCoast } from '../shared/models/coast.model';
+import { NewIncome } from '../shared/models/income.model';
 import { HttpClient } from '@angular/common/http';
-import { Url } from '../shared/constants/url-enum';
+import { Url } from '../shared/constants/url.enum';
 
 @Injectable({
   providedIn: 'root'

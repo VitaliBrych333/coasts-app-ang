@@ -1,12 +1,13 @@
-import { Component, Input, OnChanges, EventEmitter, Output } from '@angular/core';
+import { Component, Input, OnChanges, EventEmitter, Output, ChangeDetectionStrategy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { DatePipe } from '@angular/common';
-import { NewIncome } from '../income.model';
+import { NewIncome } from '../../shared/models/income.model';
 
 @Component({
   selector: 'app-income-form-field',
   templateUrl: './income-form-field.component.html',
-  styleUrls: ['./income-form-field.component.scss']
+  styleUrls: ['./income-form-field.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 
 export class IncomeFormFieldComponent implements OnChanges {

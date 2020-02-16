@@ -1,5 +1,5 @@
 import { CoastActionTypes, All } from '../actions/coast.actions';
-import { NewCoast } from '../../main/coast.model';
+import { NewCoast } from '../../shared/models/coast.model';
 
 export interface CoastState {
   isAdded: boolean;
@@ -68,7 +68,8 @@ export function reducerCoast(state = initialState, action: All): CoastState {
     case CoastActionTypes.UPDATE_COAST_SUCCESS: {
       return {
         ...state,
-        isAdded: true
+        isAdded: true,
+        coastById: action.payload.newValueCoast
       };
     }
 

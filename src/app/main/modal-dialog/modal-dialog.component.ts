@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, OnInit, OnDestroy } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
 import { Subscription, Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { AppState, selectCoastState, selectIncomeState } from '../../store/state/app.states';
@@ -10,7 +10,8 @@ import { DeleteIncome, ClearStateIncome } from '../../store/actions/income.actio
 @Component({
   selector: 'app-modal-dialog',
   templateUrl: './modal-dialog.component.html',
-  styleUrls: ['./modal-dialog.component.scss']
+  styleUrls: ['./modal-dialog.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 
 export class ModalDialogComponent implements OnInit, OnDestroy {

@@ -1,4 +1,2 @@
 1. write tests
-2. add Flex
-3. Push strategy
-4. Rewrite buttons on ngFor
+2. add Flux

@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { AuthService } from '../../services/auth.service';
-import { Url } from '../../shared/constants/url-enum';
+import { Url } from '../../shared/constants/url.enum';
 
 @Injectable()
 

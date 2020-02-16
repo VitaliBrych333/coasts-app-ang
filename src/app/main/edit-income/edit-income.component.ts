@@ -1,7 +1,7 @@
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { DatePipe } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Component, OnInit, OnDestroy } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Subscription, Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
@@ -9,10 +9,10 @@ import { AppState, selectIncomeState } from '../../store/state/app.states';
 import { IncomeState } from '../../store/reducers/income.reducer';
 import { LoadIncomeById, UpdateIncome, ClearStateIncome } from '../../store/actions/income.actions';
 import { AuthService } from '../../services/auth.service';
-import { NewIncome } from '../income.model';
-import { NewContent } from '../../shared/content-model';
-import { MessageWindowComponent } from '../../shared/message-window/message-window.component';
-import { Url } from '../../shared/constants/url-enum';
+import { NewIncome } from '../../shared/models/income.model';
+import { NewContent } from '../../shared/models/content.model';
+import { MessageWindowComponent } from '../../shared/components/message-window/message-window.component';
+import { Url } from '../../shared/constants/url.enum';
 
 @Component({
   selector: 'app-edit-income',

@@ -3,7 +3,7 @@ import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/c
 import { Observable } from 'rxjs';
 import { finalize } from 'rxjs/operators';
 import { LoadingScreenService } from './loading-screen.service';
-import { Url } from '../../shared/constants/url-enum';
+import { Url } from '../../shared/constants/url.enum';
 
 @Injectable()
 

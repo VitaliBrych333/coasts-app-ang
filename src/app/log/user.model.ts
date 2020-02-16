@@ -1,8 +1,4 @@
-interface User {
-  id?: number;
-  login: string;
-  password: string;
-}
+import { User } from '../shared/interfaces/user.interface';
 
 export class NewUser implements User {
   id?: number;

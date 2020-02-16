@@ -9,7 +9,7 @@ import { RegIn } from '../../store/actions/registr.actions';
 import { AuthState } from '../../store/reducers/auth.reducer';
 import { RegistrState } from '../../store/reducers/registr.reducer';
 import { AuthService } from '../../services/auth.service';
-import { Url } from '../../shared/constants/url-enum';
+import { Url } from '../../shared/constants/url.enum';
 
 @Component({
   selector: 'app-login',

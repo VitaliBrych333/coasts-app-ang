@@ -6,7 +6,7 @@ import { LoadingScreenService } from './loading-screen.service';
 @Component({
   selector: 'app-loading-screen',
   templateUrl: './loading-screen.component.html',
-  styleUrls: ['./loading-screen.component.scss']
+  styleUrls: ['./loading-screen.component.scss'],
 })
 
 export class LoadingScreenComponent implements OnInit, OnDestroy {

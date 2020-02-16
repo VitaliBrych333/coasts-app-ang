@@ -8,19 +8,15 @@ import { CoastState } from '../../../store/reducers/coast.reducer';
 import { IncomeState } from '../../../store/reducers/income.reducer';
 import { LoadCoasts, ClearStateCoast } from '../../../store/actions/coast.actions';
 import { LoadIncomes, ClearStateIncome } from '../../../store/actions/income.actions';
-import { NewCoast } from '../../coast.model';
-import { NewIncome } from '../../income.model';
+import { NewCoast } from '../../../shared/models/coast.model';
+import { NewIncome } from '../../../shared/models/income.model';
 import { FilterDataService } from '../../../services/filter-data.service';
-
-interface Mounth {
-  id: number;
-  name: string;
-}
+import { Mounth } from '../../../shared/interfaces/mounth.interface';
 
 @Component({
   selector: 'app-filters',
   templateUrl: './filters.component.html',
-  styleUrls: ['./filters.component.scss']
+  styleUrls: ['./filters.component.scss'],
 })
 
 export class FiltersComponent implements OnInit, OnDestroy {

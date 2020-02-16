@@ -3,7 +3,7 @@ import { Actions, Effect, ofType } from '@ngrx/effects';
 import { Observable } from 'rxjs';
 import { map, switchMap, catchError } from 'rxjs/operators';
 import { DataService } from '../../services/data.service';
-import { NewIncome } from '../../main/income.model';
+import { NewIncome } from '../../shared/models/income.model';
 // import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/switchMap';
@@ -72,7 +72,7 @@ export class IncomeEffects {
       .switchMap(payload => {
         return Observable.fromPromise(this.dataService.updateFieldIncome(payload.Id, payload.newValueIncome))
         .map((res) => {
-          return new UpdateIncomeSuccess();
+          return new UpdateIncomeSuccess({ newValueIncome: payload.newValueIncome });
         })
         .catch((err) => {
           return Observable.of(new UpdateIncomeFailure({ error: err }));

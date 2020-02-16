@@ -1,5 +1,5 @@
 import { IncomeActionTypes, All } from '../actions/income.actions';
-import { NewIncome } from '../../main/income.model';
+import { NewIncome } from '../../shared/models/income.model';
 
 export interface IncomeState {
   isAdded: boolean;
@@ -69,7 +69,8 @@ export function reducerIncome(state = initialState, action: All): IncomeState {
     case IncomeActionTypes.UPDATE_INCOME_SUCCESS: {
       return {
         ...state,
-        isAdded: true
+        isAdded: true,
+        incomeById: action.payload.newValueIncome
       };
     }
 

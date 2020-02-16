@@ -1,5 +1,5 @@
 import { Action } from '@ngrx/store';
-import { NewIncome } from '../../main/income.model';
+import { NewIncome } from '../../shared/models/income.model';
 
 export enum IncomeActionTypes {
   ADD_INCOME = '[Income] AddIncome',
@@ -82,7 +82,7 @@ export class UpdateIncome implements Action {
 
 export class UpdateIncomeSuccess implements Action {
   readonly type = IncomeActionTypes.UPDATE_INCOME_SUCCESS;
-  constructor() {}
+  constructor(public payload: { newValueIncome: NewIncome }) {}
 }
 
 export class UpdateIncomeFailure implements Action {

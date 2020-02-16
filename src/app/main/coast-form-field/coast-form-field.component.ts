@@ -1,12 +1,13 @@
-import { Component, Input, OnChanges, EventEmitter, Output } from '@angular/core';
+import { Component, Input, OnChanges, EventEmitter, Output, ChangeDetectionStrategy } from '@angular/core';
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { DatePipe } from '@angular/common';
-import { NewCoast } from '../coast.model';
+import { NewCoast } from '../../shared/models/coast.model';
 
 @Component({
   selector: 'app-coast-form-field',
   templateUrl: './coast-form-field.component.html',
-  styleUrls: ['./coast-form-field.component.scss']
+  styleUrls: ['./coast-form-field.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 
 export class CoastFormFieldComponent implements OnChanges {

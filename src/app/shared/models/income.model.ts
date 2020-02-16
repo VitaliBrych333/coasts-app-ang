@@ -1,14 +1,4 @@
-interface Income {
-  date: Date;
-  sum: number;
-  who: string;
-  type: string;
-  other?: string;
-  author: string;
-  __v?: number;
-  _id?: string;
-  position?: number;
-}
+import { Income } from '../interfaces/income.interface';
 
 export class NewIncome implements Income {
   date: Date;

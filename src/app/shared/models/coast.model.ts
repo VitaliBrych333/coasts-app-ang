@@ -1,13 +1,4 @@
-interface Coast {
-  position?: number;
-  date: Date;
-  sum: number;
-  type: string;
-  other?: string;
-  author: string;
-  __v?: number;
-  _id?: string;
-}
+import { Coast } from '../interfaces/coast.interface';
 
 export class NewCoast implements Coast {
   position?: number;

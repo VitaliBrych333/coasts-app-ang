@@ -1,5 +1,5 @@
 import { Action } from '@ngrx/store';
-import { NewCoast } from '../../main/coast.model';
+import { NewCoast } from '../../shared/models/coast.model';
 
 export enum CoastActionTypes {
   ADD_COAST = '[Coast] AddCoast',
@@ -82,7 +82,7 @@ export class UpdateCoast implements Action {
 
 export class UpdateCoastSuccess implements Action {
   readonly type = CoastActionTypes.UPDATE_COAST_SUCCESS;
-  constructor() {}
+  constructor(public payload: { newValueCoast: NewCoast }) {}
 }
 
 export class UpdateCoastFailure implements Action {
