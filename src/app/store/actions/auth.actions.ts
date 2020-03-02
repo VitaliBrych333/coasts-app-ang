@@ -28,33 +28,8 @@ export class LogOut implements Action {
   constructor() {}
 }
 
-// export class LoadMore implements Action {
-//   readonly type = AuthActionTypes.LOAD_MORE;
-//   constructor(public payload: any) {}
-// }
-
-// export class LoadMoreSuccess implements Action {
-//   readonly type = AuthActionTypes.LOAD_MORE_SUCCESS;
-//   constructor(public payload: any) {}
-// }
-
-// export class AddCourse implements Action {
-//   readonly type = AuthActionTypes.ADD_COURSE;
-//   constructor(public payload: any) {}
-// }
-
-// export class UpdateCourse implements Action {
-//   readonly type = AuthActionTypes.UPDATE_COURSE;
-//   constructor(public payload: any) {}
-// }
-
-
 export type All =
   | LogIn
   | LogInSuccess
   | LogInFailure
   | LogOut;
-  // | LoadMore
-  // | LoadMoreSuccess
-  // | AddCourse
-  // | UpdateCourse

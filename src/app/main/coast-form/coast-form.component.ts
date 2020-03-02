@@ -85,12 +85,13 @@ export class CoastFormComponent implements OnInit, OnDestroy {
   }
 
   public add(): void {
+    const valueForm = this.formForValid.value;
     const newField: NewCoast = new NewCoast(
-      this.formForValid.value.date,
-      this.formForValid.value.sum,
-      this.formForValid.value.type,
+      valueForm.date,
+      valueForm.sum,
+      valueForm.type,
       this.authService.getUserPayload().login,
-      this.formForValid.value.other
+      valueForm.other
     );
 
     this.store.dispatch(new AddCoast({ newCoast: newField }));

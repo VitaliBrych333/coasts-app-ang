@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { Observable } from 'rxjs';
 import { tap, map } from 'rxjs/operators';
 import { NewUser } from '../../log/user.model';
-import { MatDialog } from '@angular/material/dialog';
 import { AuthService } from '../../services/auth.service';
 import { MessageWindowComponent } from '../../shared/components/message-window/message-window.component';
 import { Url } from '../../shared/constants/url.enum';

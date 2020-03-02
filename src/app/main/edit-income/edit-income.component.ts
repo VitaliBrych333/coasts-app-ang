@@ -100,13 +100,14 @@ export class EditIncomeComponent implements OnInit, OnDestroy {
   }
 
   public save(): void {
+    const valueForm = this.formForValid.value;
     const newField: NewIncome = new NewIncome(
-      this.formForValid.value.date,
-      this.formForValid.value.sum,
-      this.formForValid.value.who,
-      this.formForValid.value.type,
+      valueForm.date,
+      valueForm.sum,
+      valueForm.who,
+      valueForm.type,
       this.authService.getUserPayload().login,
-      this.formForValid.value.other
+      valueForm.other
     );
 
     this.store.dispatch(new UpdateIncome({ Id: this.currentFieldEditId, newValueIncome: newField }));

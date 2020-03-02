@@ -4,11 +4,9 @@ import { Observable } from 'rxjs';
 import { map, switchMap, catchError } from 'rxjs/operators';
 import { DataService } from '../../services/data.service';
 import { NewCoast } from '../../shared/models/coast.model';
-// import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/catch';
-// import 'rxjs/add/observable/fromPromise';
 import {
   CoastActionTypes,
   AddCoast, AddCoastSuccess, AddCoastFailure,

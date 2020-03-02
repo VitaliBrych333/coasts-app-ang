@@ -1,8 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { FilterDataService } from '../../../services/filter-data.service';
 import { Subscription, combineLatest } from 'rxjs';
 import { RequireObject } from '../../../shared/interfaces/requireObject.interface';
 import { OptionalObject } from '../../../shared/interfaces/optionalObject.interface';
+import { FilterDataService } from '../../../services/filter-data.service';
 
 @Component({
   selector: 'app-report-form',

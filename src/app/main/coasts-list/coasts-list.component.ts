@@ -11,8 +11,8 @@ import { LoadCoasts, ClearStateCoast } from '../../store/actions/coast.actions';
 import { ClearStateIncome } from '../../store/actions/income.actions';
 import { DataService } from '../../services/data.service';
 import { NewCoast } from '../../shared/models/coast.model';
-import { ModalDialogComponent } from '../modal-dialog/modal-dialog.component';
 import { Url } from '../../shared/constants/url.enum';
+import { ModalDialogComponent } from '../modal-dialog/modal-dialog.component';
 
 @Component({
   selector: 'app-coasts-list',

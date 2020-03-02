@@ -6,8 +6,8 @@ import { AppState, selectIncomeState } from '../../store/state/app.states';
 import { IncomeState } from '../../store/reducers/income.reducer';
 import { LoadIncomes } from '../../store/actions/income.actions';
 import { DataService } from '../../services/data.service';
-import { NewIncome } from '../../shared/models/income.model';
 import { CoastsListComponent } from '../coasts-list/coasts-list.component';
+import { NewIncome } from '../../shared/models/income.model';
 import { Url } from '../../shared/constants/url.enum';
 
 @Component({

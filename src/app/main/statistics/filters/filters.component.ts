@@ -10,8 +10,8 @@ import { LoadCoasts, ClearStateCoast } from '../../../store/actions/coast.action
 import { LoadIncomes, ClearStateIncome } from '../../../store/actions/income.actions';
 import { NewCoast } from '../../../shared/models/coast.model';
 import { NewIncome } from '../../../shared/models/income.model';
-import { FilterDataService } from '../../../services/filter-data.service';
 import { Mounth } from '../../../shared/interfaces/mounth.interface';
+import { FilterDataService } from '../../../services/filter-data.service';
 
 @Component({
   selector: 'app-filters',

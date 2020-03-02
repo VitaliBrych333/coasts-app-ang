@@ -17,12 +17,10 @@ import { AuthEffects } from './store/effects/auth.effects';
 import { RegistrEffects } from './store/effects/registr.effects';
 import { CoastEffects } from './store/effects/coast.effects';
 import { IncomeEffects } from './store/effects/income.effects';
-// import { CoursesEffects } from './store/effects/courses.effects';
 import { reducerAuth } from './store/reducers/auth.reducer';
 import { reducerRegistr } from './store/reducers/registr.reducer';
 import { reducerCoast } from './store/reducers/coast.reducer';
 import { reducerIncome } from './store/reducers/income.reducer';
-// import { reducerCoursesList } from './store/reducers/courses.reducers';
 import { AppState } from './store/state/app.states';
 
 export const appReducers: ActionReducerMap<AppState, any> = {
@@ -30,7 +28,6 @@ export const appReducers: ActionReducerMap<AppState, any> = {
   registrState: reducerRegistr,
   coastState: reducerCoast,
   incomeState: reducerIncome,
-  // coursesState: reducerCoursesList
 };
 
 @NgModule({
@@ -46,9 +43,7 @@ export const appReducers: ActionReducerMap<AppState, any> = {
     SharedModule,
     HttpClientModule,
     StoreModule.forRoot(appReducers),
-    EffectsModule.forRoot([AuthEffects, RegistrEffects, CoastEffects, IncomeEffects
-      // CoursesEffects
-     ]),
+    EffectsModule.forRoot([ AuthEffects, RegistrEffects, CoastEffects, IncomeEffects ]),
     FlexLayoutModule
   ],
   providers: [ {

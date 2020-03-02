@@ -78,7 +78,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     this.store.dispatch(new RegIn({ login: this.form.login.value, password: this.form.password.value }));
   }
 
-  private get form(): { [key: string]: AbstractControl } {
+  private get form(): {[key: string]: AbstractControl} {
     return this.profileForm.controls;
   }
 }

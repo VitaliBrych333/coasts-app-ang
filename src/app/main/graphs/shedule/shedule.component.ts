@@ -1,8 +1,8 @@
 import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { ChartDataSets, ChartOptions } from 'chart.js';
 import { Color, BaseChartDirective, Label } from 'ng2-charts';
-import { FilterDataService } from '../../../services/filter-data.service';
 import { Subscription } from 'rxjs';
+import { FilterDataService } from '../../../services/filter-data.service';
 import * as pluginAnnotations from 'chartjs-plugin-annotation';
 
 @Component({
@@ -20,7 +20,7 @@ export class SheduleComponent implements OnInit, OnDestroy {
          lineChartOptions: ChartOptions;
          lineChartLegend = true;
          lineChartType = 'line';
-         lineChartPlugins = [pluginAnnotations];
+         lineChartPlugins = [ pluginAnnotations ];
          lineChartColors: Color[];
 
   protected readonly subscriptions: Subscription[] = [];

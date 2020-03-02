@@ -25,4 +25,4 @@ export class RegInFailure implements Action {
 export type All =
   | RegIn
   | RegInSuccess
-  | RegInFailure
+  | RegInFailure;

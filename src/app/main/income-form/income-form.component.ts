@@ -86,13 +86,14 @@ export class IncomeFormComponent implements OnInit, OnDestroy {
   }
 
   public add(): void {
+    const valueForm = this.formForValid.value;
     const newFieldIncome: NewIncome = new NewIncome(
-      this.formForValid.value.date,
-      this.formForValid.value.sum,
-      this.formForValid.value.who,
-      this.formForValid.value.type,
+      valueForm.date,
+      valueForm.sum,
+      valueForm.who,
+      valueForm.type,
       this.authService.getUserPayload().login,
-      this.formForValid.value.other
+      valueForm.other
     );
 
     this.store.dispatch(new AddIncome({ newIncome: newFieldIncome }));

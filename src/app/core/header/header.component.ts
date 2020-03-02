@@ -19,7 +19,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
   protected readonly subscriptions: Subscription[] = [];
 
   constructor(private authService: AuthService,
-              private store: Store<AppState> ) { }
+              private store: Store<AppState>) { }
 
   public ngOnInit(): void {
     this.subscriptions.push(
