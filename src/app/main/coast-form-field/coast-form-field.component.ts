@@ -2,6 +2,7 @@ import { Component, Input, OnChanges, EventEmitter, Output, ChangeDetectionStrat
 import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { DatePipe } from '@angular/common';
 import { NewCoast } from '../../shared/models/coast.model';
+import { RequiredCoasts, OptionalCoasts } from '../../shared/constants/coasts.enum';
 
 @Component({
   selector: 'app-coast-form-field',
@@ -15,7 +16,7 @@ export class CoastFormFieldComponent implements OnChanges {
   @Input() newField: NewCoast;
   @Output() validForm: EventEmitter<FormGroup> = new EventEmitter<FormGroup>();
 
-  public listCategory: Array<string> = ['food', 'rent', 'clothes', 'child', 'petrol', 'present', 'gym', 'other'];
+  public listCategory: Array<string> = _.concat(_.values(RequiredCoasts) as any, _.values(OptionalCoasts));
 
   public field: FormGroup = new FormGroup({
     date: new FormControl(),

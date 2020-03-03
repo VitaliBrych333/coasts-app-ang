@@ -3,6 +3,7 @@ import { ChartDataSets, ChartOptions } from 'chart.js';
 import { Color, BaseChartDirective, Label } from 'ng2-charts';
 import { Subscription } from 'rxjs';
 import { FilterDataService } from '../../../services/filter-data.service';
+import { Months } from '../../../shared/constants/months';
 import * as pluginAnnotations from 'chartjs-plugin-annotation';
 
 @Component({
@@ -16,7 +17,7 @@ export class SheduleComponent implements OnInit, OnDestroy {
   @ViewChild(BaseChartDirective, { static: true }) chart: BaseChartDirective;
 
   public lineChartData: ChartDataSets[];
-         lineChartLabels: Label[] = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec'];
+         lineChartLabels: Label[] = _.map([...Months], (str) => str.slice(0, 3));
          lineChartOptions: ChartOptions;
          lineChartLegend = true;
          lineChartType = 'line';

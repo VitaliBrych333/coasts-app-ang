@@ -12,6 +12,7 @@ import { ClearStateIncome } from '../../store/actions/income.actions';
 import { DataService } from '../../services/data.service';
 import { NewCoast } from '../../shared/models/coast.model';
 import { Url } from '../../shared/constants/url.enum';
+import { ColumnNames } from '../../shared/constants/columnNamesForm';
 import { ModalDialogComponent } from '../modal-dialog/modal-dialog.component';
 
 @Component({
@@ -25,7 +26,7 @@ export class CoastsListComponent implements OnInit, OnDestroy {
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
 
-  public displayedColumns: string[] = ['position', 'date', 'sum', 'type', 'other', 'author', 'actions'];
+  public displayedColumns: string[] = [...ColumnNames];
 
   public dataSource: MatTableDataSource<object>;
          listData: object[] = [];

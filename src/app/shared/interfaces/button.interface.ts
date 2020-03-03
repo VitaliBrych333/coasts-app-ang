@@ -1,4 +1,4 @@
 export interface Button {
-  title: string,
-  link: string
+  title: string;
+  link: string;
 }

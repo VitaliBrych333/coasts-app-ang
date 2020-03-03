@@ -11,6 +11,7 @@ import { LoadIncomes, ClearStateIncome } from '../../../store/actions/income.act
 import { NewCoast } from '../../../shared/models/coast.model';
 import { NewIncome } from '../../../shared/models/income.model';
 import { Mounth } from '../../../shared/interfaces/mounth.interface';
+import { Months } from '../../../shared/constants/months';
 import { FilterDataService } from '../../../services/filter-data.service';
 
 @Component({
@@ -30,7 +31,7 @@ export class FiltersComponent implements OnInit, OnDestroy {
          startDate = new Date();
          selectedMounth: string;
          mounths: object[] = [];
-         mounthsNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+         mounthsNames = [...Months];
 
          years: Array<number>;
          listCoasts: NewCoast[] = [];

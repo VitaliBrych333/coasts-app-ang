@@ -2,6 +2,10 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription, combineLatest } from 'rxjs';
 import { RequireObject } from '../../../shared/interfaces/requireObject.interface';
 import { OptionalObject } from '../../../shared/interfaces/optionalObject.interface';
+import { RequiredCoasts, OptionalCoasts } from '../../../shared/constants/coasts.enum';
+import { TypesIncomes } from '../../../shared/constants/incomes.enum';
+import { UserName } from '../../../shared/constants/userNames.enum';
+import { NewUsers } from '../../../shared/models/users.model';
 import { FilterDataService } from '../../../services/filter-data.service';
 
 @Component({
@@ -12,10 +16,10 @@ import { FilterDataService } from '../../../services/filter-data.service';
 
 export class ReportFormComponent implements OnInit, OnDestroy {
 
-  public required: Array<string> = ['food', 'rent', 'child', 'gym'];
-         optional: Array<string> = ['clothes', 'petrol', 'present', 'other'];
-         typesIncomes: Array<string> = ['salary', 'sick leave', 'child benefit', 'gift', 'holiday pay'];
-         users: Array<string> = ['Vitali', 'Nastya'];
+  public required: Array<string> = _.values(RequiredCoasts);
+         optional: Array<string> = _.values(OptionalCoasts);
+         typesIncomes: Array<string> = _.values(TypesIncomes);
+         users: Array<string> = [...UserName];
 
          coastsTotal: number;
          incomesTotal: number;
@@ -23,10 +27,7 @@ export class ReportFormComponent implements OnInit, OnDestroy {
          currentRequired: RequireObject;
          currentOptional: OptionalObject;
 
-  public allUsers: any = {
-    Vitali: {},
-    Nastya: {},
-  };
+  public allUsers: any = new NewUsers({}, {});
 
   protected readonly subscriptions: Subscription[] = [];
 
@@ -40,15 +41,15 @@ export class ReportFormComponent implements OnInit, OnDestroy {
           let food, rent, child, gym, required, clothes, petrol, present, other, optional;
 
           if (dataCoasts.length) {
-            food = +dataCoasts.filter(obj => obj.type === 'food').reduce((acc, cur) => acc + cur.sum, 0).toFixed(2);
-            rent = +dataCoasts.filter(obj => obj.type === 'rent').reduce((acc, cur) => acc + cur.sum, 0).toFixed(2);
-            child = +dataCoasts.filter(obj => obj.type === 'child').reduce((acc, cur) => acc + cur.sum, 0).toFixed(2);
-            gym = +dataCoasts.filter(obj => obj.type === 'gym').reduce((acc, cur) => acc + cur.sum, 0).toFixed(2);
+            food = +dataCoasts.filter(obj => obj.type === RequiredCoasts.FOOD).reduce((acc, cur) => acc + cur.sum, 0).toFixed(2);
+            rent = +dataCoasts.filter(obj => obj.type === RequiredCoasts.RENT).reduce((acc, cur) => acc + cur.sum, 0).toFixed(2);
+            child = +dataCoasts.filter(obj => obj.type === RequiredCoasts.CHILD).reduce((acc, cur) => acc + cur.sum, 0).toFixed(2);
+            gym = +dataCoasts.filter(obj => obj.type === RequiredCoasts.GYM).reduce((acc, cur) => acc + cur.sum, 0).toFixed(2);
 
-            clothes = +dataCoasts.filter(obj => obj.type === 'clothes').reduce((acc, cur) => acc + cur.sum, 0).toFixed(2);
-            petrol = +dataCoasts.filter(obj => obj.type === 'petrol').reduce((acc, cur) => acc + cur.sum, 0).toFixed(2);
-            present = +dataCoasts.filter(obj => obj.type === 'present').reduce((acc, cur) => acc + cur.sum, 0).toFixed(2);
-            other = +dataCoasts.filter(obj => obj.type === 'other').reduce((acc, cur) => acc + cur.sum, 0).toFixed(2);
+            clothes = +dataCoasts.filter(obj => obj.type === OptionalCoasts.CLOTHES).reduce((acc, cur) => acc + cur.sum, 0).toFixed(2);
+            petrol = +dataCoasts.filter(obj => obj.type === OptionalCoasts.PETROL).reduce((acc, cur) => acc + cur.sum, 0).toFixed(2);
+            present = +dataCoasts.filter(obj => obj.type === OptionalCoasts.PRESENT).reduce((acc, cur) => acc + cur.sum, 0).toFixed(2);
+            other = +dataCoasts.filter(obj => obj.type === OptionalCoasts.OTHER).reduce((acc, cur) => acc + cur.sum, 0).toFixed(2);
 
             required = +(food + rent + child + gym).toFixed(2);
             optional = +(clothes + petrol + present + other).toFixed(2);

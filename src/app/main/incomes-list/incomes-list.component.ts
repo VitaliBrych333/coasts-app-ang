@@ -8,6 +8,7 @@ import { LoadIncomes } from '../../store/actions/income.actions';
 import { DataService } from '../../services/data.service';
 import { CoastsListComponent } from '../coasts-list/coasts-list.component';
 import { NewIncome } from '../../shared/models/income.model';
+import { ColumnNames } from '../../shared/constants/columnNamesForm';
 import { Url } from '../../shared/constants/url.enum';
 
 @Component({
@@ -18,7 +19,7 @@ import { Url } from '../../shared/constants/url.enum';
 
 export class IncomesListComponent extends CoastsListComponent implements OnInit {
 
-  public displayedColumns: string[] = ['position', 'date', 'sum', 'who', 'type', 'other', 'author', 'actions'];
+  public displayedColumns: string[] = [...ColumnNames];
          getStateIncome: Observable<object>;
 
   constructor(public router: Router,
@@ -30,6 +31,7 @@ export class IncomesListComponent extends CoastsListComponent implements OnInit 
               }
 
   public ngOnInit(): void {
+    this.displayedColumns.splice(3, 0, 'who');
     this.getStateIncome = this.store.select(selectIncomeState);
 
     this.subscriptions.push(

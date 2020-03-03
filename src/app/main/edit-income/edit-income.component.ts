@@ -23,7 +23,6 @@ import { Url } from '../../shared/constants/url.enum';
 
 export class EditIncomeComponent implements OnInit, OnDestroy {
 
-  //public listCategory: Array<string> = ['food', 'rent', 'clothes', 'child', 'petrol', 'present', 'gym', 'other'];
   public editFieldIncome: object = {
     date: null,
     sum: null,

@@ -2,6 +2,8 @@ import { Component, Input, OnChanges, EventEmitter, Output, ChangeDetectionStrat
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { DatePipe } from '@angular/common';
 import { NewIncome } from '../../shared/models/income.model';
+import { TypesIncomes } from '../../shared/constants/incomes.enum';
+import { UserName } from '../../shared/constants/userNames.enum';
 
 @Component({
   selector: 'app-income-form-field',
@@ -15,8 +17,8 @@ export class IncomeFormFieldComponent implements OnChanges {
   @Input() newFieldIncome: NewIncome;
   @Output() validForm: EventEmitter<FormGroup> = new EventEmitter<FormGroup>();
 
-  public types: string[] = ['salary', 'sick leave', 'child benefit', 'gift', 'holiday pay'];
-         persons: string[] = ['Vitali', 'Nastya'];
+  public types: string[] = _.values(TypesIncomes);
+         persons: string[] = [...UserName];
          fieldIncome: FormGroup;
 
   public dataMin = `${new Date().getFullYear().toString()}` + '-01-01';

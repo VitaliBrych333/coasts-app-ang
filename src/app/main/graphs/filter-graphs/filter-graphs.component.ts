@@ -3,6 +3,9 @@ import { Store } from '@ngrx/store';
 import { AppState } from '../../../store/state/app.states';
 import { FiltersComponent } from '../../statistics/filters/filters.component';
 import { FilterDataService } from '../../../services/filter-data.service';
+import { RequiredCoasts, OptionalCoasts } from '../../../shared/constants/coasts.enum';
+import { TypesIncomes } from '../../../shared/constants/incomes.enum';
+import { FilterValue } from '../../../shared/constants/filterValue.enum';
 
 @Component({
   selector: 'app-filter-graphs',
@@ -15,14 +18,15 @@ export class FilterGraphsComponent extends FiltersComponent {
   public someYears: boolean = true;
          oneYear: boolean = false;
 
-         coastsRequired: Array<string> = ['food', 'rent', 'child', 'gym'];
-         coastsOptional: Array<string> = ['clothes', 'petrol', 'present', 'other'];
-         incomesTotal: Array<string> = ['salary', 'sick leave', 'child benefit', 'gift', 'holiday pay'];
-         incomesUsers: Array<string> = ['incomes Vitali', 'incomes Nastya'];
-         coastsKinds: Array<string> = ['coasts required', 'coasts optional'];
+         coastsRequired: Array<string> = _.values(RequiredCoasts);
+         coastsOptional: Array<string> = _.values(OptionalCoasts);
+         incomesTotal: Array<string> = _.values(TypesIncomes);
+         incomesUsers: Array<string> = [ FilterValue.INCOMES_USER_1, FilterValue.INCOMES_USER_2 ];
+         coastsKinds: Array<string> = [ FilterValue.COASTS_REQUIRED, FilterValue.COASTS_OPTIONAL ];
 
-         parameters: Array<string> = this.coastsRequired.concat(this.coastsOptional, this.incomesTotal, this.incomesUsers,
-                                                          this.coastsKinds, 'coasts total', 'incomes total', 'accumulation');
+         parameters: Array<string> = this.coastsRequired
+                                       .concat(this.coastsOptional, this.incomesTotal, this.incomesUsers, this.coastsKinds,
+                                               FilterValue.COASTS_TOTAL, FilterValue.INCOMES_TOTAL, FilterValue.ACCUMULATION);
 
          selectedYear: number;
          selectedParameters: string[];
@@ -68,19 +72,19 @@ export class FilterGraphsComponent extends FiltersComponent {
 
     } else {
       switch (value) {
-        case 'coasts required':
+        case FilterValue.COASTS_REQUIRED:
           newDataGraphs = this.currentListCoasts.filter(obj => this.coastsRequired.includes(obj.type));
           break;
-        case 'coasts optional':
+        case FilterValue.COASTS_OPTIONAL:
           newDataGraphs = this.currentListCoasts.filter(obj => this.coastsOptional.includes(obj.type));
           break;
-        case 'coasts total':
+        case FilterValue.COASTS_TOTAL:
           newDataGraphs = _.cloneDeep(this.currentListCoasts);
           break;
-        case 'incomes total':
+        case FilterValue.INCOMES_TOTAL:
           newDataGraphs = _.cloneDeep(this.currentListIncomes);
           break;
-        case 'accumulation':
+        case FilterValue.ACCUMULATION:
           const tempListCoasts = _.cloneDeep(this.currentListCoasts);
           const tempListIncomes = _.cloneDeep(this.currentListIncomes) as any;
 

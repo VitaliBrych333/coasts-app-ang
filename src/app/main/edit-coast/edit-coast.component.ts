@@ -23,7 +23,6 @@ import { Url } from '../../shared/constants/url.enum';
 
 export class EditCoastComponent implements OnInit, OnDestroy {
 
-  //public listCategory: Array<string> = ['food', 'rent', 'clothes', 'child', 'petrol', 'present', 'gym', 'other'];
   public editField: object = {
     date: null,
     sum: null,
