@@ -118,10 +118,10 @@ export class SheduleComponent implements OnInit, OnDestroy {
 
         if (data.length) {
           data.forEach((value, index) => {
-             const newData = Array.from(value.values()).slice(0, 12);
-             const newLabel = value.get(12);
-             this.lineChartData[index].data = newData;
-             this.lineChartData[index].label = newLabel;
+          const newData = Array.from(value.values()).slice(0, 12);
+            const newLabel = value.get(12);
+            this.lineChartData[index].data = newData;
+            this.lineChartData[index].label = newLabel;
           });
         }
 

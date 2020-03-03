@@ -57,10 +57,7 @@ export class ModalDialogComponent implements OnInit, OnDestroy {
   }
 
   public deleteId(): void {
-    if (this.fieldDelete.who) {
-      this.store.dispatch(new DeleteIncome({ incomeDel: this.fieldDelete }));
-    } else {
-      this.store.dispatch(new DeleteCoast({ coastDel: this.fieldDelete }));
-    }
+    this.fieldDelete.who ? this.store.dispatch(new DeleteIncome({ incomeDel: this.fieldDelete }))
+                         : this.store.dispatch(new DeleteCoast({ coastDel: this.fieldDelete }));
   }
 }
