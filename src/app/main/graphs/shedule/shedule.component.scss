@@ -16,8 +16,16 @@
   }
 }
 
-canvas {
-  height: calc(100vh - 410px) !important;
+@media screen and (min-height: 937px) {
+  canvas {
+    height: calc(100vh - 553px) !important;
+  }
+}
+
+@media screen and (max-height: 936px) {
+  canvas {
+    height: calc(100vh - 410px) !important;
+  }
 }
 
 table {
