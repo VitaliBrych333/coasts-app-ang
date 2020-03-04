@@ -42,7 +42,12 @@ export const appReducers: ActionReducerMap<AppState, any> = {
     CoreModule,
     SharedModule,
     HttpClientModule,
-    StoreModule.forRoot(appReducers),
+    StoreModule.forRoot(appReducers, {
+      runtimeChecks: {
+        strictStateImmutability: true,
+        strictActionImmutability: true
+      }
+    }),
     EffectsModule.forRoot([ AuthEffects, RegistrEffects, CoastEffects, IncomeEffects ]),
     FlexLayoutModule
   ],
