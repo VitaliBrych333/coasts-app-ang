@@ -203,11 +203,8 @@ export class SheduleComponent implements OnInit, OnDestroy {
   }
 
   public changeColor(): void {
-    if (this.lineChartColors === this.stateFirstColor) {
-      this.lineChartColors = this.stateSecondColor;
-    } else {
-      this.lineChartColors = this.stateFirstColor;
-    }
+    this.lineChartColors === this.stateFirstColor ? this.lineChartColors = this.stateSecondColor
+                                                  : this.lineChartColors = this.stateFirstColor;
 
     if (this.lineChartOptions.scales.yAxes[1]) {
       this.lineChartOptions = {

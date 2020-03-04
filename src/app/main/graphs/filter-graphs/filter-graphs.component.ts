@@ -47,9 +47,9 @@ export class FilterGraphsComponent extends FiltersComponent {
     }
 
     this.filterOnlyByYear();
+
     this.selectedParameters.forEach(value => {
       const newDataGraphs: Array<object> = this.filterByKindParameter(value);
-
       const newData = this.getSumDataByMonths(newDataGraphs);
       newData.set(12, value);
       this.arrayDataCompare.push(newData);
