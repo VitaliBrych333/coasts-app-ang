@@ -6,6 +6,7 @@ import { RequiredCoasts, OptionalCoasts } from '../../../shared/constants/coasts
 import { TypesIncomes } from '../../../shared/constants/incomes.enum';
 import { UserName } from '../../../shared/constants/userNames.enum';
 import { NewUsers } from '../../../shared/models/users.model';
+import { Filters } from '../../../shared/constants/filters';
 import { FilterDataService } from '../../../services/filter-data.service';
 
 @Component({
@@ -41,15 +42,15 @@ export class ReportFormComponent implements OnInit, OnDestroy {
           let food, rent, child, gym, required, clothes, petrol, present, other, optional;
 
           if (dataCoasts.length) {
-            food = +dataCoasts.filter(obj => obj.type === RequiredCoasts.FOOD).reduce((acc, cur) => acc + cur.sum, 0).toFixed(2);
-            rent = +dataCoasts.filter(obj => obj.type === RequiredCoasts.RENT).reduce((acc, cur) => acc + cur.sum, 0).toFixed(2);
-            child = +dataCoasts.filter(obj => obj.type === RequiredCoasts.CHILD).reduce((acc, cur) => acc + cur.sum, 0).toFixed(2);
-            gym = +dataCoasts.filter(obj => obj.type === RequiredCoasts.GYM).reduce((acc, cur) => acc + cur.sum, 0).toFixed(2);
+            food = this.filterDataService.filter(dataCoasts, RequiredCoasts.FOOD, Filters.byType);
+            rent = this.filterDataService.filter(dataCoasts, RequiredCoasts.RENT, Filters.byType);
+            child = this.filterDataService.filter(dataCoasts, RequiredCoasts.CHILD, Filters.byType);
+            gym = this.filterDataService.filter(dataCoasts, RequiredCoasts.GYM, Filters.byType);
 
-            clothes = +dataCoasts.filter(obj => obj.type === OptionalCoasts.CLOTHES).reduce((acc, cur) => acc + cur.sum, 0).toFixed(2);
-            petrol = +dataCoasts.filter(obj => obj.type === OptionalCoasts.PETROL).reduce((acc, cur) => acc + cur.sum, 0).toFixed(2);
-            present = +dataCoasts.filter(obj => obj.type === OptionalCoasts.PRESENT).reduce((acc, cur) => acc + cur.sum, 0).toFixed(2);
-            other = +dataCoasts.filter(obj => obj.type === OptionalCoasts.OTHER).reduce((acc, cur) => acc + cur.sum, 0).toFixed(2);
+            clothes = this.filterDataService.filter(dataCoasts, OptionalCoasts.CLOTHES, Filters.byType);
+            petrol = this.filterDataService.filter(dataCoasts, OptionalCoasts.PETROL, Filters.byType);
+            present = this.filterDataService.filter(dataCoasts, OptionalCoasts.PRESENT, Filters.byType);
+            other = this.filterDataService.filter(dataCoasts, OptionalCoasts.OTHER, Filters.byType);
 
             required = +(food + rent + child + gym).toFixed(2);
             optional = +(clothes + petrol + present + other).toFixed(2);
@@ -76,19 +77,21 @@ export class ReportFormComponent implements OnInit, OnDestroy {
           };
 
           if (dataIncomes.length) {
+            this.incomesTotal = null;
+
             this.users.forEach(user => {
               this.allUsers[user].total = null;
               this.typesIncomes.forEach(type => {
-                this.allUsers[user][type] = +dataIncomes.filter(obj => obj.who === user)
-                                              .filter(obj => obj.type === type)
-                                              .reduce((acc, cur) => acc + cur.sum, 0)
-                                              .toFixed(2);
+
+                const filterAuthor = this.filterDataService.filter(dataIncomes, user, Filters.byAuthor);
+                this.allUsers[user][type] = this.filterDataService.filter(filterAuthor, type, Filters.byType);
               });
 
               this.allUsers[user].total = +_.sum(_.values(this.allUsers[user])).toFixed(2);
+              this.incomesTotal += this.allUsers[user].total;
             });
 
-            this.incomesTotal =  +(this.allUsers.Vitali.total + this.allUsers.Nastya.total).toFixed(2);
+            this.incomesTotal = +this.incomesTotal.toFixed(2);
 
           } else {
             this.users.forEach(user => {
@@ -101,12 +104,8 @@ export class ReportFormComponent implements OnInit, OnDestroy {
             });
           }
 
-          if (this.coastsTotal && this.incomesTotal) {
+          if (this.coastsTotal || this.incomesTotal) {
             this.balanse = +(this.incomesTotal - this.coastsTotal).toFixed(2);
-          } else if (this.coastsTotal === null && this.incomesTotal) {
-            this.balanse = +this.incomesTotal.toFixed(2);
-          } else if (this.coastsTotal && this.incomesTotal === null) {
-            this.balanse = +(- this.coastsTotal).toFixed(2);
           } else {
             this.balanse = null;
           }

@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
+import { NewCoast } from '../shared/models/coast.model';
+import { NewIncome } from '../shared/models/income.model';
 
 @Injectable({
   providedIn: 'root'
@@ -25,5 +27,9 @@ export class FilterDataService {
 
   public changeSourceDataCompare(newArray: Array<object>): void {
     this.arrayDataCompare.next(newArray);
+  }
+
+  public filter(data: NewCoast[] | NewIncome[], filterValue: string, filterType: any): NewCoast[] | NewIncome[] {
+    return filterType(data, filterValue);
   }
 }
