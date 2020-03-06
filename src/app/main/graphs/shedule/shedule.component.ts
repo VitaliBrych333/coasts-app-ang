@@ -139,8 +139,7 @@ export class SheduleComponent implements OnInit, OnDestroy {
                                                                         //             : _.min(obj),
                                                                          'minNum': _.max(obj) > 0
                                                                                     ? _.min(_.filter(obj, num => num > 0))
-                                                                                    : _.min(obj),
-
+                                                                                    : _.min(obj)
                                                                       }
                                                                     ));
 
@@ -174,33 +173,7 @@ export class SheduleComponent implements OnInit, OnDestroy {
 
   public scale(): void {
     if (!this.lineChartOptions.scales.yAxes[1]) {
-      this.lineChartOptions = {
-        responsive: true,
-        maintainAspectRatio: false,
-        scales: {
-          xAxes: [{}],
-          yAxes: [
-            {
-              id: 'y-axis-0',
-              position: 'left',
-              ticks: {
-                beginAtZero: true
-              }
-            },
-            {
-              id: 'y-axis-1',
-              position: 'right',
-              gridLines: {
-                color: 'rgba(255,0,0,0.3)',
-              },
-              ticks: {
-                fontColor: this.lineChartColors[this.arrayIndexArrayScale[0]].borderColor,
-                beginAtZero: true
-              }
-            }
-          ]
-        },
-      };
+      this.lineChartOptions = this.stateColors;
       this.arrayIndexArrayScale.forEach(num => this.lineChartData[num].yAxisID = 'y-axis-1');
 
     } else {
@@ -213,34 +186,37 @@ export class SheduleComponent implements OnInit, OnDestroy {
     this.lineChartColors === this.stateFirstColor ? this.lineChartColors = this.stateSecondColor
                                                   : this.lineChartColors = this.stateFirstColor;
 
-    if (this.lineChartOptions.scales.yAxes[1]) {
-      this.lineChartOptions = {
-        responsive: true,
-        maintainAspectRatio: false,
-        scales: {
-          xAxes: [{}],
-          yAxes: [
-            {
-              id: 'y-axis-0',
-              position: 'left',
-              ticks: {
-                beginAtZero: true
-              }
-            },
-            {
-              id: 'y-axis-1',
-              position: 'right',
-              gridLines: {
-                color: 'rgba(255,0,0,0.3)',
-              },
-              ticks: {
-                fontColor: this.lineChartColors[this.arrayIndexArrayScale[0]].borderColor,
-                beginAtZero: true
-              }
+    this.lineChartOptions.scales.yAxes[1] ? this.lineChartOptions = this.stateColors
+                                          : undefined;
+  }
+
+  private get stateColors(): object {
+    return {
+      responsive: true,
+      maintainAspectRatio: false,
+      scales: {
+        xAxes: [{}],
+        yAxes: [
+          {
+            id: 'y-axis-0',
+            position: 'left',
+            ticks: {
+              beginAtZero: true
             }
-          ]
-        },
-      };
-    }
+          },
+          {
+            id: 'y-axis-1',
+            position: 'right',
+            gridLines: {
+              color: 'rgba(255,0,0,0.3)',
+            },
+            ticks: {
+              fontColor: this.lineChartColors[this.arrayIndexArrayScale[0]].borderColor,
+              beginAtZero: true
+            }
+          }
+        ]
+      },
+    };
   }
 }
