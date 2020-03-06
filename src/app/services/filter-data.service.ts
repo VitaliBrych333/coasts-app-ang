@@ -29,7 +29,9 @@ export class FilterDataService {
     this.arrayDataCompare.next(newArray);
   }
 
-  public filter(data: NewCoast[] | NewIncome[], filterValue: string, filterType: any): NewCoast[] | NewIncome[] {
+  public filter(data: NewCoast[] | NewIncome[] | object[],
+                filterValue: string | number,
+                filterType: any): NewCoast[] | NewIncome[] {
     return filterType(data, filterValue);
   }
 }

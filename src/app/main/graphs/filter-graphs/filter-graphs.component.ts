@@ -6,6 +6,7 @@ import { FilterDataService } from '../../../services/filter-data.service';
 import { RequiredCoasts, OptionalCoasts } from '../../../shared/constants/coasts.enum';
 import { TypesIncomes } from '../../../shared/constants/incomes.enum';
 import { FilterValue } from '../../../shared/constants/filterValue.enum';
+import { Filters } from '../../../shared/constants/filters';
 
 @Component({
   selector: 'app-filter-graphs',
@@ -62,13 +63,14 @@ export class FilterGraphsComponent extends FiltersComponent {
     let newDataGraphs: Array<object>;
 
     if (this.coastsRequired.includes(value) || this.coastsOptional.includes(value)) {
-        newDataGraphs = this.currentListCoasts.filter(obj => obj.type === value);
-
+      newDataGraphs = this.currentListCoasts.filter(obj => obj.type === value);
+      // newDataGraphs =  this.filterDataService.filter(this.currentListCoasts, value, Filters.byType);
     } else if (this.incomesTotal.includes(value)) {
       newDataGraphs = this.currentListIncomes.filter(obj => obj.type === value);
 
     } else if (this.incomesUsers.includes(value)) {
-      newDataGraphs = this.currentListIncomes.filter(obj => obj.who === value.slice(8));
+      newDataGraphs = this.filterDataService.filter(this.currentListIncomes, value.slice(8), Filters.byAuthor);
+      // newDataGraphs = this.currentListIncomes.filter(obj => obj.who === value.slice(8));
 
     } else {
       switch (value) {
@@ -151,11 +153,17 @@ export class FilterGraphsComponent extends FiltersComponent {
     let sumResult: number = 0;
 
     for (let i = 0; i < 12; i++) {
+      const filtertByMonth = this.filterDataService.filter(newDataGraphs, i, Filters.byMonth);
+
       if (year) {
-        sumResult = +_.sumBy(newDataGraphs.filter((obj: any) => (new Date(obj.date).getMonth() === i)
-                                                                  && (new Date(obj.date).getFullYear() === year)), 'sum').toFixed(2);
+        const filtertByYear = this.filterDataService.filter(filtertByMonth, year, Filters.byYear);
+        sumResult = +_.sumBy(filtertByYear, 'sum').toFixed(2);
+        // sumResult = +_.sumBy(newDataGraphs.filter((obj: any) => (new Date(obj.date).getMonth() === i)
+        //                                                           && (new Date(obj.date).getFullYear() === year)), 'sum').toFixed(2);
+
       } else {
-        sumResult = +_.sumBy(newDataGraphs.filter((obj: any) => new Date(obj.date).getMonth() === i), 'sum').toFixed(2);
+        sumResult = +_.sumBy(filtertByMonth, 'sum').toFixed(2);
+        // sumResult = +_.sumBy(newDataGraphs.filter((obj: any) => new Date(obj.date).getMonth() === i), 'sum').toFixed(2);
       }
 
       newData.set(i, sumResult);

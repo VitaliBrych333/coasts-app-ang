@@ -110,15 +110,11 @@ export class SheduleComponent implements OnInit, OnDestroy {
         this.arrayIndexArrayScale = [];
         this.lineChartOptions = this.stateChartOptions;
 
-        this.lineChartData = [
-          { data: [], label: '' },
-          { data: [], label: '' },
-          { data: [], label: '' }
-        ];
+        this.lineChartData = Array(3).fill({ data: [], label: '' });
 
         if (data.length) {
           data.forEach((value, index) => {
-          const newData = Array.from(value.values()).slice(0, 12);
+            const newData = Array.from(value.values()).slice(0, 12);
             const newLabel = value.get(12);
             this.lineChartData[index].data = newData;
             this.lineChartData[index].label = newLabel;
@@ -134,29 +130,36 @@ export class SheduleComponent implements OnInit, OnDestroy {
                                                                       {
                                                                         'maxNum': _.max(obj),
                                                                         'indexArray': index,
-                                                                        'minNum': obj.filter((num: number) => num > 0).length
-                                                                                    ? _.min(obj.filter((num: number) => num > 0))
+                                                                        // 'minNum': obj.filter((num: number) => num > 0).length
+                                                                        //             ? _.min(obj.filter((num: number) => num > 0))
+                                                                        //             : _.min(obj),
+                                                                         'minNum': _.max(obj) > 0
+                                                                                    ? _.min(_.filter(obj, num => num > 0))
                                                                                     : _.min(obj),
+
                                                                       }
                                                                     ));
 
           const objMaxValue = _.maxBy(tempArray, 'maxNum');
           arrayMaxAbsValue = tempArray.filter(obj => obj['maxNum'] === objMaxValue['maxNum']);
 
-          const objMinValue = tempArray.filter(obj => obj['minNum'] > 0 && !_.includes(_.map(arrayMaxAbsValue, 'indexArray'), obj['indexArray'])).length
-            ? _.minBy(tempArray.filter(obj => obj['minNum'] > 0 && !_.includes(_.map(arrayMaxAbsValue, 'indexArray'), obj['indexArray'])), 'minNum')
-            : _.minBy(tempArray, 'minNum');
+          const arrayMinValues = tempArray.filter(obj => obj['minNum'] > 0
+                                                         && !_.includes(_.map(arrayMaxAbsValue, 'indexArray'), obj['indexArray']));
+
+          const objMinValue = arrayMinValues.length ? _.minBy(arrayMinValues, 'minNum')
+                                                    : _.minBy(tempArray, 'minNum');
 
           const arrayMinAbsValue = tempArray.filter(obj => obj['minNum'] === objMinValue['minNum']);
+          const valueMax = arrayMaxAbsValue[0];
+          const valueMin = arrayMinAbsValue[0];
 
-          if (arrayMaxAbsValue[0]['maxNum'] !== 0 && arrayMinAbsValue[0]['minNum'] !== 0) {
-            countTimesScale = _.floor(arrayMaxAbsValue[0]['maxNum'] / arrayMinAbsValue[0]['minNum']);
+          if (valueMax['maxNum'] !== 0 && valueMin['minNum'] !== 0) {
+            countTimesScale = _.floor(valueMax['maxNum'] / valueMin['minNum']);
           }
         }
 
-        if (countTimesScale >= 10) {
-          arrayMaxAbsValue.forEach(obj => this.arrayIndexArrayScale.push(obj['indexArray']));
-        }
+        countTimesScale >= 10 ? arrayMaxAbsValue.forEach(obj => this.arrayIndexArrayScale.push(obj['indexArray']))
+                              : undefined;
       })
     );
   }
