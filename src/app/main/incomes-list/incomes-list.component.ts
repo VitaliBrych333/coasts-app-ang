@@ -37,6 +37,7 @@ export class IncomesListComponent extends CoastsListComponent implements OnInit 
     this.subscriptions.push(
       this.getStateIncome.subscribe((state: IncomeState) => {
         if (state.incomes) {
+          this.listData = [];
           state.incomes.forEach((obj: NewIncome) => this.listData.push(Object.assign({}, obj)));
           this.listData.forEach((obj: NewIncome) => obj.position = (this.listData.indexOf(obj) + 1));
           this.createTable(this.listData);

@@ -46,6 +46,7 @@ export class CoastsListComponent implements OnInit, OnDestroy {
     this.subscriptions.push(
       this.getStateCoast.subscribe((state: CoastState) => {
         if (state.coasts) {
+          this.listData = [];
           state.coasts.forEach((obj: NewCoast) => this.listData.push(Object.assign({}, obj)));
           this.listData.forEach((obj: NewCoast) => obj.position = (this.listData.indexOf(obj) + 1));
           this.createTable(this.listData);
@@ -78,7 +79,7 @@ export class CoastsListComponent implements OnInit, OnDestroy {
 
       componentRef.instance.deleteField.subscribe((state: boolean) => {
         if (state) {
-          this.listData = this.listData.filter((obg: any) => obg._id !== fieldDelete._id);
+          this.listData = this.listData.filter((obj: any) => obj._id !== fieldDelete._id);
           this.createTable(this.listData);
         }
 

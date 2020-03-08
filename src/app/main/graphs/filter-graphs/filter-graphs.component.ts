@@ -47,7 +47,7 @@ export class FilterGraphsComponent extends FiltersComponent {
       return;
     }
 
-    this.filterOnlyByYear();
+    this.factoryUpdateData(this.listCoasts, this.listIncomes, this.selectedYear, Filters.byYear);
 
     this.selectedParameters.forEach(value => {
       const newDataGraphs: Array<object> = this.filterByKindParameter(value);
