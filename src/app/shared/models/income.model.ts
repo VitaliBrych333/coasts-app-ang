@@ -7,9 +7,9 @@ export class NewIncome implements Income {
   type: string;
   other?: string;
   author: string;
+  position?: number;
   __v?: number;
   _id?: string;
-  position?: number;
 
   constructor(fieldDate: Date,
               fieldSum: number,
@@ -17,9 +17,9 @@ export class NewIncome implements Income {
               fieldType: string,
               fieldAuthor: string,
               fieldOther?: string,
+              fieldPosition?: number,
               fieldV?: number,
-              fieldIdDb?: string,
-              fieldPosition?: number) {
+              fieldIdDb?: string) {
 
     this.date = fieldDate;
     this.sum = fieldSum;
@@ -27,8 +27,8 @@ export class NewIncome implements Income {
     this.type = fieldType;
     this.other = fieldOther;
     this.author = fieldAuthor;
+    this.position = fieldPosition;
     this.__v = fieldV;
     this._id = fieldIdDb;
-    this.position = fieldPosition;
   }
 }

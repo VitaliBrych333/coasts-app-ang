@@ -1,12 +1,12 @@
 import { Coast } from '../interfaces/coast.interface';
 
 export class NewCoast implements Coast {
-  position?: number;
   date: Date;
   sum: number;
   type: string;
   other?: string;
   author: string;
+  position?: number;
   __v?: number;
   _id?: string;
 
@@ -15,16 +15,16 @@ export class NewCoast implements Coast {
               fieldType: string,
               fieldAuthor: string,
               fieldOther?: string,
+              fieldPosition?: number,
               fieldV?: number,
-              fieldIdDb?: string,
-              fieldPosition?: number) {
+              fieldIdDb?: string) {
 
-    this.position = fieldPosition;
     this.date = fieldDate;
     this.sum = fieldSum;
     this.type = fieldType;
     this.other = fieldOther;
     this.author = fieldAuthor;
+    this.position = fieldPosition;
     this.__v = fieldV;
     this._id = fieldIdDb;
   }

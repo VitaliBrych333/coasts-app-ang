@@ -30,8 +30,8 @@ export class FilterDataService {
   }
 
   public filter(data: NewCoast[] | NewIncome[] | object[],
-                filterValue: string | number,
-                filterType: any): NewCoast[] | NewIncome[] {
+                filterValue: string | number | Date,
+                filterType: any): any {
     return filterType(data, filterValue);
   }
 }
