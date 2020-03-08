@@ -125,25 +125,29 @@ export class FiltersComponent implements OnInit, OnDestroy {
         // this.currentListIncomes = this.listIncomes.filter((obj: NewIncome) =>
         //   this.setDate(obj.date) <= this.topDateFilter
         // );
-
-        this.currentListCoasts = this.filterDataService.filter(this.listCoasts, this.topDateFilter, Filters.byTopDate);
-        this.currentListIncomes = this.filterDataService.filter(this.listIncomes, this.topDateFilter, Filters.byTopDate);
+        this.factoryUpdateDate(this.listCoasts, this.listIncomes, this.topDateFilter, Filters.byTopDate);
+        // this.currentListCoasts = this.filterDataService.filter(this.listCoasts, this.topDateFilter, Filters.byTopDate);
+        // this.currentListIncomes = this.filterDataService.filter(this.listIncomes, this.topDateFilter, Filters.byTopDate);
 
       } else {
-        this.currentListCoasts = [];
-        this.currentListIncomes = [];
+        this.setEmptyData();
+        // this.currentListCoasts = [];
+        // this.currentListIncomes = [];
       }
 
     } else {
       this.lowDateFilter = new Date(event.value);
       this.minDateTo = new Date(event.value);
 
-      this.currentListCoasts = this.filterDataService.filter(this.listCoasts, this.lowDateFilter, Filters.byLowDate);
-      this.currentListIncomes = this.filterDataService.filter(this.listIncomes, this.lowDateFilter, Filters.byLowDate);
+      this.factoryUpdateDate(this.listCoasts, this.listIncomes, this.lowDateFilter, Filters.byLowDate);
+
+      // this.currentListCoasts = this.filterDataService.filter(this.listCoasts, this.lowDateFilter, Filters.byLowDate);
+      // this.currentListIncomes = this.filterDataService.filter(this.listIncomes, this.lowDateFilter, Filters.byLowDate);
 
       if (this.topDateFilter) {
-        this.currentListCoasts = this.filterDataService.filter(this.currentListCoasts, this.topDateFilter, Filters.byTopDate);
-        this.currentListIncomes = this.filterDataService.filter(this.currentListIncomes, this.topDateFilter, Filters.byTopDate);
+        this.factoryUpdateDate(this.currentListCoasts, this.currentListIncomes, this.topDateFilter, Filters.byTopDate);
+        // this.currentListCoasts = this.filterDataService.filter(this.currentListCoasts, this.topDateFilter, Filters.byTopDate);
+        // this.currentListIncomes = this.filterDataService.filter(this.currentListIncomes, this.topDateFilter, Filters.byTopDate);
       }
       // if (this.topDateFilter) {
       //   this.currentListCoasts = this.listCoasts.filter((obj: NewCoast)  =>
@@ -158,8 +162,10 @@ export class FiltersComponent implements OnInit, OnDestroy {
       //   this.currentListIncomes = this.listIncomes.filter(obj => this.setDate(obj.date) >= this.lowDateFilter);
       // }
     }
-    this.filterDataService.changeSourceListCoasts(this.currentListCoasts);
-    this.filterDataService.changeSourceListIncomes(this.currentListIncomes);
+
+    this.updateData(this.currentListCoasts, this.currentListIncomes);
+    // this.filterDataService.changeSourceListCoasts(this.currentListCoasts);
+    // this.filterDataService.changeSourceListIncomes(this.currentListIncomes);
   }
 
   public setTopDateFilter(event: MatDatepickerInputEvent<Date>): void {
@@ -174,24 +180,30 @@ export class FiltersComponent implements OnInit, OnDestroy {
         // this.currentListIncomes = this.listIncomes.filter((obj: NewIncome) =>
         //   this.setDate(obj.date) >= this.lowDateFilter
         // );
-        this.currentListCoasts = this.filterDataService.filter(this.listCoasts, this.lowDateFilter, Filters.byLowDate);
-        this.currentListIncomes = this.filterDataService.filter(this.listIncomes, this.lowDateFilter, Filters.byLowDate);
+
+        this.factoryUpdateDate(this.listCoasts, this.listIncomes, this.lowDateFilter, Filters.byLowDate);
+        // this.currentListCoasts = this.filterDataService.filter(this.listCoasts, this.lowDateFilter, Filters.byLowDate);
+        // this.currentListIncomes = this.filterDataService.filter(this.listIncomes, this.lowDateFilter, Filters.byLowDate);
 
       } else {
-        this.currentListCoasts = [];
-        this.currentListIncomes = [];
+        this.setEmptyData();
+        // this.currentListCoasts = [];
+        // this.currentListIncomes = [];
       }
 
     } else {
       this.topDateFilter = new Date(event.value);
       this.maxDateFrom = new Date(event.value);
 
-      this.currentListCoasts = this.filterDataService.filter(this.listCoasts, this.topDateFilter, Filters.byTopDate);
-      this.currentListIncomes = this.filterDataService.filter(this.listIncomes, this.topDateFilter, Filters.byTopDate);
+      this.factoryUpdateDate(this.listCoasts, this.listIncomes, this.topDateFilter, Filters.byTopDate);
+
+      // this.currentListCoasts = this.filterDataService.filter(this.listCoasts, this.topDateFilter, Filters.byTopDate);
+      // this.currentListIncomes = this.filterDataService.filter(this.listIncomes, this.topDateFilter, Filters.byTopDate);
 
       if (this.lowDateFilter) {
-        this.currentListCoasts = this.filterDataService.filter(this.currentListCoasts, this.lowDateFilter, Filters.byLowDate);
-        this.currentListIncomes = this.filterDataService.filter(this.currentListIncomes, this.lowDateFilter, Filters.byLowDate);
+        this.factoryUpdateDate(this.currentListCoasts, this.currentListIncomes, this.lowDateFilter, Filters.byLowDate);
+        // this.currentListCoasts = this.filterDataService.filter(this.currentListCoasts, this.lowDateFilter, Filters.byLowDate);
+        // this.currentListIncomes = this.filterDataService.filter(this.currentListIncomes, this.lowDateFilter, Filters.byLowDate);
       }
 
       // if (this.lowDateFilter) {
@@ -207,8 +219,9 @@ export class FiltersComponent implements OnInit, OnDestroy {
       //   this.currentListIncomes = this.listIncomes.filter(obj => this.setDate(obj.date) <= this.topDateFilter);
       // }
     }
-    this.filterDataService.changeSourceListCoasts(this.currentListCoasts);
-    this.filterDataService.changeSourceListIncomes(this.currentListIncomes);
+    this.updateData(this.currentListCoasts, this.currentListIncomes);
+    // this.filterDataService.changeSourceListCoasts(this.currentListCoasts);
+    // this.filterDataService.changeSourceListIncomes(this.currentListIncomes);
   }
 
   public filterByYearAndByMounth(): void {
@@ -219,15 +232,23 @@ export class FiltersComponent implements OnInit, OnDestroy {
     //                               .filter(obj => (new Date(obj.date).getFullYear() === this.selectedYear)
     //                                               && (this.arrayIdMounths.includes(new Date(obj.date).getMonth())));
     this.filterOnlyByYear();
-    this.currentListCoasts = this.currentListCoasts.filter(obj => this.arrayIdMounths.includes(new Date(obj.date).getMonth()));
-    this.currentListIncomes = this.currentListIncomes.filter(obj => this.arrayIdMounths.includes(new Date(obj.date).getMonth()));
+    this.updateDataByMonth(this.currentListCoasts, this.currentListIncomes);
+    // this.currentListCoasts = this.currentListCoasts.filter(obj => this.arrayIdMounths.includes(new Date(obj.date).getMonth()));
+    // this.currentListIncomes = this.currentListIncomes.filter(obj => this.arrayIdMounths.includes(new Date(obj.date).getMonth()));
   }
 
   public filterOnlyByYear(): void {
     // this.currentListCoasts = this.listCoasts.filter(obj => new Date(obj.date).getFullYear() === this.selectedYear);
     // this.currentListIncomes = this.listIncomes.filter(obj => new Date(obj.date).getFullYear() === this.selectedYear);
-    this.currentListCoasts = this.filterDataService.filter(this.listCoasts, this.selectedYear, Filters.byYear);
-    this.currentListIncomes = this.filterDataService.filter(this.listIncomes, this.selectedYear, Filters.byYear);
+
+    this.factoryUpdateDate(this.listCoasts, this.listIncomes, this.selectedYear, Filters.byYear);
+    // this.currentListCoasts = this.filterDataService.filter(this.listCoasts, this.selectedYear, Filters.byYear);
+    // this.currentListIncomes = this.filterDataService.filter(this.listIncomes, this.selectedYear, Filters.byYear);
+  }
+
+  public updateDataByMonth(listCoast: NewCoast[], listIncomes: NewIncome[]): void {
+    this.currentListCoasts = listCoast.filter(obj => this.arrayIdMounths.includes(new Date(obj.date).getMonth()));
+    this.currentListIncomes = listIncomes.filter(obj => this.arrayIdMounths.includes(new Date(obj.date).getMonth()));
   }
 
   public filterFormYear(value: number): void {
@@ -236,8 +257,9 @@ export class FiltersComponent implements OnInit, OnDestroy {
     this.arrayIdMounths.length ? this.filterByYearAndByMounth()
                                : this.filterOnlyByYear();
 
-    this.filterDataService.changeSourceListCoasts(this.currentListCoasts);
-    this.filterDataService.changeSourceListIncomes(this.currentListIncomes);
+    this.updateData(this.currentListCoasts, this.currentListIncomes);
+    // this.filterDataService.changeSourceListCoasts(this.currentListCoasts);
+    // this.filterDataService.changeSourceListIncomes(this.currentListIncomes);
   }
 
   public filterFormMounth(value: Array<object>): void {
@@ -253,12 +275,14 @@ export class FiltersComponent implements OnInit, OnDestroy {
       this.filterOnlyByYear();
 
     } else {
-      this.currentListCoasts = this.listCoasts.filter(obj => this.arrayIdMounths.includes(new Date(obj.date).getMonth()));
-      this.currentListIncomes = this.listIncomes.filter(obj => this.arrayIdMounths.includes(new Date(obj.date).getMonth()));
+      this.updateDataByMonth(this.listCoasts, this.listIncomes);
+      // this.currentListCoasts = this.listCoasts.filter(obj => this.arrayIdMounths.includes(new Date(obj.date).getMonth()));
+      // this.currentListIncomes = this.listIncomes.filter(obj => this.arrayIdMounths.includes(new Date(obj.date).getMonth()));
     }
 
-    this.filterDataService.changeSourceListCoasts(this.currentListCoasts);
-    this.filterDataService.changeSourceListIncomes(this.currentListIncomes);
+    this.updateData(this.currentListCoasts, this.currentListIncomes);
+    // this.filterDataService.changeSourceListCoasts(this.currentListCoasts);
+    // this.filterDataService.changeSourceListIncomes(this.currentListIncomes);
   }
 
   public onChange(): void {
@@ -280,11 +304,29 @@ export class FiltersComponent implements OnInit, OnDestroy {
     this.lowDateFilter = undefined;
     this.topDateFilter = undefined;
 
-    this.filterDataService.changeSourceListCoasts([]);
-    this.filterDataService.changeSourceListIncomes([]);
+    this.updateData([], []);
+
+    // this.filterDataService.changeSourceListCoasts([]);
+    // this.filterDataService.changeSourceListIncomes([]);
   }
 
   public addTagFn(name): object {
     return { name: name, tag: true };
+  }
+
+  public setEmptyData(): void {
+    this.currentListCoasts = [];
+    this.currentListIncomes = [];
+  }
+
+  public factoryUpdateDate(dataCoasts: NewCoast[], dataIncomes: NewIncome[],
+                           valueFilter: string | number | Date, typeFilter: any): void {
+    this.currentListCoasts = this.filterDataService.filter(dataCoasts, valueFilter, typeFilter);
+    this.currentListIncomes = this.filterDataService.filter(dataIncomes, valueFilter, typeFilter);
+  }
+
+  public updateData(listCoasts: NewCoast[], listIncomes: NewIncome[]): void {
+    this.filterDataService.changeSourceListCoasts(listCoasts);
+    this.filterDataService.changeSourceListIncomes(listIncomes);
   }
 }

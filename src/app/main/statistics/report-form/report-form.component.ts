@@ -32,14 +32,23 @@ export class ReportFormComponent implements OnInit, OnDestroy {
 
   protected readonly subscriptions: Subscription[] = [];
 
-  constructor(private filterDataService: FilterDataService ) {}
+  constructor(private filterDataService: FilterDataService) {}
 
   public ngOnInit(): void {
 
     this.subscriptions.push(
       combineLatest(this.filterDataService.currentMessageListCoasts, this.filterDataService.currentMessageListIncomes)
         .subscribe(([dataCoasts, dataIncomes]) => {
-          let food, rent, child, gym, required, clothes, petrol, present, other, optional;
+          let food: number,
+              rent: number,
+              child: number,
+              gym: number,
+              required: number,
+              clothes: number,
+              petrol: number,
+              present: number,
+              other: number,
+              optional: number;
 
           if (dataCoasts.length) {
             food = this.filterDataService.filter(dataCoasts, RequiredCoasts.FOOD, Filters.byType);

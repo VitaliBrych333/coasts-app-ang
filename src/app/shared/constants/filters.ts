@@ -17,6 +17,3 @@ export const Filters = {
   byLowDate: (data: NewIncome[] | NewCoast[], filterValue: Date) => data.filter((obj: NewIncome | NewCoast) => setDate(obj.date) >= filterValue),
   byTopDate: (data: NewIncome[] | NewCoast[], filterValue: Date) => data.filter((obj: NewIncome | NewCoast) => setDate(obj.date) <= filterValue),
 };
-// newDataGraphs.filter((obj: any) => (new Date(obj.date).getMonth() === i)
-// this.listCoasts.filter((obg: NewCoast)  =>
-//           (this.setDate(obg.date) >= this.lowDateFilter) && (this.setDate(obg.date) <= this.topDateFilter)
