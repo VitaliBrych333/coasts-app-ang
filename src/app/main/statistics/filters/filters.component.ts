@@ -174,7 +174,7 @@ export class FiltersComponent implements OnInit, OnDestroy {
     this.arrayIdMounths = [];
 
     value.length ? value.forEach((obj: Mounth) => this.arrayIdMounths.push(obj.id))
-                 : this.arrayIdMounths = []
+                 : this.arrayIdMounths = [];
 
     if (this.selectedYear && value.length) {
       this.filterByYearAndByMounth();

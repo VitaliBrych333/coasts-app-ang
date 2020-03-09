@@ -14,6 +14,10 @@ export const Filters = {
   byAuthor: (data: NewIncome[], filterValue: string) => data.filter(obj => obj.who === filterValue),
   byYear: (data: object[], filterValue: number) => data.filter((obj: any) => new Date(obj.date).getFullYear() === filterValue),
   byMonth: (data: object[], filterValue: number) => data.filter((obj: any) => new Date(obj.date).getMonth() === filterValue),
-  byLowDate: (data: NewIncome[] | NewCoast[], filterValue: Date) => data.filter((obj: NewIncome | NewCoast) => setDate(obj.date) >= filterValue),
-  byTopDate: (data: NewIncome[] | NewCoast[], filterValue: Date) => data.filter((obj: NewIncome | NewCoast) => setDate(obj.date) <= filterValue),
+
+  byLowDate: (data: NewIncome[] | NewCoast[], filterValue: Date) =>
+               data.filter((obj: NewIncome | NewCoast) => setDate(obj.date) >= filterValue),
+
+  byTopDate: (data: NewIncome[] | NewCoast[], filterValue: Date) =>
+               data.filter((obj: NewIncome | NewCoast) => setDate(obj.date) <= filterValue),
 };

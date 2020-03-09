@@ -12,4 +12,4 @@ import { MessageWindowComponent } from './components/message-window/message-wind
   exports: [ CommonModule, MessageWindowComponent ]
 })
 
-export class SharedModule { }
+export class SharedModule {}

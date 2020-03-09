@@ -1,5 +1,4 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { EditIncomeComponent } from './edit-income.component';
 
 describe('EditIncomeComponent', () => {

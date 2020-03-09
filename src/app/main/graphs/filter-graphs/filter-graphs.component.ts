@@ -64,13 +64,12 @@ export class FilterGraphsComponent extends FiltersComponent {
 
     if (this.coastsRequired.includes(value) || this.coastsOptional.includes(value)) {
       newDataGraphs = this.currentListCoasts.filter(obj => obj.type === value);
-      // newDataGraphs =  this.filterDataService.filter(this.currentListCoasts, value, Filters.byType);
+
     } else if (this.incomesTotal.includes(value)) {
       newDataGraphs = this.currentListIncomes.filter(obj => obj.type === value);
 
     } else if (this.incomesUsers.includes(value)) {
       newDataGraphs = this.filterDataService.filter(this.currentListIncomes, value.slice(8), Filters.byAuthor);
-      // newDataGraphs = this.currentListIncomes.filter(obj => obj.who === value.slice(8));
 
     } else {
       switch (value) {
@@ -89,7 +88,6 @@ export class FilterGraphsComponent extends FiltersComponent {
         case FilterValue.ACCUMULATION:
           const tempListCoasts = _.cloneDeep(this.currentListCoasts);
           const tempListIncomes = _.cloneDeep(this.currentListIncomes) as any;
-
           tempListCoasts.forEach(obj => obj.sum = -obj.sum);
           newDataGraphs = tempListIncomes.concat(tempListCoasts);
           break;
@@ -157,12 +155,9 @@ export class FilterGraphsComponent extends FiltersComponent {
       if (year) {
         const filtertByYear = this.filterDataService.filter(filtertByMonth, year, Filters.byYear);
         sumResult = +_.sumBy(filtertByYear, 'sum').toFixed(2);
-        // sumResult = +_.sumBy(newDataGraphs.filter((obj: any) => (new Date(obj.date).getMonth() === i)
-        //                                                           && (new Date(obj.date).getFullYear() === year)), 'sum').toFixed(2);
 
       } else {
         sumResult = +_.sumBy(filtertByMonth, 'sum').toFixed(2);
-        // sumResult = +_.sumBy(newDataGraphs.filter((obj: any) => new Date(obj.date).getMonth() === i), 'sum').toFixed(2);
       }
 
       newData.set(i, sumResult);

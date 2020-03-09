@@ -26,7 +26,7 @@ export class ModalDialogComponent implements OnInit, OnDestroy {
   protected readonly subscriptions: Subscription[] = [];
 
   private cssHeight: string;
-          cssMargTop: string;
+  private cssMargTop: string;
 
   constructor(protected store: Store<AppState>) {}
 

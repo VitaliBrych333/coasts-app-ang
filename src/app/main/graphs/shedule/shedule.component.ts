@@ -134,10 +134,7 @@ export class SheduleComponent implements OnInit, OnDestroy {
                                                                       {
                                                                         'maxNum': _.max(obj),
                                                                         'indexArray': index,
-                                                                        // 'minNum': obj.filter((num: number) => num > 0).length
-                                                                        //             ? _.min(obj.filter((num: number) => num > 0))
-                                                                        //             : _.min(obj),
-                                                                         'minNum': _.max(obj) > 0
+                                                                        'minNum': _.max(obj) > 0
                                                                                     ? _.min(_.filter(obj, num => num > 0))
                                                                                     : _.min(obj)
                                                                       }
