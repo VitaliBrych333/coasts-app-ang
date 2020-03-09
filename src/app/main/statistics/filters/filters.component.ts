@@ -72,11 +72,13 @@ export class FiltersComponent implements OnInit, OnDestroy {
       combineLatest(this.getStateCoast, this.getStateIncome)
         .subscribe(([stateCoast, stateIncome]: [CoastState, IncomeState]) => {
           if (stateCoast.coasts) {
+            this.listCoasts = [];
             stateCoast.coasts.forEach((obj: NewCoast) => this.listCoasts.push(Object.assign({}, obj)));
             this.listCoasts.forEach(obj => tempYearsCoasts.push(new Date(obj.date).getFullYear()));
           }
 
           if (stateIncome.incomes) {
+            this.listIncomes = [];
             stateIncome.incomes.forEach((obj: NewIncome) => this.listIncomes.push(Object.assign({}, obj)));
             this.listIncomes.forEach(obj => tempYearsIncomes.push(new Date(obj.date).getFullYear()));
           }
