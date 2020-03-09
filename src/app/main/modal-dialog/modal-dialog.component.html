@@ -1,5 +1,5 @@
-<div class="dialog-overlay">
-  <div class="dialog">
+<div class="dialog-overlay" [ngStyle]="{'height': cssHeight}">
+  <div class="dialog" [ngStyle]="{'margin-top': cssMargTop}">
     <div class="header"></div>
     <div class="dialog-msg">
       <p>Are you sure you want to delete?</p>
