@@ -18,6 +18,7 @@ export class SheduleComponent implements OnInit, OnDestroy {
 
   public lineChartData: ChartDataSets[];
          lineChartLabels: Label[] = _.map([...Months], (str) => str.slice(0, 3));
+         chartDataValue: Label[];
          lineChartOptions: ChartOptions;
          lineChartLegend = true;
          lineChartType = 'line';
@@ -101,6 +102,7 @@ export class SheduleComponent implements OnInit, OnDestroy {
   constructor(public filterDataService: FilterDataService) {}
 
   public ngOnInit(): void {
+    this.chartDataValue = _.concat('', this.lineChartLabels);
     this.lineChartColors = this.stateFirstColor;
 
     this.subscriptions.push(
@@ -118,10 +120,8 @@ export class SheduleComponent implements OnInit, OnDestroy {
 
         if (data.length) {
           data.forEach((value, index) => {
-            const newData = Array.from(value.values()).slice(0, 12);
-            const newLabel = value.get(12);
-            this.lineChartData[index].data = newData;
-            this.lineChartData[index].label = newLabel;
+            this.lineChartData[index].data = [...value.values()];
+            this.lineChartData[index].label = value.get(12);
           });
         }
 

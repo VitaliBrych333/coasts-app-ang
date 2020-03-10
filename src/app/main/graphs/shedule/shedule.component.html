@@ -13,12 +13,13 @@
     </div>
   </div>
   <div class="wrapper">
-    <div class="flex-item" *ngIf="lineChartData[0].data.length">
+    <div *ngIf="lineChartData[0].data.length">
       <table class="table table-responsive table-condensed">
         <tr>
-          <th *ngFor="let label of lineChartLabels">{{label}}</th>
+          <th *ngFor="let month of chartDataValue">{{month}}</th>
         </tr>
         <tr *ngFor="let d of lineChartData; let i=index" [class]="'line-'+i">
+          <span>{{d && d.data[12]}}</span>
           <td *ngFor="let label of lineChartLabels; let j=index">{{d && d.data[j]}}</td>
         </tr>
       </table>
