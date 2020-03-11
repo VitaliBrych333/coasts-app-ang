@@ -31,10 +31,18 @@ export class ModalDialogComponent implements OnInit, OnDestroy {
   constructor(protected store: Store<AppState>) {}
 
   public ngOnInit(): void {
-    const height = window.innerHeight;
+    let heightElem: number;
+
+    document.querySelector('app-coasts-list') ? heightElem = document.querySelector('app-coasts-list').scrollHeight
+                                              : heightElem = document.querySelector('app-incomes-list').scrollHeight;
+
+    const heightScreen = window.innerHeight;
     const scrollY = window.scrollY;
-    this.cssHeight = height + scrollY + 'px';
-    this.cssMargTop = scrollY + Math.floor(height / 2 - 73) + 'px';
+
+    heightScreen > heightElem ? this.cssHeight = heightScreen + 'px'
+                              : this.cssHeight = heightElem + 130 + 'px';
+
+    this.cssMargTop = scrollY + Math.floor(heightScreen / 2 - 73) + 'px';
 
     this.getStateCoast = this.store.select(selectCoastState);
     this.getStateIncome = this.store.select(selectIncomeState);
