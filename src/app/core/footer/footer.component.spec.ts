@@ -5,16 +5,16 @@ const moduleName = 'Core';
 const componentName = 'FooterComponent';
 
 describe(`${moduleName}.${componentName}`, () => {
-    let testTarget: FooterComponent;
+  let testTarget: FooterComponent;
 
-    beforeEach(() => {
-        testTarget = new FooterComponent();
-    });
+  beforeEach(() => {
+    testTarget = new FooterComponent();
+  });
 
-    describe('create element', () => {
-        it('should be {}', () => {
-            // Assert
-            expect(testTarget).to.eql({});
-        });
+  describe('create element', () => {
+    it('should be {}', () => {
+      // Assert
+      expect(testTarget).to.eql({});
     });
+  });
 });

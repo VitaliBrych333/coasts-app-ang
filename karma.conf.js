@@ -5,6 +5,7 @@ module.exports = function (config) {
   config.set({
     basePath: '',
     frameworks: ['jasmine', 'chai', 'sinon', '@angular-devkit/build-angular'],
+    files: ['./node_modules/lodash/lodash.js'],
     plugins: [
       require('karma-jasmine'),
       require('karma-chrome-launcher'),

@@ -1,27 +1,77 @@
+import { Store } from '@ngrx/store';
+import { Subscription } from 'rxjs';
+import { of } from 'rxjs/Observable/of';
 import { HeaderComponent } from './header.component';
 import { AuthService } from '../../services/auth.service';
-import { Store } from '@ngrx/store';
 
 const expect = chai.expect;
 const moduleName = 'Core';
 const componentName = 'FooterComponent';
 
 describe(`${moduleName}.${componentName}`, () => {
-    let testTarget: HeaderComponent;
-    let authServiceMock: any;
-    let storeMock: any;
+  let testTarget: HeaderComponent;
+  let authServiceMock: any;
+  let storeMock: any;
 
-    beforeEach(() => {
-        authServiceMock = sinon.createStubInstance(AuthService);
-        authServiceMock.currentStatusLog = sinon.spy(() => Promise.reject(() => new Error()));
-        storeMock = sinon.createStubInstance(Store);
-        testTarget = new HeaderComponent(authServiceMock, storeMock);
+  beforeEach(() => {
+    authServiceMock = sinon.createStubInstance(AuthService);
+    authServiceMock.getUserPayload = sinon.stub().returns({login: 'test'});
+    authServiceMock.currentStatusLog = of(['test']);
+    storeMock = sinon.createStubInstance(Store);
+    testTarget = new HeaderComponent(authServiceMock, storeMock);
+  });
+
+  describe('create element', () => {
+    it('should be object', () => {
+      // Assert
+      expect(testTarget).to.be.an('object');
+    });
+  });
+
+  describe('#ngOnInit', () => {
+    it('should set statusLog in true', () => {
+      // Arrange
+      authServiceMock.isLoggedIn = sinon.stub().returns(true);
+
+      // Act
+      testTarget.ngOnInit();
+
+      // Assert
+      expect(testTarget.statusLog).to.eql(true);
     });
 
-    describe('create element', () => {
-        it('should be object', () => {
-            // Assert
-            expect(testTarget).to.be.an('object');
-        });
+    it('should set statusLog in ["test"]', () => {
+      // Arrange
+      authServiceMock.isLoggedIn = sinon.stub().returns(false);
+
+      // Act
+      testTarget.ngOnInit();
+
+      // Assert
+      expect(testTarget.statusLog).to.eql(['test']);
     });
+  });
+
+  describe('#ngOnDestroy', () => {
+    it('should unsubscribe all subscriptions', () => {
+      // Arrange
+      (testTarget as any).subscriptions = [new Subscription()];
+
+      // Act
+      testTarget.ngOnDestroy();
+
+      // Assert
+      expect((testTarget as any).subscriptions.every(sub => sub.closed)).to.be.eq(true);
+    });
+  });
+
+  describe('#logOut', () => {
+    it('should call store.dispatch', () => {
+      // Act
+      testTarget.logOut();
+
+      // Assert
+      sinon.assert.called(storeMock.dispatch);
+    });
+  });
 });
