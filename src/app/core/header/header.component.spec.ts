@@ -6,7 +6,7 @@ import { AuthService } from '../../services/auth.service';
 
 const expect = chai.expect;
 const moduleName = 'Core';
-const componentName = 'FooterComponent';
+const componentName = 'HeaderComponent';
 
 describe(`${moduleName}.${componentName}`, () => {
   let testTarget: HeaderComponent;
