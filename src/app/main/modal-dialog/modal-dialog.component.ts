@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, OnInit, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit, OnDestroy, ChangeDetectionStrategy, ElementRef } from '@angular/core';
 import { Subscription, Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { AppState, selectCoastState, selectIncomeState } from '../../store/state/app.states';
@@ -17,6 +17,7 @@ import { DeleteIncome, ClearStateIncome } from '../../store/actions/income.actio
 export class ModalDialogComponent implements OnInit, OnDestroy {
 
   @Input() fieldDelete: any;
+  @Input() componentList: ElementRef;
 
   @Output() deleteField: EventEmitter<boolean> = new EventEmitter<boolean>();
 
@@ -31,16 +32,12 @@ export class ModalDialogComponent implements OnInit, OnDestroy {
   constructor(protected store: Store<AppState>) {}
 
   public ngOnInit(): void {
-    let heightElem: number;
+    const heightScreen: number = window.innerHeight;
+    const scrollY: number = window.scrollY;
+    const heigthListComponent: number = this.componentList.nativeElement.scrollHeight;
 
-    document.querySelector('app-coasts-list') ? heightElem = document.querySelector('app-coasts-list').scrollHeight
-                                              : heightElem = document.querySelector('app-incomes-list').scrollHeight;
-
-    const heightScreen = window.innerHeight;
-    const scrollY = window.scrollY;
-
-    heightScreen > heightElem ? this.cssHeight = heightScreen + 'px'
-                              : this.cssHeight = heightElem + 130 + 'px';
+    heigthListComponent > heightScreen ? this.cssHeight = heigthListComponent + 130 + 'px'
+                                       : this.cssHeight = heightScreen + 'px';
 
     this.cssMargTop = scrollY + Math.floor(heightScreen / 2 - 73) + 'px';
 

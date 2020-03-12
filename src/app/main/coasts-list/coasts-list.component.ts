@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ViewContainerRef, ComponentFactoryResolver, OnDestroy } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewContainerRef, ComponentFactoryResolver, OnDestroy, ElementRef } from '@angular/core';
 import { MatPaginator} from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
@@ -25,6 +25,7 @@ export class CoastsListComponent implements OnInit, OnDestroy {
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
+  @ViewChild('componentList', {static: true}) componentList: ElementRef;
 
   public displayedColumns: string[] = [...ColumnNames];
 
@@ -74,6 +75,7 @@ export class CoastsListComponent implements OnInit, OnDestroy {
     let componentRef = this.viewContainerRef.createComponent(componentFactory);
 
     componentRef.instance.fieldDelete = fieldDelete;
+    componentRef.instance.componentList = this.componentList;
 
     this.subscriptions.push(
 
