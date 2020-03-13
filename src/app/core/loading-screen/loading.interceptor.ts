@@ -19,6 +19,7 @@ export class LoadingScreenInterceptor implements HttpInterceptor {
 
   public intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     let displayLoadingScreen = true;
+
     for (const skippUrl of this.skippUrls) {
       if (new RegExp(skippUrl).test(request.url)) {
         displayLoadingScreen = false;
