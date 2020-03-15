@@ -3,7 +3,7 @@ import { AuthGuard } from './auth.guard';
 import { AuthService } from '../../services/auth.service';
 
 const expect = chai.expect;
-const moduleName = 'Core';
+const moduleName = 'Log';
 const componentName = 'AuthGuard';
 
 describe(`${moduleName}.${componentName}`, () => {

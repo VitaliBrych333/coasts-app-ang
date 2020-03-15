@@ -9,7 +9,7 @@
 // import { Url } from '../../shared/constants/url.enum';
 
 // const expect = chai.expect;
-// const moduleName = 'Core';
+// const moduleName = 'Log';
 // const componentName = 'AuthInterceptor';
 
 // describe(`${moduleName}.${componentName}`, () => {
