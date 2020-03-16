@@ -77,7 +77,7 @@ describe(`${moduleName}.${componentName}`, () => {
             value: 'test'
           }
         }
-      }
+      };
 
       // Act
       testTarget.signIn();
@@ -99,7 +99,7 @@ describe(`${moduleName}.${componentName}`, () => {
             value: 'test'
           }
         }
-      }
+      };
 
       // Act
       testTarget.register();

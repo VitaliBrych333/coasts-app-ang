@@ -1,56 +1,48 @@
-// import { HttpHandler, HttpRequest } from '@angular/common/http';
-// import { of } from 'rxjs/Observable/of';
-// import { AuthInterceptor } from './auth.interceptor';
-// import { Injectable } from '@angular/core';
-// import { Router } from '@angular/router';
-// import { Observable } from 'rxjs';
-// import { tap } from 'rxjs/operators';
-// import { AuthService } from '../../services/auth.service';
-// import { Url } from '../../shared/constants/url.enum';
+import { HttpHandler, HttpRequest } from '@angular/common/http';
+import { of } from 'rxjs/Observable/of';
+import { AuthInterceptor } from './auth.interceptor';
+import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
+import { Observable, Subject } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
+import { tap } from 'rxjs/operators';
+import { AuthService } from '../../services/auth.service';
+import { Url } from '../../shared/constants/url.enum';
+import { fakeAsync, tick } from '@angular/core/testing';
+import { throwError } from 'rxjs';
 
-// const expect = chai.expect;
-// const moduleName = 'Log';
-// const componentName = 'AuthInterceptor';
+const expect = chai.expect;
+const moduleName = 'Log';
+const componentName = 'AuthInterceptor';
 
-// describe(`${moduleName}.${componentName}`, () => {
-//   let testTarget: AuthInterceptor;
-//   let authServiceMock: any;
-//   let routerMock: any;
+describe(`${moduleName}.${componentName}`, () => {
+  let testTarget: AuthInterceptor;
+  let authServiceMock: any;
+  let routerMock: any;
 
-//   beforeEach(() => {
-//     authServiceMock = sinon.createStubInstance(AuthService);
-//     routerMock = {
-//       navigate: 'test'
-//     };
-//     testTarget = new AuthInterceptor(authServiceMock, routerMock);
-//   });
+  beforeEach(() => {
+    authServiceMock = sinon.createStubInstance(AuthService);
+    routerMock = sinon.createStubInstance(Router);
+    routerMock.navigate = sinon.spy();
+    testTarget = new AuthInterceptor(authServiceMock, routerMock);
+  });
 
-//   describe('#intercept', () => {
-//     it('should set activeRequests in 1', () => {
-//       // Arrange
-//       const request = new HttpRequest('GET', 'test');
-//       const next = { handle: sinon.stub().returns(of(['test'])) } as HttpHandler;
-//       const stub = sinon.stub(routerMock, 'navigate')
+  describe('#intercept', () => {
+    it('should call router.navigate', (done) => {
+      // Arrange
+      const request = new HttpRequest('GET', '/login');
+      const customErr = {
+        error: {
+          auth: false
+        }
+      };
+      const next = { handle: sinon.spy(() => throwError(customErr)) } as HttpHandler;
 
+      // Act
+      testTarget.intercept(request, next).subscribe(res => done(), err => done());
 
-//       // Act
-//       testTarget.intercept(request, next);
-
-//       // Assert
-//       sinon.assert.notCalled(stub);
-//       // expect(testTarget.activeRequests).to.eql(1);
-//     });
-
-//     // it('should set activeRequests in 0', () => {
-//     //   // Arrange
-//     //   const request = new HttpRequest('GET', '/login');
-//     //   const next = { handle: sinon.stub().returns(of(['test'])) } as HttpHandler;
-
-//     //   // Act
-//     //   testTarget.intercept(request, next);
-
-//     //   // Assert
-//     //   expect(testTarget.activeRequests).to.eql(0);
-//     // });
-//   });
-// });
+      // Assert
+      sinon.assert.called(routerMock.navigate);
+    });
+  });
+});
