@@ -17,18 +17,6 @@ describe(`${moduleName}.${componentName}`, () => {
   });
 
   describe('#intercept', () => {
-    it('should set activeRequests in 1', () => {
-      // Arrange
-      const request = new HttpRequest('GET', 'test');
-      const next = { handle: sinon.stub().returns(of(['test'])) } as HttpHandler;
-
-      // Act
-      testTarget.intercept(request, next);
-
-      // Assert
-      expect(testTarget.activeRequests).to.eql(1);
-    });
-
     it('should set activeRequests in 0', () => {
       // Arrange
       const request = new HttpRequest('GET', '/login');
@@ -36,6 +24,31 @@ describe(`${moduleName}.${componentName}`, () => {
 
       // Act
       testTarget.intercept(request, next);
+
+      // Assert
+      expect(testTarget.activeRequests).to.eql(0);
+    });
+
+    it('should set activeRequests in 1', (done) => {
+      // Arrange
+      const request = new HttpRequest('GET', 'test');
+      const next = { handle: sinon.stub().returns(of(['test'])) } as HttpHandler;
+      testTarget.activeRequests = 1;
+
+      // Act
+      testTarget.intercept(request, next).subscribe(res => done(), err => done());
+
+      // Assert
+      expect(testTarget.activeRequests).to.eql(1);
+    });
+
+    it('should set activeRequests in 0', (done) => {
+      // Arrange
+      const request = new HttpRequest('GET', 'test');
+      const next = { handle: sinon.stub().returns(of(['test'])) } as HttpHandler;
+
+      // Act
+      testTarget.intercept(request, next).subscribe(res => done(), err => done());
 
       // Assert
       expect(testTarget.activeRequests).to.eql(0);

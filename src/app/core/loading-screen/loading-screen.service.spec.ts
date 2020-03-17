@@ -12,14 +12,14 @@ describe(`${moduleName}.${componentName}`, () => {
   });
 
   describe('#loading', () => {
-    it('should return false ', () => {
+    it('should return false', () => {
       // Assert
       expect(testTarget.loading).to.eql(false);
     });
   });
 
   describe('#startLoading', () => {
-    it('should set _loading in true ', () => {
+    it('should set _loading in true', () => {
       // Act
       testTarget.startLoading();
 
@@ -29,7 +29,7 @@ describe(`${moduleName}.${componentName}`, () => {
   });
 
   describe('#stopLoading', () => {
-    it('should set _loading in false ', () => {
+    it('should set _loading in false', () => {
       // Act
       testTarget.stopLoading();
 
