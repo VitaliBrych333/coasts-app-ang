@@ -1,8 +1,8 @@
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { of } from 'rxjs/Observable/of';
-import { HeaderComponent } from './header.component';
 import { AuthService } from '../../services/auth.service';
+import { HeaderComponent } from './header.component';
 
 const expect = chai.expect;
 const moduleName = 'Core';
