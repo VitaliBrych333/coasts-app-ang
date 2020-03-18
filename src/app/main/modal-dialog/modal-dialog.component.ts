@@ -36,8 +36,8 @@ export class ModalDialogComponent implements OnInit, OnDestroy {
     const scrollY: number = window.scrollY;
     const heigthListComponent: number = this.componentList.nativeElement.scrollHeight;
 
-    heigthListComponent > heightScreen ? this.cssHeight = heigthListComponent + 130 + 'px'
-                                       : this.cssHeight = heightScreen + 'px';
+    heigthListComponent > (heightScreen - 130) ? this.cssHeight = heigthListComponent + 130 + 'px'
+                                               : this.cssHeight = heightScreen + 'px';
 
     this.cssMargTop = scrollY + Math.floor(heightScreen / 2 - 73) + 'px';
 

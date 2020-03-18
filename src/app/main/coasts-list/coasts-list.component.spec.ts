@@ -1,31 +1,10 @@
-import { FormGroup } from '@angular/forms';
-import { DatePipe } from '@angular/common';
 import { Router } from '@angular/router';
-import { MatDialog } from '@angular/material/dialog';
+import { MatTableDataSource } from '@angular/material/table';
 import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { of } from 'rxjs/Observable/of';
-import { AuthService } from '../../services/auth.service';
-import { MessageWindowComponent } from '../../shared/components/message-window/message-window.component';
-import { CoastsListComponent } from './coasts-list.component';
-
-
-import { Component, OnInit, ViewChild, ViewContainerRef, ComponentFactoryResolver, OnDestroy, ElementRef } from '@angular/core';
-import { MatPaginator} from '@angular/material/paginator';
-import { MatTableDataSource } from '@angular/material/table';
-
-import { MatSort } from '@angular/material/sort';
-
-
-import { AppState, selectCoastState } from '../../store/state/app.states';
-import { CoastState } from '../../store/reducers/coast.reducer';
-import { LoadCoasts, ClearStateCoast } from '../../store/actions/coast.actions';
-import { ClearStateIncome } from '../../store/actions/income.actions';
 import { DataService } from '../../services/data.service';
-import { NewCoast } from '../../shared/models/coast.model';
-import { Url } from '../../shared/constants/url.enum';
-import { ColumnNames } from '../../shared/constants/columnNamesForm';
-import { ModalDialogComponent } from '../modal-dialog/modal-dialog.component';
+import { CoastsListComponent } from './coasts-list.component';
 
 const expect = chai.expect;
 const moduleName = 'Main';
@@ -45,7 +24,7 @@ describe(`${moduleName}.${componentName}`, () => {
     viewContainerRefMock = {
       createComponent: sinon.stub().returns({
         instance: {
-          deleteField: of([])
+          deleteField: of(true)
         }
       })
     };
@@ -113,17 +92,42 @@ describe(`${moduleName}.${componentName}`, () => {
   });
 
   describe('#deleteField', () => {
-    it('should set formForValid in {}', () => {
+    it('should delete by _id', () => {
       // Arrange
       const deleteField = {
         _id: 'test'
       };
+      testTarget.listData = [{_id: 'test'}]
 
       // Act
       testTarget.deleteField(deleteField);
 
       // Assert
       expect(testTarget.listData).to.be.eqls([]);
+    });
+
+    it('should not delete by _id', () => {
+      // Arrange
+      const deleteField = {
+        _id: 'test'
+      };
+
+      viewContainerRefMock = {
+        createComponent: sinon.stub().returns({
+          instance: {
+            deleteField: of(false)
+          }
+        })
+      };
+
+      const testTargetNew = new CoastsListComponent(routerMock, dataServiceMock, viewContainerRefMock, componentFactoryResolverMock, storeMock);
+      testTargetNew.listData = [{_id: 'test'}]
+
+      // Act
+      testTargetNew.deleteField(deleteField);
+
+      // Assert
+      expect(testTargetNew.listData).to.be.eqls([{_id: 'test'}]);
     });
   });
 });
