@@ -26,7 +26,7 @@ describe(`${moduleName}.${componentName}`, () => {
   });
 
   describe('#ngOnInit', () => {
-    it('should call setForm', () => {
+    it('should call setForm()', () => {
       // Arrange
       storeMock.select = sinon.stub().returns(of({errorMessage: true}));
       const stub = sinon.stub(testTarget, 'setForm');
@@ -38,7 +38,7 @@ describe(`${moduleName}.${componentName}`, () => {
       sinon.assert.called(stub);
     });
 
-    it('should not call setForm and navigate by url "/main"', () => {
+    it('should not call setForm() and navigate() by url "/main"', () => {
       // Arrange
       storeMock.select = sinon.stub().returns(of({}));
       authServiceMock.isLoggedIn = sinon.stub().returns(true);
@@ -66,7 +66,7 @@ describe(`${moduleName}.${componentName}`, () => {
   });
 
   describe('#signIn', () => {
-    it('should call store.dispatch', () => {
+    it('should call store.dispatch()', () => {
       // Arrange
       (testTarget as any).profileForm = {
         controls: {
@@ -88,7 +88,7 @@ describe(`${moduleName}.${componentName}`, () => {
   });
 
   describe('#register', () => {
-    it('should call store.dispatch', () => {
+    it('should call store.dispatch()', () => {
       // Arrange
       (testTarget as any).profileForm = {
         controls: {

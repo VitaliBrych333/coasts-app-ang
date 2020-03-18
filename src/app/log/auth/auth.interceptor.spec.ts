@@ -23,7 +23,7 @@ describe(`${moduleName}.${componentName}`, () => {
   });
 
   describe('#intercept', () => {
-    it('should call router.navigate', (done) => {
+    it('should call router.navigate()', (done) => {
       // Arrange
       const customErr = {
         error: {
@@ -39,7 +39,7 @@ describe(`${moduleName}.${componentName}`, () => {
       sinon.assert.called(routerMock.navigate);
     });
 
-    it('should not call router.navigate', (done) => {
+    it('should not call router.navigate()', (done) => {
       // Arrange
       const customErr = {
         error: {
@@ -55,7 +55,7 @@ describe(`${moduleName}.${componentName}`, () => {
       sinon.assert.notCalled(routerMock.navigate);
     });
 
-    it('should not call router.navigate', (done) => {
+    it('should not call router.navigate()', (done) => {
       // Arrange
       const next = { handle: sinon.stub().returns(of([])) } as HttpHandler;
 

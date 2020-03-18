@@ -66,7 +66,7 @@ describe(`${moduleName}.${componentName}`, () => {
   });
 
   describe('#logOut', () => {
-    it('should call store.dispatch', () => {
+    it('should call store.dispatch()', () => {
       // Act
       testTarget.logOut();
 

@@ -36,7 +36,7 @@ describe(`${moduleName}.${componentName}`, () => {
   });
 
   describe('#ngOnInit', () => {
-    it('should call message.open with parameter class error', () => {
+    it('should call message.open() with parameter class error', () => {
       // Arrange
       storeMock.select = sinon.stub().returns(of({errorMessage: true}));
       const testObj = {
@@ -53,7 +53,7 @@ describe(`${moduleName}.${componentName}`, () => {
       sinon.assert.calledWith(messageMock.open, MessageWindowComponent, testObj);
     });
 
-    it('should call message.open with parameter class success and router.navigate with ["/main"]', () => {
+    it('should call message.open() with parameter class success and router.navigate() with ["/main"]', () => {
       // Arrange
       storeMock.select = sinon.stub().returns(of({isAdded: true}));
       const testObj = {
@@ -71,7 +71,7 @@ describe(`${moduleName}.${componentName}`, () => {
       sinon.assert.calledWith(routerMock.navigate, ['/main']);
     });
 
-    it('should not call message.open', () => {
+    it('should not call message.open()', () => {
       // Arrange
       storeMock.select = sinon.stub().returns(of({errorMessage: false}));
 
@@ -110,7 +110,7 @@ describe(`${moduleName}.${componentName}`, () => {
   });
 
   describe('#add', () => {
-    it('should call store.dispatch', () => {
+    it('should call store.dispatch()', () => {
       // Arrange
       (testTarget as any).formForValid = {
         value: {
