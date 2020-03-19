@@ -1,5 +1,6 @@
 import { Store } from '@ngrx/store';
 import { FilterDataService } from '../../../services/filter-data.service';
+import { FilterValue } from '../../../shared/constants/filterValue.enum';
 import { FilterGraphsComponent } from './filter-graphs.component';
 
 const expect = chai.expect;
@@ -36,6 +37,97 @@ describe(`${moduleName}.${componentName}`, () => {
 
       // Assert
       sinon.assert.called(filterDataServiceMock.changeSourceDataCompare);
+    });
+  });
+
+  describe('#filterByKindParameter', () => {
+    it('should return array of objects', () => {
+      // Arrange
+      testTarget.coastsRequired = ['test'];
+      const objTestFirst = {date: new Date(2020), sum: 1, type: 'test', author: ''};
+      const objTestSecond = {date: new Date(2019), sum: 2, type: 'other', author: ''};
+      testTarget.currentListCoasts = [objTestFirst, objTestSecond];
+
+      // Assert
+      expect(testTarget.filterByKindParameter('test')).to.be.eql([objTestFirst]);
+    });
+
+    it('should return array of objects', () => {
+      // Arrange
+      testTarget.incomesTotal = ['test'];
+      const objTestFirst = {date: new Date(2020), sum: 1, who: '', type: 'test', author: ''};
+      const objTestSecond = {date: new Date(2019), sum: 1, who: '', type: 'other', author: ''};
+      testTarget.currentListIncomes = [objTestFirst, objTestSecond];
+
+      // Assert
+      expect(testTarget.filterByKindParameter('test')).to.be.eql([objTestFirst]);
+    });
+
+    it('should call filterDataService.filter()', () => {
+      // Arrange
+      testTarget.incomesUsers = ['test'];
+
+      // Act
+      testTarget.filterByKindParameter('test');
+
+      // Assert
+      sinon.assert.called(filterDataServiceMock.filter);
+    });
+
+    it('should return array of objects', () => {
+      // Arrange
+      testTarget.coastsRequired = ['test'];
+      const objTestFirst = {date: new Date(2020), sum: 1, type: 'test', author: ''};
+      const objTestSecond = {date: new Date(2019), sum: 2, type: 'coasts required', author: ''};
+      testTarget.currentListCoasts = [objTestFirst, objTestSecond];
+
+      // Assert
+      expect(testTarget.filterByKindParameter(FilterValue.COASTS_REQUIRED)).to.be.eql([objTestFirst]);
+    });
+
+    it('should return array of objects', () => {
+      // Arrange
+      testTarget.coastsOptional = ['test'];
+      const objTestFirst = {date: new Date(2020), sum: 1, type: 'test', author: ''};
+      const objTestSecond = {date: new Date(2019), sum: 2, type: 'coasts optional', author: ''};
+      testTarget.currentListCoasts = [objTestFirst, objTestSecond];
+
+      // Assert
+      expect(testTarget.filterByKindParameter(FilterValue.COASTS_OPTIONAL)).to.be.eql([objTestFirst]);
+    });
+
+    it('should return array of objects', () => {
+      // Arrange
+      const objTestFirst = {date: new Date(2020), sum: 1, type: 'test', author: ''};
+      testTarget.currentListCoasts = [objTestFirst];
+
+      // Assert
+      expect(testTarget.filterByKindParameter(FilterValue.COASTS_TOTAL)).to.be.eql(testTarget.currentListCoasts);
+    });
+
+    it('should return array of objects', () => {
+      // Arrange
+      const objTestFirst = {date: new Date(2020), sum: 1, who: '', type: 'test', author: ''};
+      testTarget.currentListIncomes = [objTestFirst];
+
+      // Assert
+      expect(testTarget.filterByKindParameter(FilterValue.INCOMES_TOTAL)).to.be.eql(testTarget.currentListIncomes);
+    });
+
+    it('should return array of objects', () => {
+      // Arrange
+      const objTestFirst = {date: new Date(2020), sum: 5, type: 'test', author: ''};
+      testTarget.currentListCoasts = [objTestFirst];
+      const objTestSecond = {date: new Date(2020), sum: 10, who: '', type: 'test', author: ''};
+      testTarget.currentListIncomes = [objTestSecond];
+
+      // Assert
+      expect(testTarget.filterByKindParameter(FilterValue.ACCUMULATION)).to.be.an('array');
+    });
+
+    it('should return undefined', () => {
+      // Assert
+      expect(testTarget.filterByKindParameter('test')).to.be.eql(undefined);
     });
   });
 
