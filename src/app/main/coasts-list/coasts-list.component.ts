@@ -72,7 +72,7 @@ export class CoastsListComponent implements OnInit, OnDestroy {
 
   public deleteField(fieldDelete: any): void {
     const componentFactory = this.componentFactoryResolver.resolveComponentFactory(ModalDialogComponent);
-    let componentRef = this.viewContainerRef.createComponent(componentFactory);
+    const componentRef = this.viewContainerRef.createComponent(componentFactory);
 
     componentRef.instance.fieldDelete = fieldDelete;
     componentRef.instance.componentList = this.componentList;
@@ -86,7 +86,6 @@ export class CoastsListComponent implements OnInit, OnDestroy {
         }
 
         componentRef.destroy();
-        componentRef = null;
       })
     );
   }

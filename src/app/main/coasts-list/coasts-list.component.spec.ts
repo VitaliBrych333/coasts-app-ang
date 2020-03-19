@@ -25,7 +25,8 @@ describe(`${moduleName}.${componentName}`, () => {
       createComponent: sinon.stub().returns({
         instance: {
           deleteField: of(true)
-        }
+        },
+        destroy: sinon.spy()
       })
     };
     componentFactoryResolverMock = {
@@ -121,7 +122,7 @@ describe(`${moduleName}.${componentName}`, () => {
       };
 
       const testTargetNew = new CoastsListComponent(routerMock, dataServiceMock, viewContainerRefMock, componentFactoryResolverMock, storeMock);
-      testTargetNew.listData = [{_id: 'test'}]
+      testTargetNew.listData = [{_id: 'test'}];
 
       // Act
       testTargetNew.deleteField(deleteField);
