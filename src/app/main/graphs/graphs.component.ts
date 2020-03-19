@@ -6,4 +6,4 @@ import { Component } from '@angular/core';
   styleUrls: ['./graphs.component.scss']
 })
 
-export class GraphsComponent { }
+export class GraphsComponent {}

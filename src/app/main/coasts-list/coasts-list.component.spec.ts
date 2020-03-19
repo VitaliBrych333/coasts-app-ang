@@ -98,7 +98,7 @@ describe(`${moduleName}.${componentName}`, () => {
       const deleteField = {
         _id: 'test'
       };
-      testTarget.listData = [{_id: 'test'}]
+      testTarget.listData = [{_id: 'test'}];
 
       // Act
       testTarget.deleteField(deleteField);
@@ -117,11 +117,13 @@ describe(`${moduleName}.${componentName}`, () => {
         createComponent: sinon.stub().returns({
           instance: {
             deleteField: of(false)
-          }
+          },
+          destroy: sinon.spy()
         })
       };
 
-      const testTargetNew = new CoastsListComponent(routerMock, dataServiceMock, viewContainerRefMock, componentFactoryResolverMock, storeMock);
+      const testTargetNew = new CoastsListComponent(routerMock, dataServiceMock, viewContainerRefMock,
+                                                    componentFactoryResolverMock, storeMock);
       testTargetNew.listData = [{_id: 'test'}];
 
       // Act
