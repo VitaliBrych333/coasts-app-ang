@@ -22,7 +22,7 @@ describe(`${moduleName}.${componentName}`, () => {
   });
 
   describe('create element', () => {
-    it('should be object', () => {
+    it('should be an object', () => {
       // Assert
       expect(testTarget).to.be.an('object');
     });
