@@ -104,10 +104,7 @@ export class ReportFormComponent implements OnInit, OnDestroy {
 
           } else {
             this.users.forEach(user => {
-              this.typesIncomes.forEach(type => {
-                this.allUsers[user][type] = null;
-              });
-
+              this.typesIncomes.forEach(type => this.allUsers[user][type] = null);
               this.allUsers[user].total = null;
               this.incomesTotal = null;
             });
