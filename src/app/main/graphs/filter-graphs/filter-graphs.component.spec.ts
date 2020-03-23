@@ -19,7 +19,7 @@ describe(`${moduleName}.${componentName}`, () => {
   });
 
   describe('#filterAnniversary', () => {
-    it('should call filterDataServiceMock.changeSourceDataCompare() with []', () => {
+    it('should call filterDataService.changeSourceDataCompare() with []', () => {
       // Act
       testTarget.filterAnniversary();
 
@@ -27,7 +27,7 @@ describe(`${moduleName}.${componentName}`, () => {
       sinon.assert.calledWith(filterDataServiceMock.changeSourceDataCompare, []);
     });
 
-    it('should call filterDataServiceMock.changeSourceDataCompare()', () => {
+    it('should call filterDataService.changeSourceDataCompare()', () => {
       // Arrange
       testTarget.selectedYear = 2020;
       testTarget.selectedParameters = ['test'];
@@ -132,7 +132,7 @@ describe(`${moduleName}.${componentName}`, () => {
   });
 
   describe('#filterYears', () => {
-    it('should call filterDataServiceMock.changeSourceDataCompare() with []', () => {
+    it('should call filterDataService.changeSourceDataCompare() with []', () => {
       // Act
       testTarget.filterYears();
 
@@ -140,7 +140,7 @@ describe(`${moduleName}.${componentName}`, () => {
       sinon.assert.calledWith(filterDataServiceMock.changeSourceDataCompare, []);
     });
 
-    it('should call filterDataServiceMock.changeSourceDataCompare()', () => {
+    it('should call filterDataService.changeSourceDataCompare()', () => {
       // Arrange
       testTarget.selectedYears = [2020];
       testTarget.selectedParameter = 'test';
