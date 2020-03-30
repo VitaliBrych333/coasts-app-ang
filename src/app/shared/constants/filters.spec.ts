@@ -8,7 +8,7 @@ const newCoast = { date: new Date('2020-01-01'), sum: 1, type: 'test', author: '
 const newIncome = { date: new Date('2020-01-01'), sum: 1, who: 'test', type: 'test', author: 'test' };
 
 describe(`${moduleName}.${componentName}`, () => {
-  let testTarget = Filters;
+  const testTarget = Filters;
 
   describe('#filters', () => {
     it('should filter by type and return 1', () => {
