@@ -23,7 +23,7 @@ describe(`${moduleName}.${componentName}`, () => {
       const stub = sinon.stub(testTarget.deleteField, 'emit');
       testTarget.componentList = {
         nativeElement: {
-          scrollHeight: 0
+          scrollHeight: 100
         }
       };
 
@@ -40,7 +40,7 @@ describe(`${moduleName}.${componentName}`, () => {
       const stub = sinon.stub(testTarget.deleteField, 'emit');
       testTarget.componentList = {
         nativeElement: {
-          scrollHeight: 700
+          scrollHeight: 1000
         }
       };
 
@@ -67,7 +67,7 @@ describe(`${moduleName}.${componentName}`, () => {
 
   describe('#cancel', () => {
     it('should call deleteField.emit() with false', () => {
-      //Arrange
+      // Arrange
       const stub = sinon.stub(testTarget.deleteField, 'emit');
 
       // Act

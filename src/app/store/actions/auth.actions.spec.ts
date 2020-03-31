@@ -15,18 +15,18 @@ describe(`${moduleName}.${componentName}`, () => {
       testTarget = new LogInSuccess(payloadMock);
 
       // Assert
-      expect(testTarget).to.eql({ payload: { token: ''}, type: AuthActionTypes.LOGIN_SUCCESS });
+      expect(testTarget).to.eql({ payload: { token: '' }, type: AuthActionTypes.LOGIN_SUCCESS });
     });
   });
 
   describe('#LogInFailure', () => {
     it('should return an object with properties', () => {
       // Arrange
-      payloadMock = { error: ''};
+      payloadMock = { error: '' };
       testTarget = new LogInFailure(payloadMock);
 
       // Assert
-      expect(testTarget).to.eql({ payload: { error: ''}, type: AuthActionTypes.LOGIN_FAILURE });
+      expect(testTarget).to.eql({ payload: { error: '' }, type: AuthActionTypes.LOGIN_FAILURE });
     });
   });
 });
