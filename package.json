@@ -1,5 +1,5 @@
 {
-  "name": "coasts-app",
+  "name": "coasts",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
@@ -43,6 +43,7 @@
     "ng2-charts": "^2.4.2",
     "passport": "^0.4.1",
     "passport-local": "^1.0.0",
+    "path": "^0.12.7",
     "rxjs": "~6.6.3",
     "rxjs-compat": "^6.6.3",
     "select2": "^4.0.13",
