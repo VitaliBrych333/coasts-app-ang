@@ -1,4 +1,4 @@
-import { MatInput } from '@angular/material';
+import { MatInput } from '@angular/material/input';
 import { Store } from '@ngrx/store';
 import { of } from 'rxjs/Observable/of';
 import { Subscription } from 'rxjs';

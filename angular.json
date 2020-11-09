@@ -23,6 +23,11 @@
               "src/favicon.ico",
               "src/assets"
             ],
+            "allowedCommonJsDependencies": [
+              "rxjs",
+              "chart.js",
+              "chartjs-plugin-annotation"
+            ],
             "styles": [
               {
                 "input": "src/my-theme.scss"

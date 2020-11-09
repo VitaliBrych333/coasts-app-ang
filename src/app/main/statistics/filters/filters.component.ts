@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
-import { MatInput } from '@angular/material';
+import { MatInput } from '@angular/material/input';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { Subscription, Observable, combineLatest } from 'rxjs';
 import { Store } from '@ngrx/store';
@@ -23,8 +23,8 @@ import { FilterDataService } from '../../../services/filter-data.service';
 
 export class FiltersComponent implements OnInit, OnDestroy {
 
-  @ViewChild('inputFrom', { read: MatInput, static: false}) inputFrom: MatInput;
-  @ViewChild('inputTo', { read: MatInput, static: false}) inputTo: MatInput;
+  @ViewChild('inputFrom', { read: MatInput }) inputFrom: MatInput;
+  @ViewChild('inputTo', { read: MatInput }) inputTo: MatInput;
 
   public checkDate: boolean = false;
          checkMounth: boolean = true;

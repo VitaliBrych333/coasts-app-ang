@@ -17,7 +17,7 @@ const CONFIG = require('./config/config');
 
 mongoose.connect(
   CONFIG.URL_DB,
-  { useNewUrlParser: true, useFindAndModify: false, useUnifiedTopology: true },
+  { useNewUrlParser: true, useUnifiedTopology: true },
 );
 
 const app = express();
