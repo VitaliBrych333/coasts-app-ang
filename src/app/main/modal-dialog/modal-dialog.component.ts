@@ -23,11 +23,10 @@ export class ModalDialogComponent implements OnInit, OnDestroy {
 
   public getStateCoast: Observable<object>;
          getStateIncome: Observable<object>;
+         cssHeight: string;
+         cssMargTop: string;
 
   protected readonly subscriptions: Subscription[] = [];
-
-  private cssHeight: string;
-  private cssMargTop: string;
 
   constructor(protected store: Store<AppState>) {}
 

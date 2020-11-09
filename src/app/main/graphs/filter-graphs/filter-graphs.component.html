@@ -1,6 +1,6 @@
 <div class="container">
   <h3>Please, choose parameters for filter</h3>
-  <mat-radio-group aria-label="Select an option" (change)="onChange($event)">
+  <mat-radio-group aria-label="Select an option" (change)="onChange()">
     <mat-radio-button value="oneYear" color="warn" checked>Anniversary</mat-radio-button>
     <mat-radio-button value="someYears" color="warn">On years</mat-radio-button>
   </mat-radio-group>
@@ -31,7 +31,7 @@
     <div class="select" [ngClass]="{disabled: someYears}">
         <mat-form-field>
           <mat-label>Parameter</mat-label>
-          <mat-select (selectionChange)="filterYears($event)" [(value)]="selectedParameter">
+          <mat-select (selectionChange)="filterYears()" [(value)]="selectedParameter">
             <mat-option *ngFor="let parameter of parameters" [value]="parameter">
               {{parameter}}
             </mat-option>
@@ -46,7 +46,7 @@
                    bindLabel="name"
                    [(ngModel)]="selectedYears"
                    maxSelectedItems = 3
-                   (change)="filterYears($event)">
+                   (change)="filterYears()">
         </ng-select>
       </div>
   </div>

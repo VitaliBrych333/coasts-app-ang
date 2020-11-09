@@ -25,11 +25,11 @@ export class IncomeFormComponent implements OnInit, OnDestroy {
 
   public infoIncome: object;
          getStateIncome: Observable<object>;
+         formForValid: FormGroup;
 
   protected readonly subscriptions: Subscription[] = [];
 
   private myDate = new Date().toString();
-  private formForValid: FormGroup;
 
   constructor(private datePipe: DatePipe,
               private router: Router,
